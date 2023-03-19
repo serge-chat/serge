@@ -6,16 +6,20 @@ A chat interface based on `llama.cpp` and alpaca models. Available through an AP
 
 ## Getting started
 
+Setting up Serge is very easy. Start by cloning the repo:
+
 ```
 git clone git@github.com:nsarrazin/serge.git
 ```
 
-Put your weights in the `models` folder. You can download them using the following magnet links:
+Then put your weights in the `models` folder. If you don't have them you can download them using the following magnet links:
 
 - [ggml-alpaca-7b-q4.bin](https://maglit.me/corotlesque)
 - [ggml-alpaca-13b-q4.bin](https://maglit.me/nonchoodithvness)
 
-Afterwards navigate to the `serge` folder and run:
+They are currently the only two models supported. I'm working on expanding support to all the models supported by `llama.cpp`.
+
+Then, you can start the project by running:
 
 ```
 cp .env.sample .env
@@ -23,6 +27,7 @@ docker compose up -d
 ```
 
 Then navigate to http://localhost:9124/docs to get an interactive API documentation.
+
 The front-end lives on http://localhost:9123/. (Currently WIP)
 
 ## What's next
