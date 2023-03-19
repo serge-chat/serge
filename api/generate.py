@@ -25,7 +25,6 @@ async def generate(
         last_model.name = model
         await last_model.save()
 
-    print(prompt)
     args = (
         "alpaca",
         "--model",
@@ -54,7 +53,6 @@ async def generate(
             break
 
     output = procLlama.stdout.read().decode("utf-8")
-
     return output
 
 
