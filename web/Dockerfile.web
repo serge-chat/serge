@@ -1,0 +1,21 @@
+FROM node:latest
+
+# Set the Node environment to development to ensure all packages are installed
+ENV NODE_ENV development
+
+# Change our current working directory
+WORKDIR /usr/src/app
+
+# Copy over `package.json` and lock files to optimize the build process
+COPY package.json .
+COPY package-lock.json .
+# Install Node modules
+RUN npm install
+
+# Copy over rest of the project files
+COPY . .
+
+# Expose port 3000 for the SvelteKit app and 24678 for Vite's HMR
+EXPOSE 5173
+EXPOSE 24678
+

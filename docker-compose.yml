@@ -2,9 +2,8 @@ version: "3.9"
 services:
   api:
     build: 
-      context: .
-      dockerfile: Dockerfile.api
-    command: uvicorn main:app --reload --host 0.0.0.0 --port 9123
+      context: ./api
+      dockerfile: ./Dockerfile.api
     volumes:
       - ./api:/usr/src/app/
       - ./models/:/usr/src/app/models/
@@ -14,6 +13,7 @@ services:
       - mongodb
     env_file:
       - .env
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 9123
 
   mongodb:
     image: bitnami/mongodb:latest
@@ -21,6 +21,19 @@ services:
       - "27017"
     volumes:
       - data:/bitnami/mongodb
+
+  web:
+    restart: on-failure
+    build:
+      context: ./web
+      dockerfile: ./Dockerfile.web
+    ports:
+      - 5173:5173
+      - 24678:24678
+    volumes:
+      - ./web:/usr/src/app/
+      - /usr/src/app/node_modules
+    command: npm run dev -- --host 0.0.0.0
 
 volumes:
   data:

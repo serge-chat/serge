@@ -31,7 +31,7 @@ RUN apt update
 RUN apt-get install -y python3-pip
 RUN pip install --upgrade pip
 
-COPY ./api/requirements.txt requirements.txt
+COPY ./requirements.txt requirements.txt
 COPY --from=builder /tmp/llama.cpp/llama /usr/bin/llama
 COPY --from=builder /tmp/llama.cpp/alpaca /usr/bin/alpaca
 
