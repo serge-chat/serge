@@ -1,4 +1,4 @@
-# Serg
+# Serge 🦙
 
 ![License](https://img.shields.io/github/license/nsarrazin/serge)
 
