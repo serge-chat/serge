@@ -10,8 +10,8 @@ git clone git@github.com:nsarrazin/alpaca-api.git
 
 Put your weights in the `models` folder. You can download them using the following magnet links:
 
-- [ggml-alpaca-7b-q4.bin](magnet:?xt=urn:btih:5aaceaec63b03e51a98f04fd5c42320b2a033010&dn=ggml-alpaca-7b-q4.bin&tr=udp%3a%2f%2ftracker.opentrackr.org%3a1337%2fannounce&tr=udp%3a%2f%2fopentracker.i2p.rocks%3a6969%2fannounce)
-- [ggml-alpaca-13b-q4.bin](magnet:?xt=urn:btih:053b3d54d2e77ff020ebddf51dad681f2a651071&dn=ggml-alpaca-13b-q4.bin&tr=udp%3a%2f%2ftracker.opentrackr.org%3a1337%2fannounce&tr=udp%3a%2f%2fopentracker.i2p.rocks%3a6969%2fannounce&tr=udp%3a%2f%2ftracker.openbittorrent.com%3a6969%2fannounce&tr=udp%3a%2f%2f9.rarbg.com%3a2810%2fannounce)
+- [ggml-alpaca-7b-q4.bin](https://maglit.me/corotlesque)
+- [ggml-alpaca-13b-q4.bin](https://maglit.me/nonchoodithvness)
 
 Afterwards navigate to the `alpaca-api` folder and run:
 
