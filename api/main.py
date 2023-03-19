@@ -8,7 +8,7 @@ app = FastAPI()
 @app.get("/generate")
 def generate(
     model: str = "ggml-alpaca-13b-q4.bin",
-    prompt: str = "What is the first letter of the alphabet?",
+    prompt: str = "Why is the sky blue?",
     temp: float = 0.8,
     top_k: int = 40,
     top_p: float = 0.9,
