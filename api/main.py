@@ -1,9 +1,9 @@
 from fastapi import FastAPI, APIRouter
+from uuid import uuid4
 import subprocess, os
 
-from models import LastModelUsed
 from initiate_database import initiate_database
-from models import Question, Chat, LastModelUsed
+from models import Question, Chat, ChatParameters, LastModelUsed
 from generate import generate, get_full_prompt_from_chat
 
 tags_metadata = [
@@ -68,8 +68,26 @@ async def generate_text_without_prompt_manipulation(
 
 
 @app.post("/chat", tags=["chats"])
-async def create_new_chat():
-    chat = await Chat().create()
+async def create_new_chat(
+    model: str = "ggml-alpaca-13b-q4.bin",
+    temperature: float = 0.1,
+    top_k: int = 50,
+    top_p: float = 0.95,
+    max_length: int = 256,
+    repeat_last_n: int = 64,
+    repeat_penalty: float = 1.3,
+):
+    parameters = await ChatParameters(
+        model=model,
+        temperature=temperature,
+        top_k=top_k,
+        top_p=top_p,
+        max_length=max_length,
+        repeat_last_n=repeat_last_n,
+        repeat_penalty=repeat_penalty,
+    ).create()
+
+    chat = await Chat(parameters=parameters).create()
     return chat.id
 
 
@@ -84,10 +102,17 @@ async def get_specific_chat(chat_id: str):
 @app.post("/chat/{chat_id}/question", tags=["chats"])
 async def ask_a_question(chat_id: str, prompt: str):
     chat = await Chat.get(chat_id)
-
     full_prompt = await get_full_prompt_from_chat(chat, prompt)
 
-    answer = await generate(prompt=full_prompt)
+    answer = await generate(
+        prompt=full_prompt,
+        temp=chat.parameters.temperature,
+        top_k=chat.parameters.top_k,
+        top_p=chat.parameters.top_p,
+        repeast_last_n=chat.parameters.repeat_last_n,
+        repeat_penalty=chat.parameters.repeat_penalty,
+        model=chat.parameters.model,
+    )
 
     question = await Question(
         question=prompt, answer=answer[len(full_prompt) :]
