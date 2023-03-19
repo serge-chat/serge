@@ -8,12 +8,12 @@ services:
       - ./api:/usr/src/app/
       - ./models/:/usr/src/app/models/
     ports:
-      - 9123:9123
+      - ${API_PORT}:${API_PORT}
     depends_on:
       - mongodb
     env_file:
       - .env
-    command: uvicorn main:app --reload --host 0.0.0.0 --port 9123
+    command: uvicorn main:app --reload --host 0.0.0.0 --port ${API_PORT}
 
   mongodb:
     image: bitnami/mongodb:latest
@@ -28,12 +28,12 @@ services:
       context: ./web
       dockerfile: ./Dockerfile.web
     ports:
-      - 5173:5173
+      - ${WEB_PORT}:${WEB_PORT}
       - 24678:24678
     volumes:
       - ./web:/usr/src/app/
       - /usr/src/app/node_modules
-    command: npm run dev -- --host 0.0.0.0
+    command: npm run dev -- --host 0.0.0.0 --port ${WEB_PORT}
 
 volumes:
   data:

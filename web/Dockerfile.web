@@ -15,7 +15,6 @@ RUN npm install
 # Copy over rest of the project files
 COPY . .
 
-# Expose port 3000 for the SvelteKit app and 24678 for Vite's HMR
-EXPOSE 5173
+# Expose port 24678 for Vite's HMR
 EXPOSE 24678
 
