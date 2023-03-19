@@ -1,6 +1,6 @@
-# alpaca-api
+# Serge
 
-A very simple dockerized API for interacting with alpaca through llama.cpp (currently doesn't support other LLaMA models)
+A very simple dockerized setup to answer chat-like questions using `llama.cpp` and alpaca models.
 
 ## Getting started
 
