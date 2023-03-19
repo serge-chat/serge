@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  api:
+    build: 
+      context: .
+      dockerfile: Dockerfile.api
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 9123
+    volumes:
+      - ./api:/usr/src/app/
+      - ./weights:/usr/src/app/weights
+    ports:
+      - 9123:9123

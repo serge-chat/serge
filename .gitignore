@@ -1,0 +1,5 @@
+api/__pycache__
+api/magic.dat
+
+weights/**
+!weights/put_your_weights_here.txt

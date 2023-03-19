@@ -1,0 +1,27 @@
+FROM ubuntu:latest as builder
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    zlib1g-dev \
+    libbz2-dev \
+    liblzma-dev \
+    autoconf \
+    git \
+    wget
+
+WORKDIR /tmp
+
+RUN git clone https://github.com/ggerganov/llama.cpp.git -b mmap
+RUN cd llama.cpp && sed -i 's/{ 5120, 2 },/{ 5120, 1 },/g' main.cpp && make
+
+FROM ubuntu:latest
+WORKDIR /usr/src/app
+
+RUN apt update
+RUN apt-get install -y python3-pip
+RUN pip install --upgrade pip
+
+COPY ./api/requirements.txt requirements.txt
+COPY --from=builder /tmp/llama.cpp/main /usr/bin/llama
+
+RUN pip install -r requirements.txt
