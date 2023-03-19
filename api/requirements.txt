@@ -1,2 +1,6 @@
 fastapi
 uvicorn
+motor
+pymongo
+beanie
+pydantic[dotenv]

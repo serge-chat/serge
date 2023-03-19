@@ -7,6 +7,20 @@ services:
     command: uvicorn main:app --reload --host 0.0.0.0 --port 9123
     volumes:
       - ./api:/usr/src/app/
-      - ./models:/usr/src/app/models
+      - ./models/:/usr/src/app/models/
     ports:
       - 9123:9123
+    depends_on:
+      - mongodb
+    env_file:
+      - .env
+
+  mongodb:
+    image: bitnami/mongodb:latest
+    ports:
+      - "27017"
+    volumes:
+      - data:/bitnami/mongodb
+
+volumes:
+  data:

@@ -16,7 +16,7 @@ Put your weights in the `models` folder. You can download them using the followi
 Afterwards navigate to the `alpaca-api` folder and run:
 
 ```
-docker compose build
+cp .env.sample .env
 docker compose up -d
 ```
 

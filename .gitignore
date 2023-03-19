@@ -3,3 +3,7 @@ api/magic.dat
 
 models/**
 !models/put_your_models_here.txt
+
+.env.*
+.env
+!.env.sample
