@@ -22,7 +22,8 @@ cp .env.sample .env
 docker compose up -d
 ```
 
-Then navigate to http://localhost:9123/docs to get the API definition.
+Then navigate to http://localhost:9124/docs to get an interactive API documentation.
+The front-end lives on http://localhost:9123/. (Currently WIP)
 
 ## What's next
 
