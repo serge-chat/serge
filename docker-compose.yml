@@ -7,6 +7,6 @@ services:
     command: uvicorn main:app --reload --host 0.0.0.0 --port 9123
     volumes:
       - ./api:/usr/src/app/
-      - ./weights:/usr/src/app/weights
+      - ./models:/usr/src/app/models
     ports:
       - 9123:9123

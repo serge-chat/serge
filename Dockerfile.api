@@ -12,7 +12,9 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /tmp
 
 RUN git clone https://github.com/ggerganov/llama.cpp.git -b mmap
-RUN cd llama.cpp && sed -i 's/{ 5120, 2 },/{ 5120, 1 },/g' main.cpp && make
+RUN cd llama.cpp && \
+    sed -i 's/{ 5120, 2 },/{ 5120, 1 },/g' main.cpp && \
+    make
 
 FROM ubuntu:latest
 WORKDIR /usr/src/app

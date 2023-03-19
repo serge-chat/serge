@@ -30,7 +30,7 @@ def generate(
     args = (
         "llama",
         "--model",
-        "weights/" + model,
+        "models/" + model,
         "--prompt",
         prompter(prompt),
         "--temp",
@@ -61,7 +61,9 @@ def generate(
 
 @app.get("/models")
 def models():
-    files = os.listdir("weights")
-    files.remove("put_your_weights_here.txt")
+    files = os.listdir("models")
+
+    if "put_your_models_here.txt" in files:
+        files.remove("put_your_models_here.txt")
 
     return files
