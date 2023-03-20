@@ -1,6 +1,3 @@
-api/__pycache__
-api/magic.dat
-
 api/weights/**
 !api/weights/put_your_models_here.txt
 
@@ -9,3 +6,4 @@ api/weights/**
 !.env.sample
 
 node_modules
+__pycache__
