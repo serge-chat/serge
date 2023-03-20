@@ -7,6 +7,7 @@ import subprocess, os
 from initiate_database import initiate_database
 from models import Question, Chat, ChatParameters, LastModelUsed
 from generate import generate, get_full_prompt_from_chat
+from beanie.odm.enums import SortDirection
 
 tags_metadata = [
     {
@@ -147,4 +148,12 @@ async def ask_a_question(chat_id: str, prompt: str):
 
 @app.get("/chats", tags=["chats"])
 async def get_all_chats_id():
-    return [i.id for i in await Chat.find_all().sort(Chat.created).to_list()]
+    res = []
+
+    for i in (
+        await Chat.find_all().sort((Chat.created, SortDirection.DESCENDING)).to_list()
+    ):
+        await i.fetch_link(Chat.parameters)
+        res.append({"id": i.id, "created": i.created, "model": i.parameters.model})
+
+    return res

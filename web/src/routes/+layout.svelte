@@ -2,32 +2,64 @@
   import "../app.css";
   import type { LayoutData } from "./$types";
 
+  import Icon from "@iconify/svelte";
+
   export let data: LayoutData;
+
+  function timeSince(datestring: string) {
+    const date = new Date(datestring);
+    var seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+
+    var interval = seconds / 31536000;
+
+    if (interval > 1) {
+      return Math.floor(interval) + " years";
+    }
+    interval = seconds / 2592000;
+    if (interval > 1) {
+      return Math.floor(interval) + " months";
+    }
+    interval = seconds / 86400;
+    if (interval > 1) {
+      return Math.floor(interval) + " days";
+    }
+    interval = seconds / 3600;
+    if (interval > 1) {
+      return Math.floor(interval) + " hours";
+    }
+    interval = seconds / 60;
+    if (interval > 1) {
+      return Math.floor(interval) + " minutes";
+    }
+    return Math.floor(seconds) + " seconds";
+  }
 </script>
 
 <aside
   id="default-sidebar"
-  class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+  class="fixed top-0 left-0 z-40 w-128 h-screen transition-transform -translate-x-full sm:translate-x-0"
   aria-label="Sidebar"
 >
-  <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-    <ul class="space-y-2 h-full">
+  <div class="h-full px-3 py-4 overflow-y-auto bg-gray-600">
+    <ul class="space-y-2">
       {#each data.chats as chat}
         <li>
           <a
-            href={"/chat/" + chat}
-            class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+            href={"/chat/" + chat.id}
+            class="flex items-center p-2 text-base font-normal rounded-lg hover:bg-gray-700"
           >
-            <span class="ml-3">{chat}</span>
+            <span class="font-semibold">{chat.model}</span>
+            <span class="ml-3">{timeSince(chat.created) + " ago"}</span>
           </a>
         </li>
       {/each}
-      <li class="mt-auto">
+      <li class="pt-4">
         <a
           href={"/"}
-          class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+          class="flex items-center p-2 text-base font-normal rounded-lg hover:bg-gray-700"
         >
-          <span class="ml-3">Home</span>
+          <span><Icon icon="mdi:home" class="h-6 w-6" /></span>
+          <span class="ml-3 h-6 text-center">Home</span>
         </a>
       </li>
     </ul>
@@ -37,9 +69,3 @@
 <div class="p-4 sm:ml-64">
   <slot />
 </div>
-
-<style lang="postcss">
-  :global(html) {
-    background-color: theme(colors.gray.100);
-  }
-</style>

@@ -2,6 +2,7 @@
 
 ![License](https://img.shields.io/github/license/nsarrazin/serge)
 
+![Serge](https://i.imgur.com/JtWV72d.png)
 A chat interface based on `llama.cpp` and alpaca models. Available through an API created with FastAPI. Stores chats on a mongoDB backend.
 
 ## Getting started

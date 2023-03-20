@@ -23,6 +23,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@iconify/svelte": "^3.1.0",
 		"@sveltestack/svelte-query": "^1.6.0",
 		"daisyui": "^2.51.4"
 	}
