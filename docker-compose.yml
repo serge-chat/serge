@@ -6,6 +6,7 @@ services:
       dockerfile: ./Dockerfile.api
     volumes:
       - ./api:/usr/src/app/
+      - /etc/localtime:/etc/localtime:ro 
     ports:
       - ${API_PORT}:${API_PORT}
     depends_on:
