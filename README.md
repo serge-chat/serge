@@ -1,9 +1,13 @@
-# Serge 🦙
+# Serge - LLaMa made easy 🦙
 
 ![License](https://img.shields.io/github/license/nsarrazin/serge)
 
 ![Serge](https://i.imgur.com/JtWV72d.png)
-A chat interface based on `llama.cpp` and alpaca models. Available through an API created with FastAPI. Stores chats on a mongoDB backend.
+A chat interface based on `llama.cpp` for running alpaca models.
+
+* **SvelteKit** frontend
+* **MongoDB** for storing chat history & parameters
+* **FastAPI + beanie** for the API, wrapping calls to `llama.cpp`
 
 ## Getting started
 
@@ -35,6 +39,10 @@ To get an interactive API documentation go to http://localhost:9124/docs.
 
 - [x] Front-end to interface with the API
 - [x] Pass model parameters when creating a chat
+- [ ] User profiles & authentication
+- [ ] Different prompt options
 - [ ] LangChain integration with a custom LLM
 - [ ] Support for other llama models, quantization, etc.
-      And a lot more!
+
+
+And a lot more!
