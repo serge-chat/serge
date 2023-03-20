@@ -1,4 +1,6 @@
 from fastapi import FastAPI, APIRouter
+from fastapi.middleware.cors import CORSMiddleware
+
 from uuid import uuid4
 import subprocess, os
 
@@ -23,6 +25,21 @@ Serge answers your questions poorly using LLaMa/alpaca. 🚀
 
 app = FastAPI(
     title="Serge", version="0.0.1", description=description, tags_metadata=tags_metadata
+)
+
+origins = [
+    "http://localhost",
+    "http://api:9124",
+    "http://localhost:9123",
+    "http://localhost:9124",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
@@ -130,4 +147,4 @@ async def ask_a_question(chat_id: str, prompt: str):
 
 @app.get("/chats", tags=["chats"])
 async def get_all_chats_id():
-    return [i.id for i in await Chat.find_all().to_list()]
+    return [i.id for i in await Chat.find_all().sort(Chat.created).to_list()]
