@@ -43,6 +43,8 @@ async def generate(
         str(repeast_last_n),
         "--repeat_penalty",
         str(repeat_penalty),
+        "--threads",
+        "2",
     )
 
     procLlama = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)

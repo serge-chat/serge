@@ -8,6 +8,8 @@
 </script>
 
 <div class="max-w-4xl mx-auto">
+  <h1 class="text-4xl font-bold">Chat with {data.props.parameters.model}</h1>
+  <h4 class="text-xl font-semibold mb-10">Started on {data.props.created}</h4>
   {#each questions as question}
     <div class="chat chat-end">
       <div class="chat-bubble chat-bubble-primary">
@@ -30,7 +32,7 @@
     <button
       class={"btn btn-primary max-w-lg m-3" + ($navigating ? "loading" : "")}
     >
-      Ask your question
+      Send
     </button>
   </form>
 </div>
