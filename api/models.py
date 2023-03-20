@@ -29,7 +29,3 @@ class Chat(Document):
     created: datetime = Field(default_factory=datetime.now)
     questions: Optional[List[Link[Question]]]
     parameters: Link[ChatParameters]
-
-
-class LastModelUsed(Document):
-    name: str

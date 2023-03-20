@@ -4,7 +4,7 @@ from beanie import init_beanie, Document
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseSettings
 
-from models import Question, Chat, ChatParameters, LastModelUsed
+from models import Question, Chat, ChatParameters
 
 
 class Settings(BaseSettings):
@@ -24,5 +24,5 @@ async def initiate_database():
     client = AsyncIOMotorClient(Settings().DATABASE_URL)
     await init_beanie(
         database=client.get_default_database(),
-        document_models=[Question, Chat, ChatParameters, LastModelUsed],
+        document_models=[Question, Chat, ChatParameters],
     )

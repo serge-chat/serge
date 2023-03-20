@@ -6,7 +6,6 @@ services:
       dockerfile: ./Dockerfile.api
     volumes:
       - ./api:/usr/src/app/
-      - ./models/:/usr/src/app/models/
     ports:
       - ${API_PORT}:${API_PORT}
     depends_on:

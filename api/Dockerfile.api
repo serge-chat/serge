@@ -11,18 +11,14 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /tmp
 
-RUN git clone https://github.com/ggerganov/llama.cpp.git -b mmap
+RUN git clone https://github.com/ggerganov/llama.cpp.git 
 
-RUN cd llama.cpp && git reset --hard 0b5448a
-
-RUN cd llama.cpp && \
-    make && \
-    mv main llama
+RUN cd llama.cpp && git reset --hard 074bea2
 
 RUN cd llama.cpp && \
     sed -i 's/{ 5120, 2 },/{ 5120, 1 },/g' main.cpp && \
     make && \
-    mv main alpaca
+    mv main llama
 
 FROM ubuntu:latest
 WORKDIR /usr/src/app
@@ -32,8 +28,8 @@ RUN apt-get install -y python3-pip
 RUN pip install --upgrade pip
 
 COPY ./requirements.txt requirements.txt
-COPY --from=builder /tmp/llama.cpp/llama /usr/bin/llama
-COPY --from=builder /tmp/llama.cpp/alpaca /usr/bin/alpaca
-
-RUN rm -f magic.dat
 RUN pip install -r requirements.txt
+
+COPY ./weights/ /usr/src/app/weights/
+
+COPY --from=builder /tmp/llama.cpp/llama /usr/bin/llama

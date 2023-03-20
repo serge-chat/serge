@@ -1,5 +1,5 @@
 import subprocess, os
-from models import LastModelUsed, Chat
+from models import Chat
 import asyncio
 
 
@@ -13,22 +13,10 @@ async def generate(
     repeast_last_n: int = 64,
     repeat_penalty: float = 1.3,
 ):
-
-    last_model = await LastModelUsed.find_all().to_list()
-    last_model = last_model[0]
-
-    if model != last_model.name and os.path.isfile("magic.dat"):
-        print("Deleting magic.dat because model changed")
-
-        os.remove("magic.dat")
-
-        last_model.name = model
-        await last_model.save()
-
     args = (
-        "alpaca",
+        "llama",
         "--model",
-        "models/" + model,
+        "/usr/src/app/weights/" + model,
         "--prompt",
         prompt,
         "--n_predict",
@@ -44,7 +32,7 @@ async def generate(
         "--repeat_penalty",
         str(repeat_penalty),
         "--threads",
-        "2",
+        "8",
     )
 
     procLlama = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -55,6 +43,10 @@ async def generate(
             break
 
     output = procLlama.stdout.read().decode("utf-8")
+
+    if output == "":
+        raise ValueError(procLlama.stderr.read().decode("utf-8"))
+
     return output
 
 

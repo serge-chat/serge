@@ -4,3 +4,4 @@ motor
 pymongo
 beanie
 pydantic[dotenv]
+sentencepiece

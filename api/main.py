@@ -1,13 +1,14 @@
-from fastapi import FastAPI, APIRouter
-from fastapi.middleware.cors import CORSMiddleware
-
 from uuid import uuid4
 import subprocess, os
 
-from initiate_database import initiate_database
-from models import Question, Chat, ChatParameters, LastModelUsed
-from generate import generate, get_full_prompt_from_chat
+from fastapi import FastAPI, APIRouter
+from fastapi.middleware.cors import CORSMiddleware
 from beanie.odm.enums import SortDirection
+
+from utils.initiate_database import initiate_database
+from utils.generate import generate, get_full_prompt_from_chat
+from utils.convert import convert_all
+from models import Question, Chat, ChatParameters
 
 tags_metadata = [
     {
@@ -47,16 +48,14 @@ app.add_middleware(
 @app.on_event("startup")
 async def start_database():
     await initiate_database()
-    await LastModelUsed.find_all().delete()
-    await LastModelUsed(name="").create()
+    convert_all("weights/", "weights/tokenizer.model")
 
 
 @app.get("/models", tags=["misc."])
 def list_of_installed_models():
-    files = os.listdir("models")
+    files = os.listdir("weights")
 
-    if "put_your_models_here.txt" in files:
-        files.remove("put_your_models_here.txt")
+    files = list(filter(lambda x: x.endswith(".bin"), files))
 
     return files
 
@@ -133,7 +132,7 @@ async def ask_a_question(chat_id: str, prompt: str):
     )
 
     question = await Question(
-        question=prompt, answer=answer[len(full_prompt) :]
+        question=prompt.rstrip(), answer=answer[len(full_prompt) :].lstrip()
     ).create()
 
     if chat.questions is None:

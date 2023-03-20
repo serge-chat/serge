@@ -42,6 +42,9 @@
 >
   <div class="h-full px-3 py-4 overflow-y-auto bg-gray-600">
     <ul class="space-y-2">
+      <li class="pt-4">
+        <a href="/" class="btn btn-outline h-6 w-full font-semibold"> Home </a>
+      </li>
       {#each data.chats as chat}
         <li>
           <a
@@ -53,9 +56,6 @@
           </a>
         </li>
       {/each}
-      <li class="pt-4">
-        <a href="/" class="btn btn-outline h-6 w-full font-semibold"> Home </a>
-      </li>
     </ul>
   </div>
 </aside>

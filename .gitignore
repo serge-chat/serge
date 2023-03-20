@@ -1,8 +1,8 @@
 api/__pycache__
 api/magic.dat
 
-models/**
-!models/put_your_models_here.txt
+api/weights/**
+!api/weights/put_your_models_here.txt
 
 .env.*
 .env

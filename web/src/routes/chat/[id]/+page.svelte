@@ -16,12 +16,12 @@
   </h4>
   {#each questions as question}
     <div class="chat chat-end">
-      <div class="chat-bubble chat-bubble-secondary">
+      <div class="chat-bubble chat-bubble-secondary whitespace-pre-line">
         {question.question}
       </div>
     </div>
     <div class="chat chat-start">
-      <div class="chat-bubble chat-bubble-primary">
+      <div class="chat-bubble chat-bubble-primary whitespace-pre-line">
         {question.answer}
       </div>
     </div>
@@ -34,6 +34,7 @@
       placeholder="Why is the sky blue?"
     />
     <button
+      type="submit"
       class={"btn btn-primary max-w-lg m-3" + ($navigating ? "loading" : "")}
     >
       Send
