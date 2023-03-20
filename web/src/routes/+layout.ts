@@ -13,3 +13,5 @@ export const load: LayoutLoad = async ({ fetch }) => {
     chats: chats,
   };
 };
+
+export const csr = false;

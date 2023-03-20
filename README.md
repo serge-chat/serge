@@ -27,14 +27,14 @@ cp .env.sample .env
 docker compose up -d
 ```
 
-Then navigate to http://localhost:9124/docs to get an interactive API documentation.
+The front-end lives at http://localhost:9123/.
 
-The front-end lives on http://localhost:9123/. (Currently WIP)
+To get an interactive API documentation go to http://localhost:9124/docs.
 
 ## What's next
 
-- [ ] Front-end to interface with the API
-- [ ] Pass model parameters when creating a chat
+- [x] Front-end to interface with the API
+- [x] Pass model parameters when creating a chat
 - [ ] LangChain integration with a custom LLM
 - [ ] Support for other llama models, quantization, etc.
       And a lot more!

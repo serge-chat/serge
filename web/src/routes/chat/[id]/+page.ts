@@ -31,3 +31,5 @@ export const load: PageLoad = async ({ fetch, params }) => {
     props: data,
   };
 };
+
+export const csr = false;

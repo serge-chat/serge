@@ -4,7 +4,7 @@
   export let data: PageData;
 </script>
 
-<h1 class="text-3xl font-bold text-center">Say Hi to Serge !</h1>
+<h1 class="text-3xl font-bold text-center pt-5">Say Hi to Serge !</h1>
 
 <form method="POST" class="p-10">
   <label for="model" class="label">

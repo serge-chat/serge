@@ -37,7 +37,7 @@
 
 <aside
   id="default-sidebar"
-  class="fixed top-0 left-0 z-40 w-128 h-screen transition-transform -translate-x-full sm:translate-x-0"
+  class="fixed top-0 left-0 z-40 w-96 h-screen transition-transform -translate-x-full sm:translate-x-0"
   aria-label="Sidebar"
 >
   <div class="h-full px-3 py-4 overflow-y-auto bg-gray-600">
@@ -54,18 +54,12 @@
         </li>
       {/each}
       <li class="pt-4">
-        <a
-          href={"/"}
-          class="flex items-center p-2 text-base font-normal rounded-lg hover:bg-gray-700"
-        >
-          <span><Icon icon="mdi:home" class="h-6 w-6" /></span>
-          <span class="ml-3 h-6 text-center">Home</span>
-        </a>
+        <a href="/" class="btn btn-outline h-6 w-full font-semibold"> Home </a>
       </li>
     </ul>
   </div>
 </aside>
 
-<div class="p-4 sm:ml-64">
+<div class="p-4 sm:ml-96">
   <slot />
 </div>

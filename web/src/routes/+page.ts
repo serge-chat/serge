@@ -7,3 +7,5 @@ export const load: PageLoad = async ({ fetch }) => {
     models,
   };
 };
+
+export const csr = false;
