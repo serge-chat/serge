@@ -20,16 +20,22 @@ Setting up Serge is very easy. Start by cloning the repo:
 git clone git@github.com:nsarrazin/serge.git
 ```
 
-Then put your weights in the `models` folder. If you don't have them you can download them using the following magnet links:
+Then put your weights in the `api/weights` folder. If you don't have them you can download them using the following magnet links:
 
 - [ggml-alpaca-7b-q4.bin](https://maglit.me/corotlesque)
 - [ggml-alpaca-13b-q4.bin](https://maglit.me/nonchoodithvness)
 
 They are currently the only two models supported. I'm working on expanding support to all the models supported by `llama.cpp`.
 
+You will also need to put the `tokenizer.model` for LLaMa in that folder. [You can grab it here](https://huggingface.co/decapoda-research/llama-7b-hf/blob/main/tokenizer.model).
+
+### Model conversion
+
 Note: `llama.cpp` [recently underwent some change](https://github.com/ggerganov/llama.cpp/issues/324#issuecomment-1476227818) that requires model weights to be converted to a new format. Serge picks this up automatically on startup, and will convert your weights to the new format if needed. The old weights will be renamed to `*.bin.old` and the new weights will be named `*.bin`.
 
-Then, you can start the project by running:
+### Starting the project
+
+Finally you can start the project by running:
 
 ```
 cp .env.sample .env
