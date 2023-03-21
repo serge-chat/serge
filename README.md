@@ -2,7 +2,7 @@
 
 ![License](https://img.shields.io/github/license/nsarrazin/serge)
 
-A chat interface based on `llama.cpp` for running alpaca models.
+A chat interface based on `llama.cpp` for running Alpaca models.
 
 - **SvelteKit** frontend
 - **MongoDB** for storing chat history & parameters
@@ -12,13 +12,24 @@ https://user-images.githubusercontent.com/25119303/226756536-8c7fea67-3aba-4011-
 
 ## Getting started
 
-Setting up Serge is very easy. Start by cloning the repo.
+Setting up Serge is very easy. TLDR for running it with Alpaca 7B:
 
 ```
 git clone git@github.com:nsarrazin/serge.git
+cd serge
+
+cp .env.sample .env
+
+curl -o api/weights/ggml-alpaca-7b-q4.bin -C - https://gateway.estuary.tech/gw/ipfs/QmQ1bf2BTnYxq73MFJWu1B7bQ2UD6qG7D7YDCxhTndVkPC
+
+python -c 'from huggingface_hub import hf_hub_download; hf_hub_download(repo_id="decapoda-research/llama-7b-hf", filename="tokenizer.model", local_dir="api/weights/")'
+
+docker compose up -d
 ```
 
-Now you need to get the weights.
+(You will need `huggingface_hub` for fetching the tokenizer, just run `pip install huggingface_hub` before if you don't have it, no setup needed. Otherwise just [download the file manually](https://huggingface.co/decapoda-research/llama-7b-hf/blob/main/tokenizer.model))
+
+Then just go to http://localhost:8008/ and you're good to go!
 
 ### Getting the weights
 
@@ -50,22 +61,9 @@ curl -o ggml-alpaca-13b-q4.bin -C - https://ipfs.io/ipfs/Qme6wyw9MzqbrUMpFNVq42r
 curl -o ggml-alpaca-13b-q4.bin -C - https://cloudflare-ipfs.com/ipfs/Qme6wyw9MzqbrUMpFNVq42rC1kSdko7MGT9CL7o1u9Cv9G
 ```
 
-### Tokenizer
+#### Other models
 
-You will also need to put the `tokenizer.model` for LLaMa in the `api/weights` folder. [You can grab it here](https://huggingface.co/decapoda-research/llama-7b-hf/blob/main/tokenizer.model).
-
-### Starting the project
-
-Finally you can start the project by running:
-
-```
-cp .env.sample .env
-docker compose up -d
-```
-
-The front-end lives at http://localhost:8008/ by default but you can change the port in the `.env` file.
-
-The interactive API docs is available at http://localhost:8008/api/docs.
+If you want to run it with the original LLaMa weights you will have to provide the weights yourself, as they are not available publicly.
 
 #### Model conversion
 
