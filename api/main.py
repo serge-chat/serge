@@ -146,13 +146,23 @@ async def ask_a_question(chat_id: str, prompt: str):
 
 
 @app.get("/chats", tags=["chats"])
-async def get_all_chats_id():
+async def get_all_chats():
     res = []
 
     for i in (
         await Chat.find_all().sort((Chat.created, SortDirection.DESCENDING)).to_list()
     ):
         await i.fetch_link(Chat.parameters)
-        res.append({"id": i.id, "created": i.created, "model": i.parameters.model})
+        await i.fetch_link(Chat.questions)
+
+        first_q = i.questions[0].question if i.questions else ""
+        res.append(
+            {
+                "id": i.id,
+                "created": i.created,
+                "model": i.parameters.model,
+                "subtitle": first_q,
+            }
+        )
 
     return res

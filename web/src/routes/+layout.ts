@@ -4,6 +4,7 @@ type t = {
   id: string;
   created: string;
   model: string;
+  subtitle: string;
 };
 
 export const load: LayoutLoad = async ({ fetch }) => {

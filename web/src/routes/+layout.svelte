@@ -1,9 +1,6 @@
 <script lang="ts">
   import "../app.css";
   import type { LayoutData } from "./$types";
-
-  import Icon from "@iconify/svelte";
-
   export let data: LayoutData;
 
   function timeSince(datestring: string) {
@@ -33,6 +30,10 @@
     }
     return Math.floor(seconds) + " seconds";
   }
+
+  function truncate(str: string, n: number) {
+    return str.length > n ? str.slice(0, n - 1) + "..." : str;
+  }
 </script>
 
 <aside
@@ -51,8 +52,13 @@
             href={"/chat/" + chat.id}
             class="flex items-center p-2 text-base font-normal rounded-lg hover:bg-gray-700"
           >
-            <span class="font-semibold">{chat.model}</span>
-            <span class="ml-3">{timeSince(chat.created) + " ago"}</span>
+            <div class="flex flex-col">
+              <div>
+                <span class="font-semibold">{chat.model}</span>
+                <span class="ml-3">{timeSince(chat.created) + " ago"}</span>
+              </div>
+              <p class="font-light text-sm">{truncate(chat.subtitle, 100)}</p>
+            </div>
           </a>
         </li>
       {/each}
