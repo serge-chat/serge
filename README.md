@@ -8,10 +8,7 @@ A chat interface based on `llama.cpp` for running alpaca models.
 - **MongoDB** for storing chat history & parameters
 - **FastAPI + beanie** for the API, wrapping calls to `llama.cpp`
 
-
 https://user-images.githubusercontent.com/25119303/226756536-8c7fea67-3aba-4011-969a-742872fc2858.mp4
-
-
 
 ## Getting started
 
@@ -25,7 +22,7 @@ Now you need to get the weights.
 
 ### Getting the weights
 
-You will need to download the weights for the model you want to use. Currently we only support 7B and 13B models.
+You will need to download the weights for the model you want to use. Currently we only support 7B and 13B models. Place the downloaded weights in the `api/weights` folder.
 
 #### 7B
 
