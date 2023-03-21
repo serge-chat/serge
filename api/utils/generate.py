@@ -3,6 +3,16 @@ from models import Chat
 import asyncio
 
 
+def remove_matching_end(a, b):
+    min_length = min(len(a), len(b))
+
+    for i in range(min_length, 0, -1):
+        if a[-i:] == b[:i]:
+            return b[i:]
+
+    return b
+
+
 async def generate(
     model: str = "ggml-alpaca-13b-q4.bin",
     prompt: str = "The sky is blue because",
@@ -12,6 +22,7 @@ async def generate(
     top_p: float = 0.95,
     repeast_last_n: int = 64,
     repeat_penalty: float = 1.3,
+    chunk_size: int = 64,  # Define a chunk size (in bytes) for streaming the output bit by bit
 ):
     args = (
         "llama",
@@ -32,22 +43,32 @@ async def generate(
         "--repeat_penalty",
         str(repeat_penalty),
         "--threads",
-        "8",
+        "4",
     )
 
-    procLlama = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    procLlama = await asyncio.create_subprocess_exec(
+        *args, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+    )
+
+    answer = ""
 
     while True:
-        await asyncio.sleep(0.1)
-        if procLlama.poll() is not None:
-            break
+        chunk = await procLlama.stdout.read(chunk_size)
 
-    output = procLlama.stdout.read().decode("utf-8")
+        if not chunk:
+            return_code = await procLlama.wait()
 
-    if output == "":
-        raise ValueError(procLlama.stderr.read().decode("utf-8"))
+            if return_code != 0:
+                error_output = await procLlama.stderr.read()
+                raise ValueError(error_output.decode("utf-8"))
+            else:
+                return
 
-    return output
+        chunk = chunk.decode("utf-8")
+        answer += chunk
+
+        if prompt in answer:
+            yield remove_matching_end(prompt, chunk)
 
 
 async def get_full_prompt_from_chat(chat: Chat, simple_prompt: str):

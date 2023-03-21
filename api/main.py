@@ -1,10 +1,10 @@
-from uuid import uuid4
-import subprocess, os
+import os, asyncio
 
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from beanie.odm.enums import SortDirection
 
+from sse_starlette.sse import EventSourceResponse
 from utils.initiate_database import initiate_database
 from utils.generate import generate, get_full_prompt_from_chat
 from utils.convert import convert_all
@@ -116,24 +116,8 @@ async def get_specific_chat(chat_id: str):
     return chat
 
 
-@app.post("/chat/{chat_id}/question", tags=["chats"])
-async def ask_a_question(chat_id: str, prompt: str):
-    chat = await Chat.get(chat_id)
-    full_prompt = await get_full_prompt_from_chat(chat, prompt)
-
-    answer = await generate(
-        prompt=full_prompt,
-        temp=chat.parameters.temperature,
-        top_k=chat.parameters.top_k,
-        top_p=chat.parameters.top_p,
-        repeast_last_n=chat.parameters.repeat_last_n,
-        repeat_penalty=chat.parameters.repeat_penalty,
-        model=chat.parameters.model,
-    )
-
-    question = await Question(
-        question=prompt.rstrip(), answer=answer[len(full_prompt) :].lstrip()
-    ).create()
+async def on_close(chat, prompt, answer):
+    question = await Question(question=prompt.rstrip(), answer=answer.rstrip()).create()
 
     if chat.questions is None:
         chat.questions = [question]
@@ -142,7 +126,32 @@ async def ask_a_question(chat_id: str, prompt: str):
 
     await chat.save()
 
-    return question
+
+@app.get("/chat/{chat_id}/question")
+async def stream_ask_a_question(chat_id: str, prompt: str):
+    chat = await Chat.get(chat_id)
+    full_prompt = await get_full_prompt_from_chat(chat, prompt)
+    answer = ""
+
+    async def event_generator():
+        nonlocal answer
+        try:
+            async for output in generate(
+                prompt=full_prompt,
+                temp=chat.parameters.temperature,
+                top_k=chat.parameters.top_k,
+                top_p=chat.parameters.top_p,
+                repeast_last_n=chat.parameters.repeat_last_n,
+                repeat_penalty=chat.parameters.repeat_penalty,
+                model=chat.parameters.model,
+            ):
+                await asyncio.sleep(0.1)
+                answer += output
+                yield {"event": "message", "data": output}
+        finally:
+            await on_close(chat, prompt, answer)
+
+    return EventSourceResponse(event_generator())
 
 
 @app.get("/chats", tags=["chats"])

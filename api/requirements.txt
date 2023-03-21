@@ -1,5 +1,6 @@
-fastapi
-uvicorn
+fastapi[all]
+sse-starlette
+asyncio
 motor
 pymongo
 beanie
