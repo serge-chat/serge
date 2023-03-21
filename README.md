@@ -8,9 +8,10 @@ A chat interface based on `llama.cpp` for running alpaca models.
 - **MongoDB** for storing chat history & parameters
 - **FastAPI + beanie** for the API, wrapping calls to `llama.cpp`
 
-|              Home page               |                       Chat                       |
-| :----------------------------------: | :----------------------------------------------: |
-| ![](https://i.imgur.com/CRXj9KD.png) | ![Serge - chat](https://i.imgur.com/bnqZyaC.png) |
+
+https://user-images.githubusercontent.com/25119303/226756536-8c7fea67-3aba-4011-969a-742872fc2858.mp4
+
+
 
 ## Getting started
 
