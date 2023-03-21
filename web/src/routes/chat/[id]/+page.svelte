@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { navigating } from "$app/stores";
   import type { PageData } from "./$types";
   import { enhance } from "$app/forms";
 
