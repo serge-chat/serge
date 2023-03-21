@@ -2,36 +2,59 @@
 
 ![License](https://img.shields.io/github/license/nsarrazin/serge)
 
-|              Home page               |                       Chat                       |
-| :----------------------------------: | :----------------------------------------------: |
-| ![](https://i.imgur.com/CRXj9KD.png) | ![Serge - chat](https://i.imgur.com/bnqZyaC.png) |
-
 A chat interface based on `llama.cpp` for running alpaca models.
 
 - **SvelteKit** frontend
 - **MongoDB** for storing chat history & parameters
 - **FastAPI + beanie** for the API, wrapping calls to `llama.cpp`
 
+|              Home page               |                       Chat                       |
+| :----------------------------------: | :----------------------------------------------: |
+| ![](https://i.imgur.com/CRXj9KD.png) | ![Serge - chat](https://i.imgur.com/bnqZyaC.png) |
+
 ## Getting started
 
-Setting up Serge is very easy. Start by cloning the repo:
+Setting up Serge is very easy. Start by cloning the repo.
 
 ```
 git clone git@github.com:nsarrazin/serge.git
 ```
 
-Then put your weights in the `api/weights` folder. If you don't have them you can download them using the following magnet links:
+Now you need to get the weights.
 
-- [ggml-alpaca-7b-q4.bin](https://maglit.me/corotlesque)
-- [ggml-alpaca-13b-q4.bin](https://maglit.me/nonchoodithvness)
+### Getting the weights
 
-They are currently the only two models supported. I'm working on expanding support to all the models supported by `llama.cpp`.
+You will need to download the weights for the model you want to use. Currently we only support 7B and 13B models.
 
-You will also need to put the `tokenizer.model` for LLaMa in that folder. [You can grab it here](https://huggingface.co/decapoda-research/llama-7b-hf/blob/main/tokenizer.model).
+#### 7B
 
-### Model conversion
+For the 7B version use any of these links :
 
-Note: `llama.cpp` [recently underwent some change](https://github.com/ggerganov/llama.cpp/issues/324#issuecomment-1476227818) that requires model weights to be converted to a new format. Serge picks this up automatically on startup, and will convert your weights to the new format if needed. The old weights will be renamed to `*.bin.old` and the new weights will be named `*.bin`.
+[ggml-alpaca-7b-q4.bin (magnet link)](https://maglit.me/corotlesque)
+
+```
+# or any of these should work
+curl -o ggml-alpaca-7b-q4.bin -C - https://gateway.estuary.tech/gw/ipfs/QmQ1bf2BTnYxq73MFJWu1B7bQ2UD6qG7D7YDCxhTndVkPC
+curl -o ggml-alpaca-7b-q4.bin -C - https://ipfs.io/ipfs/QmQ1bf2BTnYxq73MFJWu1B7bQ2UD6qG7D7YDCxhTndVkPC
+curl -o ggml-alpaca-7b-q4.bin -C - https://cloudflare-ipfs.com/ipfs/QmQ1bf2BTnYxq73MFJWu1B7bQ2UD6qG7D7YDCxhTndVkPC
+```
+
+#### 13B
+
+For the 13B version (10+GB RAM needed) you can use any of these links :
+
+[ggml-alpaca-13b-q4.bin (magnet link)](https://maglit.me/nonchoodithvness)
+
+```
+# or any of these should work
+curl -o ggml-alpaca-13b-q4.bin -C - https://gateway.estuary.tech/gw/ipfs/Qme6wyw9MzqbrUMpFNVq42rC1kSdko7MGT9CL7o1u9Cv9G
+curl -o ggml-alpaca-13b-q4.bin -C - https://ipfs.io/ipfs/Qme6wyw9MzqbrUMpFNVq42rC1kSdko7MGT9CL7o1u9Cv9G
+curl -o ggml-alpaca-13b-q4.bin -C - https://cloudflare-ipfs.com/ipfs/Qme6wyw9MzqbrUMpFNVq42rC1kSdko7MGT9CL7o1u9Cv9G
+```
+
+### Tokenizer
+
+You will also need to put the `tokenizer.model` for LLaMa in the `api/weights` folder. [You can grab it here](https://huggingface.co/decapoda-research/llama-7b-hf/blob/main/tokenizer.model).
 
 ### Starting the project
 
@@ -45,6 +68,10 @@ docker compose up -d
 The front-end lives at http://localhost:8008/ by default but you can change the port in the `.env` file.
 
 The interactive API docs is available at http://localhost:8008/api/docs.
+
+#### Model conversion
+
+Note: `llama.cpp` [recently underwent some change](https://github.com/ggerganov/llama.cpp/issues/324#issuecomment-1476227818) that requires model weights to be converted to a new format. Serge picks this up automatically on startup, and will convert your weights to the new format if needed. The old weights will be renamed to `*.bin.old` and the new weights will be named `*.bin`.
 
 ## What's next
 

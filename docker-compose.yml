@@ -7,8 +7,6 @@ services:
     volumes:
       - ./api:/usr/src/app/
       - /etc/localtime:/etc/localtime:ro 
-    ports:
-      - 9124:9124
     depends_on:
       - mongodb
     env_file:
@@ -29,7 +27,6 @@ services:
       dockerfile: ./Dockerfile.web
     ports:
       - 9123:9123
-      - 24678:24678
     volumes:
       - ./web:/usr/src/app/
       - /usr/src/app/node_modules
