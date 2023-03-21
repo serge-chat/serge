@@ -25,11 +25,9 @@ type t = {
 };
 
 export const load: PageLoad = async ({ fetch, params }) => {
-  const r = await fetch("http://api:9124/chat/" + params.id);
+  const r = await fetch("/api/chat/" + params.id);
   const data = (await r.json()) as t;
   return {
     props: data,
   };
 };
-
-export const csr = false;

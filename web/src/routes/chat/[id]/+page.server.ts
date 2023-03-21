@@ -10,14 +10,15 @@ export const actions = {
       data.append("prompt", question.toString());
 
       const response = await fetch(
-        "http://api:9124/chat/" + params.id + "/question?" + data.toString(),
+        "/api/chat/" + params.id + "/question?" + data.toString(),
         {
           method: "POST",
         }
       );
 
       if (response.ok) {
-        return { success: true };
+        const question = await response.json();
+        return question;
       } else {
         console.log(response.statusText);
       }
