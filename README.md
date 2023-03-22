@@ -2,7 +2,7 @@
 
 ![License](https://img.shields.io/github/license/nsarrazin/serge)
 
-A chat interface based on `llama.cpp` for running Alpaca models.
+A chat interface based on `llama.cpp` for running Alpaca models. Entirely self-hosted, no API keys needed. Fits on 4GB of RAM and runs on the CPU.
 
 - **SvelteKit** frontend
 - **MongoDB** for storing chat history & parameters
