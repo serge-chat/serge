@@ -21,4 +21,4 @@ export const actions = {
       console.log(r.statusText);
     }
   },
-};
+} satisfies Actions;
