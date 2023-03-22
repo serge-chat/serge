@@ -14,11 +14,11 @@ services:
     command: uvicorn main:app --reload --host 0.0.0.0 --port 9124 --root-path /api/
 
   mongodb:
-    image: bitnami/mongodb:latest
-    ports:
-      - "27017"
-    volumes:
-      - data:/bitnami/mongodb
+      image: mongo:6.0.4-jammy
+      ports:
+        - "27017"
+      volumes:
+        - data:/data/db
 
   web:
     restart: on-failure
