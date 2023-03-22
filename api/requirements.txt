@@ -6,3 +6,4 @@ pymongo
 beanie
 pydantic[dotenv]
 sentencepiece
+huggingface_hub

@@ -96,10 +96,14 @@ def convert_one_file(path_in, tokenizer):
             copy_all_data(f_out, f_in)
     except Exception:
         print(f"File {path_in} already converted")
-        os.remove(path_tmp)
     else:
         os.rename(path_in, path_in + ".old")
         os.rename(path_tmp, path_in)
+
+    try:
+        os.remove(path_tmp)
+    except OSError:
+        pass
 
 
 def convert_all(dir_model: str, tokenizer_model: str):
@@ -107,7 +111,15 @@ def convert_all(dir_model: str, tokenizer_model: str):
     files.extend(glob.glob(f"{dir_model}/*.bin"))
     files.extend(glob.glob(f"{dir_model}/*.bin"))
 
-    tokenizer = SentencePieceProcessor(tokenizer_model)
+    try:
+        tokenizer = SentencePieceProcessor(tokenizer_model)
+    except OSError:
+        print("Missing tokenizer, don't forget to download it!")
 
     for file in files:
         convert_one_file(file, tokenizer)
+
+
+if __name__ == "__main__":
+    args = parse_args()
+    convert_all(args.dir_model, args.tokenizer_model)
