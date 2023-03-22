@@ -14,6 +14,7 @@ WORKDIR /tmp
 RUN git clone https://github.com/ggerganov/llama.cpp.git --branch master-d5850c5
 
 RUN cd llama.cpp && \
+    sed -i 's/{ 5120, 2 },/{ 5120, 1 },/g' llama.cpp && \
     make && \
     mv main llama
 
