@@ -44,6 +44,8 @@ async def generate(
         str(repeat_penalty),
         "--threads",
         "4",
+        "--n_parts",
+        "1",
     )
 
     procLlama = await asyncio.create_subprocess_exec(
