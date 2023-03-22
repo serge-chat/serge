@@ -11,12 +11,9 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /tmp
 
-RUN git clone https://github.com/ggerganov/llama.cpp.git 
-
-RUN cd llama.cpp && git reset --hard 074bea2
+RUN git clone https://github.com/ggerganov/llama.cpp.git --branch master-d5850c5
 
 RUN cd llama.cpp && \
-    sed -i 's/{ 5120, 2 },/{ 5120, 1 },/g' main.cpp && \
     make && \
     mv main llama
 
