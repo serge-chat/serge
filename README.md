@@ -8,7 +8,7 @@ A chat interface based on `llama.cpp` for running Alpaca models. Entirely self-h
 - **MongoDB** for storing chat history & parameters
 - **FastAPI + beanie** for the API, wrapping calls to `llama.cpp`
 
-https://user-images.githubusercontent.com/25119303/226756536-8c7fea67-3aba-4011-969a-742872fc2858.mp4
+[demo.webm](https://user-images.githubusercontent.com/25119303/226897188-914a6662-8c26-472c-96bd-f51fc020abf6.webm)
 
 ## Getting started
 
