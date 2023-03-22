@@ -64,7 +64,11 @@ async def generate(
             else:
                 return
 
-        chunk = chunk.decode("utf-8")
+        try:
+            chunk = chunk.decode("utf-8")
+        except UnicodeDecodeError:
+            return
+
         answer += chunk
 
         if prompt in answer:
