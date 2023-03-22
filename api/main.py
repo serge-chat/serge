@@ -1,6 +1,10 @@
-import os, asyncio
+import asyncio
+import logging
+import os
+from typing import Annotated
 
-from fastapi import FastAPI
+import anyio
+from fastapi import FastAPI, HTTPException, status, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from beanie.odm.enums import SortDirection
 
@@ -9,6 +13,19 @@ from utils.initiate_database import initiate_database
 from utils.generate import generate, get_full_prompt_from_chat
 from utils.convert import convert_all
 from models import Question, Chat, ChatParameters
+
+
+# Configure logging settings
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(levelname)s:\t%(name)s\t%(message)s",
+    handlers=[
+        logging.StreamHandler()
+    ]
+)
+
+# Define a logger for the current module
+logger = logging.getLogger(__name__)
 
 tags_metadata = [
     {
@@ -44,20 +61,49 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+MODEL_IS_READY: bool = False
+
+
+def dep_models_ready() -> list[str]:
+    """
+    FastAPI dependency that checks if models are ready.
+
+    Returns a list of available models
+    """
+    if MODEL_IS_READY is False:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail={
+                "message": "models are not ready"
+            }
+        )
+
+    files = os.listdir("weights")
+    files = list(filter(lambda x: x.endswith(".bin"), files))
+    return files
+
+
+async def convert_model_files():
+    global MODEL_IS_READY
+    await anyio.to_thread.run_sync(convert_all, "weights/", "weights/tokenizer.model")
+    MODEL_IS_READY = True
+    logger.info("models are ready")
+
 
 @app.on_event("startup")
 async def start_database():
+    logger.info("initializing database connection")
     await initiate_database()
-    convert_all("weights/", "weights/tokenizer.model")
+
+    logger.info("initializing models")
+    asyncio.create_task(convert_model_files())
 
 
 @app.get("/models", tags=["misc."])
-def list_of_installed_models():
-    files = os.listdir("weights")
-
-    files = list(filter(lambda x: x.endswith(".bin"), files))
-
-    return files
+def list_of_installed_models(
+        models: Annotated[list[str], Depends(dep_models_ready)]
+):
+    return models
 
 
 @app.post("/chat", tags=["chats"])
@@ -103,7 +149,7 @@ async def on_close(chat, prompt, answer):
     await chat.save()
 
 
-@app.get("/chat/{chat_id}/question")
+@app.get("/chat/{chat_id}/question", dependencies=[Depends(dep_models_ready)])
 async def stream_ask_a_question(chat_id: str, prompt: str):
     chat = await Chat.get(chat_id)
     full_prompt = await get_full_prompt_from_chat(chat, prompt)
