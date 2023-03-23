@@ -4,6 +4,9 @@ from llama_index import LLMPredictor
 from transformers import pipeline
 from typing import Optional, List, Mapping, Any
 from utils.generate import generate 
+from langchain.callbacks.base import CallbackManager
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+from langchain.schema import HumanMessage
 
 # define prompt helper
 # set maximum input size
@@ -33,7 +36,7 @@ class CustomLLM(LLM):
         return "custom"
 
 # define our LLM
-llm_predictor = LLMPredictor(llm=CustomLLM())
+llm_predictor = LLMPredictor(llm=CustomLLM(callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]))
 
 # Load the your data
 documents = SimpleDirectoryReader('./data').load_data()
