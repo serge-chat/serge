@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:19.8.1
 
 # Set the Node environment to development to ensure all packages are installed
 ENV NODE_ENV development
