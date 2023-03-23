@@ -1,6 +1,7 @@
 # Serge - LLaMa made easy 🦙
 
 ![License](https://img.shields.io/github/license/nsarrazin/serge)
+[![Discord](https://img.shields.io/discord/1088427963801948201?label=Discord)](https://discord.gg/62Hc6FEYQH)
 
 A chat interface based on `llama.cpp` for running Alpaca models. Entirely self-hosted, no API keys needed. Fits on 4GB of RAM and runs on the CPU.
 
@@ -32,6 +33,10 @@ Then just go to http://localhost:8008/ and you're good to go!
 Currently only the 7B, 13B and 30B alpaca models are supported. There's a download script for downloading them inside of the container, described above.
 
 If you have existing weights from another project you can add them to the `api/weights` folder and they will be automatically copied on build.
+
+## Support
+
+Feel free to join the discord if you need help with the setup: https://discord.gg/62Hc6FEYQH
 
 ## What's next
 
