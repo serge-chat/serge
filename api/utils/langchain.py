@@ -36,7 +36,7 @@ class CustomLLM(LLM):
         return "custom"
 
 # define our LLM
-llm_predictor = LLMPredictor(llm=CustomLLM(callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]))
+llm_predictor = LLMPredictor(llm=CustomLLM(callback_manager=CallbackManager([StreamingStdOutCallbackHandler()])))
 
 # Load the your data
 documents = SimpleDirectoryReader('./data').load_data()
