@@ -6,7 +6,7 @@ services:
       dockerfile: ./Dockerfile.api
     volumes:
       - ./api:/usr/src/app/
-      - /usr/src/app/weights/
+      - weights:/usr/src/app/weights/
       - /etc/localtime:/etc/localtime:ro 
     depends_on:
       - mongodb
@@ -15,7 +15,7 @@ services:
     command: uvicorn main:app --reload --host 0.0.0.0 --port 9124 --root-path /api/
 
   mongodb:
-      image: mongo:6.0.4-jammy
+      image: mongo:4.4.18
       ports:
         - "27017"
       volumes:
@@ -41,3 +41,4 @@ services:
 
 volumes:
   data:
+  weights:
