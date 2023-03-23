@@ -27,6 +27,4 @@ RUN pip install --upgrade pip
 COPY ./requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-COPY ./weights/ /usr/src/app/weights/
-
 COPY --from=builder /tmp/llama.cpp/llama /usr/bin/llama
