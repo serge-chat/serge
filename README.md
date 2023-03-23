@@ -15,6 +15,8 @@ A chat interface based on `llama.cpp` for running Alpaca models. Entirely self-h
 
 Setting up Serge is very easy. TLDR for running it with Alpaca 7B:
 
+Install [Docker Desktop](https://www.docker.com/products/docker-desktop/), if you haven't already.
+
 ```
 git clone https://github.com/nsarrazin/serge.git && cd serge
 
