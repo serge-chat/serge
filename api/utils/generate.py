@@ -1,6 +1,9 @@
 import subprocess, os
-from models import Chat
+from models import Chat, ChatParameters
 import asyncio
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def remove_matching_end(a, b):
@@ -14,40 +17,39 @@ def remove_matching_end(a, b):
 
 
 async def generate(
-    model: str = "ggml-alpaca-13b-q4.bin",
-    prompt: str = "The sky is blue because",
-    n_predict: int = 128,
-    temp: float = 0.05,
-    top_k: int = 50,
-    top_p: float = 0.95,
-    repeast_last_n: int = 64,
-    repeat_penalty: float = 1.3,
-    chunk_size: int = 64,  # Define a chunk size (in bytes) for streaming the output bit by bit
+    prompt: str,
+    params: ChatParameters
 ):
+    CHUNK_SIZE = 4
+    await params.fetch_all_links()
+
     args = (
         "llama",
         "--model",
-        "/usr/src/app/weights/" + model,
+        "/usr/src/app/weights/" + params.model,
         "--prompt",
         prompt,
         "--n_predict",
-        str(n_predict),
+        str(params.max_length),
         "--temp",
-        str(temp),
+        str(params.temperature),
         "--top_k",
-        str(top_k),
+        str(params.top_k),
         "--top_p",
-        str(top_p),
+        str(params.top_p),
         "--repeat_last_n",
-        str(repeast_last_n),
+        str(params.repeat_last_n),
         "--repeat_penalty",
-        str(repeat_penalty),
+        str(params.repeat_penalty),
+        "--ctx_size",
+        str(params.context_window),
         "--threads",
-        "4",
+        str(params.n_threads),
         "--n_parts",
         "1",
     )
 
+    logger.info(args)
     procLlama = await asyncio.create_subprocess_exec(
         *args, stdout=subprocess.PIPE, stderr=subprocess.PIPE
     )
@@ -55,13 +57,14 @@ async def generate(
     answer = ""
 
     while True:
-        chunk = await procLlama.stdout.read(chunk_size)
+        chunk = await procLlama.stdout.read(CHUNK_SIZE)
 
         if not chunk:
             return_code = await procLlama.wait()
 
             if return_code != 0:
                 error_output = await procLlama.stderr.read()
+                logger.error(error_output.decode("utf-8"))
                 raise ValueError(error_output.decode("utf-8"))
             else:
                 return
@@ -79,10 +82,11 @@ async def generate(
 
 async def get_full_prompt_from_chat(chat: Chat, simple_prompt: str):
     await chat.fetch_all_links()
+    
+    await chat.parameters.fetch_link(ChatParameters.init_prompt)
 
-    prompt = """Below is an instruction that describes a task. Write a response that appropriately completes the request. The response must be accurate, concise and evidence-based whenever possible. A complete answer is always ended by [end of text].
-
-"""
+    prompt = chat.parameters.init_prompt + "\n\n"
+    
     if chat.questions != None:
         for question in chat.questions:
             prompt += "### Instruction:\n" + question.question + "\n"
