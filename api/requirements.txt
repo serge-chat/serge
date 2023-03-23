@@ -7,3 +7,5 @@ beanie
 pydantic[dotenv]
 sentencepiece
 huggingface_hub
+llama_index
+langchain
