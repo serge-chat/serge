@@ -6,7 +6,7 @@ services:
       dockerfile: ./Dockerfile.api
     volumes:
       - ./api:/usr/src/app/
-      - /usr/src/app/weights/
+      - weights:/usr/src/app/weights/
       - /etc/localtime:/etc/localtime:ro 
     depends_on:
       - mongodb
@@ -45,3 +45,4 @@ services:
 
 volumes:
   data:
+  weights:
