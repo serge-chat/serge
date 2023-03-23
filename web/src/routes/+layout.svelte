@@ -1,7 +1,40 @@
 <script lang="ts">
   import "../app.css";
   import type { LayoutData } from "./$types";
+  import { onMount, afterUpdate } from 'svelte';
   export let data: LayoutData;
+
+  $: deleteIcon = "&#128465;";
+  $: deleteConfirm = false;
+  $: currentChatID = "";
+
+  onMount(refreshCurrent);
+  afterUpdate(refreshCurrent);
+
+  function refreshCurrent() {
+    if(window.location.pathname.startsWith("/chat/")) {
+      var urlPaths = window.location.pathname.split("/");
+      currentChatID = urlPaths[urlPaths.length-1];
+    }
+    else {
+      currentChatID = "";
+    }
+  }
+
+  async function deleteChat(chatID) {
+      var response = await fetch("/api/chat/" + chatID, { method: 'DELETE'});
+      if(response.status == 200) {
+        window.location = "/";
+      }
+      else {
+        alert("Error " + response.status + ": " + response.statusText);
+      }
+  }
+
+  function toggleDeleteConfirm() {
+      deleteConfirm = !deleteConfirm;
+      deleteIcon = deleteConfirm ? "&#9932;" : "&#128465;";
+  }
 
   function timeSince(datestring: string) {
     const date = new Date(datestring);
@@ -56,6 +89,20 @@
               <div>
                 <span class="font-semibold">{chat.model}</span>
                 <span class="ml-3">{timeSince(chat.created) + " ago"}</span>
+                    {#if currentChatID == chat.id}
+                        {#if deleteConfirm}
+                            <button
+                                class="btn btn-link btn-sm"
+                                on:click|preventDefault={() => deleteChat(chat.id)} >
+                                &#128504;
+                            </button>
+                        {/if}
+                        <button
+                            class="btn btn-link btn-sm"
+                            on:click|preventDefault={toggleDeleteConfirm} >
+                            {@html deleteIcon}
+                        </button>
+                    {/if}
               </div>
               <p class="font-light text-sm">{truncate(chat.subtitle, 100)}</p>
             </div>
