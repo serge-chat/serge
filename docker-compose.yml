@@ -27,8 +27,6 @@ services:
     build:
       context: ./web
       dockerfile: ./Dockerfile.web
-    ports:
-      - 9123:9123
     volumes:
       - ./web:/usr/src/app/
       - /usr/src/app/node_modules
