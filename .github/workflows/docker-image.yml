@@ -24,10 +24,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - dockerfile: ./Dockerfile.api
+          - dockerfile: ./api/Dockerfile.api
             image: serge-api
             context: ./api
-          - dockerfile: ./Dockerfile.web
+          - dockerfile: ./web/Dockerfile.web
             image: serge-webui
             context: ./web
     permissions:
