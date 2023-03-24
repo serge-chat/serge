@@ -11,7 +11,7 @@ name: Create and publish a Docker image
 
 on:
   push:
-    branches: ["feature/add-buildx"]
+    branches: ["release"]
 
 env:
   REGISTRY: ghcr.io
