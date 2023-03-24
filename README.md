@@ -32,7 +32,7 @@ Then just go to http://localhost:8008/ and you're good to go!
 
 Currently only the 7B, 13B and 30B alpaca models are supported. There's a download script for downloading them inside of the container, described above.
 
-If you have existing weights from another project you can add them to the `api/weights` folder and they will be automatically copied on build.
+If you have existing weights from another project you can add them to the `serge_weights` volume using `docker cp`.
 
 ## Support
 
