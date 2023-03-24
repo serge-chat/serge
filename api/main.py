@@ -113,8 +113,11 @@ async def create_new_chat(
     top_k: int = 50,
     top_p: float = 0.95,
     max_length: int = 256,
+    context_window: int = 512,
     repeat_last_n: int = 64,
     repeat_penalty: float = 1.3,
+    init_prompt: str = "Below is an instruction that describes a task. Write a response that appropriately completes the request. The response must be accurate, concise and evidence-based whenever possible. A complete answer is always ended by [end of text].",
+    n_threads: int = 4,
 ):
     parameters = await ChatParameters(
         model=model,
@@ -122,8 +125,11 @@ async def create_new_chat(
         top_k=top_k,
         top_p=top_p,
         max_length=max_length,
+        context_window=context_window,
         repeat_last_n=repeat_last_n,
         repeat_penalty=repeat_penalty,
+        init_prompt=init_prompt,
+        n_threads=n_threads,
     ).create()
 
     chat = await Chat(parameters=parameters).create()
@@ -161,7 +167,10 @@ async def on_close(chat, prompt, answer):
 @app.get("/chat/{chat_id}/question", dependencies=[Depends(dep_models_ready)])
 async def stream_ask_a_question(chat_id: str, prompt: str):
     chat = await Chat.get(chat_id)
+    await chat.fetch_link(Chat.parameters)
+
     full_prompt = await get_full_prompt_from_chat(chat, prompt)
+    
     answer = ""
 
     async def event_generator():
@@ -169,12 +178,7 @@ async def stream_ask_a_question(chat_id: str, prompt: str):
         try:
             async for output in generate(
                 prompt=full_prompt,
-                temp=chat.parameters.temperature,
-                top_k=chat.parameters.top_k,
-                top_p=chat.parameters.top_p,
-                repeast_last_n=chat.parameters.repeat_last_n,
-                repeat_penalty=chat.parameters.repeat_penalty,
-                model=chat.parameters.model,
+                params=chat.parameters,
             ):
                 await asyncio.sleep(0.1)
                 answer += output

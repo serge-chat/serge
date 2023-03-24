@@ -1,13 +1,4 @@
-FROM ubuntu:latest as builder
-
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    zlib1g-dev \
-    libbz2-dev \
-    liblzma-dev \
-    autoconf \
-    git \
-    wget
+FROM gcc:10.2 as builder 
 
 WORKDIR /tmp
 
@@ -26,7 +17,5 @@ RUN pip install --upgrade pip
 
 COPY ./requirements.txt requirements.txt
 RUN pip install -r requirements.txt
-
-COPY ./weights/ /usr/src/app/weights/
 
 COPY --from=builder /tmp/llama.cpp/llama /usr/bin/llama
