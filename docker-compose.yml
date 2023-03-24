@@ -10,6 +10,7 @@ services:
       - /etc/localtime:/etc/localtime:ro 
     depends_on:
       - mongodb
+      - nginx
     env_file:
       - .env
     command: uvicorn main:app --reload --host 0.0.0.0 --port 9124 --root-path /api/
@@ -26,12 +27,13 @@ services:
     build:
       context: ./web
       dockerfile: ./Dockerfile.web
-    ports:
-      - 9123:9123
     volumes:
       - ./web:/usr/src/app/
       - /usr/src/app/node_modules
     command: npm run dev -- --host 0.0.0.0 --port 9123
+    depends_on:
+      - api
+      - nginx
   nginx:
     build: 
       context: ./nginx
