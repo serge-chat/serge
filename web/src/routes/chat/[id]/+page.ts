@@ -3,7 +3,8 @@ import type { PageLoad } from "./$types";
 type question = {
   _id: string;
   question: string;
-  answer: string;
+  answer?: string;
+  error?: string;
 };
 
 type params = {

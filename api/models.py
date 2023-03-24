@@ -4,7 +4,7 @@ from uuid import UUID, uuid4
 from pydantic import Field
 
 from datetime import datetime
-
+from enum import Enum
 
 class ChatParameters(Document):
     model: str = Field(default="ggml-alpaca-13b-q4.bin")
@@ -25,7 +25,9 @@ class ChatParameters(Document):
 
 class Question(Document):
     question: str
-    answer: str
+    answer: Optional[str]
+    error: Optional[str]
+
 
 
 class Chat(Document):
