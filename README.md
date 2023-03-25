@@ -19,7 +19,7 @@ git clone https://github.com/nsarrazin/serge.git
 cd serge
 
 docker compose up -d
-docker compose exec serge python3 /usr/src/app/utils/download.py tokenizer 7B
+docker compose exec serge python3 /usr/src/app/api/utils/download.py tokenizer 7B
 ```
 
 #### Windows
