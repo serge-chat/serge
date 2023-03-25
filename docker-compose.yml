@@ -6,12 +6,12 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - data:/data/db
+      - datadb:/data/db
       - weights:/usr/src/app/weights/
       - /etc/localtime:/etc/localtime:ro 
     ports:
       - "8008:8008"
 
 volumes:
-  data:
+  datadb:
   weights:
