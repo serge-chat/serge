@@ -5,22 +5,30 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## Bug description
-        Please provide a bug description with expected beavior vs. actual behavior.
-        
-        ## Steps to reproduce
+        Thanks for taking the time to fill out this bug report!
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug description
+      description: Please provide a bug description with expected beavior vs. actual behavior.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce 
+      description: Please provide a step by step guide to recreate the issue.
+      placeholder: |
         Please provide steps to reproduce the behavior.
 
         1. Step 1
         2. Step 2
         3. Step 3
         4. ...
-
-        ## Screenshots
-        Please include screenshots if relevant.
-
-        ## Logs
-        Please include your logs! `docker compose logs` should give you the full logs you need.
+    validations:
+      required: true
 
   - type: textarea
     id: environment
@@ -32,8 +40,24 @@ body:
         OS: (e.g., Windows, macOS, Linux)
         OS version: (e.g., Windows 10, macOS 11.4, Ubuntu 20.04)
         CPU Model: (e.g., Intel Core i7-9700K, AMD Ryzen 5 3600)
+        Browser: (if relevant) 
     validations:
       required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Please provide screenshots if relevant.
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
 
   - type: checkboxes
     id: confirmations
