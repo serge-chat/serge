@@ -24,9 +24,10 @@ docker compose exec serge python3 /usr/src/app/api/utils/download.py tokenizer 7
 
 #### Windows
 
+:warning: For cloning on windows, use `git clone https://github.com/nsarrazin/serge.git --config core.autocrlf=input`.  
+
 Make sure you have docker desktop installed, WSL2 configured and enough free RAM to run models. (see below)
 
-For cloning on windows, use `git clone https://github.com/nsarrazin/serge.git --config core.autocrlf=input`.  
 
 ### Using serge
 
