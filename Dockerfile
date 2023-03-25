@@ -1,4 +1,4 @@
-FROM gcc:12 as llama_builder 
+FROM gcc:11 as llama_builder 
 
 WORKDIR /tmp
 
