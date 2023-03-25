@@ -1,6 +1,5 @@
 FROM ghcr.io/ggerganov/llama.cpp:light-19726169b379bebc96189673a19b89ab1d307659 as llama_builder 
 
-RUN mv main llama
 
 # Copy over rest of the project files
 
@@ -35,7 +34,7 @@ COPY ./api/requirements.txt api/requirements.txt
 RUN pip install -r ./api/requirements.txt
 
 # copy llama binary from llama_builder
-COPY --from=llama_builder /llama /usr/bin/llama
+COPY --from=llama_builder /main /usr/bin/llama
 
 # copy built webserver from web_builder
 COPY ./web/package.json web/
