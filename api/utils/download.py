@@ -49,7 +49,7 @@ def download_models(models: List[str]):
 if __name__ == "__main__":
     args = parse_args()
 
-    print("Downloading models from HuggingFace")
+    print("Downloading models from Hugging Face")
     download_models(args.model)
 
     print("Converting models to the current format")
