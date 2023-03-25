@@ -1,4 +1,4 @@
-FROM ghcr.io/ggerganov/llama.cpp:light as llama_builder 
+FROM ghcr.io/ggerganov/llama.cpp:light-19726169b379bebc96189673a19b89ab1d307659 as llama_builder 
 
 RUN mv main llama
 
