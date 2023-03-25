@@ -9,8 +9,6 @@ services:
       - data:/data/db
       - weights:/usr/src/app/weights/
       - /etc/localtime:/etc/localtime:ro 
-    env_file:
-      - .env
     ports:
       - "8008:8008"
 
