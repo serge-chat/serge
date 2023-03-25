@@ -1,11 +1,11 @@
 name: Bug report
-description: Create a report to help us improve Serge!
+description: Create a report to help us improve Serge.
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report!
+        Thanks for taking the time to fill out this bug report.
 
   - type: textarea
     id: description
@@ -26,7 +26,6 @@ body:
         1. Step 1
         2. Step 2
         3. Step 3
-        4. ...
     validations:
       required: true
 
