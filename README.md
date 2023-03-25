@@ -14,9 +14,6 @@ A chat interface based on `llama.cpp` for running Alpaca models. Entirely self-h
 ## Getting started
 
 Setting up Serge is very easy. TLDR for running it with Alpaca 7B:
-
-#### Linux
-
 ```
 git clone https://github.com/nsarrazin/serge.git
 cd serge
