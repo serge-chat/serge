@@ -1,12 +1,6 @@
-FROM gcc:10.2 as builder 
+FROM ghcr.io/ggerganov/llama.cpp:light as builder 
 
-WORKDIR /tmp
-
-RUN git clone https://github.com/ggerganov/llama.cpp.git --branch master-d5850c5
-
-RUN cd llama.cpp && \
-    make && \
-    mv main llama
+RUN mv main llama
 
 FROM ubuntu:latest
 WORKDIR /usr/src/app
@@ -18,4 +12,4 @@ RUN pip install --upgrade pip
 COPY ./requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-COPY --from=builder /tmp/llama.cpp/llama /usr/bin/llama
+COPY --from=builder /llama /usr/bin/llama
