@@ -143,6 +143,15 @@ async def get_specific_chat(chat_id: str):
 
     return chat
 
+@app.delete("/chat/{chat_id}", tags=["chats"])
+async def delete_chat(chat_id: str):
+    chat = await Chat.get(chat_id)
+    deleted_chat = await chat.delete()
+
+    if deleted_chat:
+        return {"message": f"Deleted chat with id: {chat_id}"}
+    else:
+        raise HTTPException(status_code=404, detail="No chat found with the given id.")
 
 async def on_close(chat, prompt, answer=None, error=None):
     question = await Question(question=prompt.rstrip(), 

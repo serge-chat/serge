@@ -1,7 +1,25 @@
 <script lang="ts">
   import "../app.css";
   import type { LayoutData } from "./$types";
+  import { invalidate, goto } from "$app/navigation";
+  import { page } from "$app/stores";
   export let data: LayoutData;
+
+  $: deleteConfirm = false;
+
+  async function deleteChat(chatID: string) {
+    var response = await fetch("/api/chat/" + chatID, { method: "DELETE" });
+    if (response.status == 200) {
+      await goto("/");
+      await invalidate("/api/chats");
+    } else {
+      alert("Error " + response.status + ": " + response.statusText);
+    }
+  }
+
+  function toggleDeleteConfirm() {
+    deleteConfirm = !deleteConfirm;
+  }
 
   function timeSince(datestring: string) {
     const date = new Date(datestring);
@@ -56,6 +74,31 @@
               <div>
                 <span class="font-semibold">{chat.model}</span>
                 <span class="ml-3">{timeSince(chat.created) + " ago"}</span>
+                {#if $page.params.id == chat.id}
+                  {#if deleteConfirm}
+                    <button
+                      name="confirm-delete"
+                      class="btn btn-ghost btn-sm"
+                      on:click|preventDefault={() => deleteChat(chat.id)}
+                    >
+                      ✅
+                    </button>
+                    <button
+                      name="cancel-delete"
+                      class="btn btn-ghost btn-sm"
+                      on:click|preventDefault={toggleDeleteConfirm}
+                    >
+                      ❎
+                    </button>
+                  {:else}
+                    <button
+                      class="btn btn-ghost btn-sm"
+                      on:click|preventDefault={toggleDeleteConfirm}
+                    >
+                      🗑️
+                    </button>
+                  {/if}
+                {/if}
               </div>
               <p class="font-light text-sm">{truncate(chat.subtitle, 100)}</p>
             </div>
