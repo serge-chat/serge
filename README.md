@@ -18,8 +18,8 @@ Setting up Serge is very easy. TLDR for running it with Alpaca 7B:
 git clone https://github.com/nsarrazin/serge.git
 cd serge
 
-docker-compose up -d
-docker-compose exec serge python3 /usr/src/app/api/utils/download.py tokenizer 7B
+docker compose up -d
+docker compose exec serge python3 /usr/src/app/api/utils/download.py tokenizer 7B
 ```
 
 #### Windows
