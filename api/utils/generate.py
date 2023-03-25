@@ -6,16 +6,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def remove_matching_end(a, b):
-    min_length = min(len(a), len(b))
-
-    for i in range(min_length, 0, -1):
-        if a[-i:] == b[:i]:
-            return b[i:]
-
-    return b
-
-
 async def generate(
     prompt: str,
     params: ChatParameters
@@ -49,13 +39,11 @@ async def generate(
         "1",
     )
 
-    logger.info(args)
+    logger.debug(f"Calling LLaMa with arguments", args)
     procLlama = await asyncio.create_subprocess_exec(
         *args, stdout=subprocess.PIPE, stderr=subprocess.PIPE
     )
-
-    answer = ""
-
+    
     while True:
         chunk = await procLlama.stdout.read(CHUNK_SIZE)
 
@@ -74,10 +62,7 @@ async def generate(
         except UnicodeDecodeError:
             return
 
-        answer += chunk
-
-        if prompt in answer:
-            yield remove_matching_end(prompt, chunk)
+        yield chunk
 
 
 async def get_full_prompt_from_chat(chat: Chat, simple_prompt: str):
@@ -89,6 +74,8 @@ async def get_full_prompt_from_chat(chat: Chat, simple_prompt: str):
     
     if chat.questions != None:
         for question in chat.questions:
+            if question.error != None: # skip errored out prompts
+                continue
             prompt += "### Instruction:\n" + question.question + "\n"
             prompt += "### Response:\n" + question.answer + "\n"
 

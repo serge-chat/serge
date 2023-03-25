@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { PageData } from "./$types";
-  import { enhance } from "$app/forms";
+  import { invalidate } from "$app/navigation";
   import { page } from "$app/stores";
 
   export let data: PageData;
@@ -10,45 +10,41 @@
   $: startDate = new Date(data.props.created);
 
   $: prompt = "";
-  $: question = "";
   $: answer = "";
 
   async function askQuestion() {
     if (prompt) {
-      let data = new URLSearchParams();
+      const data = new URLSearchParams();
       data.append("prompt", prompt);
-
-      question = prompt;
-      prompt = "";
-      answer = "LOADING";
 
       const eventSource = new EventSource(
         "/api/chat/" + $page.params.id + "/question?" + data.toString()
       );
 
+      questions = [
+        ...questions,
+        {
+          _id: (questions.length + 1).toString(),
+          question: prompt,
+          answer: "",
+        },
+      ];
+
+      prompt = "";
+
       eventSource.addEventListener("message", (event) => {
-        const output = event.data;
-        if (answer === "LOADING") {
-          answer = output;
-        } else {
-          answer = answer + output;
-        }
+        questions[questions.length - 1].answer += event.data;
       });
 
-      eventSource.onerror = (error) => {
+      eventSource.addEventListener("close", async () => {
         eventSource.close();
+        await invalidate("/api/chat/" + $page.params.id);
+      });
 
-        questions = [
-          ...questions,
-          {
-            _id: (questions.length + 1).toString(),
-            question: question,
-            answer: answer,
-          },
-        ];
-
-        answer = "";
-        question = "";
+      eventSource.onerror = async (error) => {
+        eventSource.close();
+        questions[questions.length - 1].answer = "A server error occurred.";
+        await invalidate("/api/chat/" + $page.params.id);
       };
     }
   }
@@ -74,33 +70,23 @@
           <div
             class="chat-bubble chat-bubble-primary whitespace-pre-line text-lg"
           >
-            {question.answer}
-          </div>
-        </div>
-      {/each}
-      {#if question}
-        <div class="chat chat-end my-2">
-          <div
-            class="chat-bubble chat-bubble-secondary whitespace-pre-line text-lg"
-          >
-            {question}
-          </div>
-        </div>
-        <div class="chat chat-start my-2">
-          <div
-            class="chat-bubble chat-bubble-primary whitespace-pre-line text-lg"
-          >
-            {#if answer === "LOADING"}
-              <div
-                class="radial-progress animate-spin"
-                style="--value:70; --size:2rem;"
-              />
+            {#if question.error}
+              A server error occurred. See below:
+              <div class="font-mono font-thin text-sm text-gray-100 pt-5">
+                {question.error}
+              </div>
             {:else}
-              {answer}
+              {#if question.answer === ""}
+                <div
+                  class="radial-progress animate-spin"
+                  style="--value:70; --size:2rem;"
+                />
+              {/if}
+              {question.answer}
             {/if}
           </div>
         </div>
-      {/if}
+      {/each}
     </div>
   </div>
 
