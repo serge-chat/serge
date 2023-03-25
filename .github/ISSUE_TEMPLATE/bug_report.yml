@@ -1,0 +1,47 @@
+name: Bug report
+description: Create a report to help us improve Serge!
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Bug description
+        Please provide a bug description with expected beavior vs. actual behavior.
+        
+        ## Steps to reproduce
+        Please provide steps to reproduce the behavior.
+
+        1. Step 1
+        2. Step 2
+        3. Step 3
+        4. ...
+
+        ## Screenshots
+        Please include screenshots if relevant.
+
+        ## Logs
+        Please include your logs! `docker compose logs` should give you the full logs you need.
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment Information
+      description: Please provide the following information about your environment.
+      placeholder: |
+        Docker version: (run `docker --version`)
+        OS: (e.g., Windows, macOS, Linux)
+        OS version: (e.g., Windows 10, macOS 11.4, Ubuntu 20.04)
+        CPU Model: (e.g., Intel Core i7-9700K, AMD Ryzen 5 3600)
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      description: Please verify you meet those criterias to make it easier to help you.
+      options:
+        - label: I'm running the latest version of the main branch.
+          required: true
+        - label: I checked existing issues to see if this has already been described.
+          required: true

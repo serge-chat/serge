@@ -1,40 +1,17 @@
 version: "3.9"
 services:
-  api:
+  serge:
+    restart: on-failure
     build: 
-      context: ./api
-      dockerfile: ./Dockerfile.api
+      context: .
+      dockerfile: Dockerfile
     volumes:
-      - ./api:/usr/src/app/
+      - datadb:/data/db
       - weights:/usr/src/app/weights/
       - /etc/localtime:/etc/localtime:ro 
-    depends_on:
-      - mongodb
-    env_file:
-      - .env
-    command: uvicorn main:app --reload --host 0.0.0.0 --port 9124 --root-path /api/
-
-  mongodb:
-      image: mongo:4.4.18
-      ports:
-        - "27017"
-      volumes:
-        - data:/data/db
-
-  web:
-    restart: on-failure
-    build:
-      context: ./web
-      dockerfile: ./Dockerfile.web
-    volumes:
-      - ./web:/usr/src/app/
-      - /usr/src/app/node_modules
-    command: npm run dev -- --host 0.0.0.0 --port 9123
-    depends_on:
-      - api
     ports:
-     - "${PORT}:9123"
+      - "8008:8008"
 
 volumes:
-  data:
+  datadb:
   weights:

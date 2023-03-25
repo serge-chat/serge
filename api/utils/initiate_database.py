@@ -8,20 +8,12 @@ from models import Question, Chat, ChatParameters
 
 
 class Settings(BaseSettings):
-    # database configurations
-    DATABASE_URL: Optional[str] = None
-
-    # JWT
-    secret_key: str
-    algorithm: str = "HS256"
-
     class Config:
-        env_file = ".env"
         orm_mode = True
 
 
 async def initiate_database():
-    client = AsyncIOMotorClient(Settings().DATABASE_URL)
+    client = AsyncIOMotorClient("mongodb://localhost:27017/lms")
     await init_beanie(
         database=client.get_default_database(),
         document_models=[Question, Chat, ChatParameters],
