@@ -35,9 +35,9 @@ def download_models(models: List[str]):
         huggingface_hub.hf_hub_download(
             repo_id=repo_id,
             filename=filename,
-            local_dir="weights",
+            local_dir="/usr/src/app/api/weights",
             local_dir_use_symlinks=False,
-            cache_dir="weights/.cache",
+            cache_dir="/usr/src/app/api/weights/.cache",
         )
 
         if filename == "ggml-model-q4_0.bin":
