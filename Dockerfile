@@ -1,12 +1,6 @@
-FROM gcc:11 as llama_builder 
+FROM ghcr.io/ggerganov/llama.cpp:light as llama_builder 
 
-WORKDIR /tmp
-
-RUN git clone https://github.com/ggerganov/llama.cpp.git --branch master-d5850c5
-
-RUN cd llama.cpp && \
-    make && \
-    mv main llama
+RUN mv main llama
 
 # Copy over rest of the project files
 
@@ -41,7 +35,7 @@ COPY ./api/requirements.txt api/requirements.txt
 RUN pip install -r ./api/requirements.txt
 
 # copy llama binary from llama_builder
-COPY --from=llama_builder /tmp/llama.cpp/llama /usr/bin/llama
+COPY --from=llama_builder /llama /usr/bin/llama
 
 # copy built webserver from web_builder
 COPY ./web/package.json web/
