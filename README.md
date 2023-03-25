@@ -21,7 +21,7 @@ git clone https://github.com/nsarrazin/serge.git && cd serge
 cp .env.sample .env
 
 docker compose up -d
-docker compose exec api python3 /usr/src/app/utils/download.py tokenizer 7B
+docker compose exec serge python3 /usr/src/app/api/utils/download.py tokenizer 7B
 ```
 
 (You can pass `7B 13B 30B` as an argument to download multiple models.)

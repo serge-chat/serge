@@ -78,14 +78,14 @@ def dep_models_ready() -> list[str]:
             }
         )
 
-    files = os.listdir("weights")
+    files = os.listdir("/usr/src/app/weights")
     files = list(filter(lambda x: x.endswith(".bin"), files))
     return files
 
 
 async def convert_model_files():
     global MODEL_IS_READY
-    await anyio.to_thread.run_sync(convert_all, "weights/", "weights/tokenizer.model")
+    await anyio.to_thread.run_sync(convert_all, "/usr/src/app/weights/", "/usr/src/app/weights/tokenizer.model")
     MODEL_IS_READY = True
     logger.info("models are ready")
 

@@ -35,14 +35,14 @@ def download_models(models: List[str]):
         huggingface_hub.hf_hub_download(
             repo_id=repo_id,
             filename=filename,
-            local_dir="/usr/src/app/api/weights",
+            local_dir="/usr/src/app/weights",
             local_dir_use_symlinks=False,
-            cache_dir="/usr/src/app/api/weights/.cache",
+            cache_dir="/usr/src/app/weights/.cache",
         )
 
         if filename == "ggml-model-q4_0.bin":
             os.rename(
-                "weights/ggml-model-q4_0.bin", f"weights/ggml-alpaca-{model}-q4_0.bin"
+                "/usr/src/app/weights/ggml-model-q4_0.bin", f"/usr/src/app/weights/ggml-alpaca-{model}-q4_0.bin"
             )
 
 
@@ -53,4 +53,4 @@ if __name__ == "__main__":
     download_models(args.model)
 
     print("Converting models to the current format")
-    convert_all("weights", "weights/tokenizer.model")
+    convert_all("/usr/src/app/weights", "/usr/src/app/weights/tokenizer.model")
