@@ -215,6 +215,7 @@ async def ask_a_question(chat_id: str, prompt: str):
     full_prompt = await get_full_prompt_from_chat(chat, prompt)
     
     answer = ""
+    error = None
 
     try:
         async for output in generate(
@@ -223,8 +224,10 @@ async def ask_a_question(chat_id: str, prompt: str):
         ):
             await asyncio.sleep(0.1)
             answer += output
+    except Exception as e:
+            error = e.__str__()
     finally:
-        await on_close(chat, prompt, answer)
+        await on_close(chat, prompt, answer=answer[len(full_prompt)+1:], error=error)
 
     return {"question" : prompt, "answer" : answer[len(full_prompt)+1:]}
 
