@@ -108,7 +108,7 @@ def list_of_installed_models(
 
 @app.post("/chat", tags=["chats"])
 async def create_new_chat(
-    model: str = "ggml-alpaca-13b-q4.bin",
+    model: str = "ggml-alpaca-7B-q4_0.bin",
     temperature: float = 0.1,
     top_k: int = 50,
     top_p: float = 0.95,
@@ -207,6 +207,26 @@ async def stream_ask_a_question(chat_id: str, prompt: str):
 
     return EventSourceResponse(event_generator())
 
+@app.post("/chat/{chat_id}/question", dependencies=[Depends(dep_models_ready)])
+async def ask_a_question(chat_id: str, prompt: str):
+    chat = await Chat.get(chat_id)
+    await chat.fetch_link(Chat.parameters)
+
+    full_prompt = await get_full_prompt_from_chat(chat, prompt)
+    
+    answer = ""
+
+    try:
+        async for output in generate(
+            prompt=full_prompt,
+            params=chat.parameters,
+        ):
+            await asyncio.sleep(0.1)
+            answer += output
+    finally:
+        await on_close(chat, prompt, answer)
+
+    return {"question" : prompt, "answer" : answer[len(full_prompt)+1:]}
 
 @app.get("/chats", tags=["chats"])
 async def get_all_chats():

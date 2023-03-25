@@ -7,7 +7,7 @@ from datetime import datetime
 from enum import Enum
 
 class ChatParameters(Document):
-    model: str = Field(default="ggml-alpaca-13b-q4.bin")
+    model: str = Field(default="ggml-alpaca-7B-q4_0.bin")
     temperature: float = Field(default=0.1)
 
     top_k: int = Field(default=50)
