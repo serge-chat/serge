@@ -29,6 +29,10 @@ docker compose exec serge python3 /usr/src/app/api/utils/download.py tokenizer 7
 Make sure you have docker desktop installed, WSL2 configured and enough free RAM to run models. (see below)
 
 
+#### Kubernetes
+
+Setting up Serge on Kubernetes can be found in the wiki: https://github.com/nsarrazin/serge/wiki/Integrating-Serge-in-your-orchestration#kubernetes-example
+
 ### Using serge
 
 (You can pass `7B 13B 30B` as an argument to the `download.py` script to download multiple models.)
