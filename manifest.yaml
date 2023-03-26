@@ -4,7 +4,7 @@ kind: Service
 metadata:
   labels:
     app: serge
-  name: serge
+  name: $(SERVICE_NAME)
   namespace: serge-ai
 spec:
   ports:
@@ -36,10 +36,8 @@ spec:
       labels:
         app: serge
     spec:
-      imagePullSecrets: 
-      - name: regcred
       containers:
-        - image: registry.internal.fenark.com/fenark/container-image-registry/serge:0.3.1
+        - image: $(DOCKER_IMAGE)
           name: serge
           ports:
             - containerPort: 8008
