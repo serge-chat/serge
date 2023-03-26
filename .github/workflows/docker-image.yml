@@ -45,6 +45,9 @@ jobs:
           file: ${{ matrix.dockerfile }}
           context: ${{ matrix.context }}
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: | 
+            ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{steps.meta.outputs.tags }}
+            ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:release
+
           labels: ${{ steps.meta.outputs.labels }}
       
