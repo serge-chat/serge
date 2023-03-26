@@ -1,4 +1,4 @@
-FROM ghcr.io/ggerganov/llama.cpp:light-19726169b379bebc96189673a19b89ab1d307659 as llama_builder 
+FROM ghcr.io/ggerganov/llama.cpp:light-34c1072e497eb92d81ee7c0e12aa6741496a41c6 as llama_builder 
 
 
 # Copy over rest of the project files
