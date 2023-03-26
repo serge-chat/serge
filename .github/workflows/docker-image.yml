@@ -1,8 +1,8 @@
 name: Create and publish a Docker image
 
 on:
-  push:
-    branches: ['release']
+  release:
+    types: [published]
 
 env:
   REGISTRY: ghcr.io
@@ -46,6 +46,5 @@ jobs:
           context: ${{ matrix.context }}
           push: true
           tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:release
-
           labels: ${{ steps.meta.outputs.labels }}
       
