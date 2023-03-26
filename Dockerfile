@@ -40,12 +40,13 @@ COPY ./api/requirements.txt api/requirements.txt
 RUN pip install -r ./api/requirements.txt
 
 WORKDIR /usr/src/app
-# copy package files
-COPY ./web/package.json .
-COPY ./web/package-lock.json .
-RUN npm install
 
-ENV NODE_PATH=/usr/src/app/node_modules
+# copy package files
+COPY web/package*.json ./
+RUN npm install && npm cache clean --force
+ENV PATH=/usr/src/app/node_modules/.bin:$PATH
+
+WORKDIR /usr/src/app
 
 # copy llama binary from llama_builder
 COPY --from=llama_builder /tmp/llama.cpp/llama /usr/bin/llama
@@ -61,15 +62,17 @@ CMD /usr/src/app/dev.sh
 FROM base as deployment
 
 ENV NODE_ENV='production'
-COPY ./web /usr/src/app/web/
+WORKDIR /usr/src/app/web
 
-RUN cd web && npm run build
-RUN cd web && npm ci --omit dev
+COPY ./web /usr/src/app/
+
+RUN npm run build
+RUN npm ci --omit dev
+
+WORKDIR /usr/src/app
 
 COPY ./api /usr/src/app/api
-
 
 COPY deploy.sh /usr/src/app/deploy.sh
 RUN chmod +x /usr/src/app/deploy.sh
 CMD /usr/src/app/deploy.sh
-

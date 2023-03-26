@@ -2,6 +2,8 @@
 
 mongod &
 
+mv /usr/src/app/node_modules /usr/src/app/web/node_modules -r
+
 # Start the web server
 cd web && HOST=0.0.0.0 PORT=8008 node build &
   

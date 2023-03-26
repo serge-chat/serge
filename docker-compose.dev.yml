@@ -11,7 +11,7 @@ services:
       - ./api:/usr/src/app/api/
       - datadb:/data/db
       - weights:/usr/src/app/weights/
-      - /etc/localtime:/etc/localtime:ro 
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - "8008:8008"
 
