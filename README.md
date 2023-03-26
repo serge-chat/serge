@@ -31,14 +31,7 @@ Make sure you have docker desktop installed, WSL2 configured and enough free RAM
 
 #### Kubernetes
 
-Setting up Serge on Kubernetes is as follow:
-```
-kubectl create ns serge-ai
-kubectl apply -f manifest.yaml
-
-kubectl exec -it $PODNAME -n serge-ai python3 /usr/src/app/api/utils/download.py tokenizer 7B
-```
-It is possible to change the service type to LoadBalancer or NodePort depending on your infrastructure.
+Setting up Serge on Kubernetes can be found in the wiki: https://github.com/nsarrazin/serge/wiki/Integrating-Serge-in-your-orchestration#kubernetes-example
 
 ### Using serge
 
