@@ -4,7 +4,7 @@ kind: Service
 metadata:
   labels:
     app: serge
-  name: $(SERVICE_NAME)
+  name: serge
   namespace: serge-ai
 spec:
   ports:
