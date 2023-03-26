@@ -14,6 +14,17 @@ A chat interface based on `llama.cpp` for running Alpaca models. Entirely self-h
 ## Getting started
 
 Setting up Serge is very easy. TLDR for running it with Alpaca 7B:
+
+```
+git clone https://github.com/nsarrazin/serge.git
+cd serge
+
+docker compose -f docker-compose.prebuilt.yml up -d
+docker compose exec serge python3 /usr/src/app/api/utils/download.py tokenizer 7B
+```
+
+Or if you prefer to build the container from source:
+
 ```
 git clone https://github.com/nsarrazin/serge.git
 cd serge
@@ -24,10 +35,9 @@ docker compose exec serge python3 /usr/src/app/api/utils/download.py tokenizer 7
 
 #### Windows
 
-:warning: For cloning on windows, use `git clone https://github.com/nsarrazin/serge.git --config core.autocrlf=input`.  
+:warning: For cloning on windows, use `git clone https://github.com/nsarrazin/serge.git --config core.autocrlf=input`.
 
 Make sure you have docker desktop installed, WSL2 configured and enough free RAM to run models. (see below)
-
 
 ### Using serge
 
