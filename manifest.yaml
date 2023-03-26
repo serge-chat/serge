@@ -1,0 +1,93 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: serge
+  name: serge
+  namespace: serge-ai
+spec:
+  ports:
+    - name: "8008"
+      port: 8008
+      targetPort: 8008
+    - name: "9124"
+      port: 9124
+      targetPort: 9124
+  selector:
+    app: serge
+status:
+  loadBalancer: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: serge
+  name: serge
+  namespace: serge-ai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: serge
+  template:
+    metadata:
+      labels:
+        app: serge
+    spec:
+      imagePullSecrets: 
+      - name: regcred
+      containers:
+        - image: registry.internal.fenark.com/fenark/container-image-registry/serge:0.3.1
+          name: serge
+          ports:
+            - containerPort: 8008
+            - containerPort: 9124
+          resources: {}
+          volumeMounts:
+            - mountPath: /data/db
+              name: datadb
+            - mountPath: /usr/src/app/weights
+              name: weights
+      restartPolicy: Always
+      volumes:
+        - name: datadb
+          persistentVolumeClaim:
+            claimName: datadb
+        - name: weights
+          persistentVolumeClaim:
+            claimName: weights
+status: {}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: serge
+  name: weights
+  namespace: serge-ai
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 64Gi
+status: {}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: serge
+  name: datadb
+  namespace: serge-ai
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 16Gi
+status: {}
+
+
