@@ -53,7 +53,7 @@ async def generate(
             if return_code != 0:
                 error_output = await procLlama.stderr.read()
                 logger.error(error_output.decode("utf-8"))
-                raise ValueError(error_output.decode("utf-8"))
+                raise ValueError(f"RETURN CODE {return_code}\n\n"+error_output.decode("utf-8"))
             else:
                 return
 

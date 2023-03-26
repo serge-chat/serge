@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  serge:
+    restart: on-failure
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    volumes:
+      - ./web:/usr/src/app/web/
+      - ./api:/usr/src/app/api/
+      - datadb:/data/db
+      - weights:/usr/src/app/weights/
+      - /etc/localtime:/etc/localtime:ro 
+    ports:
+      - "8008:8008"
+
+volumes:
+  datadb:
+  weights:

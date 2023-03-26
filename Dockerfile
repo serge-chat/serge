@@ -10,7 +10,7 @@ RUN cd llama.cpp && \
 
 # Copy over rest of the project files
 
-FROM ubuntu:22.04 as deployment
+FROM ubuntu:22.04 as base
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Amsterdam
@@ -35,27 +35,41 @@ RUN echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mon
 RUN apt-get update
 RUN apt-get install -y mongodb-org
 
-
 # install requirements
 COPY ./api/requirements.txt api/requirements.txt
 RUN pip install -r ./api/requirements.txt
 
+WORKDIR /usr/src/app
+# copy package files
+COPY ./web/package.json .
+COPY ./web/package-lock.json .
+RUN npm install
+
+ENV NODE_PATH=/usr/src/app/node_modules
+
 # copy llama binary from llama_builder
 COPY --from=llama_builder /tmp/llama.cpp/llama /usr/bin/llama
 
-# copy built webserver from web_builder
-COPY ./web/package.json web/
-COPY ./web/package-lock.json web/
-# Install Node modules
-RUN cd web && npm install
 
+FROM base as dev
+ENV NODE_ENV='development'
+
+COPY dev.sh /usr/src/app/dev.sh
+RUN chmod +x /usr/src/app/dev.sh
+CMD /usr/src/app/dev.sh
+
+FROM base as deployment
+
+ENV NODE_ENV='production'
 COPY ./web /usr/src/app/web/
 
-#copy api folder
+RUN cd web && npm run build
+RUN cd web && npm ci --omit dev
+
 COPY ./api /usr/src/app/api
 
-# get the deploy script with the right permissions
+
 COPY deploy.sh /usr/src/app/deploy.sh
 RUN chmod +x /usr/src/app/deploy.sh
-
 CMD /usr/src/app/deploy.sh
+
