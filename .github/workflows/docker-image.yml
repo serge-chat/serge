@@ -52,6 +52,7 @@ jobs:
         with:
           file: ${{ matrix.dockerfile }}
           context: ${{ matrix.context }}
+          platforms: "linux/arm64,linux/arm/v6,linux/arm/v7,linux/amd64"
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
