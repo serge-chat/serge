@@ -14,25 +14,42 @@ A chat interface based on `llama.cpp` for running Alpaca models. Entirely self-h
 ## Getting started
 
 Setting up Serge is very easy. TLDR for running it with Alpaca 7B:
-
 ```
-git clone https://github.com/nsarrazin/serge.git && cd serge
-
-cp .env.sample .env
+git clone https://github.com/nsarrazin/serge.git
+cd serge
 
 docker compose up -d
-docker compose exec api python3 /usr/src/app/utils/download.py tokenizer 7B
+docker compose exec serge python3 /usr/src/app/api/utils/download.py tokenizer 7B
 ```
 
-(You can pass `7B 13B 30B` as an argument to download multiple models.)
+#### Windows
+
+:warning: For cloning on windows, use `git clone https://github.com/nsarrazin/serge.git --config core.autocrlf=input`.  
+
+Make sure you have docker desktop installed, WSL2 configured and enough free RAM to run models. (see below)
+
+
+### Using serge
+
+(You can pass `7B 13B 30B` as an argument to the `download.py` script to download multiple models.)
 
 Then just go to http://localhost:8008/ and you're good to go!
+
+The API is available at http://localhost:8008/api/
 
 ## Models
 
 Currently only the 7B, 13B and 30B alpaca models are supported. There's a download script for downloading them inside of the container, described above.
 
-If you have existing weights from another project you can add them to the `api/weights` folder and they will be automatically copied on build.
+If you have existing weights from another project you can add them to the `serge_weights` volume using `docker cp`.
+
+### :warning: A note on _memory usage_
+
+llama will just crash if you don't have enough available memory for your model.
+
+- 7B requires about 4.5GB of free RAM
+- 13B requires about 12GB free
+- 30B requires about 20GB free
 
 ## Support
 

@@ -1,0 +1,70 @@
+name: Bug report
+description: Create a report to help us improve Serge.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug description
+      description: Please provide a bug description with expected beavior vs. actual behavior.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce 
+      description: Please provide a step by step guide to recreate the issue.
+      placeholder: |
+        Please provide steps to reproduce the behavior.
+
+        1. Step 1
+        2. Step 2
+        3. Step 3
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment Information
+      description: Please provide the following information about your environment.
+      placeholder: |
+        Docker version: (run `docker --version`)
+        OS: (e.g., Windows, macOS, Linux)
+        OS version: (e.g., Windows 10, macOS 11.4, Ubuntu 20.04)
+        CPU Model: (e.g., Intel Core i7-9700K, AMD Ryzen 5 3600)
+        Browser: (if relevant) 
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Please provide screenshots if relevant.
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      description: Please verify you meet those criterias to make it easier to help you.
+      options:
+        - label: I'm running the latest version of the main branch.
+          required: true
+        - label: I checked existing issues to see if this has already been described.
+          required: true
