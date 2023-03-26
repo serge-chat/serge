@@ -13,7 +13,7 @@ class Settings(BaseSettings):
 
 
 async def initiate_database():
-    client = AsyncIOMotorClient("mongodb://localhost:27017/lms")
+    client = AsyncIOMotorClient("mongodb://mongodb:27017/lms")
     await init_beanie(
         database=client.get_default_database(),
         document_models=[Question, Chat, ChatParameters],

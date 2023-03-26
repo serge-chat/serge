@@ -10,7 +10,7 @@ RUN cd llama.cpp && \
 
 # Copy over rest of the project files
 
-FROM ubuntu:22.04 as deployment
+FROM debian:stable-slim as deployment
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Amsterdam
@@ -25,16 +25,6 @@ RUN pip install --upgrade pip
 # install nodejs
 RUN curl -sL https://deb.nodesource.com/setup_19.x | bash
 RUN apt-get install nodejs
-
-
-# MongoDB
-RUN wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | apt-key add -
-RUN echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-6.0.list
-
-
-RUN apt-get update
-RUN apt-get install -y mongodb-org
-
 
 # install requirements
 COPY ./api/requirements.txt api/requirements.txt

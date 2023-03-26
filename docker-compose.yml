@@ -1,12 +1,17 @@
 version: "3.9"
 services:
+  mongodb:
+      image: mongo:4.4.18
+      ports:
+        - "27017"
+      volumes:
+        - datadb:/data/db
   serge:
     restart: on-failure
     build: 
       context: .
       dockerfile: Dockerfile
     volumes:
-      - datadb:/data/db
       - weights:/usr/src/app/weights/
       - /etc/localtime:/etc/localtime:ro 
     ports:
