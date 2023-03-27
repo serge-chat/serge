@@ -1,7 +1,7 @@
 import asyncio
 import logging
 import os
-from psutil import cpu_count
+import psutil
 from typing import Annotated
 
 import anyio
@@ -106,7 +106,7 @@ def list_of_installed_models(
 ):
     return models
 
-THREADS = cpu_count()
+THREADS = len(psutil.Process().cpu_affinity())
 
 @app.post("/chat", tags=["chats"])
 async def create_new_chat(
