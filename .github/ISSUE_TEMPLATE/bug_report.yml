@@ -12,6 +12,7 @@ body:
     attributes:
       label: Bug description
       description: Please provide a bug description with expected beavior vs. actual behavior.
+      placeholder: Don't put your logs here!
     validations:
       required: true
 
