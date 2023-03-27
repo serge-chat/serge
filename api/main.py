@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import os
+from psutil import cpu_count
 from typing import Annotated
 
 import anyio
@@ -105,6 +106,7 @@ def list_of_installed_models(
 ):
     return models
 
+THREADS = cpu_count()
 
 @app.post("/chat", tags=["chats"])
 async def create_new_chat(
@@ -117,7 +119,7 @@ async def create_new_chat(
     repeat_last_n: int = 64,
     repeat_penalty: float = 1.3,
     init_prompt: str = "Below is an instruction that describes a task. Write a response that appropriately completes the request. The response must be accurate, concise and evidence-based whenever possible. A complete answer is always ended by [end of text].",
-    n_threads: int = 4,
+    n_threads: int = THREADS / 2,
 ):
     parameters = await ChatParameters(
         model=model,
