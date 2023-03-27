@@ -8,6 +8,7 @@ from models import Question, Chat, ChatParameters
 
 
 class Settings(BaseSettings):
+    NODE_ENV: str = "development"
     class Config:
         orm_mode = True
 

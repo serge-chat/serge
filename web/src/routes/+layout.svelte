@@ -8,12 +8,13 @@
   $: deleteConfirm = false;
 
   async function deleteChat(chatID: string) {
-    var response = await fetch("/api/chat/" + chatID, { method: "DELETE" });
+    const response = await fetch("/api/chat/" + chatID, { method: "DELETE" });
     if (response.status == 200) {
+      toggleDeleteConfirm();
       await goto("/");
       await invalidate("/api/chats");
     } else {
-      alert("Error " + response.status + ": " + response.statusText);
+      console.error("Error " + response.status + ": " + response.statusText);
     }
   }
 
@@ -23,9 +24,9 @@
 
   function timeSince(datestring: string) {
     const date = new Date(datestring);
-    var seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+    const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
 
-    var interval = seconds / 31536000;
+    let interval = seconds / 31536000;
 
     if (interval > 1) {
       return Math.floor(interval) + " years";
@@ -74,7 +75,7 @@
               <div>
                 <span class="font-semibold">{chat.model}</span>
                 <span class="ml-3">{timeSince(chat.created) + " ago"}</span>
-                {#if $page.params.id == chat.id}
+                {#if $page.params.id === chat.id}
                   {#if deleteConfirm}
                     <button
                       name="confirm-delete"

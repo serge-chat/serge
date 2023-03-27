@@ -10,10 +10,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from beanie.odm.enums import SortDirection
 
 from sse_starlette.sse import EventSourceResponse
-from utils.initiate_database import initiate_database
+from utils.initiate_database import initiate_database, Settings
 from utils.generate import generate, get_full_prompt_from_chat
 from utils.convert import convert_all
 from models import Question, Chat, ChatParameters
+from fastapi.staticfiles import StaticFiles
+from starlette.responses import FileResponse
 
 
 # Configure logging settings
@@ -27,6 +29,8 @@ logging.basicConfig(
 
 # Define a logger for the current module
 logger = logging.getLogger(__name__)
+
+settings = Settings()
 
 tags_metadata = [
     {
@@ -46,6 +50,32 @@ Serge answers your questions poorly using LLaMa/alpaca. 🚀
 app = FastAPI(
     title="Serge", version="0.0.1", description=description, tags_metadata=tags_metadata
 )
+
+api_app = FastAPI(title="Serge API")
+app.mount('/api', api_app)
+
+if settings.NODE_ENV == "production":
+    @app.middleware("http")
+    async def add_custom_header(request, call_next):
+        response = await call_next(request)
+        if response.status_code == 404:
+            return FileResponse('static/200.html')
+        return response
+
+    @app.exception_handler(404)
+    def not_found(request, exc):
+        return FileResponse('static/200.html')
+
+    async def homepage(request):
+        return FileResponse('static/200.html')
+
+    app.route('/', homepage)
+    app.mount('/', StaticFiles(directory='static'))
+
+if settings.NODE_ENV == "development":
+    start_app = api_app
+else:
+    start_app = app
 
 origins = [
     "http://localhost",
@@ -91,7 +121,7 @@ async def convert_model_files():
     logger.info("models are ready")
 
 
-@app.on_event("startup")
+@start_app.on_event("startup")
 async def start_database():
     logger.info("initializing database connection")
     await initiate_database()
@@ -100,7 +130,7 @@ async def start_database():
     asyncio.create_task(convert_model_files())
 
 
-@app.get("/models", tags=["misc."])
+@api_app.get("/models", tags=["misc."])
 def list_of_installed_models(
         models: Annotated[list[str], Depends(dep_models_ready)]
 ):
@@ -108,7 +138,7 @@ def list_of_installed_models(
 
 THREADS = len(psutil.Process().cpu_affinity())
 
-@app.post("/chat", tags=["chats"])
+@api_app.post("/chat", tags=["chats"])
 async def create_new_chat(
     model: str = "ggml-alpaca-7B-q4_0.bin",
     temperature: float = 0.1,
@@ -138,14 +168,14 @@ async def create_new_chat(
     return chat.id
 
 
-@app.get("/chat/{chat_id}", tags=["chats"])
+@api_app.get("/chat/{chat_id}", tags=["chats"])
 async def get_specific_chat(chat_id: str):
     chat = await Chat.get(chat_id)
     await chat.fetch_all_links()
 
     return chat
 
-@app.delete("/chat/{chat_id}", tags=["chats"])
+@api_app.delete("/chat/{chat_id}", tags=["chats"])
 async def delete_chat(chat_id: str):
     chat = await Chat.get(chat_id)
     deleted_chat = await chat.delete()
@@ -177,7 +207,7 @@ def remove_matching_end(a, b):
 
     return b
 
-@app.get("/chat/{chat_id}/question", dependencies=[Depends(dep_models_ready)])
+@api_app.get("/chat/{chat_id}/question", dependencies=[Depends(dep_models_ready)])
 async def stream_ask_a_question(chat_id: str, prompt: str):
     
     chat = await Chat.get(chat_id)
@@ -218,7 +248,7 @@ async def stream_ask_a_question(chat_id: str, prompt: str):
 
     return EventSourceResponse(event_generator())
 
-@app.post("/chat/{chat_id}/question", dependencies=[Depends(dep_models_ready)])
+@api_app.post("/chat/{chat_id}/question", dependencies=[Depends(dep_models_ready)])
 async def ask_a_question(chat_id: str, prompt: str):
     chat = await Chat.get(chat_id)
     await chat.fetch_link(Chat.parameters)
@@ -242,7 +272,7 @@ async def ask_a_question(chat_id: str, prompt: str):
 
     return {"question" : prompt, "answer" : answer[len(full_prompt)+1:]}
 
-@app.get("/chats", tags=["chats"])
+@api_app.get("/chats", tags=["chats"])
 async def get_all_chats():
     res = []
 

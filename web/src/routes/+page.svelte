@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { PageData } from "./$types";
-
+  import { goto, invalidate } from "$app/navigation";
   export let data: PageData;
 
   const modelAvailable = data.models.length > 0;
@@ -18,14 +18,39 @@
 
   let n_threads = 4;
   let ctx_length = 512;
+
+  async function onCreateChat(event: Event) {
+    const form = document.getElementById("form-create-chat") as HTMLFormElement;
+
+    const formData = new FormData(form);
+
+    const convertedFormEntries = Array.from(formData, ([key, value]) => [
+      key,
+      typeof value === "string" ? value : value.name,
+    ]);
+    const searchParams = new URLSearchParams(convertedFormEntries);
+
+    const r = await fetch("/api/chat?" + searchParams.toString(), {
+      method: "POST",
+    });
+
+    console.log(r);
+    if (r.ok) {
+      const data = await r.json();
+      await goto("/chat/" + data);
+      await invalidate("/api/chats");
+    } else {
+      console.log(r.statusText);
+    }
+  }
 </script>
 
 <h1 class="text-3xl font-bold text-center pt-5">Say Hi to Serge!</h1>
-<h1 class="text-xl text-center pt-2 pb-5">
+<h1 class="text-xl font-light text-center pt-2 pb-5">
   An easy way to chat with Alpaca & other LLaMa based models.
 </h1>
 
-<form method="POST" class="p-5">
+<form on:submit|preventDefault={onCreateChat} id="form-create-chat" class="p-5">
   <div class="w-full pb-20">
     <div class="mx-auto w-fit pt-5">
       <button class=" mx-auto btn btn-primary ml-5" disabled={!modelAvailable}
