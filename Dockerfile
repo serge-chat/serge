@@ -73,7 +73,7 @@ WORKDIR /usr/src/app/web/
 RUN npm run build
 
 # Runtime environment
-FROM base as deployment
+FROM base as release
 
 ENV NODE_ENV='production'
 WORKDIR /usr/src/app

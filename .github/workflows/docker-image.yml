@@ -42,6 +42,7 @@ jobs:
       - name: Build and Publish Docker Image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
+          target: release
           file: ${{ matrix.dockerfile }}
           context: ${{ matrix.context }}
           push: true
