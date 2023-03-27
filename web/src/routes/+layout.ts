@@ -11,6 +11,6 @@ export const load: LayoutLoad = async ({ fetch }) => {
   const r = await fetch("/api/chats");
   const chats = (await r.json()) as t[];
   return {
-    chats: chats,
+    chats,
   };
 };
