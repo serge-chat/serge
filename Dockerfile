@@ -57,17 +57,19 @@ ENV NODE_ENV='development'
 
 COPY dev.sh /usr/src/app/dev.sh
 RUN chmod +x /usr/src/app/dev.sh
-CMD /usr/src/app/dev.sh
+CMD ./dev.sh
 
 FROM base as deployment
 
 ENV NODE_ENV='production'
 WORKDIR /usr/src/app/web
 
-COPY ./web /usr/src/app/
+COPY ./web /usr/src/app/web/
 
 RUN npm run build
 RUN npm ci --omit dev
+
+RUN cp -r ./build /usr/src/app/api/static/
 
 WORKDIR /usr/src/app
 
@@ -75,4 +77,4 @@ COPY ./api /usr/src/app/api
 
 COPY deploy.sh /usr/src/app/deploy.sh
 RUN chmod +x /usr/src/app/deploy.sh
-CMD /usr/src/app/deploy.sh
+CMD ./deploy.sh
