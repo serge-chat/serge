@@ -25,17 +25,11 @@ WORKDIR /usr/src/app
 
 # Install MongoDB and necessary tools
 RUN apt update && \
-    apt install -y curl wget gnupg && \
+    apt install -y curl wget gnupg python3-pip && \
     wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | apt-key add - && \
     echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-6.0.list && \
     apt-get update && \
     apt-get install -y mongodb-org
-
-
-# install pip
-RUN apt update && \
-    apt install -y python3-pip
-RUN pip install --upgrade pip
 
 # copy & install python reqs
 COPY ./api/requirements.txt api/requirements.txt
