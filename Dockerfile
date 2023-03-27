@@ -1,14 +1,3 @@
-# Compile llama
-FROM gcc:11 as llama_builder
-
-WORKDIR /tmp
-
-RUN git clone https://github.com/ggerganov/llama.cpp.git --branch master-d5850c5
-
-RUN cd llama.cpp && \
-    make && \
-    mv main llama
-
 # Base image for node
 FROM node:19 as node_base
 
@@ -25,7 +14,7 @@ WORKDIR /usr/src/app
 
 # Install MongoDB and necessary tools
 RUN apt update && \
-    apt install -y curl wget gnupg python3-pip && \
+    apt install -y curl wget gnupg python3-pip git && \
     wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | apt-key add - && \
     echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-6.0.list && \
     apt-get update && \
@@ -36,8 +25,8 @@ COPY ./api/requirements.txt api/requirements.txt
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r ./api/requirements.txt
 
-# Copy files
-COPY --from=llama_builder /tmp/llama.cpp/llama /usr/bin/llama
+COPY compile.sh .
+RUN chmod +x compile.sh
 
 # Dev environment
 FROM base as dev
