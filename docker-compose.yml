@@ -5,6 +5,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
+      target: deployment
     volumes:
       - datadb:/data/db
       - weights:/usr/src/app/weights/
