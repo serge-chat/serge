@@ -30,7 +30,7 @@
     ]);
     const searchParams = new URLSearchParams(convertedFormEntries);
 
-    const r = await fetch("/api/chat?" + searchParams.toString(), {
+    const r = await fetch("/api/chat/?" + searchParams.toString(), {
       method: "POST",
     });
 
@@ -38,7 +38,7 @@
     if (r.ok) {
       const data = await r.json();
       await goto("/chat/" + data);
-      await invalidate("/api/chats");
+      await invalidate("/api/chat/");
     } else {
       console.log(r.statusText);
     }

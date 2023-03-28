@@ -8,7 +8,7 @@ type t = {
 };
 
 export const load: LayoutLoad = async ({ fetch }) => {
-  const r = await fetch("/api/chats");
+  const r = await fetch("/api/chat/");
   const chats = (await r.json()) as t[];
   return {
     chats,

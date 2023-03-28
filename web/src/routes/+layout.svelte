@@ -12,7 +12,7 @@
     if (response.status == 200) {
       toggleDeleteConfirm();
       await goto("/");
-      await invalidate("/api/chats");
+      await invalidate("/api/chat/");
     } else {
       console.error("Error " + response.status + ": " + response.statusText);
     }

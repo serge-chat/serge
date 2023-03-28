@@ -7,6 +7,7 @@ from fastapi.staticfiles import StaticFiles
 from starlette.responses import FileResponse
 
 from serge.routers.chat import chat_router
+from serge.routers.model import model_router
 from serge.utils.initiate_database import initiate_database, Settings
 from serge.dependencies import convert_model_files
 
@@ -52,7 +53,7 @@ app = FastAPI(
 
 api_app = FastAPI(title="Serge API")
 api_app.include_router(chat_router)
-
+api_app.include_router(model_router)
 app.mount('/api', api_app)
 
 # handle serving the frontend as static files in production
