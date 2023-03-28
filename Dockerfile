@@ -12,7 +12,7 @@ ENV TZ=Europe/Amsterdam
 
 WORKDIR /usr/src/app
 
-COPY --chmod=0755 compile.sh .
+COPY --chmod=0755 scripts/compile.sh .
 
 # Install MongoDB and necessary tools
 RUN apt update && \
@@ -34,7 +34,7 @@ COPY --from=node_base /usr/local /usr/local
 COPY ./web/package*.json ./
 RUN npm ci
 
-COPY --chmod=0755 dev.sh /usr/src/app/dev.sh
+COPY --chmod=0755 scripts/dev.sh /usr/src/app/dev.sh
 CMD ./dev.sh
 
 # Build frontend
@@ -58,5 +58,5 @@ COPY ./api /usr/src/app/api
 
 RUN pip install ./api
 
-COPY --chmod=0755 deploy.sh /usr/src/app/deploy.sh
+COPY --chmod=0755 scripts/deploy.sh /usr/src/app/deploy.sh
 CMD ./deploy.sh
