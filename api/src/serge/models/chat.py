@@ -4,7 +4,6 @@ from uuid import UUID, uuid4
 from pydantic import Field
 
 from datetime import datetime
-from enum import Enum
 
 class ChatParameters(Document):
     model: str = Field(default="ggml-alpaca-7B-q4_0.bin")

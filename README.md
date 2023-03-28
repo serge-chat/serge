@@ -22,7 +22,6 @@ cd serge
 docker compose up --build -d
 docker compose exec serge python3 /usr/src/app/api/utils/download.py tokenizer 7B
 ```
-Please note that the models occupy the following storage space: 7B requires 4.21G, 13B requires 8.14G, and 30B requires 20.3G
 
 #### Windows
 

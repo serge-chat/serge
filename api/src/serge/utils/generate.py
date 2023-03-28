@@ -1,5 +1,5 @@
 import subprocess, os
-from models import Chat, ChatParameters
+from serge.models.chat import Chat, ChatParameters
 import asyncio
 import logging
 
@@ -16,7 +16,7 @@ async def generate(
     args = (
         "llama",
         "--model",
-        "/usr/src/app/weights/" + params.model,
+        "/usr/src/app/weights/" + params.model + ".bin",
         "--prompt",
         prompt,
         "--n_predict",
