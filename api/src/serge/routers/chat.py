@@ -6,7 +6,6 @@ from beanie.odm.enums import SortDirection
 
 from serge.models.chat import Question, Chat,ChatParameters
 from serge.utils.generate import generate, get_full_prompt_from_chat
-from serge.dependencies import dep_models_ready
 
 async def on_close(chat, prompt, answer=None, error=None):
     question = await Question(question=prompt.rstrip(), 
@@ -107,7 +106,7 @@ async def delete_chat(chat_id: str):
 
 
 
-@chat_router.get("/{chat_id}/question", dependencies=[Depends(dep_models_ready)])
+@chat_router.get("/{chat_id}/question")
 async def stream_ask_a_question(chat_id: str, prompt: str):
     
     chat = await Chat.get(chat_id)
@@ -147,7 +146,7 @@ async def stream_ask_a_question(chat_id: str, prompt: str):
 
     return EventSourceResponse(event_generator())
 
-@chat_router.post("/{chat_id}/question", dependencies=[Depends(dep_models_ready)])
+@chat_router.post("/{chat_id}/question")
 async def ask_a_question(chat_id: str, prompt: str):
     chat = await Chat.get(chat_id)
     await chat.fetch_link(Chat.parameters)

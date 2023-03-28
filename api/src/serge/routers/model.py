@@ -1,7 +1,5 @@
-from fastapi import APIRouter, HTTPException, Depends
-from typing import Annotated
+from fastapi import APIRouter, HTTPException
 
-from serge.dependencies import dep_models_ready
 from serge.utils.convert import convert_one_file
 import huggingface_hub
 import os
