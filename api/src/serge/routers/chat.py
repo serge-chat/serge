@@ -46,7 +46,7 @@ async def create_new_chat(
     repeat_last_n: int = 64,
     repeat_penalty: float = 1.3,
     init_prompt: str = "Below is an instruction that describes a task. Write a response that appropriately completes the request. The response must be accurate, concise and evidence-based whenever possible. A complete answer is always ended by [end of text].",
-    n_threads: int = 4,
+    n_threads: int = THREADS / 2,
 ):
     parameters = await ChatParameters(
         model=model,
