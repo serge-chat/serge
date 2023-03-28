@@ -1,5 +1,6 @@
 import asyncio
 import logging
+import os
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -15,9 +16,7 @@ from serge.dependencies import convert_model_files
 logging.basicConfig(
     level=logging.INFO,
     format="%(levelname)s:\t%(name)s\t%(message)s",
-    handlers=[
-        logging.StreamHandler()
-    ]
+    handlers=[logging.StreamHandler()],
 )
 
 # Define a logger for the current module
@@ -54,26 +53,27 @@ app = FastAPI(
 api_app = FastAPI(title="Serge API")
 api_app.include_router(chat_router)
 api_app.include_router(model_router)
-app.mount('/api', api_app)
+app.mount("/api", api_app)
 
 # handle serving the frontend as static files in production
 if settings.NODE_ENV == "production":
+
     @app.middleware("http")
     async def add_custom_header(request, call_next):
         response = await call_next(request)
         if response.status_code == 404:
-            return FileResponse('static/200.html')
+            return FileResponse("static/200.html")
         return response
 
     @app.exception_handler(404)
     def not_found(request, exc):
-        return FileResponse('static/200.html')
+        return FileResponse("static/200.html")
 
     async def homepage(request):
-        return FileResponse('static/200.html')
+        return FileResponse("static/200.html")
 
-    app.route('/', homepage)
-    app.mount('/', StaticFiles(directory='static'))
+    app.route("/", homepage)
+    app.mount("/", StaticFiles(directory="static"))
 
     start_app = app
 else:
@@ -82,11 +82,19 @@ else:
 
 @start_app.on_event("startup")
 async def start_database():
+    WEIGHTS = "/usr/src/app/weights/"
+    files = os.listdir(WEIGHTS)
+    files = list(filter(lambda x: x.endswith(".tmp"), files))
+
+    for file in files:
+        os.remove(WEIGHTS + file)
+
     logger.info("initializing database connection")
     await initiate_database()
 
     logger.info("initializing models")
     asyncio.create_task(convert_model_files())
+
 
 app.add_middleware(
     CORSMiddleware,

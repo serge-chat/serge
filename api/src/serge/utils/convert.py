@@ -113,11 +113,10 @@ def convert_all(dir_model: str, tokenizer_model: str):
 
     try:
         tokenizer = SentencePieceProcessor(tokenizer_model)
+        for file in files:
+            convert_one_file(file, tokenizer)
     except OSError:
         print("Missing tokenizer, don't forget to download it!")
-
-    for file in files:
-        convert_one_file(file, tokenizer)
 
 
 if __name__ == "__main__":
