@@ -23,11 +23,7 @@ RUN apt update && \
     apt-get install -y mongodb-org && \
     git clone https://github.com/ggerganov/llama.cpp.git --branch master-d5850c5
 
-
-# copy & install python reqs
-COPY ./api/requirements.txt api/requirements.txt
-RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r ./api/requirements.txt
+RUN pip install --upgrade pip
 
 # Dev environment
 FROM base as dev
