@@ -6,24 +6,16 @@ license = "MIT"
 authors = [ 
     "Nathan Sarrazin <contact@nsarrazin.com>"
 ]
-<<<<<<< HEAD
 
 packages = [
     { include = "serge", from = "src" }
-=======
-packages = [
-    { include = "*", from = "src" }
->>>>>>> 87abd80 (begin working on a refactored API)
 ]
 
 homepage = "https://serge.chat/"
 repository = "https://github.com/nsarrazin/serge"
 
-<<<<<<< HEAD
 include = [{path="src"}]
 
-=======
->>>>>>> 87abd80 (begin working on a refactored API)
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
