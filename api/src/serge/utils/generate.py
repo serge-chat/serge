@@ -16,7 +16,7 @@ async def generate(
     args = (
         "llama",
         "--model",
-        "/usr/src/app/weights/" + params.model,
+        "/usr/src/app/weights/" + params.model + ".bin",
         "--prompt",
         prompt,
         "--n_predict",

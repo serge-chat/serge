@@ -37,7 +37,7 @@ chat_router = APIRouter(
 
 @chat_router.post("/")
 async def create_new_chat(
-    model: str = "ggml-alpaca-7B-q4_0.bin",
+    model: str = "7B",
     temperature: float = 0.1,
     top_k: int = 50,
     top_p: float = 0.95,
