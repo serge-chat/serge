@@ -3,13 +3,14 @@ import huggingface_hub
 import os
 
 from typing import List
-from convert import convert_all
+from serge.utils.convert import convert_all
 
 models_info = {
-    "7B": ["Pi3141/alpaca-7B-ggml", "ggml-model-q4_0.bin"],
-    "13B": ["Pi3141/alpaca-13B-ggml", "ggml-model-q4_0.bin"],
-    "30B": ["Pi3141/alpaca-30B-ggml", "ggml-model-q4_0.bin"],
-    "tokenizer": ["decapoda-research/llama-7b-hf", "tokenizer.model"],
+    "7B": ["nsarrazin/alpaca", "alpaca-7B-ggml/ggml-model-q4_0.bin"],
+    "7B-native": ["nsarrazin/alpaca", "alpaca-native-7B-ggml/ggml-model-q4_0.bin"],
+    "13B": ["nsarrazin/alpaca", "alpaca-13B-ggml/ggml-model-q4_0.bin"],
+    "30B": ["nsarrazin/alpaca", "alpaca-30B-ggml/ggml-model-q4_0.bin"],
+    "tokenizer": ["nsarrazin/alpaca", "alpaca-7B-ggml/tokenizer.model"],
 }
 
 
@@ -21,7 +22,7 @@ def parse_args():
         "model",
         help="Model name",
         nargs="+",
-        choices=["7B", "13B", "30B", "tokenizer"],
+        choices=["7B", "7B-native", "13B", "30B", "tokenizer"],
     )
 
     return parser.parse_args()
