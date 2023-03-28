@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from ..models import Chat, ChatParameters
+from serge.models.chat import Chat, ChatParameters
 from beanie.odm.enums import SortDirection
 
 chat_router = APIRouter(
@@ -7,7 +7,7 @@ chat_router = APIRouter(
     tags=["chat"],
 )
 
-@chat_router.post("/", tags=["chats"])
+@chat_router.post("/")
 async def create_new_chat(
     model: str = "ggml-alpaca-7B-q4_0.bin",
     temperature: float = 0.1,

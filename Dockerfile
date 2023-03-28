@@ -38,10 +38,6 @@ COPY --from=node_base /usr/local /usr/local
 COPY ./web/package*.json ./
 RUN npm ci
 
-# Copy the rest of the project files
-COPY web /usr/src/app/web
-COPY ./api /usr/src/app/api
-
 COPY --chmod=0755 dev.sh /usr/src/app/dev.sh
 CMD ./dev.sh
 
@@ -64,6 +60,7 @@ WORKDIR /usr/src/app
 COPY --from=frontend_builder /usr/src/app/web/build /usr/src/app/api/static/
 COPY ./api /usr/src/app/api
 
-COPY --chmod=0755 deploy.sh /usr/src/app/deploy.sh
+RUN pip install ./api
 
+COPY --chmod=0755 deploy.sh /usr/src/app/deploy.sh
 CMD ./deploy.sh

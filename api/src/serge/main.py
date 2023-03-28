@@ -6,9 +6,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import FileResponse
 
-from routers.chat import chat_router
-from utils.initiate_database import initiate_database, Settings
-from dependencies import convert_model_files
+from serge.routers.chat import chat_router
+from serge.utils.initiate_database import initiate_database, Settings
+from serge.dependencies import convert_model_files
 
 # Configure logging settings
 logging.basicConfig(
@@ -51,8 +51,9 @@ app = FastAPI(
 )
 
 api_app = FastAPI(title="Serge API")
-app.mount('/api', api_app)
+api_app.include_router(chat_router)
 
+app.mount('/api', api_app)
 
 # handle serving the frontend as static files in production
 if settings.NODE_ENV == "production":
@@ -93,5 +94,3 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-api_app.include_router(chat_router, prefix="/chats", tags=["chats"])

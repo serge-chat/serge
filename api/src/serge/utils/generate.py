@@ -1,5 +1,5 @@
 import subprocess, os
-from models import Chat, ChatParameters
+from serge.models.chat import Chat, ChatParameters
 import asyncio
 import logging
 

@@ -6,12 +6,15 @@ license = "MIT"
 authors = [ 
     "Nathan Sarrazin <contact@nsarrazin.com>"
 ]
+
 packages = [
-    { include = "*", from = "src" }
+    { include = "serge", from = "src" }
 ]
 
 homepage = "https://serge.chat/"
 repository = "https://github.com/nsarrazin/serge"
+
+include = [{path="src"}]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

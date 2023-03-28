@@ -2,9 +2,9 @@ import asyncio
 from fastapi import Depends
 from sse_starlette.sse import EventSourceResponse
 
-from chat import chat_router
-from models import Question, Chat
-from utils.generate import generate, get_full_prompt_from_chat
+from serge.routers.chat import chat_router
+from serge.models.chat import Question, Chat
+from serge.utils.generate import generate, get_full_prompt_from_chat
 from ..dependencies import dep_models_ready
 
 async def on_close(chat, prompt, answer=None, error=None):
