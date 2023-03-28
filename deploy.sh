@@ -1,4 +1,5 @@
 #!/bin/bash
+./compile.sh
 
 mongod &
 
