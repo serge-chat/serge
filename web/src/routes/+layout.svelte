@@ -12,7 +12,7 @@
     if (response.status == 200) {
       toggleDeleteConfirm();
       await goto("/");
-      await invalidate("/api/chats");
+      await invalidate("/api/chat/");
     } else {
       console.error("Error " + response.status + ": " + response.statusText);
     }
@@ -69,7 +69,7 @@
         <li>
           <a
             href={"/chat/" + chat.id}
-            class="flex items-center p-2 text-base font-normal rounded-lg hover:bg-gray-700"
+            class="flex items-center p-2 text-base font-normal rounded-lg hover:bg-gray-700 active:bg-gray-800"
           >
             <div class="flex flex-col">
               <div>

@@ -4,7 +4,7 @@
 mongod &
 
 # Start the API
-cd api && uvicorn main:app --host 0.0.0.0 --port 8008 &
+cd api && uvicorn src.serge.main:app --host 0.0.0.0 --port 8008 &
 
 # Wait for any process to exit
 wait -n

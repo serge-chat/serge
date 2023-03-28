@@ -12,7 +12,7 @@ ENV TZ=Europe/Amsterdam
 
 WORKDIR /usr/src/app
 
-COPY --chmod=0755 compile.sh .
+COPY --chmod=0755 scripts/compile.sh .
 
 # Install MongoDB and necessary tools
 RUN apt update && \
@@ -23,11 +23,7 @@ RUN apt update && \
     apt-get install -y mongodb-org && \
     git clone https://github.com/ggerganov/llama.cpp.git --branch master-d5850c5
 
-
-# copy & install python reqs
-COPY ./api/requirements.txt api/requirements.txt
-RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r ./api/requirements.txt
+RUN pip install --upgrade pip
 
 # Dev environment
 FROM base as dev
@@ -38,11 +34,7 @@ COPY --from=node_base /usr/local /usr/local
 COPY ./web/package*.json ./
 RUN npm ci
 
-# Copy the rest of the project files
-COPY web /usr/src/app/web
-COPY ./api /usr/src/app/api
-
-COPY --chmod=0755 dev.sh /usr/src/app/dev.sh
+COPY --chmod=0755 scripts/dev.sh /usr/src/app/dev.sh
 CMD ./dev.sh
 
 # Build frontend
@@ -64,6 +56,7 @@ WORKDIR /usr/src/app
 COPY --from=frontend_builder /usr/src/app/web/build /usr/src/app/api/static/
 COPY ./api /usr/src/app/api
 
-COPY --chmod=0755 deploy.sh /usr/src/app/deploy.sh
+RUN pip install ./api
 
+COPY --chmod=0755 scripts/deploy.sh /usr/src/app/deploy.sh
 CMD ./deploy.sh

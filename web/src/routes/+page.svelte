@@ -3,7 +3,12 @@
   import { goto, invalidate } from "$app/navigation";
   export let data: PageData;
 
-  const modelAvailable = data.models.length > 0;
+  const models = data.models.filter((el) => el.available);
+
+  console.log(models);
+
+  const modelAvailable = models.length > 0;
+  const modelsLabels = models.map((el) => el.name);
 
   let temp = 0.1;
   let top_k = 50;
@@ -30,7 +35,7 @@
     ]);
     const searchParams = new URLSearchParams(convertedFormEntries);
 
-    const r = await fetch("/api/chat?" + searchParams.toString(), {
+    const r = await fetch("/api/chat/?" + searchParams.toString(), {
       method: "POST",
     });
 
@@ -38,14 +43,14 @@
     if (r.ok) {
       const data = await r.json();
       await goto("/chat/" + data);
-      await invalidate("/api/chats");
+      await invalidate("/api/chat/");
     } else {
       console.log(r.statusText);
     }
   }
 </script>
 
-<h1 class="text-3xl font-bold text-center pt-5">Say Hi to Serge!</h1>
+<h1 class="text-3xl font-bold text-center pt-5">Say Hi to Serge 🦙</h1>
 <h1 class="text-xl font-light text-center pt-2 pb-5">
   An easy way to chat with Alpaca & other LLaMa based models.
 </h1>
@@ -53,8 +58,15 @@
 <form on:submit|preventDefault={onCreateChat} id="form-create-chat" class="p-5">
   <div class="w-full pb-20">
     <div class="mx-auto w-fit pt-5">
-      <button class=" mx-auto btn btn-primary ml-5" disabled={!modelAvailable}
-        >Start a new chat</button
+      <button
+        type="submit"
+        class="btn btn-primary mx-5"
+        disabled={!modelAvailable}>Start a new chat</button
+      >
+      <button
+        on:click={() => goto("/models")}
+        type="button"
+        class="btn btn-outline mx-5">Download Models</button
       >
     </div>
   </div>
@@ -162,7 +174,7 @@
         <div class="flex flex-col">
           <label for="model" class="label-text pb-1"> Model choice </label>
           <select name="model" class="select select-bordered w-full max-w-xs">
-            {#each data.models as model}
+            {#each modelsLabels as model}
               <option value={model}>{model}</option>
             {/each}
           </select>
