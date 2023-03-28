@@ -1,8 +1,4 @@
 import asyncio
-import logging
-import os
-import psutil
-from typing import Annotated
 
 from fastapi import APIRouter, HTTPException, Depends
 from sse_starlette.sse import EventSourceResponse
@@ -39,118 +35,7 @@ chat_router = APIRouter(
     tags=["chat"],
 )
 
-# Define a logger for the current module
-logger = logging.getLogger(__name__)
-
-settings = Settings()
-
-tags_metadata = [
-    {
-        "name": "misc.",
-        "description": "Miscellaneous endpoints that don't fit anywhere else",
-    },
-    {
-        "name": "chats",
-        "description": "Used to manage chats",
-    },
-]
-
-description = """
-Serge answers your questions poorly using LLaMa/alpaca. 🚀
-"""
-
-app = FastAPI(
-    title="Serge", version="0.0.1", description=description, tags_metadata=tags_metadata
-)
-
-api_app = FastAPI(title="Serge API")
-app.mount('/api', api_app)
-
-if settings.NODE_ENV == "production":
-    @app.middleware("http")
-    async def add_custom_header(request, call_next):
-        response = await call_next(request)
-        if response.status_code == 404:
-            return FileResponse('static/200.html')
-        return response
-
-    @app.exception_handler(404)
-    def not_found(request, exc):
-        return FileResponse('static/200.html')
-
-    async def homepage(request):
-        return FileResponse('static/200.html')
-
-    app.route('/', homepage)
-    app.mount('/', StaticFiles(directory='static'))
-
-if settings.NODE_ENV == "development":
-    start_app = api_app
-else:
-    start_app = app
-
-origins = [
-    "http://localhost",
-    "http://api:9124",
-    "http://localhost:9123",
-    "http://localhost:9124",
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-MODEL_IS_READY: bool = False
-
-
-def dep_models_ready() -> list[str]:
-    """
-    FastAPI dependency that checks if models are ready.
-
-    Returns a list of available models
-    """
-    if MODEL_IS_READY is False:
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail={
-                "message": "models are not ready"
-            }
-        )
-
-    files = os.listdir("/usr/src/app/weights")
-    files = list(filter(lambda x: x.endswith(".bin"), files))
-    return files
-
-
-async def convert_model_files():
-    global MODEL_IS_READY
-    await anyio.to_thread.run_sync(convert_all, "/usr/src/app/weights/", "/usr/src/app/weights/tokenizer.model")
-    MODEL_IS_READY = True
-    logger.info("models are ready")
-
-
-@start_app.on_event("startup")
-async def start_database():
-    logger.info("initializing database connection")
-    await initiate_database()
-
-    logger.info("initializing models")
-    asyncio.create_task(convert_model_files())
-
-
-@api_app.get("/models", tags=["misc."])
-def list_of_installed_models(
-        models: Annotated[list[str], Depends(dep_models_ready)]
-):
-    return models
-
-THREADS = len(psutil.Process().cpu_affinity())
-
-@api_app.post("/chat", tags=["chats"])
+@chat_router.post("/")
 async def create_new_chat(
     model: str = "7B",
     temperature: float = 0.1,
@@ -161,7 +46,7 @@ async def create_new_chat(
     repeat_last_n: int = 64,
     repeat_penalty: float = 1.3,
     init_prompt: str = "Below is an instruction that describes a task. Write a response that appropriately completes the request. The response must be accurate, concise and evidence-based whenever possible. A complete answer is always ended by [end of text].",
-    n_threads: int = THREADS / 2,
+    n_threads: int = 4,
 ):
     parameters = await ChatParameters(
         model=model,
