@@ -2,9 +2,9 @@
 
 if ! command -v llama &> /dev/null
 then
-    cd /usr/src/app
-    git clone https://github.com/ggerganov/llama.cpp.git --branch master-d5850c5
-    cd llama.cpp
+    cd /usr/src/app/llama.cpp
     make 
     mv main /usr/bin/llama
+    cd /usr/src/app
+    rm -rf llama.cpp
 fi

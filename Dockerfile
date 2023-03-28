@@ -12,21 +12,22 @@ ENV TZ=Europe/Amsterdam
 
 WORKDIR /usr/src/app
 
+COPY --chmod=0755 compile.sh .
+
 # Install MongoDB and necessary tools
 RUN apt update && \
     apt install -y curl wget gnupg python3-pip git && \
     wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | apt-key add - && \
     echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-6.0.list && \
     apt-get update && \
-    apt-get install -y mongodb-org
+    apt-get install -y mongodb-org && \
+    git clone https://github.com/ggerganov/llama.cpp.git --branch master-d5850c5
+
 
 # copy & install python reqs
 COPY ./api/requirements.txt api/requirements.txt
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r ./api/requirements.txt
-
-COPY compile.sh .
-RUN chmod +x compile.sh
 
 # Dev environment
 FROM base as dev
@@ -41,8 +42,7 @@ RUN npm ci
 COPY web /usr/src/app/web
 COPY ./api /usr/src/app/api
 
-COPY dev.sh /usr/src/app/dev.sh
-RUN chmod +x /usr/src/app/dev.sh
+COPY --chmod=0755 dev.sh /usr/src/app/dev.sh
 CMD ./dev.sh
 
 # Build frontend
@@ -64,7 +64,6 @@ WORKDIR /usr/src/app
 COPY --from=frontend_builder /usr/src/app/web/build /usr/src/app/api/static/
 COPY ./api /usr/src/app/api
 
-COPY deploy.sh /usr/src/app/deploy.sh
-RUN chmod +x /usr/src/app/deploy.sh
+COPY --chmod=0755 deploy.sh /usr/src/app/deploy.sh
 
 CMD ./deploy.sh
