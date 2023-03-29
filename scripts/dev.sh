@@ -1,6 +1,4 @@
 #!/bin/bash
-./compile.sh 
-
 pip install -e ./api
 
 mongod &

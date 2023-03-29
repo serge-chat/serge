@@ -1,4 +1,4 @@
-import asyncio
+import asyncio, os
 
 from fastapi import APIRouter, HTTPException, Depends
 from sse_starlette.sse import EventSourceResponse
@@ -86,10 +86,11 @@ async def get_all_chats():
 
     return res
 
-
 @chat_router.get("/{chat_id}")
 async def get_specific_chat(chat_id: str):
     chat = await Chat.get(chat_id)
+    if chat == None:
+        return HTTPException(status_code=404, detail="No chat found with the given id.")
     await chat.fetch_all_links()
 
     return chat
@@ -97,8 +98,16 @@ async def get_specific_chat(chat_id: str):
 @chat_router.delete("/{chat_id}" )
 async def delete_chat(chat_id: str):
     chat = await Chat.get(chat_id)
+    if chat == None:
+        return HTTPException(status_code=404, detail="No chat found with the given id.")
     deleted_chat = await chat.delete()
 
+    try:
+        os.remove("/data/convs/"+chat_id)
+    except OSError as e:
+        print(e) 
+        pass
+    
     if deleted_chat:
         return {"message": f"Deleted chat with id: {chat_id}"}
     else:
@@ -122,14 +131,16 @@ async def stream_ask_a_question(chat_id: str, prompt: str):
         try:
             async for output in generate(
                 prompt=full_prompt,
+                chat_id=chat_id,
                 params=chat.parameters,
             ):
-                await asyncio.sleep(0.1)
+                await asyncio.sleep(0.01)
 
-                chunks.append(output)
-                full_answer += output
                 
+                full_answer += output
+
                 if full_prompt in full_answer:
+                    chunks.append(output)
                     cleaned_chunk = remove_matching_end(full_prompt, output)
                     yield {
                         "event": "message", 
@@ -139,7 +150,7 @@ async def stream_ask_a_question(chat_id: str, prompt: str):
             error = e.__str__()
             yield({"event" : "error"})
         finally:
-            answer = "".join(chunks)[len(full_prompt)+1:]
+            answer = remove_matching_end(full_prompt, "".join(chunks[:])).replace("[end of text]", "")
             await on_close(chat, prompt, answer, error)
             yield({"event" : "close"})
 
@@ -159,6 +170,7 @@ async def ask_a_question(chat_id: str, prompt: str):
     try:
         async for output in generate(
             prompt=full_prompt,
+            chat_id=chat_id,
             params=chat.parameters,
         ):
             await asyncio.sleep(0.1)

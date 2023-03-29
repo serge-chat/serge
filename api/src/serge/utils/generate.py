@@ -8,35 +8,37 @@ logger = logging.getLogger(__name__)
 
 async def generate(
     prompt: str,
+    chat_id: str,
     params: ChatParameters
 ):
-    CHUNK_SIZE = 4
+    CHUNK_SIZE = 64
     await params.fetch_all_links()
 
     args = (
-        "llama",
-        "--model",
+        "llama-rs",
+        "--model-path",
         "/usr/src/app/weights/" + params.model + ".bin",
         "--prompt",
         prompt,
-        "--n_predict",
+        "--num-predict",
         str(params.max_length),
         "--temp",
         str(params.temperature),
-        "--top_k",
+        "--top-k",
         str(params.top_k),
-        "--top_p",
+        "--top-p",
         str(params.top_p),
-        "--repeat_last_n",
+        "--repeat-last-n",
         str(params.repeat_last_n),
-        "--repeat_penalty",
+        "--repeat-penalty",
         str(params.repeat_penalty),
-        "--ctx_size",
+        "--num-ctx-tokens",
         str(params.context_window),
-        "--threads",
+        "--num-threads",
         str(params.n_threads),
-        "--n_parts",
-        "1",
+        "--persist-session",
+        "/data/convs/" + chat_id,
+        "--float16"
     )
 
     logger.debug(f"Calling LLaMa with arguments", args)
@@ -70,16 +72,12 @@ async def get_full_prompt_from_chat(chat: Chat, simple_prompt: str):
     
     await chat.parameters.fetch_link(ChatParameters.init_prompt)
 
-    prompt = chat.parameters.init_prompt + "\n\n"
-    
-    if chat.questions != None:
-        for question in chat.questions:
-            if question.error != None: # skip errored out prompts
-                continue
-            prompt += "### Instruction:\n" + question.question + "\n"
-            prompt += "### Response:\n" + question.answer + "\n"
+    prompt = ""
 
-    prompt += "### Instruction:\n" + simple_prompt + "\n"
-    prompt += "### Response:\n"
+    if chat.questions == None:
+        prompt = chat.parameters.init_prompt + "\n\n"
+
+    prompt += "\n\n### Instruction:\n" + simple_prompt + "\n"
+    prompt += "\n### Response:\n"
 
     return prompt
