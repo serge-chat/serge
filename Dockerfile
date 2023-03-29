@@ -16,6 +16,8 @@ FROM ubuntu:22.04 as base
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Amsterdam
 
+RUN mkdir -p /data/convs/
+
 WORKDIR /usr/src/app
 
 COPY --from=llama_compiler --chown=0755 /usr/src/app/llama-rs/target/release/llama-cli /usr/local/bin/llama-rs
@@ -41,7 +43,6 @@ RUN npm ci
 
 COPY --chmod=0755 scripts/dev.sh /usr/src/app/dev.sh
 CMD ./dev.sh
-
 # Build frontend
 FROM node_base as frontend_builder
 
