@@ -52,13 +52,13 @@ If you want to run Serge in development mode (with hot-module reloading for svel
 
 ```
 git clone https://github.com/nsarrazin/serge.git
-docker compose -f docker-compose.dev.yml up -d --build
+DOCKER_BUILDKIT=1 docker compose -f docker-compose.dev.yml up -d --build
 ```
 
 You can test the production image with 
 
 ```
-docker compose up -d --build
+DOCKER_BUILDKIT=1 docker compose up -d --build
 ```
 
 ## What's next
