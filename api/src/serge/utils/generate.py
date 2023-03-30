@@ -2,7 +2,7 @@ import subprocess, os
 from serge.models.chat import Chat, ChatParameters
 import asyncio
 import logging
-
+from serge.utils.chainlang import  index
 logger = logging.getLogger(__name__)
 
 
@@ -38,15 +38,16 @@ async def generate(
         "--n_parts",
         "1",
     )
+    # Query and print response
+    response = index.query(prompt)
+    logger.info(response)
 
     logger.debug(f"Calling LLaMa with arguments", args)
     procLlama = await asyncio.create_subprocess_exec(
         *args, stdout=subprocess.PIPE, stderr=subprocess.PIPE
     )
-    
     while True:
         chunk = await procLlama.stdout.read(CHUNK_SIZE)
-
         if not chunk:
             return_code = await procLlama.wait()
 
@@ -56,12 +57,10 @@ async def generate(
                 raise ValueError(f"RETURN CODE {return_code}\n\n"+error_output.decode("utf-8"))
             else:
                 return
-
         try:
             chunk = chunk.decode("utf-8")
         except UnicodeDecodeError:
             return
-
         yield chunk
 
 
