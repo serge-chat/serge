@@ -124,7 +124,7 @@ async def stream_ask_a_question(chat_id: str, prompt: str):
                 prompt=full_prompt,
                 params=chat.parameters,
             ):
-                await asyncio.sleep(0.1)
+                await asyncio.sleep(0.01)
 
                 chunks.append(output)
                 full_answer += output
@@ -161,7 +161,7 @@ async def ask_a_question(chat_id: str, prompt: str):
             prompt=full_prompt,
             params=chat.parameters,
         ):
-            await asyncio.sleep(0.1)
+            await asyncio.sleep(0.01)
             answer += output
     except Exception as e:
             error = e.__str__()
