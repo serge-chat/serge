@@ -39,6 +39,9 @@ llama will just crash if you don't have enough available memory for your model.
 - 13B requires about 12GB free
 - 30B requires about 20GB free
 
+### Compatible CPUS
+Currently Serge requires a CPU compatible with AVX2 instructions. Try `lscpu | grep avx2` in a shell, and if this returns nothing then your CPU is incompatible for now.
+
 ## Support
 
 Feel free to join the discord if you need help with the setup: https://discord.gg/62Hc6FEYQH
@@ -65,9 +68,9 @@ DOCKER_BUILDKIT=1 docker compose up -d --build
 
 - [x] Front-end to interface with the API
 - [x] Pass model parameters when creating a chat
+- [x] Manager for model files
+- [ ] Support for other models
+- [ ] LangChain integration
 - [ ] User profiles & authentication
-- [ ] Different prompt options
-- [ ] LangChain integration with a custom LLM
-- [ ] Support for other llama models, quantization, etc.
 
 And a lot more!
