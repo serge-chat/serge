@@ -1,6 +1,8 @@
 from fastapi import APIRouter, HTTPException
 
 from serge.utils.convert import convert_one_file
+from serge.utils.migrate import migrate
+
 import huggingface_hub
 import os
 import urllib.request
@@ -87,7 +89,9 @@ def download_model(model_name: str):
     urllib.request.urlretrieve(url, WEIGHTS+f"{model_name}.bin.tmp")
 
     os.rename(WEIGHTS+f"{model_name}.bin.tmp", WEIGHTS+f"{model_name}.bin")
-    convert_one_file(WEIGHTS+ "f{model_name}.bin", WEIGHTS + f"tokenizer.model")
+    convert_one_file(WEIGHTS+ f"{model_name}.bin", WEIGHTS + f"tokenizer.model")
+    migrate(WEIGHTS+f"{model_name}.bin")
+
 
     return {"message": f"Model {model_name} downloaded"}
 
