@@ -29,7 +29,7 @@ Setting up Serge on Kubernetes or docker compose can be found in the wiki: https
 
 ## Models
 
-Currently only the 7B, 713B and 30B alpaca models are supported. If you have existing weights from another project you can add them to the `serge_weights` volume using `docker cp`.
+Currently only the 7B, 7B-native, 13B and 30B alpaca models are supported. If you have existing weights from another project you can add them to the `serge_weights` volume using `docker cp`.
 
 ### :warning: A note on _memory usage_
 
