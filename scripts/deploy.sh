@@ -1,6 +1,8 @@
 #!/bin/bash
 ./compile.sh
 
+redis-server
+
 mongod &
 
 # Start the API

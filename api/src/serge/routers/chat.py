@@ -5,7 +5,9 @@ from sse_starlette.sse import EventSourceResponse
 from beanie.odm.enums import SortDirection
 
 from serge.models.chat import Question, Chat,ChatParameters
-from serge.utils.generate import generate, get_full_prompt_from_chat
+from serge.utils.generator import Generator
+
+generator = Generator()
 
 async def on_close(chat, prompt, answer=None, error=None):
     question = await Question(question=prompt.rstrip(), 
@@ -61,6 +63,8 @@ async def create_new_chat(
     ).create()
 
     chat = await Chat(parameters=parameters).create()
+
+    await generator.load_model(chat)
     return chat.id
 
 
@@ -108,64 +112,52 @@ async def delete_chat(chat_id: str):
 
 @chat_router.get("/{chat_id}/question")
 async def stream_ask_a_question(chat_id: str, prompt: str):
-    
     chat = await Chat.get(chat_id)
     await chat.fetch_link(Chat.parameters)
-
-    full_prompt = await get_full_prompt_from_chat(chat, prompt)
-    
     chunks = []
 
     async def event_generator():
         full_answer = ""
         error = None
         try:
-            async for output in generate(
-                prompt=full_prompt,
-                params=chat.parameters,
-            ):
+            async for output in generator.generate(prompt):
                 await asyncio.sleep(0.01)
-
                 chunks.append(output)
                 full_answer += output
                 
-                if full_prompt in full_answer:
-                    cleaned_chunk = remove_matching_end(full_prompt, output)
-                    yield {
-                        "event": "message", 
-                        "data": cleaned_chunk}
+                yield {
+                    "event": "message", 
+                    "data": output}
                 
         except Exception as e:
             error = e.__str__()
             yield({"event" : "error"})
         finally:
-            answer = "".join(chunks)[len(full_prompt)+1:]
+            answer = "".join(chunks)[len(prompt)+1:]
             await on_close(chat, prompt, answer, error)
             yield({"event" : "close"})
 
 
     return EventSourceResponse(event_generator())
 
-@chat_router.post("/{chat_id}/question")
-async def ask_a_question(chat_id: str, prompt: str):
-    chat = await Chat.get(chat_id)
-    await chat.fetch_link(Chat.parameters)
-
-    full_prompt = await get_full_prompt_from_chat(chat, prompt)
+# @chat_router.post("/{chat_id}/question")
+# async def ask_a_question(chat_id: str, prompt: str):
+#     chat = await Chat.get(chat_id)
+#     await chat.fetch_link(Chat.parameters)
     
-    answer = ""
-    error = None
+#     answer = ""
+#     error = None
 
-    try:
-        async for output in generate(
-            prompt=full_prompt,
-            params=chat.parameters,
-        ):
-            await asyncio.sleep(0.01)
-            answer += output
-    except Exception as e:
-            error = e.__str__()
-    finally:
-        await on_close(chat, prompt, answer=answer[len(full_prompt)+1:], error=error)
+#     try:
+#         async for output in generate(
+#             prompt=prompt,
+#             params=chat.parameters,
+#         ):
+#             await asyncio.sleep(0.01)
+#             answer += output
+#     except Exception as e:
+#             error = e.__str__()
+#     finally:
+#         await on_close(chat, prompt, answer=answer[len(prompt)+1:], error=error)
 
-    return {"question" : prompt, "answer" : answer[len(full_prompt)+1:]}
+#     return {"question" : prompt, "answer" : answer[len(prompt)+1:]}

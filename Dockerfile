@@ -12,11 +12,10 @@ ENV TZ=Europe/Amsterdam
 
 WORKDIR /usr/src/app
 
-COPY --chmod=0755 scripts/compile.sh .
 
-# Install MongoDB and necessary tools
+# Install MongoDB
 RUN apt update && \
-    apt install -y curl wget gnupg python3-pip git cmake && \
+    apt install -y curl wget gnupg python3-pip git cmake lsb-release && \
     wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | apt-key add - && \
     echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-6.0.list && \
     apt-get update && \
@@ -24,6 +23,17 @@ RUN apt update && \
     git clone https://github.com/ggerganov/llama.cpp.git --branch master-1d08882
 
 RUN pip install --upgrade pip
+
+# Install Redis
+RUN curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list && \
+    apt-get update && \
+    apt-get install -y redis
+
+RUN mkdir -p /etc/redis && mkdir -p /var/redis
+
+
+COPY --chmod=0755 scripts/compile.sh .
 
 # Dev environment
 FROM base as dev
