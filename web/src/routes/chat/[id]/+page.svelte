@@ -48,14 +48,21 @@
       };
     }
   }
-</script>
 
-<div class="max-w-4xl mx-auto h-full max-h-screen relative">
+  function handleKeyDown(event) {
+    if (event.key === "Enter" && event.ctrlKey) {
+      askQuestion();
+    }
+  }
+</script>
+<div
+  class="max-w-4xl mx-auto h-full max-h-screen relative"
+  on:keydown={handleKeyDown}
+>
   <h1 class="text-4xl font-bold">Chat with {data.props.parameters.model}</h1>
   <h4 class="text-xl font-semibold mb-10">
     Started on {startDate.toLocaleString("en-US")}
   </h4>
-
   <div class="overflow-y-auto h-[calc(100vh-10rem)] px-10">
     <div class="h-max pb-32">
       {#each questions as question}
@@ -89,7 +96,6 @@
       {/each}
     </div>
   </div>
-
   <div
     class="items-center absolute bottom-0 w-full px-5 left-0 h-32 flex flex-row bg-base-100"
   >
