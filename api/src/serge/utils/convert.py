@@ -8,7 +8,9 @@ import glob
 import os
 import struct
 import sys
+
 from sentencepiece import SentencePieceProcessor
+from serge.utils.migrate import migrate
 
 HPARAMS = keys = ["vocab_size", "dim", "multiple_of", "n_heads", "n_layers"]
 
@@ -115,6 +117,7 @@ def convert_all(dir_model: str, tokenizer_model: str):
         tokenizer = SentencePieceProcessor(tokenizer_model)
         for file in files:
             convert_one_file(file, tokenizer)
+            migrate(file)
     except OSError:
         print("Missing tokenizer, don't forget to download it!")
 
