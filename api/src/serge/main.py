@@ -1,5 +1,5 @@
 import asyncio
-import os, sys
+import os, logging
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -13,13 +13,15 @@ from serge.utils.convert import convert_all
 
 import uvicorn
 
-from loguru import logger
-
-logger.add(
-    sys.stderr, format="{time} {level} {message}", filter="my_module", level="DEBUG"
+# Configure logging settings
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(levelname)s:\t%(name)s\t%(message)s",
+    handlers=[logging.StreamHandler()],
 )
 
 # Define a logger for the current module
+logger = logging.getLogger(__name__)
 settings = Settings()
 
 tags_metadata = [

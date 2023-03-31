@@ -1,7 +1,9 @@
 #!/bin/bash
 ./compile.sh
 
-redis-server &
+redis-server
+
+mongod &
 
 mongod --quiet --logpath /dev/null &
 
