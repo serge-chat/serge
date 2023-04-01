@@ -55,6 +55,7 @@
     }
   }
 </script>
+
 <div
   class="max-w-4xl mx-auto h-full max-h-screen relative"
   on:keydown={handleKeyDown}
@@ -96,21 +97,24 @@
       {/each}
     </div>
   </div>
-  <div class="items-center w-full px-0 h-0 flex flex-row bg-base-100 justify-center ">
+  <div
+    class="items-center w-full px-0 h-0 flex flex-row bg-base-100 justify-center"
+  >
     <textarea
       name="question"
-      class="textarea textarea-bordered h-10 w-full max-w-xl text-lg"
+      class="textarea textarea-bordered h-10 w-full max-w-xl mb-5 text-lg"
       disabled={isLoading}
       placeholder="Ask a question..."
       bind:value={prompt}
     />
-<button
+    <button
       type="submit"
       disabled={isLoading}
-      class="btn btn-primary h-10 w-24 text-lg ml-2"
+      class="btn btn-primary h-10 w-24 text-lg ml-2 mb-5"
       class:loading={isLoading}
       on:click|preventDefault={askQuestion}
-    > Send
+    >
+      Send
     </button>
   </div>
 </div>
