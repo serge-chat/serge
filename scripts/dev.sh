@@ -3,7 +3,7 @@
 
 pip install -e ./api
 
-redis-server
+redis-server &
 
 mongod &
 # Start the web server
