@@ -1,26 +1,12 @@
 import asyncio
+import redis
 
 from fastapi import APIRouter, HTTPException, Depends
 from sse_starlette.sse import EventSourceResponse
 from beanie.odm.enums import SortDirection
 
 from serge.models.chat import Question, Chat,ChatParameters
-from serge.utils.generator import Generator
-
-generator = Generator()
-
-async def on_close(chat, prompt, answer=None, error=None):
-    question = await Question(question=prompt.rstrip(), 
-                              answer=answer.rstrip() if answer != None else None, 
-                              error=error).create()
-
-    if chat.questions is None:
-        chat.questions = [question]
-    else:
-        chat.questions.append(question)
-
-    await chat.save()
-
+from serge.dependencies import load_redis
 
 def remove_matching_end(a, b):
     min_length = min(len(a), len(b))
@@ -63,8 +49,13 @@ async def create_new_chat(
     ).create()
 
     chat = await Chat(parameters=parameters).create()
+    client = redis.Redis()
 
-    await generator.load_model(chat)
+    client.rpush("load_queue", str(chat.id))
+    
+    while not client.sismember("loaded_chats", str(chat.id)):
+        await asyncio.sleep(0.05)
+    
     return chat.id
 
 
@@ -103,6 +94,9 @@ async def delete_chat(chat_id: str):
     chat = await Chat.get(chat_id)
     deleted_chat = await chat.delete()
 
+    client = redis.Redis()
+    await client.rpush("unload_queue", chat.id)
+
     if deleted_chat:
         return {"message": f"Deleted chat with id: {chat_id}"}
     else:
@@ -110,54 +104,35 @@ async def delete_chat(chat_id: str):
 
 
 
-@chat_router.get("/{chat_id}/question")
-async def stream_ask_a_question(chat_id: str, prompt: str):
+@chat_router.get("/{chat_id}/question", dependencies=[Depends(load_redis)])
+async def stream_ask_a_question(chat_id: str, prompt: str, client=Depends(load_redis)):
     chat = await Chat.get(chat_id)
     await chat.fetch_link(Chat.parameters)
-    chunks = []
 
     async def event_generator():
-        full_answer = ""
+        client = redis.Redis()
+        client.lpush(f"questions:{chat_id}", prompt)
+
         error = None
         try:
-            async for output in generator.generate(prompt):
+            while True:
                 await asyncio.sleep(0.01)
-                chunks.append(output)
-                full_answer += output
+                answer = client.get(f"stream:{chat_id}").decode()
+                
+                if answer is "":
+                    continue
                 
                 yield {
                     "event": "message", 
-                    "data": output}
+                    "data": answer
+                }
                 
         except Exception as e:
-            error = e.__str__()
+            print(e)
             yield({"event" : "error"})
         finally:
-            answer = "".join(chunks)[len(prompt)+1:]
-            await on_close(chat, prompt, answer, error)
             yield({"event" : "close"})
 
 
     return EventSourceResponse(event_generator())
 
-# @chat_router.post("/{chat_id}/question")
-# async def ask_a_question(chat_id: str, prompt: str):
-#     chat = await Chat.get(chat_id)
-#     await chat.fetch_link(Chat.parameters)
-    
-#     answer = ""
-#     error = None
-
-#     try:
-#         async for output in generate(
-#             prompt=prompt,
-#             params=chat.parameters,
-#         ):
-#             await asyncio.sleep(0.01)
-#             answer += output
-#     except Exception as e:
-#             error = e.__str__()
-#     finally:
-#         await on_close(chat, prompt, answer=answer[len(prompt)+1:], error=error)
-
-#     return {"question" : prompt, "answer" : answer[len(prompt)+1:]}

@@ -1,8 +1,13 @@
 from .utils.convert import convert_all
-import anyio
+import anyio, redis
 
 
 async def convert_model_files():
     await anyio.to_thread.run_sync(
         convert_all, "/usr/src/app/weights/", "/usr/src/app/weights/tokenizer.model"
     )
+
+async def load_redis():
+    client = redis.Redis()
+    await client.ping()
+    return client
