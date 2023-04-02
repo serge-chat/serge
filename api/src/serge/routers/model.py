@@ -40,15 +40,30 @@ WEIGHTS = "/usr/src/app/weights/"
 @model_router.get("/all")
 async def list_of_all_models():
     res = []
+    installed_models = await list_of_installed_models()
+
     for model in models_info.keys():
-        
         progress = await download_status(model)
-        
+        if f"/{model}.bin" in installed_models:
+            available = True
+            #if model exists in WEIGHTS directory remove it from the list
+            installed_models.remove(f"/{model}.bin")
+        else:
+            available = False
         res.append({
             "name": model,
             "size": models_info[model][2],
-            "available": model+".bin" in await list_of_installed_models(),
+            "available": available,
             "progress" : progress,
+        })
+    #append the rest of the models
+    for model in installed_models:
+        #.bin is removed for compatibility with generate.py
+        res.append({
+            "name": model.replace(".bin","").lstrip("/"),
+            "size": os.stat(WEIGHTS+model).st_size,
+            "available": True,
+            "progress" : None,
         })
     
     return res
@@ -64,8 +79,8 @@ async def list_of_downloadable_models():
 
 @model_router.get("/installed")
 async def list_of_installed_models():
-    files = os.listdir(WEIGHTS)
-    files = list(filter(lambda x: x.endswith(".bin"), files))
+    #after iterating through the WEIGHTS directory, return location and filename
+    files = [model_location.replace(WEIGHTS,"") +'/'+ bin_file for model_location, directory, filenames in os.walk(WEIGHTS) for bin_file in filenames if os.path.splitext(bin_file)[1] == '.bin']
 
     return files 
 
