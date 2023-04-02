@@ -1,43 +1,54 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, TypeVar
 from asyncio.subprocess import Process
 
 from serge.models.chat import Chat, Question
-import asyncio 
+import asyncio
 import subprocess
 import redis
 
+from loguru import logger
+
 CHUNK_SIZE = 64
 SLEEP = 0.01
+
+
 class Worker(BaseModel):
     loop_task: Optional[type[asyncio.Task]] = None
     subprocess: Optional[type[Process]] = None
 
-    client: Optional[type[redis.Redis]] = None
+    client: Optional[TypeVar("Redis")] = None
 
     chat: Optional[type[Chat]] = None
-    
-    
+
     @classmethod
     async def create(cls, chat_id: str):
-        worker = cls(subprocess=None, 
-                     client=redis.Redis(), 
-                     chat=await Chat.find_one({"_id": chat_id}))
-        
+        logger.debug("Creating a Worker")
+        chat = await Chat.find(str(Chat.id) == chat_id).first_or_none()
+
+        if chat == None:
+            raise ValueError("Chat document not found while creating the worker thread")
+
+        worker = cls(subprocess=None, client=redis.Redis(), chat=chat)
+
+        logger.debug("Starting worker process")
         await worker._start_process()
+
+        logger.debug("Adding event loop to new thread")
         worker.loop_task = asyncio.create_task(asyncio.to_thread(worker.loop()))
 
         return worker
-    
-    @property 
+
+    @property
     def queue(self):
         return f"questions:{self.chat.id}"
-    
+
     @property
     def stream(self):
         return f"stream:{self.chat.id}"
-    
-    async def loop(self):        
+
+    async def loop(self):
+        logger.debug("Starting event loop for worker", self.chat.id)
         try:
             while True:
                 await asyncio.sleep(0.05)
@@ -48,13 +59,13 @@ class Worker(BaseModel):
 
                     answer = await self._answer_question(question)
                     self.client.lpop(self.queue, 1)
-                    
+
                     question = await Question(question=question, answer=answer).create()
                     if self.chat.questions is None:
                         self.chat.questions = [question]
                     else:
                         self.chat.questions.append(question)
-                    
+
                     await self.chat.save()
 
                     print(f"Answer: {answer}")
@@ -65,7 +76,7 @@ class Worker(BaseModel):
 
     async def _answer_question(self, question):
         answer = ""
-        
+
         self.subprocess.communicate(input=question.encode("utf-8"))
         self.subprocess.communicate(input=b"\n")
 
@@ -78,7 +89,9 @@ class Worker(BaseModel):
                 if return_code != 0:
                     error_output = await self.subprocess.stderr.read()
                     print(error_output.decode("utf-8"))
-                    raise ValueError(f"RETURN CODE {return_code}\n\n"+error_output.decode("utf-8"))
+                    raise ValueError(
+                        f"RETURN CODE {return_code}\n\n" + error_output.decode("utf-8")
+                    )
                 else:
                     return answer
 
@@ -98,10 +111,10 @@ class Worker(BaseModel):
         self.chat.parameters.fetch_all_links()
 
         prompt = self.params.init_prompt + "\n\n"
-        
+
         if self.chat.questions != None:
             for question in self.chat.questions:
-                if question.error != None: # skip errored out prompts
+                if question.error != None:  # skip errored out prompts
                     continue
                 prompt += "### Question:\n" + question.question + "\n"
                 prompt += "### Answer:\n" + question.answer + "\n"
@@ -110,10 +123,11 @@ class Worker(BaseModel):
         return prompt
 
     async def _start_process(self):
+
         self.chat.fetch_link(Chat.parameters)
         params = self.chat.parameters
         params.fetch_all_links()
-        
+
         prompt = self._get_start_prompt()
 
         newprompt = prompt.replace("\n", "\\\n")
@@ -145,11 +159,13 @@ class Worker(BaseModel):
             "Question: ",
             "--n_parts",
             "1",
-            "--interactive-first"
+            "--interactive-first",
         )
 
+        logger.debug("Starting subprocess with args", args)
         self.subprocess = await asyncio.create_subprocess_exec(
-                        *args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+            *args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE
         )
 
+        logger.debug("Subprocess created!")
         return True
