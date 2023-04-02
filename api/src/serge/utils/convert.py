@@ -116,10 +116,11 @@ def convert_all(dir_model: str, tokenizer_model: str):
     try:
         tokenizer = SentencePieceProcessor(tokenizer_model)
         for file in files:
+            print("Converting file: ", file)
             convert_one_file(file, tokenizer)
             migrate(file)
-    except OSError:
-        print("Missing tokenizer, don't forget to download it!")
+    except Exception as e:
+        print(f"Error: {e}")
 
 
 if __name__ == "__main__":

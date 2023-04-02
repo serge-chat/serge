@@ -33,6 +33,11 @@ models_info = {
         "alpaca-30B-ggml/ggml-model-q4_0.bin", 
         20.2E9,
         ],
+    "gpt4all": [
+        "nsarrazin/alpaca",
+        "gpt4all/gpt4all.bin",
+        4.20E9
+    ]
     }
 
 WEIGHTS = "/usr/src/app/weights/"
