@@ -6,7 +6,6 @@ from sse_starlette.sse import EventSourceResponse
 from beanie.odm.enums import SortDirection
 
 from serge.models.chat import Question, Chat,ChatParameters
-from serge.dependencies import load_redis
 
 def remove_matching_end(a, b):
     min_length = min(len(a), len(b))
@@ -95,7 +94,7 @@ async def delete_chat(chat_id: str):
     deleted_chat = await chat.delete()
 
     client = redis.Redis()
-    await client.rpush("unload_queue", chat.id)
+    client.rpush("unload_queue", str(chat.id))
 
     if deleted_chat:
         return {"message": f"Deleted chat with id: {chat_id}"}
@@ -104,8 +103,8 @@ async def delete_chat(chat_id: str):
 
 
 
-@chat_router.get("/{chat_id}/question", dependencies=[Depends(load_redis)])
-async def stream_ask_a_question(chat_id: str, prompt: str, client=Depends(load_redis)):
+@chat_router.get("/{chat_id}/question")
+async def stream_ask_a_question(chat_id: str, prompt: str):
     chat = await Chat.get(chat_id)
     await chat.fetch_link(Chat.parameters)
 
