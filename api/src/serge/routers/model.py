@@ -60,7 +60,7 @@ async def list_of_all_models():
     for model in installed_models:
         #.bin is removed for compatibility with generate.py
         res.append({
-            "name": model.replace(".bin",""),
+            "name": model.replace(".bin","").lstrip("/"),
             "size": os.stat(WEIGHTS+model).st_size,
             "available": True,
             "progress" : None,
