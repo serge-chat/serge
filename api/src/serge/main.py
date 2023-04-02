@@ -10,7 +10,7 @@ from starlette.responses import FileResponse
 from serge.routers.chat import chat_router
 from serge.routers.model import model_router
 from serge.utils.initiate_database import initiate_database, Settings
-from serge.dependencies import convert_model_files
+from serge.utils.convert import convert_all
 
 # Configure logging settings
 logging.basicConfig(
@@ -93,7 +93,7 @@ async def start_database():
     await initiate_database()
 
     logger.info("initializing models")
-    asyncio.create_task(convert_model_files())
+    convert_all("/usr/src/app/weights/", "/usr/src/app/weights/tokenizer.model")
 
 
 app.add_middleware(
