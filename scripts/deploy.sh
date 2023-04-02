@@ -3,7 +3,7 @@
 
 redis-server &
 
-mongod &
+mongod --quiet --logpath /dev/null &
 
 python3 /usr/src/app/api/src/serge/worker/orchestrator.py &
 # Start the API

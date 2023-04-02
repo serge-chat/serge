@@ -72,6 +72,8 @@ class Orchestrator(BaseModel):
 
                 while self.client.llen("unload_queue") > 1:
                     chat_id:bytes = self.client.lindex("unload_queue", 1)
+                    logger.debug(f"Found element {chat_id} in unload_queue, removing worker...")
+                    
                     await self.remove_worker(chat_id.decode())
 
                     self.client.lpop("unload_queue", 1)

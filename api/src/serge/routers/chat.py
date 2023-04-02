@@ -96,6 +96,10 @@ async def delete_chat(chat_id: str):
     client = redis.Redis()
     client.rpush("unload_queue", str(chat.id))
 
+    
+    while client.sismember("loaded_chats", str(chat.id)):
+        await asyncio.sleep(0.05)
+    
     if deleted_chat:
         return {"message": f"Deleted chat with id: {chat_id}"}
     else:
@@ -110,20 +114,20 @@ async def stream_ask_a_question(chat_id: str, prompt: str):
 
     async def event_generator():
         client = redis.Redis()
-        client.lpush(f"questions:{chat_id}", prompt)
+        client.rpush(f"questions:{chat_id}", prompt)
 
         error = None
         try:
             while True:
                 await asyncio.sleep(0.01)
-                answer = client.get(f"stream:{chat_id}").decode()
+                answer = client.get(f"stream:{chat_id}")
                 
-                if answer is "":
+                if answer is "" or answer is None:
                     continue
                 
                 yield {
                     "event": "message", 
-                    "data": answer
+                    "data": answer.decode()
                 }
                 
         except Exception as e:

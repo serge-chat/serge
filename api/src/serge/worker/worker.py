@@ -37,9 +37,14 @@ class Worker(BaseModel):
         await worker._start_process()
 
         logger.debug("Adding event loop to new thread")
-        worker.loop_task = asyncio.create_task(asyncio.to_thread(worker.loop))
-        await worker.loop_task
-        
+        worker.loop_task = asyncio.create_task(worker.loop())
+
+        logger.debug("Clearing potential previous queues")
+        worker.client.delete(worker.queue)
+        worker.client.delete(worker.stream)
+
+        worker.client.lpush(worker.queue, "")
+
         return worker
 
     @property
@@ -49,18 +54,22 @@ class Worker(BaseModel):
     @property
     def stream(self):
         return f"stream:{self.chat.id}"
+    
+    @property
+    def logs(self):
+        return f"logs:{self.chat.id}"
 
     async def loop(self):
-        logger.debug("Starting event loop for worker", self.chat.id)
+        logger.debug("Staarting event loop for worker", self.chat.id)
         try:
             while True:
-                await asyncio.sleep(0.05)
-
+                await asyncio.sleep(SLEEP)
                 if self.client.llen(self.queue) > 1:
                     question = self.client.lindex(self.queue, -1)
-                    print(f"Question: {question}")
+                    logger.debug(f"Asking Question: {question}")
 
                     answer = await self._answer_question(question)
+                    logger.debug(f"Answer: {answer}")
                     self.client.lpop(self.queue, 1)
 
                     question = await Question(question=question, answer=answer).create()
@@ -74,24 +83,29 @@ class Worker(BaseModel):
                     print(f"Answer: {answer}")
 
         except asyncio.CancelledError:
+            logger.debug("Event loop cancelled")
             await self.subprocess.terminate()
             return True
 
     async def _answer_question(self, question):
         answer = ""
 
-        self.subprocess.communicate(input=question.encode("utf-8"))
-        self.subprocess.communicate(input=b"\n")
+        logger.debug("communicating question")
+        await self.subprocess.stdin.write(question.decode())
+        await self.subprocess.stdin.write("\n")
 
+        logger.debug("Entering event loop")
         while True:
+            logger.debug("answering loop")
+            await asyncio.sleep(SLEEP)
             chunk = await self.subprocess.stdout.read(CHUNK_SIZE)
-
             if not chunk:
+                logger.debug("No chunk, waiting for process to finish")
                 return_code = await self.subprocess.wait()
 
                 if return_code != 0:
                     error_output = await self.subprocess.stderr.read()
-                    print(error_output.decode("utf-8"))
+                    logger.error(error_output.decode("utf-8"))
                     raise ValueError(
                         f"RETURN CODE {return_code}\n\n" + error_output.decode("utf-8")
                     )
@@ -99,11 +113,14 @@ class Worker(BaseModel):
                     return answer
 
             try:
+                logger.debug("Decoding chunk")
                 chunk = chunk.decode("utf-8")
                 answer += chunk
+                logger.debug(f"Answer is : {answer}")
                 await self.client.append(self.stream, chunk)
 
                 if answer.endswith("Question: "):
+                    logger.debug("Found end of answer, returning and clearing stream")
                     self.client.set(self.stream, "")
                     return answer[:-10]
             except UnicodeDecodeError:
@@ -166,9 +183,9 @@ class Worker(BaseModel):
             "--interactive-first",
         )
 
-        logger.debug("Starting subprocess with args", args)
+        logger.debug("Starting subprocess with args")
         self.subprocess = await asyncio.create_subprocess_exec(
-            *args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+            *args, stdin=subprocess.PIPE, stdout=subprocess.PIPE
         )
 
         logger.debug("Subprocess created!")

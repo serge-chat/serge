@@ -4,7 +4,7 @@
 pip install -e ./api
 
 redis-server &
-mongod &
+mongod --quiet --logpath /dev/null &
 
 # Start the orchestrator
 python3 /usr/src/app/api/src/serge/worker/orchestrator.py &
