@@ -10,7 +10,7 @@ async def generate(
     prompt: str,
     params: ChatParameters
 ):
-    CHUNK_SIZE = 4
+    CHUNK_SIZE = 64
     await params.fetch_all_links()
 
     args = (
