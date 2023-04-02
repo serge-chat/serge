@@ -14,17 +14,19 @@ SLEEP = 0.01
 
 
 class Worker(BaseModel):
-    loop_task: Optional[type[asyncio.Task]] = None
-    subprocess: Optional[type[Process]] = None
+    loop_task: Optional[asyncio.Task] = None
+    subprocess: Optional[Process] = None
 
     client: Optional[TypeVar("Redis")] = None
+    chat: Optional[Chat] = None
 
-    chat: Optional[type[Chat]] = None
+    class Config:
+        arbitrary_types_allowed = True
 
     @classmethod
     async def create(cls, chat_id: str):
         logger.debug("Creating a Worker")
-        chat = await Chat.find(str(Chat.id) == chat_id).first_or_none()
+        chat = await Chat.get(chat_id)
 
         if chat == None:
             raise ValueError("Chat document not found while creating the worker thread")
@@ -35,8 +37,9 @@ class Worker(BaseModel):
         await worker._start_process()
 
         logger.debug("Adding event loop to new thread")
-        worker.loop_task = asyncio.create_task(asyncio.to_thread(worker.loop()))
-
+        worker.loop_task = asyncio.create_task(asyncio.to_thread(worker.loop))
+        await worker.loop_task
+        
         return worker
 
     @property
@@ -71,8 +74,8 @@ class Worker(BaseModel):
                     print(f"Answer: {answer}")
 
         except asyncio.CancelledError:
-            self.subprocess.kill()
-            await self.subprocess.wait()
+            await self.subprocess.terminate()
+            return True
 
     async def _answer_question(self, question):
         answer = ""
@@ -106,13 +109,14 @@ class Worker(BaseModel):
             except UnicodeDecodeError:
                 return answer
 
-    def _get_start_prompt(self):
-        self.chat.fetch_link(Chat.parameters)
-        self.chat.parameters.fetch_all_links()
+    async def _get_start_prompt(self):
+        await self.chat.fetch_all_links()
+        await self.chat.parameters.fetch_all_links()
 
-        prompt = self.params.init_prompt + "\n\n"
+        prompt = self.chat.parameters.init_prompt + "\n\n"
 
         if self.chat.questions != None:
+            await self.chat.questions.fetch_all_links()
             for question in self.chat.questions:
                 if question.error != None:  # skip errored out prompts
                     continue
@@ -124,11 +128,11 @@ class Worker(BaseModel):
 
     async def _start_process(self):
 
-        self.chat.fetch_link(Chat.parameters)
+        await self.chat.fetch_link(Chat.parameters)
         params = self.chat.parameters
-        params.fetch_all_links()
+        await params.fetch_all_links()
 
-        prompt = self._get_start_prompt()
+        prompt = await self._get_start_prompt()
 
         newprompt = prompt.replace("\n", "\\\n")
 

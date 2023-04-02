@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from serge.worker.worker import Worker
-from serge.models.chat import Chat
 from serge.utils.initiate_database import initiate_database
+from typing import Optional
 
 import asyncio
 import redis
@@ -16,8 +16,11 @@ logger.add(
 
 class Orchestrator(BaseModel):
     workers: dict[str, type[Worker]] = {}
-    client: type[redis.Redis] = None
+    client: Optional[redis.Redis] = None
     kill_sig: bool = False
+
+    class Config:
+        arbitrary_types_allowed = True
 
     async def start(self):
         # mongoDB connection
@@ -53,11 +56,11 @@ class Orchestrator(BaseModel):
                 # check the queue for new chats to load
                 while self.client.llen("load_queue") > 1:
                     # fetch the next chat to load, and wait for it to load
-                    chat_id = self.client.lindex("load_queue", 1)
+                    chat_id:bytes = self.client.lindex("load_queue", 1)
                     logger.debug(
                         f"Found element{chat_id} in load_queue, adding worker..."
                     )
-                    await self.add_worker(chat_id)
+                    await self.add_worker(chat_id.decode())
 
                     logger.debug(
                         f"Removing element from load queue, and adding it to loaded chats"
@@ -68,8 +71,8 @@ class Orchestrator(BaseModel):
                     self.client.sadd("loaded_chats", chat_id)
 
                 while self.client.llen("unload_queue") > 1:
-                    chat_id = self.client.lindex("unload_queue", 1)
-                    await self.remove_worker(chat_id)
+                    chat_id:bytes = self.client.lindex("unload_queue", 1)
+                    await self.remove_worker(chat_id.decode())
 
                     self.client.lpop("unload_queue", 1)
                     self.client.srem("loaded_chats", chat_id)
@@ -89,12 +92,12 @@ class Orchestrator(BaseModel):
         self.workers[chat_id] = worker
 
     async def remove_worker(self, chat_id: str):
-        worker = self.workers[chat_id]
-        if await worker.kill():
+        try:
+            worker = self.workers[chat_id]
+            worker.loop_task.cancel()
             del self.workers[chat_id]
-        else:
-            raise Exception("Could not kill worker")
-
+        except KeyError:
+            logger.info(f"Could not delete worker {chat_id}. Worker not found.")
 
 if __name__ == "__main__":
     orchestrator = Orchestrator()
