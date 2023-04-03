@@ -36,7 +36,10 @@ async def generate(
         "--threads",
         str(params.n_threads),
         "--n_parts",
-        "1",
+        " -1 ",
+        "--batch_size",
+        str(params.n_threads),
+
     )
 
     logger.debug(f"Calling LLaMa with arguments", args)
