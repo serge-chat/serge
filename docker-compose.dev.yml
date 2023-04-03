@@ -14,6 +14,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
     ports:
       - "8008:8008"
+    tty: true
 
 volumes:
   datadb:

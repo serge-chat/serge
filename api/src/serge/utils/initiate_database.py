@@ -6,6 +6,8 @@ from pydantic import BaseSettings
 
 from serge.models.chat import Question, Chat, ChatParameters
 
+from loguru import logger
+
 
 class Settings(BaseSettings):
     NODE_ENV: str = "development"

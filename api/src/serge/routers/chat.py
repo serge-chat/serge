@@ -6,6 +6,7 @@ from sse_starlette.sse import EventSourceResponse
 from beanie.odm.enums import SortDirection
 
 from serge.models.chat import Question, Chat,ChatParameters
+from loguru import logger
 
 def remove_matching_end(a, b):
     min_length = min(len(a), len(b))
@@ -131,7 +132,7 @@ async def stream_ask_a_question(chat_id: str, prompt: str):
                 }
                 
         except Exception as e:
-            print(e)
+            logger.error(e)
             yield({"event" : "error"})
         finally:
             yield({"event" : "close"})

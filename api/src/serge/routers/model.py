@@ -7,10 +7,13 @@ import huggingface_hub
 import os
 import urllib.request
 
+from loguru import logger
+
 model_router = APIRouter(
     prefix="/model",
     tags=["model"],
 )
+
 
 models_info = {
     "7B": [
@@ -97,14 +100,14 @@ def download_model(model_name: str):
         raise HTTPException(status_code=404, detail="Model not found")
     
     if not os.path.exists(WEIGHTS+ "tokenizer.model"):
-        print("Downloading tokenizer...")
+        logger.info("Downloading tokenizer...")
         url = huggingface_hub.hf_hub_url("nsarrazin/alpaca", "alpaca-7B-ggml/tokenizer.model", repo_type="model", revision="main")
         urllib.request.urlretrieve(url, WEIGHTS+"tokenizer.model")
 
     
     repo_id, filename,_ = models_info[model_name]
 
-    print(f"Downloading {model_name} model from {repo_id}...")
+    logger.info(f"Downloading {model_name} model from {repo_id}...")
     url = huggingface_hub.hf_hub_url(repo_id, filename, repo_type="model", revision="main")
     urllib.request.urlretrieve(url, WEIGHTS+f"{model_name}.bin.tmp")
 

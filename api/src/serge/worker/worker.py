@@ -19,7 +19,7 @@ class Worker(BaseModel):
 
     client: Optional[TypeVar("Redis")] = None
     chat: Optional[Chat] = None
-
+    
     class Config:
         arbitrary_types_allowed = True
 
@@ -60,12 +60,12 @@ class Worker(BaseModel):
         return f"logs:{self.chat.id}"
 
     async def loop(self):
-        logger.debug("Staarting event loop for worker", self.chat.id)
+        logger.debug("Starting event loop for worker", self.chat.id)
         try:
             while True:
                 await asyncio.sleep(SLEEP)
                 if self.client.llen(self.queue) > 1:
-                    question = self.client.lindex(self.queue, -1)
+                    question: Optional[bytes] = self.client.lindex(self.queue, -1)
                     logger.debug(f"Asking Question: {question}")
 
                     answer = await self._answer_question(question)
@@ -80,51 +80,35 @@ class Worker(BaseModel):
 
                     await self.chat.save()
 
-                    print(f"Answer: {answer}")
+                    logger.debug(f"Answer: {answer}")
 
         except asyncio.CancelledError:
             logger.debug("Event loop cancelled")
             await self.subprocess.terminate()
             return True
 
-    async def _answer_question(self, question):
+    async def _answer_question(self, question:bytes):
         answer = ""
 
-        logger.debug("communicating question")
-        await self.subprocess.stdin.write(question.decode())
-        await self.subprocess.stdin.write("\n")
+        logger.debug("flushing stdout")
+
+        self.subprocess.stdin.write(question)
+        self.subprocess.stdin.write("\n".encode())
 
         logger.debug("Entering event loop")
-        while True:
-            logger.debug("answering loop")
+        while not answer.endswith("> "):
             await asyncio.sleep(SLEEP)
-            chunk = await self.subprocess.stdout.read(CHUNK_SIZE)
-            if not chunk:
-                logger.debug("No chunk, waiting for process to finish")
-                return_code = await self.subprocess.wait()
+            chunk = await self.subprocess.stdout.read(4)
+            answer += chunk.decode("utf-8")
+            
+            if chunk:
+                logger.debug(answer)
+                self.client.set(self.stream, answer)
+                
+        self.client.set(self.stream, "")
+        logger.debug("Found end of answer, returning and clearing stream")
 
-                if return_code != 0:
-                    error_output = await self.subprocess.stderr.read()
-                    logger.error(error_output.decode("utf-8"))
-                    raise ValueError(
-                        f"RETURN CODE {return_code}\n\n" + error_output.decode("utf-8")
-                    )
-                else:
-                    return answer
-
-            try:
-                logger.debug("Decoding chunk")
-                chunk = chunk.decode("utf-8")
-                answer += chunk
-                logger.debug(f"Answer is : {answer}")
-                await self.client.append(self.stream, chunk)
-
-                if answer.endswith("Question: "):
-                    logger.debug("Found end of answer, returning and clearing stream")
-                    self.client.set(self.stream, "")
-                    return answer[:-10]
-            except UnicodeDecodeError:
-                return answer
+        return answer.strip("> ")
 
     async def _get_start_prompt(self):
         await self.chat.fetch_all_links()
@@ -137,10 +121,9 @@ class Worker(BaseModel):
             for question in self.chat.questions:
                 if question.error != None:  # skip errored out prompts
                     continue
-                prompt += "### Question:\n" + question.question + "\n"
-                prompt += "### Answer:\n" + question.answer + "\n"
+                prompt += "Question: " + question.question + "\n"
+                prompt += "Answer: " + question.answer + "\n"
 
-        prompt += "### Question:\n"
         return prompt
 
     async def _start_process(self):
@@ -151,15 +134,13 @@ class Worker(BaseModel):
 
         prompt = await self._get_start_prompt()
 
-        newprompt = prompt.replace("\n", "\\\n")
-
         args = (
             "llama",
             "--model",
             "/usr/src/app/weights/" + params.model + ".bin",
-            "-i",
-            "-r",
-            newprompt,
+            "-ins",
+            "-p",
+            prompt,
             "--n_predict",
             str(params.max_length),
             "--temp",
@@ -176,8 +157,6 @@ class Worker(BaseModel):
             str(params.context_window),
             "--threads",
             str(params.n_threads),
-            "--in-prefix",
-            "Question: ",
             "--n_parts",
             "1",
             "--interactive-first",
@@ -187,6 +166,18 @@ class Worker(BaseModel):
         self.subprocess = await asyncio.create_subprocess_exec(
             *args, stdin=subprocess.PIPE, stdout=subprocess.PIPE
         )
+        logger.debug("Subprocess created! Flushing stdout")
 
-        logger.debug("Subprocess created!")
+        answer = ""
+
+        while True:
+            await asyncio.sleep(SLEEP)
+            chunk = await self.subprocess.stdout.read(4)
+            if chunk:
+                answer += chunk.decode("utf-8")
+            
+            if prompt in answer:
+                break
+        
+        logger.debug("Done flushing")
         return True

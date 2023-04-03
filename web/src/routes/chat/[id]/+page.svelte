@@ -33,7 +33,7 @@
       prompt = "";
 
       eventSource.addEventListener("message", (event) => {
-        questions[questions.length - 1].answer += event.data;
+        questions[questions.length - 1].answer = event.data;
       });
 
       eventSource.addEventListener("close", async () => {
