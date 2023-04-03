@@ -24,6 +24,8 @@
   let n_threads = 4;
   let ctx_length = 512;
 
+  let loadingChat = false;
+
   async function onCreateChat(event: Event) {
     const form = document.getElementById("form-create-chat") as HTMLFormElement;
 
@@ -35,11 +37,13 @@
     ]);
     const searchParams = new URLSearchParams(convertedFormEntries);
 
+    $: loadingChat = true;
     const r = await fetch("/api/chat/?" + searchParams.toString(), {
       method: "POST",
     });
 
-    console.log(r);
+    $: loadingChat = false;
+
     if (r.ok) {
       const data = await r.json();
       await goto("/chat/" + data);
@@ -61,7 +65,8 @@
       <button
         type="submit"
         class="btn btn-primary mx-5"
-        disabled={!modelAvailable}>Start a new chat</button
+        class:loading={loadingChat}
+        disabled={!modelAvailable || loadingChat}>Start a new chat</button
       >
       <button
         on:click={() => goto("/models")}
