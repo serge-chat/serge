@@ -16,7 +16,7 @@ import uvicorn
 from loguru import logger
 
 logger.add(
-    sys.stderr, format="{time} {level} {message}", filter="my_module", level="DEBUG"
+    sys.stderr, format="{time} {level} {message}", colorize=True, level="DEBUG"
 )
 
 # Define a logger for the current module
