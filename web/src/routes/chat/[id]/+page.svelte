@@ -54,6 +54,35 @@
       askQuestion();
     }
   }
+
+  function createSameSession(sessionID) {
+    fetch("/api/chat/" + sessionID)
+      .then((response) => response.json())
+      .then((data) => {
+        const { _id, created, parameters } = data;
+        fetch(
+          `/api/chat/?model=${parameters.model}&temperature=${parameters.temperature}&top_k=${parameters.top_k}&top_p=${parameters.top_p}&max_length=${parameters.max_length}&context_window=${parameters.context_window}&repeat_last_n=${parameters.repeat_last_n}&repeat_penalty=${parameters.repeat_penalty}&init_prompt=${parameters.init_prompt}&n_threads=${parameters.n_threads}`,
+          {
+            method: "POST",
+            headers: {
+              accept: "application/json",
+            },
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            const newSession = { id: data };
+            window.location.href = "/chat/" + newSession.id;
+          });
+      })
+      .catch((error) => console.error(error));
+  }
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "n" && event.altKey) {
+      createSameSession($page.params.id);
+    }
+  });
 </script>
 
 <div
@@ -115,6 +144,15 @@
       on:click|preventDefault={askQuestion}
     >
       Send
+    </button>
+    <button
+      type="button"
+      disabled={isLoading}
+      class="btn btn-primary h-10 w-24 text-lg ml-2 mb-5"
+      class:loading={isLoading}
+      on:click|preventDefault={() => createSameSession($page.params.id)}
+    >
+      New
     </button>
   </div>
 </div>
