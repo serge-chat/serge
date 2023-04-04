@@ -138,7 +138,7 @@
     >
       New
     </button>
-    <textarea
+    <textarea autofocus
       name="question"
       class="textarea textarea-bordered h-10 w-full max-w-xl mb-5 text-lg"
       disabled={isLoading}
