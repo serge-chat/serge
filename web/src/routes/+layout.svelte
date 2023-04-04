@@ -9,7 +9,7 @@
 
   async function deleteChat(chatID: string) {
     const response = await fetch("/api/chat/" + chatID, { method: "DELETE" });
-    if (response.status == 200) {
+    if (response.status === 200) {
       toggleDeleteConfirm();
       await goto("/");
       await invalidate("/api/chat/");

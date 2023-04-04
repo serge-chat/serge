@@ -70,12 +70,25 @@ async def get_all_chats():
         await i.fetch_link(Chat.questions)
 
         first_q = i.questions[0].question if i.questions else ""
+
+        client = redis.Redis()
+        if client.sismember("loaded_chats", str(i.id)):
+            stream = client.get("stream:" + str(i.id))
+            if stream != None and stream != "EOF":
+                status = "streaming"
+            else:
+                status = "loaded"
+        else:
+            status = "unloaded"
+        
+
         res.append(
             {
                 "id": i.id,
                 "created": i.created,
                 "model": i.parameters.model,
                 "subtitle": first_q,
+                "status" : status
             }
         )
 
@@ -88,6 +101,21 @@ async def get_specific_chat(chat_id: str):
     await chat.fetch_all_links()
 
     return chat
+
+@chat_router.get("/{chat_id}/status")
+async def get_chat_status(chat_id: str):
+    client = redis.Redis()
+    if client.sismember("loaded_chats", chat_id):
+        stream = client.get("stream:" + chat_id)
+        if stream != None and stream.decode() != "EOF":
+            status = "streaming"
+        else:
+            status = "loaded"
+    else:
+        status = "unloaded"
+        
+    return status
+
 
 @chat_router.delete("/{chat_id}" )
 async def delete_chat(chat_id: str):

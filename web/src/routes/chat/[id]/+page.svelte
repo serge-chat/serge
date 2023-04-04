@@ -3,61 +3,80 @@
   import { invalidate } from "$app/navigation";
   import { page } from "$app/stores";
   import { browser } from "$app/environment";
+  import { onMount } from "svelte";
 
   export let data: PageData;
+  let clear: number;
 
   $: isLoading = false;
   $: questions = data.props.questions ?? [];
   $: startDate = new Date(data.props.created);
 
   $: prompt = "";
-  $: streaming = true;
 
-  // set streaming to true when page params changes
-  $: $page.params.id, (streaming = true);
+  // set streaming to true when page params
+  onMount(async () => {
+    if (browser) {
+      await streamPage();
+    }
+  });
 
-  async function askQuestion() {
+  const streamPage = async () => {
+    const requestStatus = await fetch(
+      "/api/chat/" + $page.params.id + "/status"
+    );
+    const data = await requestStatus.json();
+
+    if (data.status !== "streaming") {
+      clearInterval(clear);
+      await invalidate("/api/chat/" + $page.params.id);
+      return;
+    }
+
+    const requestStream = await fetch(
+      "/api/chat/" + $page.params.id + "/stream"
+    );
+
+    const dataStream = await requestStream.json();
+    if (!dataStream.answer || dataStream.answer === "EOF") {
+      clearInterval(clear);
+      await invalidate("/api/chat/" + $page.params.id);
+    } else {
+      if (questions[questions.length - 1]._id === "STREAM") {
+        questions[questions.length - 1].answer = dataStream.answer;
+      } else {
+        questions = [
+          ...questions,
+          {
+            _id: "STREAM",
+            question: dataStream.question,
+            answer: dataStream.answer,
+          },
+        ];
+      }
+    }
+
+    setTimeout(streamPage, 500);
+  };
+
+  const askQuestion = async () => {
     if (prompt) {
-      const data = new URLSearchParams();
-      data.append("prompt", prompt);
+      const params = new URLSearchParams();
+      params.append("prompt", prompt);
 
+      isLoading = true;
       const r = await fetch(
-        "/api/chat/" + $page.params.id + "/question?" + data.toString(),
+        "/api/chat/" + $page.params.id + "/question?" + params.toString(),
         {
           method: "POST",
         }
       );
 
-      streaming = true;
+      isLoading = false;
       prompt = "";
+      await streamPage();
     }
-  }
-
-  setInterval(async () => {
-    if (browser && streaming) {
-      const r = await fetch("/api/chat/" + $page.params.id + "/stream");
-      const data = await r.json();
-
-      console.log(data);
-      if (!data.answer || data.answer === "EOF") {
-        streaming = false;
-        await invalidate("/api/chat/" + $page.params.id);
-      } else {
-        if (questions[questions.length - 1]._id === "STREAM") {
-          questions[questions.length - 1].answer = data.answer;
-        } else {
-          questions = [
-            ...questions,
-            {
-              _id: "STREAM",
-              question: data.question,
-              answer: data.answer,
-            },
-          ];
-        }
-      }
-    }
-  }, 500);
+  };
 
   async function handleKeyDown(event: KeyboardEvent) {
     if (event.key === "Enter" && event.ctrlKey) {

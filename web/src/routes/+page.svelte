@@ -37,12 +37,12 @@
     ]);
     const searchParams = new URLSearchParams(convertedFormEntries);
 
-    $: loadingChat = true;
+    loadingChat = true;
     const r = await fetch("/api/chat/?" + searchParams.toString(), {
       method: "POST",
     });
 
-    $: loadingChat = false;
+    loadingChat = false;
 
     if (r.ok) {
       const data = await r.json();

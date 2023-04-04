@@ -96,7 +96,7 @@ class Worker(BaseModel):
         self.subprocess.stdin.write("\n".encode())
 
         logger.debug("Entering event loop")
-        while not answer.endswith("> "):
+        while (not answer.endswith("> ") or answer.startswith("> ")):
             await asyncio.sleep(SLEEP)
             chunk = await self.subprocess.stdout.read(4)
             answer += chunk.decode("utf-8")
@@ -131,7 +131,7 @@ class Worker(BaseModel):
         params = self.chat.parameters
         await params.fetch_all_links()
 
-        prompt = await self._get_start_prompt()
+        prompt = await self._get_start_prompt() + "> "
 
         args = (
             "llama",
@@ -172,8 +172,12 @@ class Worker(BaseModel):
         while True:
             await asyncio.sleep(SLEEP)
             chunk = await self.subprocess.stdout.read(4)
-            if chunk:
-                answer += chunk.decode("utf-8")
+            try:
+                if chunk:
+                    answer += chunk.decode("utf-8")
+            except:
+                logger.debug("Error decoding chunk")
+                break
             
             if prompt in answer:
                 break
