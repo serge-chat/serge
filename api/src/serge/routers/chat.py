@@ -108,35 +108,35 @@ async def delete_chat(chat_id: str):
 
 
 
-@chat_router.get("/{chat_id}/question")
-async def stream_ask_a_question(chat_id: str, prompt: str):
-    chat = await Chat.get(chat_id)
-    await chat.fetch_link(Chat.parameters)
-
-    async def event_generator():
-        client = redis.Redis()
+@chat_router.post("/{chat_id}/question")
+async def ask_a_question(chat_id: str, prompt: str):
+    client = redis.Redis()
+    
+    logger.info(f"Asking question {prompt} to chat {chat_id}")
+    if client.sismember("loaded_chats", chat_id):
         client.rpush(f"questions:{chat_id}", prompt)
+    else:
+        logger.info(f"Chat {chat_id} not loaded, loading it.")
+        client.rpush("load_queue", str(chat_id))
+        while not client.sismember("loaded_chats", str(chat_id)):
+            await asyncio.sleep(0.05)   
+        
+        logger.info(f"Re-Asking question {prompt} to chat {chat_id}")
+        client.rpush(f"questions:{chat_id}", prompt)
+    
+    return {"message": "Question added to queue."}
 
-        error = None
-        try:
-            while True:
-                await asyncio.sleep(0.01)
-                answer = client.get(f"stream:{chat_id}")
-                
-                if answer is "" or answer is None:
-                    continue
-                
-                yield {
-                    "event": "message", 
-                    "data": answer.decode()
-                }
-                
-        except Exception as e:
-            logger.error(e)
-            yield({"event" : "error"})
-        finally:
-            yield({"event" : "close"})
+@chat_router.get("/{chat_id}/stream")
+async def stream_chat(chat_id: str):
+    client = redis.Redis()
 
-
-    return EventSourceResponse(event_generator())
-
+    if client.sismember("loaded_chats", chat_id):
+        stream = client.get(f"stream:{chat_id}")
+        if stream != None:
+            return {
+                "question" : client.lindex(f"questions:{chat_id}", 1),
+                "answer" : stream.decode("utf-8")}
+        else:
+            return {"answer" : "EOF"}
+    else:
+        return {"message": f"Chat {chat_id} not loaded."}

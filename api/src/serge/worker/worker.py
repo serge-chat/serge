@@ -65,7 +65,7 @@ class Worker(BaseModel):
             while True:
                 await asyncio.sleep(SLEEP)
                 if self.client.llen(self.queue) > 1:
-                    question: Optional[bytes] = self.client.lindex(self.queue, -1)
+                    question: Optional[bytes] = self.client.lindex(self.queue, 1)
                     logger.debug(f"Asking Question: {question}")
 
                     answer = await self._answer_question(question)
@@ -105,8 +105,8 @@ class Worker(BaseModel):
                 logger.debug(answer)
                 self.client.set(self.stream, answer)
                 
-        self.client.set(self.stream, "")
         logger.debug("Found end of answer, returning and clearing stream")
+        self.client.set(self.stream, "EOF")
 
         return answer.strip("> ")
 
@@ -117,7 +117,6 @@ class Worker(BaseModel):
         prompt = self.chat.parameters.init_prompt + "\n\n"
 
         if self.chat.questions != None:
-            await self.chat.questions.fetch_all_links()
             for question in self.chat.questions:
                 if question.error != None:  # skip errored out prompts
                     continue

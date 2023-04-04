@@ -2,6 +2,7 @@
   import type { PageData } from "./$types";
   import { invalidate } from "$app/navigation";
   import { page } from "$app/stores";
+  import { browser } from "$app/environment";
 
   export let data: PageData;
 
@@ -10,48 +11,57 @@
   $: startDate = new Date(data.props.created);
 
   $: prompt = "";
-  $: answer = "";
+  $: streaming = true;
+
+  // set streaming to true when page params changes
+  $: $page.params.id, (streaming = true);
 
   async function askQuestion() {
     if (prompt) {
       const data = new URLSearchParams();
       data.append("prompt", prompt);
 
-      const eventSource = new EventSource(
-        "/api/chat/" + $page.params.id + "/question?" + data.toString()
+      const r = await fetch(
+        "/api/chat/" + $page.params.id + "/question?" + data.toString(),
+        {
+          method: "POST",
+        }
       );
 
-      questions = [
-        ...questions,
-        {
-          _id: (questions.length + 1).toString(),
-          question: prompt,
-          answer: "",
-        },
-      ];
-
+      streaming = true;
       prompt = "";
-
-      eventSource.addEventListener("message", (event) => {
-        questions[questions.length - 1].answer = event.data;
-      });
-
-      eventSource.addEventListener("close", async () => {
-        eventSource.close();
-        await invalidate("/api/chat/" + $page.params.id);
-      });
-
-      eventSource.onerror = async (error) => {
-        eventSource.close();
-        questions[questions.length - 1].answer = "A server error occurred.";
-        await invalidate("/api/chat/" + $page.params.id);
-      };
     }
   }
 
-  function handleKeyDown(event) {
+  setInterval(async () => {
+    if (browser && streaming) {
+      const r = await fetch("/api/chat/" + $page.params.id + "/stream");
+      const data = await r.json();
+
+      console.log(data);
+      if (!data.answer || data.answer === "EOF") {
+        streaming = false;
+        await invalidate("/api/chat/" + $page.params.id);
+      } else {
+        if (questions[questions.length - 1]._id === "STREAM") {
+          questions[questions.length - 1].answer = data.answer;
+        } else {
+          questions = [
+            ...questions,
+            {
+              _id: "STREAM",
+              question: data.question,
+              answer: data.answer,
+            },
+          ];
+        }
+      }
+    }
+  }, 500);
+
+  async function handleKeyDown(event: KeyboardEvent) {
     if (event.key === "Enter" && event.ctrlKey) {
-      askQuestion();
+      await askQuestion();
     }
   }
 </script>
