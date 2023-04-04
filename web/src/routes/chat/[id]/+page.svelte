@@ -129,6 +129,15 @@
   <div
     class="items-center w-full px-0 h-0 flex flex-row bg-base-100 justify-center"
   >
+    <button
+      type="button"
+      disabled={isLoading}
+      class="btn btn-primary h-10 w-24 text-lg mr-2 mb-5"
+      class:loading={isLoading}
+      on:click|preventDefault={() => createSameSession($page.params.id)}
+    >
+      New
+    </button>
     <textarea
       name="question"
       class="textarea textarea-bordered h-10 w-full max-w-xl mb-5 text-lg"
@@ -144,15 +153,6 @@
       on:click|preventDefault={askQuestion}
     >
       Send
-    </button>
-    <button
-      type="button"
-      disabled={isLoading}
-      class="btn btn-primary h-10 w-24 text-lg ml-2 mb-5"
-      class:loading={isLoading}
-      on:click|preventDefault={() => createSameSession($page.params.id)}
-    >
-      New
     </button>
   </div>
 </div>
