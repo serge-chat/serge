@@ -22,7 +22,7 @@
     "Below is an instruction that describes a task. Write a response that appropriately completes the request. The response must be accurate, concise and evidence-based whenever possible. A complete answer is always ended by [end of text].";
 
   let n_threads = 4;
-  let ctx_length = 512;
+  let context_window = 512;
 
   let loadingChat = false;
 
@@ -146,13 +146,13 @@
           class="tooltip col-span-2"
           data-tip="Size of the prompt context. Will determine how far the model will read back. Increases memory consumption."
         >
-          <label for="ctx_length" class="label-text"
-            >Prompt Context Length - [{ctx_length}]</label
+          <label for="context_window" class="label-text"
+            >Prompt Context Length - [{context_window}]</label
           >
           <input
-            name="ctx_length"
+            name="context_window"
             type="range"
-            bind:value={ctx_length}
+            bind:value={context_window}
             min="16"
             max="2048"
             step="16"
