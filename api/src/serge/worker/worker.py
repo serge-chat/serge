@@ -9,7 +9,7 @@ import redis
 
 from loguru import logger
 
-CHUNK_SIZE = 64
+CHUNK_SIZE = 4
 SLEEP = 0.01
 
 
@@ -64,7 +64,6 @@ class Worker(BaseModel):
         try:
             while True:
                 await asyncio.sleep(SLEEP)
-                logger.debug("in da loop")
                 if self.client.llen(self.queue) > 1:
                     question: Optional[bytes] = self.client.lindex(self.queue, 1)
                     logger.debug(f"Asking Question: {question}")
@@ -142,7 +141,7 @@ class Worker(BaseModel):
 
         logger.debug("Fetching questions")
         if self.chat.questions != None:
-            for question in self.chat.questions:
+            for question in self.chat.questions[::-1]:
                 if question.error != None:  # skip errored out prompts
                     continue
                 prompt += "Question: " + question.question + "\n"
@@ -187,6 +186,7 @@ class Worker(BaseModel):
         )
 
         logger.debug("Starting subprocess with args")
+        logger.debug(args)
         self.subprocess = await asyncio.create_subprocess_exec(
             *args, stdin=subprocess.PIPE, stdout=subprocess.PIPE
         )

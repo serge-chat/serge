@@ -38,6 +38,7 @@
         questions.length > 0 &&
         questions[questions.length - 1]._id === "STREAM"
       ) {
+        questions[questions.length - 1].question = dataStream.question;
         questions[questions.length - 1].answer = dataStream.answer;
       } else {
         questions = [
