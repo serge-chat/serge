@@ -43,11 +43,13 @@ async def generate(
     procLlama = await asyncio.create_subprocess_exec(
         *args, stdout=subprocess.PIPE, stderr=subprocess.PIPE
     )
-    
+    outputLength = len(prompt)*-1 -64 ##start off with the length our our prompt in chunks below zero. everything above zero is the ai's response
+    lastchunk=""
     while True:
         chunk = await procLlama.stdout.read(CHUNK_SIZE)
-
+        
         if not chunk:
+            yield lastchunk
             return_code = await procLlama.wait()
 
             if return_code != 0:
@@ -59,10 +61,34 @@ async def generate(
 
         try:
             chunk = chunk.decode("utf-8")
+            if(outputLength> 0 ):##if the ai has started responding, log the chunk and length
+                #logger.warn("a chunk: "+chunk)
+                index = (lastchunk+chunk).find("###")##combine the last two chunks to make sure that if the ### was on a border between chunks we still detect it
+                if (index != -1) :##detect the ai responding to itself
+                    #logger.warn("bad response: "+lastchunk+"|"+chunk);
+                    ##find which cunk it was in
+                    if(index<len(lastchunk)):##it was the last chunk
+                        logger.warn("AI responded to itself in the last chunk, cropping response");
+                        lastchunk= lastchunk[:index]##remove everything after the ai's response
+                        yield lastchunk ## return only cropped chunk
+                    else:
+                        logger.warn("AI responded to itself in the current chunk, cropping response");
+                        index -= len(lastchunk)##adjust the index to be in the current chunk
+                        chunk = chunk[:index]##remove everything after the ai's response
+                        yield lastchunk ## return the ok chunk
+                        yield chunk ## return the cropped chunk
+                    #either way kill llama and finish the response
+                    procLlama.kill()## stop llama from continuing to respond
+                    return_code = 0 ##not sure if this is needed
+                    return ## stop the generator
+            else :
+                #logger.warn("u chunk: "+chunk)
+                outputLength += len(chunk) ## incremet the length of the prompt
         except UnicodeDecodeError:
             return
 
-        yield chunk
+        yield lastchunk
+        lastchunk = chunk
 
 
 async def get_full_prompt_from_chat(chat: Chat, simple_prompt: str):
