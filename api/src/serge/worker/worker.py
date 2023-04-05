@@ -20,13 +20,17 @@ class Worker(BaseModel):
     client: Optional[TypeVar("Redis")] = None
     chat: Optional[Chat] = None
     
+    fresh: bool = True
+    
     class Config:
         arbitrary_types_allowed = True
 
     @classmethod
     async def create(cls, chat_id: str):
         logger.debug("Creating a Worker")
-        chat = await Chat.get(chat_id)
+        chat = await Chat.get(chat_id, fetch_links=True)
+
+        chat.fetch_all_links()
 
         if chat == None:
             raise ValueError("Chat document not found while creating the worker thread")
@@ -55,23 +59,21 @@ class Worker(BaseModel):
     def stream(self):
         return f"stream:{self.chat.id}"
     
-    @property
-    def logs(self):
-        return f"logs:{self.chat.id}"
-
     async def loop(self):
         logger.debug("Starting event loop for worker", self.chat.id)
         try:
             while True:
                 await asyncio.sleep(SLEEP)
+                logger.debug("in da loop")
                 if self.client.llen(self.queue) > 1:
                     question: Optional[bytes] = self.client.lindex(self.queue, 1)
                     logger.debug(f"Asking Question: {question}")
 
                     answer = await self._answer_question(question)
-                    logger.debug(f"Answer: {answer}")
+                    logger.debug(f"Answering question done. Answer is :{answer}")
                     self.client.lpop(self.queue, 1)
 
+                    logger.debug("Saving question in chat history")
                     question = await Question(question=question, answer=answer).create()
                     if self.chat.questions is None:
                         self.chat.questions = [question]
@@ -80,7 +82,7 @@ class Worker(BaseModel):
 
                     await self.chat.save()
 
-                    logger.debug(f"Answer: {answer}")
+                    logger.debug("Done saving")
 
         except asyncio.CancelledError:
             logger.debug("Event loop cancelled")
@@ -88,34 +90,57 @@ class Worker(BaseModel):
             return True
 
     async def _answer_question(self, question:bytes):
-        answer = ""
+        output = "" #stores the entire output
+        answer = "" #stores just the answer
 
-        logger.debug("flushing stdout")
 
+        if self.fresh:
+            fp = " " + repr(await self._get_start_prompt()) # to check against, only used if fresh
+            logger.debug(f"Fetching full prompt \n {fp}")
+        else:
+            fp = None
+            
+
+        logger.debug("Writing question to stdin")
         self.subprocess.stdin.write(question)
         self.subprocess.stdin.write("\n".encode())
 
-        logger.debug("Entering event loop")
-        while (not answer.endswith("> ") or answer.startswith("> ")):
+        logger.debug(f"Entering event loop {self.fresh}")
+        
+        while True:
             await asyncio.sleep(SLEEP)
             chunk = await self.subprocess.stdout.read(4)
-            answer += chunk.decode("utf-8")
             
             if chunk:
-                logger.debug(answer)
-                self.client.set(self.stream, answer)
-                
-        logger.debug("Found end of answer, returning and clearing stream")
-        self.client.set(self.stream, "EOF")
+                output += chunk.decode("utf-8")
+                logger.debug(f"output: {repr(output)}")
+                if self.fresh: # on the first run, the initial prompt is outputted to stdout, so we need to filter it.
+                    if len(output) >= len(fp):
+                        answer += chunk.decode("utf-8")
+                        logger.debug(f"answer: {answer}")
 
-        return answer.strip("> ")
+                        if output.endswith("\n> "):
+                            self.fresh = False
+                            logger.debug("Found end of answer, returning and clearing stream")
+                            self.client.set(self.stream, "EOF")
+
+                            return answer[:-len("\n> ")]
+                
+                else:
+                    answer += chunk.decode("utf-8")
+                    if answer.endswith("\n> ") and len(answer)>len("\n> "):
+                        logger.debug("Found end of answer, returning and clearing stream")
+                        self.client.set(self.stream, "EOF")
+                        return answer[:-len("\n> ")]
+
+            logger.debug(answer)
+            self.client.set(self.stream, answer)
 
     async def _get_start_prompt(self):
-        await self.chat.fetch_all_links()
-        await self.chat.parameters.fetch_all_links()
-
+        logger.debug("Fetching Initial Prompt")
         prompt = self.chat.parameters.init_prompt + "\n\n"
 
+        logger.debug("Fetching questions")
         if self.chat.questions != None:
             for question in self.chat.questions:
                 if question.error != None:  # skip errored out prompts
@@ -131,7 +156,7 @@ class Worker(BaseModel):
         params = self.chat.parameters
         await params.fetch_all_links()
 
-        prompt = await self._get_start_prompt() + "> "
+        prompt = await self._get_start_prompt()
 
         args = (
             "llama",
@@ -165,22 +190,6 @@ class Worker(BaseModel):
         self.subprocess = await asyncio.create_subprocess_exec(
             *args, stdin=subprocess.PIPE, stdout=subprocess.PIPE
         )
-        logger.debug("Subprocess created! Flushing stdout")
+        logger.debug("Subprocess created! Waiting for prompt...")
 
-        answer = ""
-
-        while True:
-            await asyncio.sleep(SLEEP)
-            chunk = await self.subprocess.stdout.read(4)
-            try:
-                if chunk:
-                    answer += chunk.decode("utf-8")
-            except:
-                logger.debug("Error decoding chunk")
-                break
-            
-            if prompt in answer:
-                break
-        
-        logger.debug("Done flushing")
         return True

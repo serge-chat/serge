@@ -141,6 +141,8 @@ async def ask_a_question(chat_id: str, prompt: str):
     client = redis.Redis()
     
     logger.info(f"Asking question {prompt} to chat {chat_id}")
+    client.set(f"stream:{chat_id}", "")
+    
     if client.sismember("loaded_chats", chat_id):
         client.rpush(f"questions:{chat_id}", prompt)
     else:
@@ -165,6 +167,8 @@ async def stream_chat(chat_id: str):
                 "question" : client.lindex(f"questions:{chat_id}", 1),
                 "answer" : stream.decode("utf-8")}
         else:
-            return {"answer" : "EOF"}
+            return {
+                "question" : "",
+                "answer" : ""}
     else:
         return {"message": f"Chat {chat_id} not loaded."}

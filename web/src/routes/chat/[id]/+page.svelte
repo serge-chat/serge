@@ -3,7 +3,6 @@
   import { invalidate } from "$app/navigation";
   import { page } from "$app/stores";
   import { browser } from "$app/environment";
-  import { onMount } from "svelte";
 
   export let data: PageData;
   let clear: number;
@@ -14,35 +13,31 @@
 
   $: prompt = "";
 
-  // set streaming to true when page params
-  onMount(async () => {
-    if (browser) {
-      await streamPage();
-    }
-  });
+  $: if (browser) {
+    void fetch("/api/chat/" + $page.params.id + "/status")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data === "streaming") {
+          void streamPage();
+        }
+      });
+  }
 
   const streamPage = async () => {
-    const requestStatus = await fetch(
-      "/api/chat/" + $page.params.id + "/status"
-    );
-    const data = await requestStatus.json();
-
-    if (data.status !== "streaming") {
-      clearInterval(clear);
-      await invalidate("/api/chat/" + $page.params.id);
-      return;
-    }
-
     const requestStream = await fetch(
       "/api/chat/" + $page.params.id + "/stream"
     );
 
     const dataStream = await requestStream.json();
-    if (!dataStream.answer || dataStream.answer === "EOF") {
-      clearInterval(clear);
+
+    if (dataStream.answer === "EOF") {
       await invalidate("/api/chat/" + $page.params.id);
+      return;
     } else {
-      if (questions[questions.length - 1]._id === "STREAM") {
+      if (
+        questions.length > 0 &&
+        questions[questions.length - 1]._id === "STREAM"
+      ) {
         questions[questions.length - 1].answer = dataStream.answer;
       } else {
         questions = [
