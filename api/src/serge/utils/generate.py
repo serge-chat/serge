@@ -61,7 +61,7 @@ async def generate(
 
         try:
             chunk = chunk.decode("utf-8")
-            index = chunk.index("###") 
+            index = chunk.find("###") 
             if index != -1:##remove the last incomplete prompt
                 chunk = chunk[:index]
                 procLlama.kill()
