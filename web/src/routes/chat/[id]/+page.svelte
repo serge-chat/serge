@@ -89,11 +89,24 @@
   class="max-w-4xl mx-auto h-full max-h-screen relative"
   on:keydown={handleKeyDown}
 >
-  <h1 class="text-4xl font-bold">Chat with {data.props.parameters.model}</h1>
-  <h4 class="text-xl font-semibold mb-10">
-    Started on {startDate.toLocaleString("en-US")}
-  </h4>
-  <div class="overflow-y-auto h-[calc(100vh-12rem)] px-10 mb-11">
+<div class="flex items-center">
+  <h1 class="text-4xl font-bold inline-block mr-2">
+    Chat with {data.props.parameters.model}
+  </h1>
+  <button
+    type="button"
+    disabled={isLoading}
+    class="btn btn-sm mr-2 mt-5 mb-5 inline-block"
+    class:loading={isLoading}
+    on:click|preventDefault={() => createSameSession($page.params.id)}
+  >
+    New
+  </button>
+</div>
+<h4 class="text-xl font-semibold mb-5">
+  Started on {startDate.toLocaleString("en-US")}
+</h4>
+  <div class="overflow-y-auto h-[calc(97vh-12rem)] px-10 mb-11">
     <div class="h-max pb-32">
       {#each questions as question}
         <div class="chat chat-end my-2">
@@ -129,16 +142,8 @@
   <div
     class="items-center w-full px-0 h-0 flex flex-row bg-base-100 justify-center"
   >
-    <button
-      type="button"
-      disabled={isLoading}
-      class="btn btn-primary h-10 w-24 text-lg mr-2 mb-5"
-      class:loading={isLoading}
-      on:click|preventDefault={() => createSameSession($page.params.id)}
-    >
-      New
-    </button>
-    <textarea autofocus
+    <textarea
+      autofocus
       name="question"
       class="textarea textarea-bordered h-10 w-full max-w-xl mb-5 text-lg"
       disabled={isLoading}
