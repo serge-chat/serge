@@ -14,6 +14,8 @@ logger.add(
 )
 
 
+MAX_ACTIVE_CONVERSATIONS = 4
+
 class Orchestrator(BaseModel):
     workers: dict[str, type[Worker]] = {}
     client: Optional[redis.Redis] = None
@@ -55,6 +57,16 @@ class Orchestrator(BaseModel):
                 await asyncio.sleep(0.05)
                 # check the queue for new chats to load
                 while self.client.llen("load_queue") > 1:
+                    
+                    # check if there are more than the maximum allowed amount of active conversations
+                    if len(self.workers) >= MAX_ACTIVE_CONVERSATIONS:
+                        logger.info("Too many active conversations, getting rid of the earliest activated conversation...")
+                        # pop the first chat that was added
+                        key_to_delete = next(iter(self.workers))
+                        await self.remove_worker(key_to_delete)
+                        self.client.srem("loaded_chats", chat_id)
+
+                    
                     # fetch the next chat to load, and wait for it to load
                     chat_id:bytes = self.client.lindex("load_queue", 1)
                     logger.debug(

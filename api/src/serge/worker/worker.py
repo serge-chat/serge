@@ -112,11 +112,9 @@ class Worker(BaseModel):
             
             if chunk:
                 output += chunk.decode("utf-8")
-                logger.debug(f"output: {repr(output)}")
                 if self.fresh: # on the first run, the initial prompt is outputted to stdout, so we need to filter it.
                     if len(output) >= len(fp):
                         answer += chunk.decode("utf-8")
-                        logger.debug(f"answer: {answer}")
 
                         if output.endswith("\n> "):
                             self.fresh = False
@@ -132,7 +130,6 @@ class Worker(BaseModel):
                         self.client.set(self.stream, "EOF")
                         return answer[:-len("\n> ")]
 
-            logger.debug(answer)
             self.client.set(self.stream, answer)
 
     async def _get_start_prompt(self):
