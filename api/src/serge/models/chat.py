@@ -12,8 +12,8 @@ class ChatParameters(Document):
     top_k: int = Field(default=50)
     top_p: float = Field(default=0.95)
 
-    max_length: int = Field(default=256)
-    context_window: int = Field(default=512)
+    max_length: int = Field(default=512)
+    context_window: int = Field(default=1024)
 
     repeat_last_n: int = Field(default=64)
     repeat_penalty: float = Field(default=1.3)

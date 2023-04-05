@@ -12,7 +12,6 @@ async def generate(
 ):
     CHUNK_SIZE = 64
     await params.fetch_all_links()
-
     args = (
         "llama",
         "--model",
@@ -32,7 +31,7 @@ async def generate(
         "--repeat_penalty",
         str(params.repeat_penalty),
         "--ctx_size",
-        str(params.context_window),
+        str(params.context_window if params.context_window>1024  else 2048),
         "--threads",
         str(params.n_threads),
         "--n_parts",
@@ -49,7 +48,7 @@ async def generate(
     
     while True:
         chunk = await procLlama.stdout.read(CHUNK_SIZE)
-
+        
         if not chunk:
             return_code = await procLlama.wait()
 
@@ -62,6 +61,10 @@ async def generate(
 
         try:
             chunk = chunk.decode("utf-8")
+            index = chunk.index("###") 
+            if index != -1:##remove the last incomplete prompt
+                chunk = chunk[:index]
+                procLlama.kill()
         except UnicodeDecodeError:
             return
 
