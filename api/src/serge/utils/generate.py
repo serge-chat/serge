@@ -45,7 +45,7 @@ async def generate(
     procLlama = await asyncio.create_subprocess_exec(
         *args, stdout=subprocess.PIPE, stderr=subprocess.PIPE
     )
-    
+    chunkCount = 0
     while True:
         chunk = await procLlama.stdout.read(CHUNK_SIZE)
         
@@ -62,9 +62,15 @@ async def generate(
         try:
             chunk = chunk.decode("utf-8")
             index = chunk.find("###") 
-            if index != -1:##remove the last incomplete prompt
-                chunk = chunk[:index]
-                procLlama.kill()
+            if index != -1 and chunkCount > 1 :##detect the ai responding to itself
+                logger.warn("AI responded to itself, cropping response");
+                chunk = chunk[:index]##remove everything after the ai's response
+                chunk = chunk + " ||| SHUT UP LLAMA |||"
+                procLlama.kill()## stop llama from continuing to respond
+                yield chunk ## return the cropped chunk
+                return ## finish the response cleanly
+            else :
+                chunkCount += 1 ## increment the chunk count
         except UnicodeDecodeError:
             return
 
