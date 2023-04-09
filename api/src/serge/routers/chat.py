@@ -1,23 +1,16 @@
 import asyncio
 
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter
 from sse_starlette.sse import EventSourceResponse
-from beanie.odm.enums import SortDirection
 
-from serge.models.chat import Question, Chat,ChatParameters
-from serge.utils.generate import generate, get_full_prompt_from_chat
+from serge.utils.generate import generate
+from serge.models.chat import Chat
 
-async def on_close(chat, prompt, answer=None, error=None):
-    question = await Question(question=prompt.rstrip(), 
-                              answer=answer.rstrip() if answer != None else None, 
-                              error=error).create()
+from serge.utils.llm import LlamaCpp
+from langchain.memory import RedisChatMessageHistory
+from langchain.schema import messages_to_dict, SystemMessage
 
-    if chat.questions is None:
-        chat.questions = [question]
-    else:
-        chat.questions.append(question)
-
-    await chat.save()
+from redis import Redis
 
 
 def remove_matching_end(a, b):
@@ -47,39 +40,69 @@ async def create_new_chat(
     init_prompt: str = "Below is an instruction that describes a task. Write a response that appropriately completes the request. The response must be accurate, concise and evidence-based whenever possible. A complete answer is always ended by [end of text].",
     n_threads: int = 4,
 ):
-    parameters = await ChatParameters(
-        model=model,
-        temperature=temperature,
-        top_k=top_k,
-        top_p=top_p,
-        max_length=max_length,
-        context_window=context_window,
-        repeat_last_n=repeat_last_n,
-        repeat_penalty=repeat_penalty,
-        init_prompt=init_prompt,
-        n_threads=n_threads,
-    ).create()
+    try:
+        llm = LlamaCpp(
+            model_path=model,
+            n_ctx=context_window,
+            max_tokens=max_length,
+            temperature=temperature,
+            top_p=top_p, 
+            repeat_penalty=repeat_penalty,
+            top_k=top_k,
+            last_n_tokens_size=repeat_last_n,
+            n_threads=n_threads,
+        )
+    except:
+        raise ValueError("Invalid model parameters")
+    
 
-    chat = await Chat(parameters=parameters).create()
+    client = Redis()
+
+    # create the chat
+    chat = Chat(llm=llm)
+
+    # store the parameters
+    client.set(f"chat:{chat.id}", chat.json())
+               
+    # create the message history
+    history = RedisChatMessageHistory(chat.id)
+    history.append(SystemMessage(content=init_prompt))
+
+    # add the key to the set of chats
+    client.sadd("chats", chat.id)
+
     return chat.id
 
 
 @chat_router.get("/")
 async def get_all_chats():
     res = []
+    client = Redis()
+    
+    ids = client.smembers("chats")
+    
+    chats: list[Chat] = []
 
-    for i in (
-        await Chat.find_all().sort((Chat.created, SortDirection.DESCENDING)).to_list()
-    ):
-        await i.fetch_link(Chat.parameters)
-        await i.fetch_link(Chat.questions)
+    for id in ids:
+        chat_raw = client.get(f"chat:{id}")
+        chat = Chat.parse_raw(chat_raw)
 
-        first_q = i.questions[0].question if i.questions else ""
+        chats.append(chat)
+
+
+    for chat in chats:
+        history = RedisChatMessageHistory(chat.id)
+
+        try:
+            first_q = history.messages[0].content
+        except IndexError:
+            first_q = ""
+        
         res.append(
             {
-                "id": i.id,
-                "created": i.created,
-                "model": i.parameters.model,
+                "id": chat.id,
+                "created": chat.created,
+                "model": chat.llm.model_path.split("/")[-1],
                 "subtitle": first_q,
             }
         )
@@ -89,83 +112,110 @@ async def get_all_chats():
 
 @chat_router.get("/{chat_id}")
 async def get_specific_chat(chat_id: str):
-    chat = await Chat.get(chat_id)
-    await chat.fetch_all_links()
+    client = Redis()
 
-    return chat
+    if not client.sismember("chats", chat_id):
+        raise ValueError("Chat does not exist")
+    
+    chat_raw = client.get(f"chat:{chat_id}")
+    chat = Chat.parse_raw(chat_raw)
+    
+    history = RedisChatMessageHistory(chat.id)
+
+    return { **chat, 
+            "history" : messages_to_dict(history) }
+
+
+@chat_router.get("/{chat_id}/history")
+async def get_chat_history(chat_id: str):
+    client = Redis()
+
+    if not client.sismember("chats", chat_id):
+        raise ValueError("Chat does not exist")
+
+    history = RedisChatMessageHistory(chat_id)
+    return messages_to_dict(history)
+
 
 @chat_router.delete("/{chat_id}" )
 async def delete_chat(chat_id: str):
-    chat = await Chat.get(chat_id)
-    deleted_chat = await chat.delete()
+    client = Redis()
 
-    if deleted_chat:
-        return {"message": f"Deleted chat with id: {chat_id}"}
-    else:
-        raise HTTPException(status_code=404, detail="No chat found with the given id.")
+    if not client.sismember("chats", chat_id):
+        raise ValueError("Chat does not exist")
 
+    client.delete(f"chat:{chat_id}")
+    client.srem("chats", chat_id)
+
+    return True
 
 
 @chat_router.get("/{chat_id}/question")
 async def stream_ask_a_question(chat_id: str, prompt: str):
     
-    chat = await Chat.get(chat_id)
-    await chat.fetch_link(Chat.parameters)
+    client = Redis()
 
-    full_prompt = await get_full_prompt_from_chat(chat, prompt)
+    if not client.sismember("chats", chat_id):
+        raise ValueError("Chat does not exist")
     
+    chat_raw = client.get(f"chat:{chat_id}")
+    chat = Chat.parse_raw(chat_raw)
+    
+    history = RedisChatMessageHistory(chat.id)
+
     chunks = []
 
+    # TODO do the conversation here
+    
     async def event_generator():
         full_answer = ""
         error = None
         try:
             async for output in generate(
-                prompt=full_prompt,
                 params=chat.parameters,
             ):
                 await asyncio.sleep(0.01)
 
                 chunks.append(output)
                 full_answer += output
-                
-                if full_prompt in full_answer:
-                    cleaned_chunk = remove_matching_end(full_prompt, output)
-                    yield {
-                        "event": "message", 
-                        "data": cleaned_chunk}
+            
+                yield {
+                    "event": "message", 
+                    "data": full_answer}
                 
         except Exception as e:
             error = e.__str__()
             yield({"event" : "error"})
         finally:
-            answer = "".join(chunks)[len(full_prompt)+1:]
-            await on_close(chat, prompt, answer, error)
             yield({"event" : "close"})
 
 
     return EventSourceResponse(event_generator())
 
-@chat_router.post("/{chat_id}/question")
-async def ask_a_question(chat_id: str, prompt: str):
-    chat = await Chat.get(chat_id)
-    await chat.fetch_link(Chat.parameters)
+# @chat_router.post("/{chat_id}/question")
+# async def ask_a_question(chat_id: str, prompt: str):
+#     client = Redis()
 
-    full_prompt = await get_full_prompt_from_chat(chat, prompt)
+#     if not client.sismember("chats", chat_id):
+#         raise ValueError("Chat does not exist")
     
-    answer = ""
-    error = None
+#     chat_raw = client.get(f"chat:{chat_id}")
+#     chat = Chat.parse_raw(chat_raw)
+    
+#     history = RedisChatMessageHistory(chat.id)
 
-    try:
-        async for output in generate(
-            prompt=full_prompt,
-            params=chat.parameters,
-        ):
-            await asyncio.sleep(0.01)
-            answer += output
-    except Exception as e:
-            error = e.__str__()
-    finally:
-        await on_close(chat, prompt, answer=answer[len(full_prompt)+1:], error=error)
+#     llm = Llam
 
-    return {"question" : prompt, "answer" : answer[len(full_prompt)+1:]}
+#     try:
+#         async for output in generate(
+#             prompt=full_prompt,
+#             params=chat.parameters,
+#         ):
+#             await asyncio.sleep(0.01)
+#             answer += output
+#     except Exception as e:
+#             error = e.__str__()
+#     finally:
+#         await on_close(chat, prompt, answer=answer[len(full_prompt)+1:], error=error)
+
+#     return {"question" : prompt, "answer" : answer[len(full_prompt)+1:]}

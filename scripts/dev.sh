@@ -1,9 +1,11 @@
 #!/bin/bash
-./compile.sh 
 
 pip install -e ./api
+pip install llama-cpp-python
 
-mongod &
+cd llama-cpp-python && pip install . && cd ..
+
+redis-server &
 
 # Start the web server
 cd web && npm run dev -- --host 0.0.0.0 --port 8008 &

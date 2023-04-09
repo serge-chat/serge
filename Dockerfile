@@ -12,17 +12,18 @@ ENV TZ=Europe/Amsterdam
 
 WORKDIR /usr/src/app
 
-COPY --chmod=0755 scripts/compile.sh .
+# Install Redis
+RUN apt-get update && apt-get install -y curl wget gnupg python3-pip cmake lsb-release
 
-# Install MongoDB and necessary tools
-RUN apt update && \
-    apt install -y curl wget gnupg python3-pip git cmake && \
-    wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | apt-key add - && \
-    echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-6.0.list && \
-    apt-get update && \
-    apt-get install -y mongodb-org && \
-    git clone https://github.com/ggerganov/llama.cpp.git --branch master-437e778
+RUN curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
 
+RUN apt-get update && \
+    apt-get install -y redis
+
+RUN mkdir -p /etc/redis && mkdir -p /var/redis
+
+# clone the python bindings for llama.cpp
 RUN pip install --upgrade pip
 
 # Dev environment
