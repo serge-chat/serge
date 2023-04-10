@@ -9,7 +9,7 @@ from starlette.responses import FileResponse
 
 from serge.routers.chat import chat_router
 from serge.routers.model import model_router
-from serge.utils.initiate_database import initiate_database, Settings
+from serge.utils.initiate_database import Settings
 from serge.utils.convert import convert_all
 
 # Configure logging settings
@@ -88,9 +88,6 @@ async def start_database():
 
     for file in files:
         os.remove(WEIGHTS + file)
-
-    logger.info("initializing database connection")
-    await initiate_database()
 
     logger.info("initializing models")
     convert_all("/usr/src/app/weights/", "/usr/src/app/weights/tokenizer.model")

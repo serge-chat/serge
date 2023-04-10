@@ -1,7 +1,7 @@
 """Wrapper around llama.cpp."""
 from typing import Any, Dict, List, Optional
 
-from pydantic import Field, root_validator
+from pydantic import Field, root_validator, Extra
 
 from langchain.llms.base import LLM
 # from langchain.schema import Generation, LLMResult
@@ -72,7 +72,7 @@ class LlamaCpp(LLM):
     echo: Optional[bool] = False
     """Whether to echo the prompt."""
 
-    stop: Optional[List[str]] = []
+    stop_sequences: Optional[List[str]] = []
     """A list of strings to stop generation when encountered."""
 
     repeat_penalty: Optional[float] = 1.1
@@ -84,39 +84,19 @@ class LlamaCpp(LLM):
     last_n_tokens_size: Optional[int] = 64
     """The number of tokens to look back when applying the repeat_penalty."""
 
-    streaming: bool = False
+    streaming: bool = False    
+
+    class Config:
+        extra = Extra.ignore
 
     @root_validator()
     def validate_environment(cls, values: Dict) -> Dict:
         """Validate that llama-cpp-python library is installed."""
         model_path = values["model_path"]
-        n_ctx = values["n_ctx"]
-        n_parts = values["n_parts"]
-        seed = values["seed"]
-        f16_kv = values["f16_kv"]
-        logits_all = values["logits_all"]
-        vocab_only = values["vocab_only"]
-        use_mlock = values["use_mlock"]
-        n_threads = values["n_threads"]
-        n_batch = values["n_batch"]
-        last_n_tokens_size = values["last_n_tokens_size"]
 
         try:
             from llama_cpp import Llama
 
-            values["client"] = Llama(
-                model_path=model_path,
-                n_ctx=n_ctx,
-                n_parts=n_parts,
-                seed=seed,
-                f16_kv=f16_kv,
-                logits_all=logits_all,
-                vocab_only=vocab_only,
-                use_mlock=use_mlock,
-                n_threads=n_threads,
-                n_batch=n_batch,
-                last_n_tokens_size=last_n_tokens_size,
-            )
         except ImportError:
             raise ModuleNotFoundError(
                 "Could not import llama-cpp-python library. "
@@ -138,7 +118,7 @@ class LlamaCpp(LLM):
             "top_p": self.top_p,
             "logprobs": self.logprobs,
             "echo": self.echo,
-            "stop_sequences": self.stop,
+            "stop_sequences": self.stop_sequences,
             "repeat_penalty": self.repeat_penalty,
             "top_k": self.top_k,
         }
@@ -170,18 +150,33 @@ class LlamaCpp(LLM):
                 llm = LlamaCppEmbeddings(model_path="/path/to/local/llama/model.bin")
                 llm("This is a prompt.")
         """
+        from llama_cpp import Llama
 
-        params = self._default_params
-        if self.stop and stop is not None:
+        params = self._identifying_params
+        client = Llama(
+                        model_path=self.model_path,
+                        n_ctx=self.n_ctx,
+                        n_parts=self.n_parts,
+                        seed=self.seed,
+                        f16_kv=self.f16_kv,
+                        logits_all=self.logits_all,
+                        vocab_only=self.vocab_only,
+                        use_mlock=self.use_mlock,
+                        n_threads=self.n_threads,
+                        n_batch=self.n_batch,
+                        last_n_tokens_size=self.last_n_tokens_size,
+                    )
+        
+        if self.stop_sequences and stop is not None:
             raise ValueError("`stop` found in both the input and default params.")
-        elif self.stop:
-            params["stop_sequences"] = self.stop
+        elif self.stop_sequences:
+            params["stop_sequences"] = self.stop_sequences
         else:
             params["stop_sequences"] = []
 
         if self.streaming:
             response = ""
-            stream = self.client(
+            stream = client(
                 prompt=prompt,
                 max_tokens=params["max_tokens"],
                 temperature=params["temperature"],
@@ -206,7 +201,7 @@ class LlamaCpp(LLM):
 
         else:
             """Call the Llama model and return the output."""
-            output = self.client(
+            output = client(
                 prompt=prompt,
                 max_tokens=params["max_tokens"],
                 temperature=params["temperature"],
@@ -227,4 +222,5 @@ if __name__ == "__main__":
 
     llm = LlamaCpp(streaming=True, model_path="/usr/src/app/weights/gpt4all.bin", callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]), verbose=True, temperature=0.1, max_tokens=32)
 
+    input()
     resp = llm("Who is the current president of France ?")

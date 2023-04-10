@@ -3,7 +3,6 @@ import asyncio
 from fastapi import APIRouter
 from sse_starlette.sse import EventSourceResponse
 
-from serge.utils.generate import generate
 from serge.models.chat import Chat
 
 from serge.utils.llm import LlamaCpp
@@ -11,16 +10,6 @@ from langchain.memory import RedisChatMessageHistory
 from langchain.schema import messages_to_dict, SystemMessage
 
 from redis import Redis
-
-
-def remove_matching_end(a, b):
-    min_length = min(len(a), len(b))
-
-    for i in range(min_length, 0, -1):
-        if a[-i:] == b[:i]:
-            return b[i:]
-
-    return b
 
 chat_router = APIRouter(
     prefix="/chat",
@@ -51,6 +40,7 @@ async def create_new_chat(
             top_k=top_k,
             last_n_tokens_size=repeat_last_n,
             n_threads=n_threads,
+            streaming=True,
         )
     except:
         raise ValueError("Invalid model parameters")
@@ -84,26 +74,17 @@ async def get_all_chats():
     chats: list[Chat] = []
 
     for id in ids:
-        chat_raw = client.get(f"chat:{id}")
-        chat = Chat.parse_raw(chat_raw)
-
-        chats.append(chat)
-
-
-    for chat in chats:
-        history = RedisChatMessageHistory(chat.id)
-
+        chat_dict = await get_specific_chat(id.decode())
         try:
-            first_q = history.messages[0].content
-        except IndexError:
-            first_q = ""
-        
+            subtitle = chat_dict["history"][-1]["data"]["content"]
+        except (KeyError, IndexError):
+            subtitle = ""
         res.append(
             {
-                "id": chat.id,
-                "created": chat.created,
-                "model": chat.llm.model_path.split("/")[-1],
-                "subtitle": first_q,
+                "id": chat_dict["id"],
+                "created": chat_dict["created"],
+                "model": chat_dict["llm"]["model_path"].split("/")[-1],
+                "subtitle": subtitle
             }
         )
 
@@ -122,8 +103,10 @@ async def get_specific_chat(chat_id: str):
     
     history = RedisChatMessageHistory(chat.id)
 
-    return { **chat, 
-            "history" : messages_to_dict(history) }
+    chat_dict = chat.dict()
+    chat_dict["history"] = messages_to_dict(history.messages)
+    
+    return chat_dict
 
 
 @chat_router.get("/{chat_id}/history")
@@ -134,7 +117,7 @@ async def get_chat_history(chat_id: str):
         raise ValueError("Chat does not exist")
 
     history = RedisChatMessageHistory(chat_id)
-    return messages_to_dict(history)
+    return messages_to_dict(history.messages)
 
 
 @chat_router.delete("/{chat_id}" )
