@@ -161,7 +161,7 @@ class LlamaCpp(LLM):
 
         params = self._identifying_params
         client = Llama(
-                        model_path=self.model_path,
+                        model_path="/usr/src/app/weights/"+self.model_path+".bin",
                         n_ctx=self.n_ctx,
                         n_parts=self.n_parts,
                         seed=self.seed,

@@ -1,7 +1,5 @@
 import threading
 from fastapi import APIRouter
-from sse_starlette.sse import EventSourceResponse
-
 from serge.models.chat import Chat
 
 from serge.utils.llm import LlamaCpp
@@ -106,7 +104,6 @@ async def get_specific_chat(chat_id: str):
 
     chat_dict = chat.dict()
     chat_dict["history"] = messages_to_dict(history.messages)
-    
     return chat_dict
 
 
@@ -161,7 +158,7 @@ async def stream_ask_a_question(chat_id: str, prompt: str):
 
     try:
         g = ThreadedGenerator()
-        threading.Thread(target=stream_thread, args=(g)).start()
+        threading.Thread(target=lambda:stream_thread(g)).start()
         return g
 
 

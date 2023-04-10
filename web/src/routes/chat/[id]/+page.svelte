@@ -6,8 +6,8 @@
   export let data: PageData;
 
   $: isLoading = false;
-  $: questions = data.props.questions ?? [];
-  $: startDate = new Date(data.props.created);
+  $: startDate = new Date(data.chat.created);
+  $: history = data.chat.history;
 
   $: prompt = "";
   $: answer = "";
@@ -21,19 +21,26 @@
         "/api/chat/" + $page.params.id + "/question?" + data.toString()
       );
 
-      questions = [
-        ...questions,
+      history = [
+        ...history,
         {
-          _id: (questions.length + 1).toString(),
-          question: prompt,
-          answer: "",
+          type: "human",
+          data: {
+            content: prompt,
+          },
+        },
+        {
+          type: "ai",
+          data: {
+            content: "",
+          },
         },
       ];
 
       prompt = "";
 
       eventSource.addEventListener("message", (event) => {
-        questions[questions.length - 1].answer += event.data;
+        history[history.length - 1].data.content += event.data;
       });
 
       eventSource.addEventListener("close", async () => {
@@ -43,15 +50,15 @@
 
       eventSource.onerror = async (error) => {
         eventSource.close();
-        questions[questions.length - 1].answer = "A server error occurred.";
+        history[history.length - 1].data.content = "A server error occurred.";
         await invalidate("/api/chat/" + $page.params.id);
       };
     }
   }
 
-  function handleKeyDown(event) {
+  async function handleKeyDown(event: KeyboardEvent) {
     if (event.key === "Enter" && event.ctrlKey) {
-      askQuestion();
+      await askQuestion();
     }
   }
 </script>
@@ -60,40 +67,36 @@
   class="max-w-4xl mx-auto h-full max-h-screen relative"
   on:keydown={handleKeyDown}
 >
-  <h1 class="text-4xl font-bold">Chat with {data.props.parameters.model}</h1>
+  <h1 class="text-4xl font-bold">Chat with {data.chat.llm.model_path}</h1>
   <h4 class="text-xl font-semibold mb-10">
     Started on {startDate.toLocaleString("en-US")}
   </h4>
   <div class="overflow-y-auto h-[calc(100vh-12rem)] px-10 mb-11">
     <div class="h-max pb-32">
-      {#each questions as question}
-        <div class="chat chat-end my-2">
-          <div
-            class="chat-bubble chat-bubble-secondary whitespace-pre-line text-lg"
-          >
-            {question.question}
+      {#each history as question}
+        {#if question.type === "human"}
+          <div class="chat chat-end my-2">
+            <div
+              class="chat-bubble chat-bubble-secondary whitespace-pre-line text-lg"
+            >
+              {question.data.content}
+            </div>
           </div>
-        </div>
-        <div class="chat chat-start my-2">
-          <div
-            class="chat-bubble chat-bubble-primary whitespace-pre-line text-lg"
-          >
-            {#if question.error}
-              A server error occurred. See below:
-              <div class="font-mono font-thin text-sm text-gray-100 pt-5">
-                {question.error}
-              </div>
-            {:else}
-              {#if question.answer === ""}
-                <div
-                  class="radial-progress animate-spin"
-                  style="--value:70; --size:2rem;"
-                />
-              {/if}
-              {question.answer}
-            {/if}
+        {:else if question.type === "ai"}
+          <div class="chat chat-start my-2">
+            <div
+              class="chat-bubble chat-bubble-primary whitespace-pre-line text-lg"
+            >
+              {question.data.content}
+            </div>
           </div>
-        </div>
+        {:else if question.type === "system"}
+          <div
+            class="w-full text-center font-light text-md text-gray-500 pb-10"
+          >
+            {question.data.content}
+          </div>
+        {/if}
       {/each}
     </div>
   </div>
