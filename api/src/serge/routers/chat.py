@@ -1,9 +1,10 @@
 import threading
 from fastapi import APIRouter
+from fastapi.responses import StreamingResponse
 from serge.models.chat import Chat
 
 from serge.utils.llm import LlamaCpp
-from serge.utils.stream import ChainStreamHandler, ThreadedGenerator, get_prompt
+from serge.utils.stream import stream, get_prompt
 
 from langchain.memory import RedisChatMessageHistory
 from langchain.schema import messages_to_dict, SystemMessage
@@ -132,7 +133,7 @@ async def delete_chat(chat_id: str):
 
 
 @chat_router.get("/{chat_id}/question")
-async def stream_ask_a_question(chat_id: str, prompt: str):
+def stream_ask_a_question(chat_id: str, prompt: str):
     
     client = Redis()
 
@@ -148,22 +149,7 @@ async def stream_ask_a_question(chat_id: str, prompt: str):
     prompt = get_prompt(history)
     prompt += "### Response:\n"
 
-    def stream_thread(g):
-        try:
-            chat.llm.callback_manager = CallbackManager([ChainStreamHandler(g)])
-            answer = chat.llm(prompt)
-        finally:
-            history.add_ai_message(answer)
-            g.close()
-
-    try:
-        g = ThreadedGenerator()
-        threading.Thread(target=lambda:stream_thread(g)).start()
-        return g
-
-
-    finally:
-        g.close()
+    return StreamingResponse(stream(chat.llm, prompt, history), media_type="text/event-stream")
 
 @chat_router.post("/{chat_id}/question")
 async def ask_a_question(chat_id: str, prompt: str):
@@ -176,14 +162,12 @@ async def ask_a_question(chat_id: str, prompt: str):
     chat = Chat.parse_raw(chat_raw)
     
     history = RedisChatMessageHistory(chat.id)
-
-    chunks = []
-
     history.add_user_message(prompt)
+
     prompt = get_prompt(history)
     prompt += "### Response:\n"
     
-    answer =  chat.llm(prompt)
+    answer = chat.llm(prompt)
     history.add_ai_message(answer)
     
     return answer

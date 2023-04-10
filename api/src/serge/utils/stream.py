@@ -1,7 +1,9 @@
-import queue
+import queue, threading
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+from langchain.callbacks import CallbackManager
 from langchain.memory import RedisChatMessageHistory
-from langchain.schema import HumanMessage, AIMessage, SystemMessage
+from serge.utils.llm import LlamaCpp
+
 class ThreadedGenerator:
     def __init__(self):
         self.queue = queue.Queue()
@@ -27,6 +29,23 @@ class ChainStreamHandler(StreamingStdOutCallbackHandler):
 
     def on_llm_new_token(self, token: str, **kwargs):
         self.gen.send(token)
+
+def llm_thread(g, chat: LlamaCpp, prompt: str, history: RedisChatMessageHistory):
+    try:
+        chat.callback_manager = CallbackManager([ChainStreamHandler(g)])
+        answer = chat(prompt)
+    finally:
+        try:
+            history.add_ai_message(answer)
+        except UnboundLocalError:
+            pass
+        g.close()
+
+
+def stream(chat: LlamaCpp, prompt: str, history: RedisChatMessageHistory):
+    g = ThreadedGenerator()
+    threading.Thread(target=llm_thread, args=(g, chat, prompt, history)).start()
+    return g
 
 
 def get_prompt(history: RedisChatMessageHistory):
