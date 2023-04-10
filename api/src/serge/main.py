@@ -9,7 +9,7 @@ from starlette.responses import FileResponse
 
 from serge.routers.chat import chat_router
 from serge.routers.model import model_router
-from serge.utils.initiate_database import Settings
+from serge.models.settings import Settings
 from serge.utils.convert import convert_all
 
 # Configure logging settings

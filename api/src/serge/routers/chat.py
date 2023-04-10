@@ -1,14 +1,15 @@
-import asyncio
-
+import threading
 from fastapi import APIRouter
 from sse_starlette.sse import EventSourceResponse
 
 from serge.models.chat import Chat
 
 from serge.utils.llm import LlamaCpp
+from serge.utils.stream import ChainStreamHandler, ThreadedGenerator, get_prompt
+
 from langchain.memory import RedisChatMessageHistory
 from langchain.schema import messages_to_dict, SystemMessage
-
+from langchain.callbacks.base import CallbackManager
 from redis import Redis
 
 chat_router = APIRouter(
@@ -146,59 +147,46 @@ async def stream_ask_a_question(chat_id: str, prompt: str):
     
     history = RedisChatMessageHistory(chat.id)
 
+    history.add_user_message(prompt)
+    prompt = get_prompt(history)
+    prompt += "### Response:\n"
+
+    def stream_thread(g):
+        try:
+            chat.llm.callback_manager = CallbackManager([ChainStreamHandler(g)])
+            answer = chat.llm(prompt)
+        finally:
+            history.add_ai_message(answer)
+            g.close()
+
+    try:
+        g = ThreadedGenerator()
+        threading.Thread(target=stream_thread, args=(g)).start()
+        return g
+
+
+    finally:
+        g.close()
+
+@chat_router.post("/{chat_id}/question")
+async def ask_a_question(chat_id: str, prompt: str):
+    client = Redis()
+
+    if not client.sismember("chats", chat_id):
+        raise ValueError("Chat does not exist")
+    
+    chat_raw = client.get(f"chat:{chat_id}")
+    chat = Chat.parse_raw(chat_raw)
+    
+    history = RedisChatMessageHistory(chat.id)
+
     chunks = []
 
-    # TODO do the conversation here
+    history.add_user_message(prompt)
+    prompt = get_prompt(history)
+    prompt += "### Response:\n"
     
-    async def event_generator():
-        full_answer = ""
-        error = None
-        try:
-            async for output in generate(
-                params=chat.parameters,
-            ):
-                await asyncio.sleep(0.01)
-
-                chunks.append(output)
-                full_answer += output
-            
-                yield {
-                    "event": "message", 
-                    "data": full_answer}
-                
-        except Exception as e:
-            error = e.__str__()
-            yield({"event" : "error"})
-        finally:
-            yield({"event" : "close"})
-
-
-    return EventSourceResponse(event_generator())
-
-# @chat_router.post("/{chat_id}/question")
-# async def ask_a_question(chat_id: str, prompt: str):
-#     client = Redis()
-
-#     if not client.sismember("chats", chat_id):
-#         raise ValueError("Chat does not exist")
+    answer =  chat.llm(prompt)
+    history.add_ai_message(answer)
     
-#     chat_raw = client.get(f"chat:{chat_id}")
-#     chat = Chat.parse_raw(chat_raw)
-    
-#     history = RedisChatMessageHistory(chat.id)
-
-#     llm = Llam
-
-#     try:
-#         async for output in generate(
-#             prompt=full_prompt,
-#             params=chat.parameters,
-#         ):
-#             await asyncio.sleep(0.01)
-#             answer += output
-#     except Exception as e:
-#             error = e.__str__()
-#     finally:
-#         await on_close(chat, prompt, answer=answer[len(full_prompt)+1:], error=error)
-
-#     return {"question" : prompt, "answer" : answer[len(full_prompt)+1:]}
+    return answer

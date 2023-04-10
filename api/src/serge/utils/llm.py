@@ -54,9 +54,6 @@ class LlamaCpp(LLM):
     """Number of tokens to process in parallel.
     Should be a number between 1 and n_ctx."""
 
-    suffix: Optional[str] = Field(None)
-    """A suffix to append to the generated text. If None, no suffix is appended."""
-
     max_tokens: Optional[int] = 256
     """The maximum number of tokens to generate."""
 
@@ -112,7 +109,6 @@ class LlamaCpp(LLM):
     def _default_params(self) -> Dict[str, Any]:
         """Get the default parameters for calling llama_cpp."""
         return {
-            "suffix": self.suffix,
             "max_tokens": self.max_tokens,
             "temperature": self.temperature,
             "top_p": self.top_p,
@@ -121,6 +117,17 @@ class LlamaCpp(LLM):
             "stop_sequences": self.stop_sequences,
             "repeat_penalty": self.repeat_penalty,
             "top_k": self.top_k,
+            "n_threads" : self.n_threads,
+            "n_ctx" : self.n_ctx,
+            "n_parts" : self.n_parts,
+            "seed" : self.seed,
+            "f16_kv" : self.f16_kv,
+            "logits_all" : self.logits_all,
+            "vocab_only" : self.vocab_only,
+            "use_mlock" : self.use_mlock,
+            "n_batch" : self.n_batch,
+            "last_n_tokens_size" : self.last_n_tokens_size,
+            "streaming" : self.streaming,
         }
 
     @property
