@@ -40,6 +40,7 @@
       prompt = "";
 
       eventSource.addEventListener("message", (event) => {
+        console.log(event);
         history[history.length - 1].data.content += event.data;
       });
 

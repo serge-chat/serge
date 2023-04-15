@@ -30,23 +30,8 @@ class ChainStreamHandler(StreamingStdOutCallbackHandler):
     def on_llm_new_token(self, token: str, **kwargs):
         self.gen.send(token)
 
-def llm_thread(g, chat: LlamaCpp, prompt: str, history: RedisChatMessageHistory):
-    try:
-        chat.callback_manager = CallbackManager([ChainStreamHandler(g)])
-        answer = chat(prompt)
-    finally:
-        try:
-            history.add_ai_message(answer)
-        except UnboundLocalError:
-            pass
-        g.close()
-
-
-def stream(chat: LlamaCpp, prompt: str, history: RedisChatMessageHistory):
-    g = ThreadedGenerator()
-    threading.Thread(target=llm_thread, args=(g, chat, prompt, history)).start()
-    return g
-
+    def on_llm_end(self) -> None:
+        self.gen.close()
 
 def get_prompt(history: RedisChatMessageHistory):
     prompt = ""

@@ -1,10 +1,10 @@
-import threading
+import asyncio, threading
 from fastapi import APIRouter
-from fastapi.responses import StreamingResponse
+from sse_starlette.sse import EventSourceResponse
 from serge.models.chat import Chat
 
 from serge.utils.llm import LlamaCpp
-from serge.utils.stream import stream, get_prompt
+from serge.utils.stream import ThreadedGenerator,ChainStreamHandler, get_prompt
 
 from langchain.memory import RedisChatMessageHistory
 from langchain.schema import messages_to_dict, SystemMessage
@@ -133,7 +133,7 @@ async def delete_chat(chat_id: str):
 
 
 @chat_router.get("/{chat_id}/question")
-def stream_ask_a_question(chat_id: str, prompt: str):
+async def stream_ask_a_question(chat_id: str, prompt: str):
     
     client = Redis()
 
@@ -149,7 +149,27 @@ def stream_ask_a_question(chat_id: str, prompt: str):
     prompt = get_prompt(history)
     prompt += "### Response:\n"
 
-    return StreamingResponse(stream(chat.llm, prompt, history), media_type="text/event-stream")
+    generator = ThreadedGenerator()
+    chat.llm.set_callback_manager(CallbackManager([ChainStreamHandler(generator)]))
+    threading.Thread(target=chat.llm, args=(prompt,)).start()
+
+    async def event_generator():
+        full_answer = ""
+        while True:
+            await asyncio.sleep(0.01)
+
+            try:
+                value = next(generator, None)
+                if value != None:
+                    full_answer += value
+                    yield({"event" : "message", "data" : value})
+            except StopIteration:
+                history.add_ai_message(full_answer)
+                yield({"event" : "close"})
+                break
+            
+            
+    return EventSourceResponse(event_generator())
 
 @chat_router.post("/{chat_id}/question")
 async def ask_a_question(chat_id: str, prompt: str):
