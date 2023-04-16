@@ -1,5 +1,7 @@
 import subprocess
 import os
+import subprocess
+import os
 from serge.models.chat import Chat, ChatParameters
 import asyncio
 import logging
@@ -13,7 +15,6 @@ async def generate(
 ):
     CHUNK_SIZE = 128
     await params.fetch_all_links()
-
     args = (
         "llama",
         "--model",
@@ -37,7 +38,10 @@ async def generate(
         "--threads",
         str(params.n_threads),
         "--n_parts",
-        "1",
+        " -1 ",
+        "--batch_size",
+        str(params.n_threads),
+
     )
 
     logger.debug(f"Calling LLaMa with arguments", args)
@@ -97,6 +101,7 @@ async def generate(
             return
 
         yield lastchunk
+        lastchunk = lastchunk
         lastchunk = chunk
 
 
