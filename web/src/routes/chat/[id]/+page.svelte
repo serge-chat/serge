@@ -83,29 +83,56 @@
       createSameSession($page.params.id);
     }
   });
+  function handleExport(event) {
+    let outputFile = "";
+    outputFile += data.props.parameters.init_prompt;
+    questions.forEach((question) => {
+      if (!question.error) {
+        outputFile += "### Instruction: \n" + question.question + "\n";
+        outputFile += "### Response: \n" + question.answer + "\n";
+      }
+    });
+    let blob = new Blob([outputFile], { type: "text/plain;charset=utf-8" });
+    let chatname =
+      "Serge " +
+      data.props.parameters.model +
+      " " +
+      data.props.created.toLocaleString().replace(":", ".") +
+      ".txt";
+    var tempLink = document.createElement("a");
+    tempLink.href = window.URL.createObjectURL(blob);
+    tempLink.setAttribute("download", chatname);
+    tempLink.click();
+    window.URL.revokeObjectURL(tempLink.href);
+  }
 </script>
 
 <div
   class="max-w-4xl mx-auto h-full max-h-screen relative"
   on:keydown={handleKeyDown}
 >
-<div class="flex items-center">
-  <h1 class="text-4xl font-bold inline-block mr-2">
-    Chat with {data.props.parameters.model}
-  </h1>
-  <button
-    type="button"
-    disabled={isLoading}
-    class="btn btn-sm mr-2 mt-5 mb-5 inline-block"
-    class:loading={isLoading}
-    on:click|preventDefault={() => createSameSession($page.params.id)}
-  >
-    New
-  </button>
-</div>
-<h4 class="text-xl font-semibold mb-5">
-  Started on {startDate.toLocaleString("en-US")}
-</h4>
+  <div class="flex items-center">
+    <h1 class="text-4xl font-bold inline-block mr-2">
+      Chat with {data.props.parameters.model}
+    </h1>
+    <button
+      type="button"
+      disabled={isLoading}
+      class="btn btn-sm mr-2 mt-5 mb-5 inline-block"
+      class:loading={isLoading}
+      on:click|preventDefault={() => createSameSession($page.params.id)}
+    >
+      New
+    </button>
+    <button
+      class="btn btn-sm mr-2 mt-5 mb-5 inline-block"
+      disabled={isLoading}
+      on:click={handleExport}>Export</button
+    >
+  </div>
+  <h4 class="text-xl font-semibold mb-5">
+    Started on {startDate.toLocaleString("en-US")}
+  </h4>
   <div class="overflow-y-auto h-[calc(97vh-12rem)] px-10 mb-11">
     <div class="h-max pb-32">
       {#each questions as question}

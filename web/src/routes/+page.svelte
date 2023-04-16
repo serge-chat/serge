@@ -17,6 +17,7 @@
   let max_length = 256;
   let repeat_last_n = 64;
   let repeat_penalty = 1.3;
+  let chat_history = "";
 
   let init_prompt =
     "Below is an instruction that describes a task. Write a response that appropriately completes the request. The response must be accurate, concise and evidence-based whenever possible. A complete answer is always ended by [end of text].";
@@ -33,8 +34,9 @@
       key,
       typeof value === "string" ? value : value.name,
     ]);
+    if (chat_history.trim().length != 0)
+      convertedFormEntries.push(["chat_history", chat_history]);
     const searchParams = new URLSearchParams(convertedFormEntries);
-
     const r = await fetch("/api/chat/?" + searchParams.toString(), {
       method: "POST",
     });
@@ -47,6 +49,18 @@
     } else {
       console.log(r.statusText);
     }
+  }
+
+  function onChatHistoryUpload(event: Event) {
+    let file = event.target!.files[0];
+    let reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = (e) => {
+      let fileinput = e.target!.result as string;
+      let prepromptend = fileinput.indexOf("### Instruction:");
+      init_prompt = fileinput.substring(0, prepromptend);
+      chat_history = fileinput.substring(prepromptend);
+    };
   }
 </script>
 
@@ -78,7 +92,7 @@
     <input type="checkbox" />
     <div class="collapse-title text-xl font-medium">Model settings</div>
     <div class="collapse-content">
-      <div class="grid grid-cols-3 gap-4 p-3 ">
+      <div class="grid grid-cols-3 gap-4 p-3">
         <div
           class="tooltip col-span-2"
           data-tip="The higher the temperature, the more random the model output."
@@ -117,7 +131,7 @@
             type="range"
             bind:value={max_length}
             min="16"
-            max="512"
+            max="1024"
             step="16"
             class="range range-sm mt-auto"
           />
@@ -149,7 +163,7 @@
             type="range"
             bind:value={context_window}
             min="16"
-            max="2048"
+            max="4096"
             step="16"
             class="range range-sm mt-auto"
           />
@@ -168,7 +182,7 @@
             type="number"
             bind:value={repeat_last_n}
             min="0"
-            max="100"
+            max="512"
           />
         </div>
         <div class="flex flex-col">
@@ -215,11 +229,17 @@
             >Pre-Prompt for initializing a conversation.</label
           >
           <textarea
-            class="textarea h-24 textarea-bordered w-full"
+            class="textarea h-48 textarea-bordered w-full"
             name="init_prompt"
             bind:value={init_prompt}
             placeholder="Enter your prompt here"
           />
+        </div>
+        <div class="col-span-3 flex flex-col">
+          <label for="chatHistory" class="label-text pb-1">
+            Import a previous history</label
+          >
+          <input type="file" accept=".txt" on:change={onChatHistoryUpload} />
         </div>
       </div>
     </div>
