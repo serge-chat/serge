@@ -8,6 +8,7 @@ on:
       - '**.md'
       - 'docker-compose.yml'
       - 'docker-compose.dev.yml'
+      - '.github/ISSUE_TEMPLATE/*.yml'
       - '.github/dependabot.yml'
   pull_request:
     branches:
@@ -16,6 +17,7 @@ on:
       - '**.md'
       - 'docker-compose.yml'
       - 'docker-compose.dev.yml'
+      - '.github/ISSUE_TEMPLATE/*.yml'
       - '.github/dependabot.yml'
   workflow_dispatch:
   release:
@@ -54,7 +56,19 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Publish Docker Image
+      - name: Build and Publish Docker Image (Pull Request)
+        if: github.event_name == 'pull_request'
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          target: release
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Build and Publish Docker Image (Release)
+        if: github.event_name != 'pull_request'
         uses: docker/build-push-action@v4
         with:
           context: .
