@@ -8,6 +8,7 @@ on:
       - '**.md'
       - 'docker-compose.yml'
       - 'docker-compose.dev.yml'
+      - '.github/dependabot.yml'
   pull_request:
     branches:
       - 'main'
@@ -15,6 +16,7 @@ on:
       - '**.md'
       - 'docker-compose.yml'
       - 'docker-compose.dev.yml'
+      - '.github/dependabot.yml'
   workflow_dispatch:
   release:
     types: [published, edited]
