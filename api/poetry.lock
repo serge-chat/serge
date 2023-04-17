@@ -201,18 +201,18 @@ wmi = ["wmi (>=1.5.1,<2.0.0)"]
 
 [[package]]
 name = "email-validator"
-version = "1.3.1"
+version = "2.0.0.post1"
 description = "A robust email address syntax and deliverability validation library."
 category = "main"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.7"
 files = [
-    {file = "email_validator-1.3.1-py2.py3-none-any.whl", hash = "sha256:49a72f5fa6ed26be1c964f0567d931d10bf3fdeeacdf97bc26ef1cd2a44e0bda"},
-    {file = "email_validator-1.3.1.tar.gz", hash = "sha256:d178c5c6fa6c6824e9b04f199cf23e79ac15756786573c190d2ad13089411ad2"},
+    {file = "email_validator-2.0.0.post1-py3-none-any.whl", hash = "sha256:26efa040ae50e65cc130667080fa0f372f0ac3d852923a76166a54cf6a0ee780"},
+    {file = "email_validator-2.0.0.post1.tar.gz", hash = "sha256:314114acd9421728ae6f74d0c0a5d6ec547d44ef4f20425af4093828af2266f3"},
 ]
 
 [package.dependencies]
-dnspython = ">=1.15.0"
+dnspython = ">=2.0.0"
 idna = ">=2.0.0"
 
 [[package]]
@@ -1297,4 +1297,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<4.0"
-content-hash = "d6310d78938883bed798eb31f4d3d65d4bf5daab6d2281f53bf4bcddd6cd64a5"
+content-hash = "3acf07dee1db8ab9cbdebab702dec7b0e05762746838b528b0b25cd4781e79aa"
