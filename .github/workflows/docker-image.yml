@@ -23,6 +23,11 @@ on:
   release:
     types: [published, edited]
 
+permissions:
+  contents: read
+  pull-requests: write
+  packages: write
+
 jobs:
   build-and-publish-image:
     runs-on: ubuntu-latest
