@@ -9,7 +9,7 @@ jobs:
     name: Delete image from ghcr.io
     runs-on: ubuntu-latest
     steps:
-      - uses: chipkent/action-cleanup-package@v1.0.1
+      - uses: chipkent/action-cleanup-package@v1.0.3
         with:
           package-name: ${{ github.event.repository.name }}
           tag: pr-${{ github.event.pull_request.number }}
