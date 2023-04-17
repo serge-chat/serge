@@ -44,7 +44,7 @@ async def generate(
 
     )
 
-    logger.debug(f"Calling LLaMa with arguments", args)
+    logger.debug(f"Calling LLaMA with arguments", args)
     procLlama = await asyncio.create_subprocess_exec(
         *args, stdout=subprocess.PIPE, stderr=subprocess.PIPE
     )

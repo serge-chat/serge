@@ -36,7 +36,7 @@ tags_metadata = [
 ]
 
 description = """
-Serge answers your questions poorly using LLaMa/alpaca. 🚀
+Serge answers your questions poorly using LLaMA/alpaca. 🚀
 """
 
 origins = [

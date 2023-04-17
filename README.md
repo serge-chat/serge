@@ -1,4 +1,4 @@
-# Serge - LLaMa made easy 🦙
+# Serge - LLaMA made easy 🦙
 
 ![License](https://img.shields.io/github/license/nsarrazin/serge)
 [![Discord](https://img.shields.io/discord/1088427963801948201?label=Discord)](https://discord.gg/62Hc6FEYQH)
@@ -43,7 +43,7 @@ If you have existing weights from another project you can add them to the `serge
 
 ### :warning: A note on _memory usage_
 
-llama will just crash if you don't have enough available memory for your model.
+LLaMA will just crash if you don't have enough available memory for your model.
 
 - 7B requires about 4.5GB of free RAM
 - 13B requires about 12GB free
