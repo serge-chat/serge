@@ -52,7 +52,7 @@
 
 <h1 class="text-3xl font-bold text-center pt-5">Say Hi to Serge 🦙</h1>
 <h1 class="text-xl font-light text-center pt-2 pb-5">
-  An easy way to chat with Alpaca & other LLaMa based models.
+  An easy way to chat with Alpaca & other LLaMA based models.
 </h1>
 
 <form on:submit|preventDefault={onCreateChat} id="form-create-chat" class="p-5">
@@ -181,7 +181,7 @@
         </div>
         <div
           class="flex flex-col tooltip"
-          data-tip="Number of threads to run LLaMa on."
+          data-tip="Number of threads to run LLaMA on."
         >
           <label for="n_threads" class="label-text pb-1">n_threads</label>
           <input
