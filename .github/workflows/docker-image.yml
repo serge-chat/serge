@@ -28,8 +28,8 @@ jobs:
     strategy:
       matrix:
         arch:
-          - amd64
-          - arm64
+          - linux/amd64
+          - linux/arm64
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -71,6 +71,6 @@ jobs:
           target: release
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          platforms: linux/${{ matrix.arch }}
+          platforms: ${{ matrix.arch }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
