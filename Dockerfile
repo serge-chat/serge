@@ -21,7 +21,7 @@ RUN apt update && \
     echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-6.0.list && \
     apt-get update && \
     apt-get install -y mongodb-org && \
-    git clone https://github.com/ggerganov/llama.cpp.git --branch master-6667401
+    git clone https://github.com/ggerganov/llama.cpp.git --branch master-f7d0509
 
 RUN pip install --upgrade pip
 
