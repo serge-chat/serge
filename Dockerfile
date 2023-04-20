@@ -16,7 +16,7 @@ COPY --chmod=0755 scripts/compile.sh .
 RUN apt update && \
     apt install -y --no-install-recommends \
         wget python3-pip git cmake lsb-release && \
-    git clone https://github.com/ggerganov/llama.cpp.git --branch master-f7d0509 && \
+    git clone https://github.com/ggerganov/llama.cpp.git --branch master-e0305ea && \
     rm -rf /var/lib/apt/lists/* && \
     pip install --upgrade pip
 
