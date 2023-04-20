@@ -62,12 +62,11 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Trying to push without write access will causes 403 error
       - name: Build and Publish Docker Image
         uses: docker/build-push-action@v4
         with:
           context: .
-          push: github.event_name != 'pull_request'
+          push: ${{ github.event_name != 'pull_request' }}
           target: release
           cache-from: type=gha
           cache-to: type=gha,mode=max
