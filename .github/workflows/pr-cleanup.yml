@@ -7,7 +7,7 @@ on:
 jobs:
   purge-pr-tagged-image:
     name: Delete pr tagged image from ghcr.io
-    if: contains(fromJSON('["nsarrazin","gaby"]'), github.actor)
+    if: ${{ contains(fromJSON('["nsarrazin","gaby"]'), github.actor)) == True }}
     continue-on-error: true
     runs-on: ubuntu-latest
     steps:
