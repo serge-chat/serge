@@ -4,8 +4,6 @@ FROM node:19 as node_base
 
 WORKDIR /usr/src/app
 
-RUN npm install -g pnpm
-
 # ---------------------------------------
 # Base image for runtime
 FROM mongo:6-jammy as base
@@ -29,8 +27,7 @@ ENV NODE_ENV='development'
 # Install Node.js and npm packages
 COPY --from=node_base /usr/local /usr/local
 COPY ./web/package*.json ./
-RUN /usr/local/bin/pnpm import \
-    && /usr/local/bin/pnpm install --frozen-lockfile
+RUN npm ci
 
 COPY --chmod=0755 scripts/dev.sh /usr/src/app/dev.sh
 CMD ./dev.sh
@@ -40,12 +37,11 @@ CMD ./dev.sh
 FROM node_base as frontend_builder
 
 COPY ./web/package*.json ./
-RUN /usr/local/bin/pnpm import \
-    && /usr/local/bin/pnpm install --frozen-lockfile
+RUN npm ci
 
 COPY ./web /usr/src/app/web/
 WORKDIR /usr/src/app/web/
-RUN /usr/local/bin/pnpm run build
+RUN npm run build
 
 # ---------------------------------------
 # Runtime environment
