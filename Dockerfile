@@ -30,7 +30,7 @@ ENV NODE_ENV='development'
 # Install Node.js and npm packages
 COPY --from=node_base /usr/local /usr/local
 COPY ./web/package*.json ./
-RUN pnpm ci
+RUN /usr/local/bin/pnpm ci
 
 COPY --chmod=0755 scripts/dev.sh /usr/src/app/dev.sh
 CMD ./dev.sh
@@ -40,11 +40,11 @@ CMD ./dev.sh
 FROM node_base as frontend_builder
 
 COPY ./web/package*.json ./
-RUN pnpm ci
+RUN /usr/local/bin/pnpm ci
 
 COPY ./web /usr/src/app/web/
 WORKDIR /usr/src/app/web/
-RUN pnpm run build
+RUN /usr/local/bin/pnpm run build
 
 # ---------------------------------------
 # Runtime environment
