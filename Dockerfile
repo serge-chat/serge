@@ -1,5 +1,5 @@
 # Base image for node
-FROM node:19 as node_base
+FROM node:20 as node_base
 
 WORKDIR /usr/src/app
 # Install pip and requirements
