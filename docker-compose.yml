@@ -1,17 +1,15 @@
 version: "3.9"
 services:
   serge:
-    restart: on-failure
-    build: 
-      context: .
-      dockerfile: Dockerfile
-      target: release
+    image: ghcr.io/nsarrazin/serge:latest
+    container_name: serge
+    restart: unless-stopped
+    ports:
+      - "8008:8008"
     volumes:
       - datadb:/data/db
       - weights:/usr/src/app/weights/
       - /etc/localtime:/etc/localtime:ro 
-    ports:
-      - "8008:8008"
 
 volumes:
   datadb:

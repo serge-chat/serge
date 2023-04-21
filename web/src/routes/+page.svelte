@@ -97,9 +97,9 @@
           class="tooltip col-span-2"
           data-tip="The higher the temperature, the more random the model output."
         >
-          <label for="temp" class="label-text">Temperature - [{temp}]</label>
+          <label for="temperature" class="label-text">Temperature - [{temp}]</label>
           <input
-            name="temp"
+            name="temperature"
             type="range"
             bind:value={temp}
             min="0.05"
