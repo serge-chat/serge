@@ -45,8 +45,7 @@ RUN /usr/local/bin/pnpm import \
 
 COPY ./web /usr/src/app/web/
 WORKDIR /usr/src/app/web/
-RUN /usr/local/bin/pnpm import \
-    && /usr/local/bin/pnpm run build
+RUN /usr/local/bin/pnpm run build
 
 # ---------------------------------------
 # Runtime environment
