@@ -15,7 +15,7 @@ COPY --chmod=0755 scripts/compile.sh .
 # Install necessary tools
 RUN apt update \
     && apt install -y --no-install-recommends wget python3-pip git build-essential make cmake lsb-release \
-    && git clone https://github.com/ggerganov/llama.cpp.git --branch master-e0305ea \
+    && git clone https://github.com/ggerganov/llama.cpp.git --branch master-50cb666 \
     && rm -rf /var/lib/apt/lists/* \
     && pip install --upgrade --no-cache-dir pip
 
