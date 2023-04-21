@@ -1,30 +1,25 @@
+# ---------------------------------------
 # Base image for node
 FROM node:19 as node_base
 
 WORKDIR /usr/src/app
-# Install pip and requirements
 
+# ---------------------------------------
 # Base image for runtime
-FROM ubuntu:22.04 as base
+FROM mongo:6-jammy as base
 
-ARG DEBIAN_FRONTEND=noninteractive
-ENV TZ=Europe/Amsterdam
-
+ENV TZ=Etc/UTC
 WORKDIR /usr/src/app
-
 COPY --chmod=0755 scripts/compile.sh .
 
-# Install MongoDB and necessary tools
-RUN apt update && \
-    apt install -y curl wget gnupg python3-pip git cmake && \
-    wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | apt-key add - && \
-    echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-6.0.list && \
-    apt-get update && \
-    apt-get install -y mongodb-org && \
-    git clone https://github.com/ggerganov/llama.cpp.git --branch master-f7d0509
+# Install necessary tools
+RUN apt update \
+    && apt install -y --no-install-recommends wget python3-pip git build-essential make cmake lsb-release \
+    && git clone https://github.com/ggerganov/llama.cpp.git --branch master-50cb666 \
+    && rm -rf /var/lib/apt/lists/* \
+    && pip install --upgrade --no-cache-dir pip
 
-RUN pip install --upgrade pip
-
+# ---------------------------------------
 # Dev environment
 FROM base as dev
 ENV NODE_ENV='development'
@@ -37,6 +32,7 @@ RUN npm ci
 COPY --chmod=0755 scripts/dev.sh /usr/src/app/dev.sh
 CMD ./dev.sh
 
+# ---------------------------------------
 # Build frontend
 FROM node_base as frontend_builder
 
@@ -47,6 +43,7 @@ COPY ./web /usr/src/app/web/
 WORKDIR /usr/src/app/web/
 RUN npm run build
 
+# ---------------------------------------
 # Runtime environment
 FROM base as release
 
@@ -55,8 +52,8 @@ WORKDIR /usr/src/app
 
 COPY --from=frontend_builder /usr/src/app/web/build /usr/src/app/api/static/
 COPY ./api /usr/src/app/api
-
-RUN pip install ./api
-
 COPY --chmod=0755 scripts/deploy.sh /usr/src/app/deploy.sh
+
+RUN pip install --no-cache-dir ./api
+
 CMD ./deploy.sh

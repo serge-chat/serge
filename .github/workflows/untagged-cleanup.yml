@@ -1,0 +1,22 @@
+name: Cleanup untagged Docker images
+
+on:
+  push:
+    branches:
+      - 'main'
+    paths-ignore:
+      - '**.md'
+      - 'docker-compose.yml'
+      - 'docker-compose.dev.yml'
+      - '.github/ISSUE_TEMPLATE/*.yml'
+      - '.github/dependabot.yml'
+
+jobs:
+  purge-untagged-images:
+    name: Delete untagged images from ghcr.io
+    runs-on: ubuntu-latest
+    steps:
+      - uses: CerebralXor/action-cleanup-package@v1.0.1
+        with:
+          package-name: ${{ github.event.repository.name }}
+          github-token: ${{ secrets.GH_ACCESS_TOKEN }}
