@@ -5,8 +5,10 @@ on:
     types: [closed]
 
 jobs:
-  purge-image:
-    name: Delete image from ghcr.io
+  purge-pr-tagged-image:
+    name: Delete pr tagged image from ghcr.io
+    if: ${{ contains(fromJSON('["nsarrazin","gaby"]'), github.actor) == true }}
+    continue-on-error: true
     runs-on: ubuntu-latest
     steps:
       - uses: chipkent/action-cleanup-package@v1.0.3
