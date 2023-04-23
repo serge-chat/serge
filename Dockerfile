@@ -1,15 +1,14 @@
+# ---------------------------------------
 # Base image for node
 FROM node:19 as node_base
 
 WORKDIR /usr/src/app
-# Install pip and requirements
 
+# ---------------------------------------
 # Base image for runtime
-FROM ubuntu:22.04 as base
+FROM python:3.11 as base
 
-ARG DEBIAN_FRONTEND=noninteractive
-ENV TZ=Europe/Amsterdam
-
+ENV TZ=Etc/UTC
 WORKDIR /usr/src/app
 
 # Install Redis
@@ -26,6 +25,7 @@ RUN mkdir -p /etc/redis && mkdir -p /var/redis
 # clone the python bindings for llama.cpp
 RUN pip install --upgrade pip
 
+# ---------------------------------------
 # Dev environment
 FROM base as dev
 ENV NODE_ENV='development'
@@ -38,6 +38,7 @@ RUN npm ci
 COPY --chmod=0755 scripts/dev.sh /usr/src/app/dev.sh
 CMD ./dev.sh
 
+# ---------------------------------------
 # Build frontend
 FROM node_base as frontend_builder
 
@@ -48,6 +49,7 @@ COPY ./web /usr/src/app/web/
 WORKDIR /usr/src/app/web/
 RUN npm run build
 
+# ---------------------------------------
 # Runtime environment
 FROM base as release
 
@@ -56,8 +58,8 @@ WORKDIR /usr/src/app
 
 COPY --from=frontend_builder /usr/src/app/web/build /usr/src/app/api/static/
 COPY ./api /usr/src/app/api
-
-RUN pip install ./api
-
 COPY --chmod=0755 scripts/deploy.sh /usr/src/app/deploy.sh
+
+RUN pip install --no-cache-dir ./api
+
 CMD ./deploy.sh
