@@ -25,7 +25,7 @@ async def create_new_chat(
     context_window: int = 512,
     repeat_last_n: int = 64,
     repeat_penalty: float = 1.3,
-    init_prompt: str = "Below is an instruction that describes a task. Write a response that appropriately completes the request. The response must be accurate, concise and evidence-based whenever possible. A complete answer is always ended by [end of text].",
+    init_prompt: str = "Below is an instruction that describes a task. Write a response that appropriately completes the request.",
     n_threads: int = 4,
 ):
     try:
