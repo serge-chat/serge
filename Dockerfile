@@ -6,18 +6,28 @@ WORKDIR /usr/src/app
 
 # ---------------------------------------
 # Base image for runtime
-FROM mongo:6-jammy as base
+FROM ubuntu:22.04 as base
 
 ENV TZ=Etc/UTC
 WORKDIR /usr/src/app
 COPY --chmod=0755 scripts/compile.sh .
 
-# Install necessary tools
-RUN apt update \
-    && apt install -y --no-install-recommends wget python3-pip git build-essential make cmake lsb-release \
-    && git clone https://github.com/ggerganov/llama.cpp.git --branch master-50cb666 \
-    && rm -rf /var/lib/apt/lists/* \
-    && pip install --upgrade --no-cache-dir pip
+# Install MongoDB and necessary tools
+
+RUN apt update
+RUN echo "deb http://security.ubuntu.com/ubuntu focal-security main" | tee /etc/apt/sources.list.d/focal-security.list
+RUN apt-get update
+RUN apt-get install -y libssl1.1
+RUN rm /etc/apt/sources.list.d/focal-security.list
+RUN apt-get update
+RUN apt install -y curl wget gnupg python3-pip git cmake
+RUN curl -fsSL https://pgp.mongodb.com/server-4.4.asc | gpg -o /usr/share/keyrings/mongodb-server-4.4.gpg --dearmor
+RUN echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-4.4.gpg ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" \
+        | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+RUN apt-get update
+RUN apt-get install -y mongodb-org
+RUN git clone https://github.com/ggerganov/llama.cpp.git --branch master-50cb666
+RUN pip install --upgrade --no-cache-dir pip
 
 # ---------------------------------------
 # Dev environment
