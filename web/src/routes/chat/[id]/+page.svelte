@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { PageData } from "./$types";
-  import { invalidate } from "$app/navigation";
+  import { invalidate, goto } from "$app/navigation";
   import { page } from "$app/stores";
 
   export let data: PageData;
@@ -63,32 +63,27 @@
     }
   }
 
-  function createSameSession(sessionID) {
-    fetch("/api/chat/" + sessionID)
-      .then((response) => response.json())
-      .then((data) => {
-        const { _id, created, parameters } = data;
-        fetch(
-          `/api/chat/?model=${parameters.model}&temperature=${parameters.temperature}&top_k=${parameters.top_k}&top_p=${parameters.top_p}&max_length=${parameters.max_length}&context_window=${parameters.context_window}&repeat_last_n=${parameters.repeat_last_n}&repeat_penalty=${parameters.repeat_penalty}&init_prompt=${parameters.init_prompt}&n_threads=${parameters.n_threads}`,
-          {
-            method: "POST",
-            headers: {
-              accept: "application/json",
-            },
-          }
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            const newSession = { id: data };
-            window.location.href = "/chat/" + newSession.id;
-          });
-      })
-      .catch((error) => console.error(error));
+  async function createSameSession() {
+    const newData = await fetch(
+      `/api/chat/?model=${data.chat.llm.model_path}&temperature=${data.chat.llm.temperature}&top_k=${data.chat.llm.top_k}` +
+        `&top_p=${data.chat.llm.top_p}&max_length=${data.chat.llm.max_tokens}&context_window=${data.chat.llm.n_ctx}` +
+        `&repeat_last_n=${data.chat.llm.last_n_tokens_size}&repeat_penalty=${data.chat.llm.repeat_penalty}` +
+        `\&n_threads=${data.chat.llm.n_threads}`,
+
+      {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+        },
+      }
+    ).then((response) => response.json());
+
+    await goto("/chat/" + newData.id);
   }
 
-  document.addEventListener("keydown", function (event) {
+  document.addEventListener("keydown", async (event) => {
     if (event.key === "n" && event.altKey) {
-      createSameSession($page.params.id);
+      await createSameSession();
     }
   });
 </script>
@@ -99,14 +94,14 @@
 >
   <div class="flex items-center">
     <h1 class="text-4xl font-bold inline-block mr-2">
-      Chat with {data.props.parameters.model}
+      Chat with {data.chat.llm.model_path}
     </h1>
     <button
       type="button"
       disabled={isLoading}
       class="btn btn-sm mr-2 mt-5 mb-5 inline-block"
       class:loading={isLoading}
-      on:click|preventDefault={() => createSameSession($page.params.id)}
+      on:click|preventDefault={() => createSameSession()}
     >
       New
     </button>

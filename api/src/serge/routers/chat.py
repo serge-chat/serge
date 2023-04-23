@@ -1,15 +1,14 @@
-import asyncio, threading
 from fastapi import APIRouter
 from sse_starlette.sse import EventSourceResponse
-from serge.models.chat import Chat
+from serge.models.chat import Chat, ChatParameters
 
-from serge.utils.llm import LlamaCpp
-from serge.utils.stream import ThreadedGenerator,ChainStreamHandler, get_prompt
-
+from llama_cpp import Llama
+from serge.utils.stream import get_prompt
 from langchain.memory import RedisChatMessageHistory
 from langchain.schema import messages_to_dict, SystemMessage
-from langchain.callbacks.base import CallbackManager
 from redis import Redis
+
+from loguru import logger
 
 chat_router = APIRouter(
     prefix="/chat",
@@ -48,8 +47,19 @@ async def create_new_chat(
 
     client = Redis()
 
+    params = ChatParameters(
+        model=model,
+        temperature=temperature,
+        top_k=top_k,
+        top_p=top_p,
+        max_tokens=max_length,
+        n_ctx=context_window,
+        last_n_tokens_size=repeat_last_n,
+        repeat_penalty=repeat_penalty,
+        n_threads=n_threads,
+    )
     # create the chat
-    chat = Chat(llm=llm)
+    chat = Chat(params=params)
 
     # store the parameters
     client.set(f"chat:{chat.id}", chat.json())
@@ -71,8 +81,6 @@ async def get_all_chats():
     
     ids = client.smembers("chats")
     
-    chats: list[Chat] = []
-
     for id in ids:
         chat_dict = await get_specific_chat(id.decode())
         try:
@@ -126,7 +134,9 @@ async def delete_chat(chat_id: str):
     if not client.sismember("chats", chat_id):
         raise ValueError("Chat does not exist")
 
-    client.delete(f"chat:{chat_id}")
+    RedisChatMessageHistory(chat_id).clear()
+    
+    client.delete(f"chat:{chat_id}")    
     client.srem("chats", chat_id)
 
     return True
@@ -134,41 +144,65 @@ async def delete_chat(chat_id: str):
 
 @chat_router.get("/{chat_id}/question")
 async def stream_ask_a_question(chat_id: str, prompt: str):
-    
+    logger.debug("Starting redis client")
     client = Redis()
 
     if not client.sismember("chats", chat_id):
         raise ValueError("Chat does not exist")
     
+    logger.debug("creating chat")
     chat_raw = client.get(f"chat:{chat_id}")
+    logger.debug(chat_raw)
     chat = Chat.parse_raw(chat_raw)
     
+    logger.debug("creating history")
     history = RedisChatMessageHistory(chat.id)
+
+    logger.debug(f"adding question{prompt}")
 
     history.add_user_message(prompt)
     prompt = get_prompt(history)
     prompt += "### Response:\n"
 
-    generator = ThreadedGenerator()
-    chat.llm.set_callback_manager(CallbackManager([ChainStreamHandler(generator)]))
-    threading.Thread(target=chat.llm, args=(prompt,)).start()
+    logger.debug("creating Llama client")
+    client = Llama(
+                    model_path="/usr/src/app/weights/"+chat.params.model_path+".bin",
+                    n_ctx=chat.params.n_ctx,
+                    n_threads=chat.params.n_threads_,
+                    last_n_tokens_size=chat.params.last_n_tokens_size,
+                    )
 
     async def event_generator():
         full_answer = ""
-        while True:
-            await asyncio.sleep(0.01)
+        error = None
+        try:
+            async for output in client(prompt, 
+                    stream=True,
+                    temperature=chat.params.temperature,
+                    top_p=chat.params.top_p,
+                    top_k=chat.params.top_k,
+                    repeat_penalty=chat.params.repeat_penalty,
+                    max_tokens=chat.params.max_tokens,
+                    ):
 
-            try:
-                value = next(generator, None)
-                if value != None:
-                    full_answer += value
-                    yield({"event" : "message", "data" : value})
-            except StopIteration:
+                full_answer += output
+                logger.debug(output)
+                yield {
+                    "event": "message", 
+                    "data": output}
+                
+        except Exception as e:
+            error = e.__str__()
+            logger.error(error)
+            yield({"event" : "error"})
+        finally:
+            if error:
+                history.append(SystemMessage(content=error))
+            else:
+                logger.info(full_answer)
                 history.add_ai_message(full_answer)
-                yield({"event" : "close"})
-                break
-            
-            
+            yield({"event" : "close"})
+
     return EventSourceResponse(event_generator())
 
 @chat_router.post("/{chat_id}/question")
@@ -186,8 +220,27 @@ async def ask_a_question(chat_id: str, prompt: str):
 
     prompt = get_prompt(history)
     prompt += "### Response:\n"
+
+    client = Llama(
+                model_path="/usr/src/app/weights/"+chat.params.model_path+".bin",
+                n_ctx=chat.params.n_ctx,
+                n_threads=chat.params.n_threads_,
+                last_n_tokens_size=chat.params.last_n_tokens_size,
+                )
     
-    answer = chat.llm(prompt)
+    try:
+        answer = client(prompt, 
+                        temperature=chat.params.temperature,
+                        top_p=chat.params.top_p,
+                        top_k=chat.params.top_k,
+                        repeat_penalty=chat.params.repeat_penalty,
+                        max_tokens=chat.params.max_tokens,
+                        )
+    except Exception as e:
+        error = e.__str__()
+        logger.error(error)
+        history.append(SystemMessage(content=error))
+        return error
+
     history.add_ai_message(answer)
-    
     return answer

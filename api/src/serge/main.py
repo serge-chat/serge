@@ -1,11 +1,11 @@
-import asyncio
-import logging
+import sys
 import os
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import FileResponse
+from loguru import logger
 
 from serge.routers.chat import chat_router
 from serge.routers.model import model_router
@@ -13,14 +13,9 @@ from serge.models.settings import Settings
 from serge.utils.convert import convert_all
 
 # Configure logging settings
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(levelname)s:\t%(name)s\t%(message)s",
-    handlers=[logging.StreamHandler()],
-)
 
-# Define a logger for the current module
-logger = logging.getLogger(__name__)
+# Define a logger for the current mo
+logger.add(sys.stderr, format="{time} {level} {message}", level="DEBUG")
 
 settings = Settings()
 

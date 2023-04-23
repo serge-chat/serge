@@ -4,7 +4,6 @@ from typing import Any, Dict, List, Optional
 from pydantic import Field, root_validator, Extra
 
 from langchain.llms.base import LLM
-# from langchain.schema import Generation, LLMResult
 
 class LlamaCpp(LLM):
     """Wrapper around the llama.cpp model.
@@ -175,7 +174,7 @@ class LlamaCpp(LLM):
                     )
         
         if self.stop_sequences and stop is not None:
-            raise ValueError("`stop` found in both the input and default params.")
+            raise ValueError("`stop_sequences` found in both the input and default params.")
         elif self.stop_sequences:
             params["stop_sequences"] = self.stop_sequences
         else:
@@ -225,9 +224,11 @@ class LlamaCpp(LLM):
 
 if __name__ == "__main__":
     from langchain.callbacks.base import CallbackManager
-    from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+    from serge.utils.stream import ChainRedisHandler
 
-    llm = LlamaCpp(streaming=True, model_path="/usr/src/app/weights/gpt4all.bin", callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]), verbose=True, temperature=0.1, max_tokens=32)
+    llm = LlamaCpp(streaming=True, model_path="gpt4all", 
+                   callback_manager=CallbackManager([ChainRedisHandler("1")]),
+                    verbose=True, temperature=0.1, max_tokens=128)
 
     input()
-    resp = llm("Who is the current president of France ?")
+    resp = llm("Write a paragraph about France please.")

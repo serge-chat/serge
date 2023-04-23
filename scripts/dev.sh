@@ -3,8 +3,6 @@
 pip install -e ./api
 pip install llama-cpp-python
 
-cd llama-cpp-python && pip install . && cd ..
-
 redis-server &
 
 # Start the web server

@@ -1,39 +1,60 @@
-import queue, threading
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
-from langchain.callbacks import CallbackManager
 from langchain.memory import RedisChatMessageHistory
-from serge.utils.llm import LlamaCpp
+from redis import Redis
+from loguru import logger
 
-class ThreadedGenerator:
-    def __init__(self):
-        self.queue = queue.Queue()
+from typing import Any, Dict, List, Union
 
-    def __iter__(self):
-        return self
+from langchain.schema import LLMResult
 
-    def __next__(self):
-        item = self.queue.get()
-        if item is StopIteration: raise item
-        return item
 
-    def send(self, data):
-        self.queue.put(data)
-
-    def close(self):
-        self.queue.put(StopIteration)
-
-class ChainStreamHandler(StreamingStdOutCallbackHandler):
-    def __init__(self, gen):
+# Not used yet. WIP
+class ChainRedisHandler(StreamingStdOutCallbackHandler):
+    """Callback handler for streaming. Only works with LLMs that support streaming."""
+    def __init__(self, id:str):
+        logger.debug(f"Setting up ChainRedisHandler with id {id}")
         super().__init__()
-        self.gen = gen
+        self.id = id
+        self.client = Redis()
+        logger.info(f"Stream key : {self.stream_key}")
+    
+    @property
+    def stream_key(self):
+        return "stream:"+self.id
 
-    def on_llm_new_token(self, token: str, **kwargs):
-        self.gen.send(token)
+    def on_llm_start(
+        self, serialized: Dict[str, Any], prompts: List[str], **kwargs: Any
+    ) -> None:
+        super().on_llm_start(serialized, prompts, **kwargs)
+        logger.info("starting")
+        self.client.set(self.stream_key, "")
+        """Run when LLM starts running."""
 
-    def on_llm_end(self) -> None:
-        self.gen.close()
+    def on_llm_new_token(self, token: str, **kwargs: Any) -> None:
+        super().on_llm_start(token, **kwargs)
+        logger.info(token)
+        self.client.append(self.stream_key, token)
+
+        """Run on new LLM token. Only available when streaming is enabled."""
+        
+    def on_llm_end(self, response: LLMResult, **kwargs: Any) -> None:
+        super().on_llm_end(response, **kwargs)
+        self.client.set(self.stream_key, "")
+        
+        """Run when LLM ends running."""
+
+    def on_llm_error(
+        self, error: Union[Exception, KeyboardInterrupt], **kwargs: Any
+    ) -> None:
+        super().on_llm_error(error, **kwargs)
+        self.client.set(self.stream_key, str(error))
+        """Run when LLM errors."""
+
 
 def get_prompt(history: RedisChatMessageHistory):
+    """
+    Get the prompt for the LLM from the chat history.
+    """
     prompt = ""
 
     for message in history.messages:
