@@ -39,7 +39,6 @@
       prompt = "";
 
       eventSource.addEventListener("message", (event) => {
-        console.log(event.data);
         history[history.length - 1].data.content += event.data;
       });
 
@@ -67,7 +66,7 @@
       `/api/chat/?model=${data.chat.params.model_path}&temperature=${data.chat.params.temperature}&top_k=${data.chat.params.top_k}` +
         `&top_p=${data.chat.params.top_p}&max_length=${data.chat.params.max_tokens}&context_window=${data.chat.params.n_ctx}` +
         `&repeat_last_n=${data.chat.params.last_n_tokens_size}&repeat_penalty=${data.chat.params.repeat_penalty}` +
-        `&n_threads=${data.chat.params.n_threads}`,
+        `&n_threads=${data.chat.params.n_threads}&init_prompt=${data.chat.history[0].data.content}`,
 
       {
         method: "POST",
@@ -76,8 +75,8 @@
         },
       }
     ).then((response) => response.json());
-
-    await goto("/chat/" + newData.id);
+    await invalidate("/api/chat/");
+    await goto("/chat/" + newData);
   }
 
   document.addEventListener("keydown", async (event) => {
@@ -95,15 +94,20 @@
     <h1 class="text-4xl font-bold inline-block mr-2">
       Chat with {data.chat.params.model_path}
     </h1>
-    <button
-      type="button"
-      disabled={isLoading}
-      class="btn btn-sm mr-2 mt-5 mb-5 inline-block"
-      class:loading={isLoading}
-      on:click|preventDefault={() => createSameSession()}
+    <div
+      class="tooltip tooltip-bottom"
+      data-tip="This will create a new chat session with the same parameters."
     >
-      New
-    </button>
+      <button
+        type="button"
+        disabled={isLoading}
+        class="btn btn-sm mr-2 mt-5 mb-5 inline-block"
+        class:loading={isLoading}
+        on:click|preventDefault={() => createSameSession()}
+      >
+        New
+      </button>
+    </div>
   </div>
   <h4 class="text-xl font-semibold mb-5">
     Started on {startDate.toLocaleString("en-US")}
@@ -124,6 +128,12 @@
             <div
               class="chat-bubble chat-bubble-primary whitespace-pre-line text-lg"
             >
+              {#if question.data.content === ""}
+                <div
+                  class="radial-progress animate-spin"
+                  style="--value:70; --size:2rem;"
+                />
+              {/if}
               {question.data.content}
             </div>
           </div>

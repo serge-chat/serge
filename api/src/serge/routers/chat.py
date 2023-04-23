@@ -147,13 +147,13 @@ def stream_ask_a_question(chat_id: str, prompt: str):
     
     logger.debug("creating chat")
     chat_raw = client.get(f"chat:{chat_id}")
-    logger.debug(chat_raw)
     chat = Chat.parse_raw(chat_raw)
-    
+
+    logger.debug(chat.params)    
     logger.debug("creating history")
     history = RedisChatMessageHistory(chat.id)
 
-    logger.debug(f"adding question{prompt}")
+    logger.debug(f"adding question {prompt}")
 
     history.add_user_message(prompt)
     prompt = get_prompt(history)

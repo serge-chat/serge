@@ -5,8 +5,6 @@
 
   const models = data.models.filter((el) => el.available);
 
-  console.log(models);
-
   const modelAvailable = models.length > 0;
   const modelsLabels = models.map((el) => el.name);
 
@@ -19,7 +17,7 @@
   let repeat_penalty = 1.3;
 
   let init_prompt =
-    "Below is an instruction that describes a task. Write a response that appropriately completes the request. The response must be accurate, concise and evidence-based whenever possible. A complete answer is always ended by [end of text].";
+    "Below is an instruction that describes a task. Write a response that appropriately completes the request.";
 
   let n_threads = 4;
   let context_window = 512;
@@ -39,13 +37,10 @@
       method: "POST",
     });
 
-    console.log(r);
     if (r.ok) {
       const data = await r.json();
       await goto("/chat/" + data);
       await invalidate("/api/chat/");
-    } else {
-      console.log(r.statusText);
     }
   }
 </script>
@@ -71,14 +66,11 @@
     </div>
   </div>
 
-  <div
-    tabindex="-1"
-    class="collapse collapse-arrow border-2 rounded-box border-gray-600 bg-base-100"
-  >
+  <div tabindex="-1" class="collapse collapse-arrow rounded-box bg-base-200">
     <input type="checkbox" />
     <div class="collapse-title text-xl font-medium">Model settings</div>
     <div class="collapse-content">
-      <div class="grid grid-cols-3 gap-4 p-3 ">
+      <div class="grid grid-cols-3 gap-4 p-3">
         <div
           class="tooltip col-span-2"
           data-tip="The higher the temperature, the more random the model output."
