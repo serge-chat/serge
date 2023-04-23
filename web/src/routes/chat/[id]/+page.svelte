@@ -127,10 +127,9 @@
               </div>
             {:else}
               {#if question.answer === ""}
-                <div
-                  class="radial-progress animate-spin"
-                  style="--value:70; --size:2rem;"
-                />
+                <div class="bg-[#242933] inline-block border border-[#303642] rounded py-1 px-4">
+                  <div class="dots-load"></div>
+                </div>
               {/if}
               {question.answer}
             {/if}

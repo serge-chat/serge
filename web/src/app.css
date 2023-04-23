@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+pre {
+  width: 100%;
+  max-width: 800px;
+  overflow-x: auto;
+}
+
+code {
+  border-radius: 0.25rem;
+  background: #191d24;
+  padding: 4px;
+  white-space: pre-wrap;
+}
+
+.dots-load {
+  width: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: d5 1s infinite linear alternate;
+}
+@keyframes d5 {
+    0%  {box-shadow: 10px 0 #fff, -10px 0 #fff2;background: #fff }
+    33% {box-shadow: 10px 0 #fff, -10px 0 #fff2;background: #fff2}
+    66% {box-shadow: 10px 0 #fff2,-10px 0 #fff; background: #fff2}
+    100%{box-shadow: 10px 0 #fff2,-10px 0 #fff; background: #fff }
+}
