@@ -14,32 +14,20 @@ type Message = {
 
 type Params = {
   model_path: string;
+  n_ctx: number;
+  n_threads: number;
+  last_n_tokens_size: number;
   max_tokens: number;
   temperature: number;
   top_p: number;
-  logprobs?: boolean;
-  echo: boolean;
-  stop_sequences: string[];
   repeat_penalty: number;
   top_k: number;
-  n_threads: number;
-  n_ctx: number;
-  n_parts: number;
-  seed: number;
-  f16_kv: boolean;
-  logits_all: boolean;
-  vocab_only: boolean;
-  use_mlock: boolean;
-  n_batch: number;
-  last_n_tokens_size: number;
-  streaming: boolean;
-  _type: string;
 };
 
 type Response = {
   id: string;
   created: string;
-  llm: Params;
+  params: Params;
   history: Message[];
 };
 

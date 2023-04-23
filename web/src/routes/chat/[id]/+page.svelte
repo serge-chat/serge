@@ -10,7 +10,6 @@
   $: history = data.chat.history;
 
   $: prompt = "";
-  $: answer = "";
 
   async function askQuestion() {
     if (prompt) {
@@ -40,7 +39,7 @@
       prompt = "";
 
       eventSource.addEventListener("message", (event) => {
-        console.log(event);
+        console.log(event.data);
         history[history.length - 1].data.content += event.data;
       });
 
@@ -65,10 +64,10 @@
 
   async function createSameSession() {
     const newData = await fetch(
-      `/api/chat/?model=${data.chat.llm.model_path}&temperature=${data.chat.llm.temperature}&top_k=${data.chat.llm.top_k}` +
-        `&top_p=${data.chat.llm.top_p}&max_length=${data.chat.llm.max_tokens}&context_window=${data.chat.llm.n_ctx}` +
-        `&repeat_last_n=${data.chat.llm.last_n_tokens_size}&repeat_penalty=${data.chat.llm.repeat_penalty}` +
-        `\&n_threads=${data.chat.llm.n_threads}`,
+      `/api/chat/?model=${data.chat.params.model_path}&temperature=${data.chat.params.temperature}&top_k=${data.chat.params.top_k}` +
+        `&top_p=${data.chat.params.top_p}&max_length=${data.chat.params.max_tokens}&context_window=${data.chat.params.n_ctx}` +
+        `&repeat_last_n=${data.chat.params.last_n_tokens_size}&repeat_penalty=${data.chat.params.repeat_penalty}` +
+        `&n_threads=${data.chat.params.n_threads}`,
 
       {
         method: "POST",
@@ -94,7 +93,7 @@
 >
   <div class="flex items-center">
     <h1 class="text-4xl font-bold inline-block mr-2">
-      Chat with {data.chat.llm.model_path}
+      Chat with {data.chat.params.model_path}
     </h1>
     <button
       type="button"

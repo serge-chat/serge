@@ -5,7 +5,7 @@ from serge.utils.llm import LlamaCpp
 
 
 class ChatParameters(BaseModel):
-    model: str
+    model_path: str
     n_ctx: int
     # n_parts: int
     # seed: int

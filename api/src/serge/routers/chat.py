@@ -29,26 +29,18 @@ async def create_new_chat(
     n_threads: int = 4,
 ):
     try:
-        llm = LlamaCpp(
-            model_path=model,
-            n_ctx=context_window,
-            max_tokens=max_length,
-            temperature=temperature,
-            top_p=top_p, 
-            repeat_penalty=repeat_penalty,
-            top_k=top_k,
-            last_n_tokens_size=repeat_last_n,
-            n_threads=n_threads,
-            streaming=True,
-        )
+        client = Llama(
+                        model_path="/usr/src/app/weights/"+model+".bin",
+                        )
+        del client
     except:
-        raise ValueError("Invalid model parameters")
+        raise ValueError("Model can't be found")
     
 
     client = Redis()
 
     params = ChatParameters(
-        model=model,
+        model_path=model,
         temperature=temperature,
         top_k=top_k,
         top_p=top_p,
@@ -91,7 +83,7 @@ async def get_all_chats():
             {
                 "id": chat_dict["id"],
                 "created": chat_dict["created"],
-                "model": chat_dict["llm"]["model_path"].split("/")[-1],
+                "model": chat_dict["params"]["model_path"],
                 "subtitle": subtitle
             }
         )
@@ -143,7 +135,7 @@ async def delete_chat(chat_id: str):
 
 
 @chat_router.get("/{chat_id}/question")
-async def stream_ask_a_question(chat_id: str, prompt: str):
+def stream_ask_a_question(chat_id: str, prompt: str):
     logger.debug("Starting redis client")
     client = Redis()
 
@@ -168,15 +160,14 @@ async def stream_ask_a_question(chat_id: str, prompt: str):
     client = Llama(
                     model_path="/usr/src/app/weights/"+chat.params.model_path+".bin",
                     n_ctx=chat.params.n_ctx,
-                    n_threads=chat.params.n_threads_,
+                    n_threads=chat.params.n_threads,
                     last_n_tokens_size=chat.params.last_n_tokens_size,
                     )
-
-    async def event_generator():
+    def event_generator():
         full_answer = ""
         error = None
         try:
-            async for output in client(prompt, 
+            for output in client(prompt, 
                     stream=True,
                     temperature=chat.params.temperature,
                     top_p=chat.params.top_p,
@@ -184,12 +175,11 @@ async def stream_ask_a_question(chat_id: str, prompt: str):
                     repeat_penalty=chat.params.repeat_penalty,
                     max_tokens=chat.params.max_tokens,
                     ):
-
-                full_answer += output
-                logger.debug(output)
+                txt = output["choices"][0]["text"]
+                full_answer += txt
                 yield {
                     "event": "message", 
-                    "data": output}
+                    "data": txt}
                 
         except Exception as e:
             error = e.__str__()
@@ -205,7 +195,7 @@ async def stream_ask_a_question(chat_id: str, prompt: str):
 
     return EventSourceResponse(event_generator())
 
-@chat_router.post("/{chat_id}/question")
+@chat_router.post("/{chat_id}/question")    
 async def ask_a_question(chat_id: str, prompt: str):
     client = Redis()
 
@@ -224,7 +214,7 @@ async def ask_a_question(chat_id: str, prompt: str):
     client = Llama(
                 model_path="/usr/src/app/weights/"+chat.params.model_path+".bin",
                 n_ctx=chat.params.n_ctx,
-                n_threads=chat.params.n_threads_,
+                n_threads=chat.params.n_threads,
                 last_n_tokens_size=chat.params.last_n_tokens_size,
                 )
     
