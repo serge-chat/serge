@@ -73,17 +73,20 @@ async def get_all_chats():
     
     ids = client.smembers("chats")
     
-    for id in ids:
-        chat_dict = await get_specific_chat(id.decode())
+    chats = sorted([await get_specific_chat(id.decode()) for id in ids],
+                   key=lambda x: x["created"], 
+                   reverse=True)
+
+    for chat in chats:
         try:
-            subtitle = chat_dict["history"][-1]["data"]["content"]
+            subtitle = chat["history"][-1]["data"]["content"]
         except (KeyError, IndexError):
             subtitle = ""
         res.append(
             {
-                "id": chat_dict["id"],
-                "created": chat_dict["created"],
-                "model": chat_dict["params"]["model_path"],
+                "id": chat["id"],
+                "created": chat["created"],
+                "model": chat["params"]["model_path"],
                 "subtitle": subtitle
             }
         )
