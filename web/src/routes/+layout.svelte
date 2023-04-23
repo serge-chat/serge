@@ -6,10 +6,10 @@
   export let data: LayoutData;
 
   $: deleteConfirm = false;
-
+  $: id = $page.params.id || "";
   async function deleteChat(chatID: string) {
     const response = await fetch("/api/chat/" + chatID, { method: "DELETE" });
-    if (response.status == 200) {
+    if (response.status === 200) {
       toggleDeleteConfirm();
       await goto("/");
       await invalidate("/api/chat/");
@@ -69,7 +69,8 @@
         <li>
           <a
             href={"/chat/" + chat.id}
-            class="flex items-center p-2 text-base font-normal rounded-lg hover:bg-gray-700 active:bg-gray-800"
+            class="flex items-center p-2 text-base font-normal rounded-lg hover:bg-base-200"
+            class:bg-base-100={id === chat.id}
           >
             <div class="w-full flex flex-col">
               <div class="w-full flex flex-col justify-start items-start">

@@ -6,18 +6,26 @@ WORKDIR /usr/src/app
 
 # ---------------------------------------
 # Base image for runtime
-FROM mongo:6-jammy as base
+FROM python:3.11 as base
 
 ENV TZ=Etc/UTC
 WORKDIR /usr/src/app
-COPY --chmod=0755 scripts/compile.sh .
 
-# Install necessary tools
-RUN apt update \
-    && apt install -y --no-install-recommends wget python3-pip git build-essential make cmake lsb-release \
-    && git clone https://github.com/ggerganov/llama.cpp.git --branch master-50cb666 \
-    && rm -rf /var/lib/apt/lists/* \
-    && pip install --upgrade --no-cache-dir pip
+# Install Redis
+RUN apt-get update && apt-get install -y curl wget gnupg python3-pip cmake lsb-release
+
+RUN curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
+
+RUN apt-get update && \
+    apt-get install -y redis
+
+RUN mkdir -p /etc/redis && mkdir -p /var/redis
+
+COPY ./redis.conf /etc/redis/redis.conf
+
+# clone the python bindings for llama.cpp
+RUN pip install --upgrade pip
 
 # ---------------------------------------
 # Dev environment
