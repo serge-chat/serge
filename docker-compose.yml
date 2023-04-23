@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   serge:
-    image: ghcr.io/nsarrazin/serge:latest
+    image: ghcr.io/telnetdoogie/serge:latest
     container_name: serge
     restart: unless-stopped
     ports:
@@ -9,7 +9,7 @@ services:
     volumes:
       - datadb:/data/db
       - weights:/usr/src/app/weights/
-      - /etc/localtime:/etc/localtime:ro 
+      - /etc/localtime:/etc/localtime:ro
 
 volumes:
   datadb:
