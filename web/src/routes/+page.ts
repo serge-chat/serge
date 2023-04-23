@@ -9,7 +9,7 @@ interface ModelStatus {
 
 export const load: PageLoad = async ({ fetch }) => {
   const r = await fetch("/api/model/all");
-  const models = (await r.json()) as Array<ModelStatus>;
+  const models = (await r.json()) as ModelStatus[];
   return {
     models,
   };

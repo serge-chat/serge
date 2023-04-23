@@ -1,16 +1,15 @@
 <script lang="ts">
   import type { PageData } from "./$types";
-  import { invalidate } from "$app/navigation";
+  import { invalidate, goto } from "$app/navigation";
   import { page } from "$app/stores";
 
   export let data: PageData;
 
   $: isLoading = false;
-  $: questions = data.props.questions ?? [];
-  $: startDate = new Date(data.props.created);
+  $: startDate = new Date(data.chat.created);
+  $: history = data.chat.history;
 
   $: prompt = "";
-  $: answer = "";
 
   async function askQuestion() {
     if (prompt) {
@@ -21,19 +20,26 @@
         "/api/chat/" + $page.params.id + "/question?" + data.toString()
       );
 
-      questions = [
-        ...questions,
+      history = [
+        ...history,
         {
-          _id: (questions.length + 1).toString(),
-          question: prompt,
-          answer: "",
+          type: "human",
+          data: {
+            content: prompt,
+          },
+        },
+        {
+          type: "ai",
+          data: {
+            content: "",
+          },
         },
       ];
 
       prompt = "";
 
       eventSource.addEventListener("message", (event) => {
-        questions[questions.length - 1].answer += event.data;
+        history[history.length - 1].data.content += event.data;
       });
 
       eventSource.addEventListener("close", async () => {
@@ -43,44 +49,39 @@
 
       eventSource.onerror = async (error) => {
         eventSource.close();
-        questions[questions.length - 1].answer = "A server error occurred.";
+        history[history.length - 1].data.content = "A server error occurred.";
         await invalidate("/api/chat/" + $page.params.id);
       };
     }
   }
 
-  function handleKeyDown(event) {
+  async function handleKeyDown(event: KeyboardEvent) {
     if (event.key === "Enter" && event.ctrlKey) {
-      askQuestion();
+      await askQuestion();
     }
   }
 
-  function createSameSession(sessionID) {
-    fetch("/api/chat/" + sessionID)
-      .then((response) => response.json())
-      .then((data) => {
-        const { _id, created, parameters } = data;
-        fetch(
-          `/api/chat/?model=${parameters.model}&temperature=${parameters.temperature}&top_k=${parameters.top_k}&top_p=${parameters.top_p}&max_length=${parameters.max_length}&context_window=${parameters.context_window}&repeat_last_n=${parameters.repeat_last_n}&repeat_penalty=${parameters.repeat_penalty}&init_prompt=${parameters.init_prompt}&n_threads=${parameters.n_threads}`,
-          {
-            method: "POST",
-            headers: {
-              accept: "application/json",
-            },
-          }
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            const newSession = { id: data };
-            window.location.href = "/chat/" + newSession.id;
-          });
-      })
-      .catch((error) => console.error(error));
+  async function createSameSession() {
+    const newData = await fetch(
+      `/api/chat/?model=${data.chat.params.model_path}&temperature=${data.chat.params.temperature}&top_k=${data.chat.params.top_k}` +
+        `&top_p=${data.chat.params.top_p}&max_length=${data.chat.params.max_tokens}&context_window=${data.chat.params.n_ctx}` +
+        `&repeat_last_n=${data.chat.params.last_n_tokens_size}&repeat_penalty=${data.chat.params.repeat_penalty}` +
+        `&n_threads=${data.chat.params.n_threads}&init_prompt=${data.chat.history[0].data.content}`,
+
+      {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+        },
+      }
+    ).then((response) => response.json());
+    await invalidate("/api/chat/");
+    await goto("/chat/" + newData);
   }
 
-  document.addEventListener("keydown", function (event) {
+  document.addEventListener("keydown", async (event) => {
     if (event.key === "n" && event.altKey) {
-      createSameSession($page.params.id);
+      await createSameSession();
     }
   });
 </script>
@@ -89,53 +90,60 @@
   class="max-w-4xl mx-auto h-full max-h-screen relative"
   on:keydown={handleKeyDown}
 >
-<div class="flex items-center">
-  <h1 class="text-4xl font-bold inline-block mr-2">
-    Chat with {data.props.parameters.model}
-  </h1>
-  <button
-    type="button"
-    disabled={isLoading}
-    class="btn btn-sm mr-2 mt-5 mb-5 inline-block"
-    class:loading={isLoading}
-    on:click|preventDefault={() => createSameSession($page.params.id)}
-  >
-    New
-  </button>
-</div>
-<h4 class="text-xl font-semibold mb-5">
-  Started on {startDate.toLocaleString("en-US")}
-</h4>
+  <div class="flex items-center">
+    <h1 class="text-4xl font-bold inline-block mr-2">
+      Chat with {data.chat.params.model_path}
+    </h1>
+    <div
+      class="tooltip tooltip-bottom"
+      data-tip="This will create a new chat session with the same parameters."
+    >
+      <button
+        type="button"
+        disabled={isLoading}
+        class="btn btn-sm mr-2 mt-5 mb-5 inline-block"
+        class:loading={isLoading}
+        on:click|preventDefault={() => createSameSession()}
+      >
+        New
+      </button>
+    </div>
+  </div>
+  <h4 class="text-xl font-semibold mb-5">
+    Started on {startDate.toLocaleString("en-US")}
+  </h4>
   <div class="overflow-y-auto h-[calc(97vh-12rem)] px-10 mb-11">
     <div class="h-max pb-32">
-      {#each questions as question}
-        <div class="chat chat-end my-2">
-          <div
-            class="chat-bubble chat-bubble-secondary whitespace-pre-line text-lg"
-          >
-            {question.question}
+      {#each history as question}
+        {#if question.type === "human"}
+          <div class="chat chat-end my-2">
+            <div
+              class="chat-bubble chat-bubble-secondary whitespace-pre-line text-lg"
+            >
+              {question.data.content}
+            </div>
           </div>
-        </div>
-        <div class="chat chat-start my-2">
-          <div
-            class="chat-bubble chat-bubble-primary whitespace-pre-line text-lg"
-          >
-            {#if question.error}
-              A server error occurred. See below:
-              <div class="font-mono font-thin text-sm text-gray-100 pt-5">
-                {question.error}
-              </div>
-            {:else}
-              {#if question.answer === ""}
+        {:else if question.type === "ai"}
+          <div class="chat chat-start my-2">
+            <div
+              class="chat-bubble chat-bubble-primary whitespace-pre-line text-lg"
+            >
+              {#if question.data.content === ""}
                 <div
                   class="radial-progress animate-spin"
                   style="--value:70; --size:2rem;"
                 />
               {/if}
-              {question.answer}
-            {/if}
+              {question.data.content}
+            </div>
           </div>
-        </div>
+        {:else if question.type === "system"}
+          <div
+            class="w-full text-center font-light text-md text-gray-500 pb-10"
+          >
+            {question.data.content}
+          </div>
+        {/if}
       {/each}
     </div>
   </div>

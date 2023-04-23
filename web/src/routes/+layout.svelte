@@ -6,10 +6,10 @@
   export let data: LayoutData;
 
   $: deleteConfirm = false;
-
+  $: id = $page.params.id || "";
   async function deleteChat(chatID: string) {
     const response = await fetch("/api/chat/" + chatID, { method: "DELETE" });
-    if (response.status == 200) {
+    if (response.status === 200) {
       toggleDeleteConfirm();
       await goto("/");
       await invalidate("/api/chat/");
@@ -60,7 +60,7 @@
   class="fixed top-0 left-0 z-40 w-80 h-screen transition-transform -translate-x-full sm:translate-x-0"
   aria-label="Sidebar"
 >
-  <div class="h-full px-3 py-4 overflow-y-auto bg-gray-600">
+  <div class="h-full px-3 py-4 overflow-y-auto bg-base-300">
     <ul class="space-y-2">
       <li class="pt-4">
         <a href="/" class="btn btn-outline h-6 w-full font-semibold"> Home </a>
@@ -69,7 +69,8 @@
         <li>
           <a
             href={"/chat/" + chat.id}
-            class="flex items-center p-2 text-base font-normal rounded-lg hover:bg-gray-700 active:bg-gray-800"
+            class="flex items-center p-2 text-base font-normal rounded-lg hover:bg-base-200"
+            class:bg-base-100={id === chat.id}
           >
             <div class="flex flex-col">
               <div>

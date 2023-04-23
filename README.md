@@ -19,7 +19,9 @@ Setting up Serge is very easy. Starting it up can be done in a single command:
 docker run -d -v weights:/usr/src/app/weights -v datadb:/data/db/ -p 8008:8008 ghcr.io/nsarrazin/serge:latest
 ```
 
-Then just go to http://localhost:8008/ !
+Then just go to http://localhost:8008/ and you're good to go!
+
+The API documentation can be found at http://localhost:8008/api/docs
 
 #### Windows
 
