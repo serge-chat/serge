@@ -2,7 +2,7 @@
 
 pip install llama-cpp-python
 
-redis-server &
+redis-server /etc/redis/redis.conf &
 # Start the API
 cd api && uvicorn src.serge.main:app --host 0.0.0.0 --port 8008 &
 

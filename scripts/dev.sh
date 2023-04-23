@@ -3,7 +3,7 @@
 pip install -e ./api
 pip install llama-cpp-python
 
-redis-server &
+redis-server /etc/redis/redis.conf &
 
 # Start the web server
 cd web && npm run dev -- --host 0.0.0.0 --port 8008 &

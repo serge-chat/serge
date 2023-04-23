@@ -22,6 +22,8 @@ RUN apt-get update && \
 
 RUN mkdir -p /etc/redis && mkdir -p /var/redis
 
+COPY ./redis.conf /etc/redis/redis.conf
+
 # clone the python bindings for llama.cpp
 RUN pip install --upgrade pip
 
