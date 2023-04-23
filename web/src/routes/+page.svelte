@@ -72,10 +72,12 @@
     <div class="collapse-content">
       <div class="grid grid-cols-3 gap-4 p-3">
         <div
-          class="tooltip col-span-2"
+          class="tooltip tooltip-bottom col-span-2"
           data-tip="The higher the temperature, the more random the model output."
         >
-          <label for="temperature" class="label-text">Temperature - [{temp}]</label>
+          <label for="temperature" class="label-text"
+            >Temperature - [{temp}]</label
+          >
           <input
             name="temperature"
             type="range"
@@ -87,7 +89,7 @@
           />
         </div>
         <div
-          class="flex flex-col tooltip"
+          class="flex flex-col tooltip tooltip-bottom"
           data-tip="The number of samples to consider for top_k sampling. "
         >
           <label for="top_k" class="label-text pb-1">top_k</label>
