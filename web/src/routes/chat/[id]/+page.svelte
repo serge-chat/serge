@@ -1,15 +1,16 @@
 <script lang="ts">
   import type { PageData } from "./$types";
-  import { invalidate, goto } from "$app/navigation";
+  import { invalidate } from "$app/navigation";
   import { page } from "$app/stores";
 
   export let data: PageData;
 
   $: isLoading = false;
-  $: startDate = new Date(data.chat.created);
-  $: history = data.chat.history;
+  $: questions = data.props.questions ?? [];
+  $: startDate = new Date(data.props.created);
 
   $: prompt = "";
+  $: answer = "";
 
   async function askQuestion() {
     if (prompt) {
@@ -20,26 +21,19 @@
         "/api/chat/" + $page.params.id + "/question?" + data.toString()
       );
 
-      history = [
-        ...history,
+      questions = [
+        ...questions,
         {
-          type: "human",
-          data: {
-            content: prompt,
-          },
-        },
-        {
-          type: "ai",
-          data: {
-            content: "",
-          },
+          _id: (questions.length + 1).toString(),
+          question: prompt,
+          answer: "",
         },
       ];
 
       prompt = "";
 
       eventSource.addEventListener("message", (event) => {
-        history[history.length - 1].data.content += event.data;
+        questions[questions.length - 1].answer += event.data;
       });
 
       eventSource.addEventListener("close", async () => {
@@ -49,39 +43,44 @@
 
       eventSource.onerror = async (error) => {
         eventSource.close();
-        history[history.length - 1].data.content = "A server error occurred.";
+        questions[questions.length - 1].answer = "A server error occurred.";
         await invalidate("/api/chat/" + $page.params.id);
       };
     }
   }
 
-  async function handleKeyDown(event: KeyboardEvent) {
+  function handleKeyDown(event) {
     if (event.key === "Enter" && event.ctrlKey) {
-      await askQuestion();
+      askQuestion();
     }
   }
 
-  async function createSameSession() {
-    const newData = await fetch(
-      `/api/chat/?model=${data.chat.params.model_path}&temperature=${data.chat.params.temperature}&top_k=${data.chat.params.top_k}` +
-        `&top_p=${data.chat.params.top_p}&max_length=${data.chat.params.max_tokens}&context_window=${data.chat.params.n_ctx}` +
-        `&repeat_last_n=${data.chat.params.last_n_tokens_size}&repeat_penalty=${data.chat.params.repeat_penalty}` +
-        `&n_threads=${data.chat.params.n_threads}&init_prompt=${data.chat.history[0].data.content}`,
-
-      {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-        },
-      }
-    ).then((response) => response.json());
-    await invalidate("/api/chat/");
-    await goto("/chat/" + newData);
+  function createSameSession(sessionID) {
+    fetch("/api/chat/" + sessionID)
+      .then((response) => response.json())
+      .then((data) => {
+        const { _id, created, parameters } = data;
+        fetch(
+          `/api/chat/?model=${parameters.model}&temperature=${parameters.temperature}&top_k=${parameters.top_k}&top_p=${parameters.top_p}&max_length=${parameters.max_length}&context_window=${parameters.context_window}&repeat_last_n=${parameters.repeat_last_n}&repeat_penalty=${parameters.repeat_penalty}&init_prompt=${parameters.init_prompt}&n_threads=${parameters.n_threads}`,
+          {
+            method: "POST",
+            headers: {
+              accept: "application/json",
+            },
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            const newSession = { id: data };
+            window.location.href = "/chat/" + newSession.id;
+          });
+      })
+      .catch((error) => console.error(error));
   }
 
-  document.addEventListener("keydown", async (event) => {
+  document.addEventListener("keydown", function (event) {
     if (event.key === "n" && event.altKey) {
-      await createSameSession();
+      createSameSession($page.params.id);
     }
   });
 
@@ -187,16 +186,10 @@
                   <div class="dots-load"></div>
                 </div>
               {/if}
-              {question.data.content}
-            </div>
+              {question.answer}
+            {/if}
           </div>
-        {:else if question.type === "system"}
-          <div
-            class="w-full text-center font-light text-md text-gray-500 pb-10"
-          >
-            {question.data.content}
-          </div>
-        {/if}
+        </div>
       {/each}
     </div>
   </div>
