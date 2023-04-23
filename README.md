@@ -49,10 +49,6 @@ LLaMA will just crash if you don't have enough available memory for your model.
 - 13B requires about 12GB free
 - 30B requires about 20GB free
 
-### Compatible CPUS
-
-Currently Serge requires a CPU compatible with AVX2 instructions. Try `lscpu | grep avx2` in a shell, and if this returns nothing then your CPU is incompatible for now.
-
 ## Support
 
 Feel free to join the discord if you need help with the setup: https://discord.gg/62Hc6FEYQH
