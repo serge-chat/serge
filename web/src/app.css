@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.dots-load {
+  animation: d5 1s infinite linear alternate;
+}
+
+@keyframes d5 {
+    0%  {box-shadow: 10px 0 #fff, -10px 0 #fff2;background: #fff }
+    33% {box-shadow: 10px 0 #fff, -10px 0 #fff2;background: #fff2}
+    66% {box-shadow: 10px 0 #fff2,-10px 0 #fff; background: #fff2}
+    100%{box-shadow: 10px 0 #fff2,-10px 0 #fff; background: #fff }
+}
