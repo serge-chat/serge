@@ -160,12 +160,19 @@ def stream_ask_a_question(chat_id: str, prompt: str):
     prompt += "### Response:\n"
 
     logger.debug("creating Llama client")
-    client = Llama(
-                    model_path="/usr/src/app/weights/"+chat.params.model_path+".bin",
-                    n_ctx=chat.params.n_ctx,
-                    n_threads=chat.params.n_threads,
-                    last_n_tokens_size=chat.params.last_n_tokens_size,
-                    )
+    try:
+        client = Llama(
+                        model_path="/usr/src/app/weights/"+chat.params.model_path+".bin",
+                        n_ctx=chat.params.n_ctx,
+                        n_threads=chat.params.n_threads,
+                        last_n_tokens_size=chat.params.last_n_tokens_size,
+                        )
+    except ValueError as e:
+        error = e.__str__()
+        logger.error(error)
+        history.append(SystemMessage(content=error))
+        return {"event": "error"}
+
     def event_generator():
         full_answer = ""
         error = None
@@ -216,15 +223,15 @@ async def ask_a_question(chat_id: str, prompt: str):
 
     prompt = get_prompt(history)
     prompt += "### Response:\n"
-
-    client = Llama(
-                model_path="/usr/src/app/weights/"+chat.params.model_path+".bin",
-                n_ctx=chat.params.n_ctx,
-                n_threads=chat.params.n_threads,
-                last_n_tokens_size=chat.params.last_n_tokens_size,
-                )
+    
     
     try:
+        client = Llama(
+                    model_path="/usr/src/app/weights/"+chat.params.model_path+".bin",
+                    n_ctx=chat.params.n_ctx,
+                    n_threads=chat.params.n_threads,
+                    last_n_tokens_size=chat.params.last_n_tokens_size,
+                    )
         answer = client(prompt, 
                         temperature=chat.params.temperature,
                         top_p=chat.params.top_p,
