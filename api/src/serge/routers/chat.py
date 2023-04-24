@@ -185,9 +185,12 @@ def stream_ask_a_question(chat_id: str, prompt: str):
                     "data": txt}
                 
         except Exception as e:
-            error = e.__str__()
-            logger.error(error)
-            yield({"event" : "error"})
+            if type(e) == UnicodeDecodeError:
+                pass
+            else: 
+                error = e.__str__()
+                logger.error(error)
+                yield({"event" : "error"})
         finally:
             if error:
                 history.append(SystemMessage(content=error))
