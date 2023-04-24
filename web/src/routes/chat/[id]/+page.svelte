@@ -146,7 +146,7 @@
               </div>
             </div>
             <div
-              class="chat-bubble bg-base-200 whitespace-pre-line text-lg text-indigo-50 font-light break-words"
+              class="chat-bubble bg-base-200 whitespace-pre-line text-base text-indigo-50 font-light break-words"
             >
               {question.data.content}
             </div>
@@ -171,7 +171,7 @@
               </div>
             </div>
             <div
-              class="chat-bubble bg-base-100 whitespace-pre-line text-lg text-indigo-50 font-light break-words"
+              class="chat-bubble bg-base-100 whitespace-pre-line text-base text-indigo-50 font-light break-words"
             >
               {#if question.data.content === ""}
                 <div class="bg-[#242933] inline-block border border-[#303642] rounded py-1 px-4">
