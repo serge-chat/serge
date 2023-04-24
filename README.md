@@ -86,3 +86,7 @@ DOCKER_BUILDKIT=1 docker compose up -d --build
 - [ ] User profiles & authentication
 
 And a lot more!
+
+## Credits
+
+Llama by The Icon Z from <a href="https://thenounproject.com/browse/icons/term/llama" target="_blank" title="Llama Icons">Noun Project</a> CC BY 3.0
