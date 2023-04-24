@@ -13,31 +13,52 @@ model_router = APIRouter(
 )
 
 models_info = {
-    "7B": [
+    "Alpaca-7B": [
         "nsarrazin/alpaca",
         "alpaca-7B-ggml/ggml-model-q4_0.bin", 
         4.20E9,
         ],
-    "7B-native": [
+    "Alpaca-7B-native": [
         "nsarrazin/alpaca", 
         "alpaca-native-7B-ggml/ggml-model-q4_0.bin", 
         4.20E9,
         ],
-    "13B": [
+    "Alpaca-13B": [
         "nsarrazin/alpaca", 
         "alpaca-13B-ggml/ggml-model-q4_0.bin", 
         8.13E9,
         ],
-    "30B": [
+    "Alpaca-30B": [
         "nsarrazin/alpaca", 
         "alpaca-30B-ggml/ggml-model-q4_0.bin", 
         20.2E9,
         ],
-    "gpt4all": [
+    "GPT4All": [
         "nsarrazin/alpaca",
         "gpt4all/gpt4all.bin",
         4.20E9
+    ],
+    "OAsst-LLaMA-13B": [
+        "Black-Engineer/oasst-llama13b-ggml-q4",
+        "qunt4_0.bin",
+        8.13E9,
+    ],
+    "OAsst-LLaMA-30B" : [
+        "Black-Engineer/oasst-llama30b-ggml-q4",
+        "qunt4_0.bin",
+        20.2E9,
+    ],
+    "Vicuna-7B" : [
+        "eachadea/ggml-vicuna-7b-1.1",
+        "ggml-vicuna-7b-1.1-q4_1.bin",
+        5.04E9,
+    ],
+    "Vicuna-13B" : [
+        "eachadea/ggml-vicuna-13b-1.1",
+        "ggml-vicuna-13b-1.1-q4_2.bin",
+        8.13E9,
     ]
+
     }
 
 WEIGHTS = "/usr/src/app/weights/"
