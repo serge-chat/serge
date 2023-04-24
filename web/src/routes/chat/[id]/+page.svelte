@@ -183,7 +183,7 @@
           </div>
         {:else if question.type === "system"}
           <div
-            class="w-full text-center font-light text-md text-gray-500 px-10 py-8"
+            class="w-full text-center font-light text-md text-gray-500 px-10 md:px-16 py-8"
           >
             {question.data.content}
           </div>
