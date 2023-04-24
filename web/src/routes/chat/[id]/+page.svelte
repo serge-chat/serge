@@ -108,10 +108,10 @@
       </a>
       <div class="flex flex-col justify-center items-center">
         <h1 class="text-center text-base font-bold inline-block">
-          Chat with {data.chat.params.model_path}
+          Serge: {data.chat.params.model_path}
         </h1>
         <h4 class="text-center text-xs font-semibold">
-          Started on {startDate.toLocaleString("en-US")}
+          {startDate.toLocaleString("en-US")}
         </h4>
       </div>
       <div
