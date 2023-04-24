@@ -7,6 +7,8 @@ import huggingface_hub
 import os
 import urllib.request
 
+from loguru import logger
+
 model_router = APIRouter(
     prefix="/model",
     tags=["model"],
@@ -70,10 +72,10 @@ async def list_of_all_models():
 
     for model in models_info.keys():
         progress = await download_status(model)
-        if f"/{model}.bin" in installed_models:
+        if f"{model}.bin" in installed_models:
             available = True
             #if model exists in WEIGHTS directory remove it from the list
-            installed_models.remove(f"/{model}.bin")
+            installed_models.remove(f"{model}.bin")
         else:
             available = False
         res.append({
@@ -107,7 +109,7 @@ async def list_of_downloadable_models():
 async def list_of_installed_models():
     #after iterating through the WEIGHTS directory, return location and filename
     files = [model_location.replace(WEIGHTS,"") +'/'+ bin_file for model_location, directory, filenames in os.walk(WEIGHTS) for bin_file in filenames if os.path.splitext(bin_file)[1] == '.bin']
-
+    files = [i.lstrip("/") for i in files]
     return files 
 
 
@@ -152,3 +154,14 @@ async def download_status(model_name: str):
         currentsize = os.path.getsize(bin_path)
         return min(round(currentsize / filesize*100, 1), 100)        
     return None
+
+@model_router.delete("/{model_name}")
+async def delete_model(model_name: str):    
+    if model_name+".bin" not in await list_of_installed_models():
+        raise HTTPException(status_code=404, detail="Model not found")
+
+    if os.path.exists(WEIGHTS+f"{model_name}.bin"):
+        os.remove(WEIGHTS+f"{model_name}.bin")
+        return {"message": f"Model {model_name} deleted"}
+    
+    raise HTTPException(status_code=404, detail="Model file not found")
