@@ -69,7 +69,7 @@
         <li>
           <a
             href={"/chat/" + chat.id}
-            class="flex items-center p-2 text-base font-normal rounded-lg hover:bg-gradient-to-r hover:from-primary hover:to-transparent"
+            class="flex items-center p-2 text-base font-normal rounded-lg hover:text-base-content hover:bg-gradient-to-r hover:from-base-100 hover:to-transparent"
             class:bg-base-300={id === chat.id}
           >
             <div class="w-full flex flex-col">
