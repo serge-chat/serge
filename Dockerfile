@@ -11,8 +11,6 @@ FROM python:3.11-slim as base
 ENV TZ=Etc/UTC
 WORKDIR /usr/src/app
 
-COPY ./config/redis.conf /etc/redis/redis.conf
-
 # Install Redis
 RUN apt-get update \
     && apt-get install -y curl wget gnupg cmake lsb-release \
@@ -22,6 +20,9 @@ RUN apt-get update \
     && apt-get install -y redis \
     && mkdir -p /etc/redis /var/redis \
     && pip install --upgrade pip
+
+# Add redis config
+COPY ./config/redis.conf /etc/redis/redis.conf
 
 # ---------------------------------------
 # Dev environment
