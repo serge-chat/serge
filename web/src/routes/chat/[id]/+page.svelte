@@ -197,7 +197,7 @@
   <div
     class="items-center w-full px-0 h-0 flex flex-row bg-base-100 justify-center"
   >
-    <div class="flex flex-row justify-between items-center w-full max-w-3xl bg-base-200 rounded-lg input input-bordered px-0 drop-shadow-md">
+    <div class="flex flex-row justify-between items-center w-full max-w-3xl h-auto bg-base-200 rounded-lg input input-bordered px-0 drop-shadow-md">
       <textarea
         autofocus
         name="question"
