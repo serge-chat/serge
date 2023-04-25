@@ -138,9 +138,9 @@
           <div class="border-t border-primary-content opacity-5"></div>
           <div class="chat chat-start px-10 md:px-16 py-4 bg-base-200">
             <div class="chat-image self-start avatar pl-1 pt-1">
-              <div class="w-[2.6rem] bg-gradient-to-b from-blue-500 to-indigo-900 mask mask-squircle online">
+              <div class="w-[2.6rem] bg-gradient-to-b from-secondary to-secondary-focus mask mask-squircle online">
                 <svg class="my-2 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="24" height="24">
-                  <path class="fill-[#242933]" d="M10.1,2.3l0.5-0.7l2.3,0.2l0.3,0.5l-1.4,0.7L10.1,2.3z M11.7,3.2L10,2.6l0.1,5.2l3.1,0.7L11.7,3.2z M10.1,8.1l0.1,3.9
+                  <path class="fill-base-200" d="M10.1,2.3l0.5-0.7l2.3,0.2l0.3,0.5l-1.4,0.7L10.1,2.3z M11.7,3.2L10,2.6l0.1,5.2l3.1,0.7L11.7,3.2z M10.1,8.1l0.1,3.9
                   l1.9,0.1l1.1-3.3L10.1,8.1z M10.4,0.5L9.9,1.2l0,0.7l0.4-0.5L10.4,0.5z M4.3,8.6l-0.7,1.7L6,11.7l0.9-3.4L4.3,8.6z M3.5,13.3h1
                   L5.9,12l-2.3-1.3V13.3z M2.8,9.7l0.7,0.1l0.4-1L2.8,9.7z M3.6,13.6l0.7,1.9H5l-0.5-1.9H3.6z M7.2,8.3l-0.9,3.5l3.6,0.1L9.8,8
                   L7.2,8.3z M10.3,15.5h0.6l1.1-3.2l-1.8-0.1L10.3,15.5z"/>
