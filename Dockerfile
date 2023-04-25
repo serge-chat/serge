@@ -1,31 +1,27 @@
 # ---------------------------------------
 # Base image for node
-FROM node:19 as node_base
+FROM node:19-slim as node_base
 
 WORKDIR /usr/src/app
 
 # ---------------------------------------
 # Base image for runtime
-FROM python:3.11 as base
+FROM python:3.11-slim as base
 
 ENV TZ=Etc/UTC
 WORKDIR /usr/src/app
 
+COPY ./config/redis.conf /etc/redis/redis.conf
+
 # Install Redis
-RUN apt-get update && apt-get install -y curl wget gnupg python3-pip cmake lsb-release
-
-RUN curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg && \
-    echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
-
-RUN apt-get update && \
-    apt-get install -y redis
-
-RUN mkdir -p /etc/redis && mkdir -p /var/redis
-
-COPY ./redis.conf /etc/redis/redis.conf
-
-# clone the python bindings for llama.cpp
-RUN pip install --upgrade pip
+RUN apt-get update \
+    && apt-get install -y curl wget gnupg cmake lsb-release \
+    && curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list \
+    && apt-get update \
+    && apt-get install -y redis \
+    && mkdir -p /etc/redis /var/redis \
+    && pip install --upgrade pip
 
 # ---------------------------------------
 # Dev environment
