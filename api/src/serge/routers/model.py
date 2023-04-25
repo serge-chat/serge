@@ -7,37 +7,60 @@ import huggingface_hub
 import os
 import urllib.request
 
+from loguru import logger
+
 model_router = APIRouter(
     prefix="/model",
     tags=["model"],
 )
 
 models_info = {
-    "7B": [
+    "Alpaca-7B": [
         "nsarrazin/alpaca",
         "alpaca-7B-ggml/ggml-model-q4_0.bin", 
         4.20E9,
         ],
-    "7B-native": [
+    "Alpaca-7B-native": [
         "nsarrazin/alpaca", 
         "alpaca-native-7B-ggml/ggml-model-q4_0.bin", 
         4.20E9,
         ],
-    "13B": [
+    "Alpaca-13B": [
         "nsarrazin/alpaca", 
         "alpaca-13B-ggml/ggml-model-q4_0.bin", 
         8.13E9,
         ],
-    "30B": [
+    "Alpaca-30B": [
         "nsarrazin/alpaca", 
         "alpaca-30B-ggml/ggml-model-q4_0.bin", 
         20.2E9,
         ],
-    "gpt4all": [
+    "GPT4All": [
         "nsarrazin/alpaca",
         "gpt4all/gpt4all.bin",
         4.20E9
+    ],
+    "OAsst-LLaMA-13B": [
+        "Black-Engineer/oasst-llama13b-ggml-q4",
+        "qunt4_0.bin",
+        8.13E9,
+    ],
+    "OAsst-LLaMA-30B" : [
+        "Black-Engineer/oasst-llama30b-ggml-q4",
+        "qunt4_0.bin",
+        20.2E9,
+    ],
+    "Vicuna-7B" : [
+        "eachadea/ggml-vicuna-7b-1.1",
+        "ggml-vicuna-7b-1.1-q4_1.bin",
+        5.04E9,
+    ],
+    "Vicuna-13B" : [
+        "eachadea/ggml-vicuna-13b-1.1",
+        "ggml-vicuna-13b-1.1-q4_2.bin",
+        8.13E9,
     ]
+
     }
 
 WEIGHTS = "/usr/src/app/weights/"
@@ -49,10 +72,10 @@ async def list_of_all_models():
 
     for model in models_info.keys():
         progress = await download_status(model)
-        if f"/{model}.bin" in installed_models:
+        if f"{model}.bin" in installed_models:
             available = True
             #if model exists in WEIGHTS directory remove it from the list
-            installed_models.remove(f"/{model}.bin")
+            installed_models.remove(f"{model}.bin")
         else:
             available = False
         res.append({
@@ -86,7 +109,7 @@ async def list_of_downloadable_models():
 async def list_of_installed_models():
     #after iterating through the WEIGHTS directory, return location and filename
     files = [model_location.replace(WEIGHTS,"") +'/'+ bin_file for model_location, directory, filenames in os.walk(WEIGHTS) for bin_file in filenames if os.path.splitext(bin_file)[1] == '.bin']
-
+    files = [i.lstrip("/") for i in files]
     return files 
 
 
@@ -131,3 +154,14 @@ async def download_status(model_name: str):
         currentsize = os.path.getsize(bin_path)
         return min(round(currentsize / filesize*100, 1), 100)        
     return None
+
+@model_router.delete("/{model_name}")
+async def delete_model(model_name: str):    
+    if model_name+".bin" not in await list_of_installed_models():
+        raise HTTPException(status_code=404, detail="Model not found")
+
+    if os.path.exists(WEIGHTS+f"{model_name}.bin"):
+        os.remove(WEIGHTS+f"{model_name}.bin")
+        return {"message": f"Model {model_name} deleted"}
+    
+    raise HTTPException(status_code=404, detail="Model file not found")
