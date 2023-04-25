@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 
 # ---------------------------------------
 # Base image for runtime
-FROM python:3.11-slim as base
+FROM python:3.9-slim as base
 
 ENV TZ=Etc/UTC
 WORKDIR /usr/src/app

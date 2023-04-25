@@ -16,7 +16,9 @@ jobs:
     name: Delete untagged images from ghcr.io
     runs-on: ubuntu-latest
     steps:
-      - uses: CerebralXor/action-cleanup-package@v1.0.1
-        with:
+      - uses: actions/delete-package-versions@v4
+        with: 
           package-name: ${{ github.event.repository.name }}
-          github-token: ${{ secrets.GH_ACCESS_TOKEN }}
+          package-type: container
+          min-versions-to-keep: 10
+          delete-only-untagged-versions: true
