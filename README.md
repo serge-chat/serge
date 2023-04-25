@@ -6,7 +6,7 @@
 A chat interface based on [llama.cpp](https://github.com/ggerganov/llama.cpp) for running Alpaca models. Entirely self-hosted, no API keys needed. Fits on 4GB of RAM and runs on the CPU.
 
 - **SvelteKit** frontend
-- **MongoDB** for storing chat history & parameters
+- **Redis** for storing chat history & parameters
 - **FastAPI + beanie** for the API, wrapping calls to [llama.cpp](https://github.com/ggerganov/llama.cpp)
 
 [demo.webm](https://user-images.githubusercontent.com/25119303/226897188-914a6662-8c26-472c-96bd-f51fc020abf6.webm)
