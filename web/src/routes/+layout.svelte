@@ -60,17 +60,17 @@
   class="fixed top-0 left-0 z-40 w-80 h-screen transition-transform -translate-x-full sm:translate-x-0"
   aria-label="Sidebar"
 >
-  <div class="h-full px-3 py-4 overflow-y-auto bg-zinc-950">
+  <div class="h-full px-3 py-4 overflow-y-auto bg-base-300">
     <ul class="space-y-2">
       <li class="pt-4">
-        <a href="/" class="btn btn-outline h-6 w-full font-semibold hover:bg-zinc-900 hover:text-neutral-content"> Home </a>
+        <a href="/" class="btn btn-outline h-6 w-full font-semibold"> Home </a>
       </li>
       {#each data.chats as chat}
         <li>
           <a
             href={"/chat/" + chat.id}
             class="flex items-center p-2 text-base font-normal rounded-lg hover:bg-gradient-to-r hover:from-primary hover:to-transparent"
-            class:bg-zinc-900={id === chat.id}
+            class:bg-base-100={id === chat.id}
           >
             <div class="w-full flex flex-col">
               <div class="w-full flex flex-col justify-start items-start">
