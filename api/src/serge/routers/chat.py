@@ -7,8 +7,11 @@ from serge.utils.stream import get_prompt
 from langchain.memory import RedisChatMessageHistory
 from langchain.schema import messages_to_dict, SystemMessage
 from redis import Redis
+import os
 
 from loguru import logger
+
+R = Redis(host=os.environ.get("REDIS_HOST", "localhost"), port=int(os.environ.get("REDIS_PORT", "6379")))
 
 chat_router = APIRouter(
     prefix="/chat",
@@ -37,7 +40,7 @@ async def create_new_chat(
         raise ValueError("Model can't be found")
     
 
-    client = Redis()
+    client = R
 
     params = ChatParameters(
         model_path=model,
@@ -69,7 +72,7 @@ async def create_new_chat(
 @chat_router.get("/")
 async def get_all_chats():
     res = []
-    client = Redis()
+    client = R
     
     ids = client.smembers("chats")
     
@@ -96,7 +99,7 @@ async def get_all_chats():
 
 @chat_router.get("/{chat_id}")
 async def get_specific_chat(chat_id: str):
-    client = Redis()
+    client = R
 
     if not client.sismember("chats", chat_id):
         raise ValueError("Chat does not exist")
@@ -113,7 +116,7 @@ async def get_specific_chat(chat_id: str):
 
 @chat_router.get("/{chat_id}/history")
 async def get_chat_history(chat_id: str):
-    client = Redis()
+    client = R
 
     if not client.sismember("chats", chat_id):
         raise ValueError("Chat does not exist")
@@ -124,7 +127,7 @@ async def get_chat_history(chat_id: str):
 
 @chat_router.delete("/{chat_id}" )
 async def delete_chat(chat_id: str):
-    client = Redis()
+    client = R
 
     if not client.sismember("chats", chat_id):
         raise ValueError("Chat does not exist")
@@ -140,7 +143,7 @@ async def delete_chat(chat_id: str):
 @chat_router.get("/{chat_id}/question")
 def stream_ask_a_question(chat_id: str, prompt: str):
     logger.debug("Starting redis client")
-    client = Redis()
+    client = R
 
     if not client.sismember("chats", chat_id):
         raise ValueError("Chat does not exist")
@@ -210,7 +213,7 @@ def stream_ask_a_question(chat_id: str, prompt: str):
 
 @chat_router.post("/{chat_id}/question")    
 async def ask_a_question(chat_id: str, prompt: str):
-    client = Redis()
+    client = R
 
     if not client.sismember("chats", chat_id):
         raise ValueError("Chat does not exist")
