@@ -1,6 +1,8 @@
 name: Cleanup PR tagged images every older than 72 hours
 
 on:
+  pull_request:
+    types: [closed]
   schedule:
     - cron: '0 0 * * *'
 
