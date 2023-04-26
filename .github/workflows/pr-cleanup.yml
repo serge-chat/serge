@@ -16,4 +16,4 @@ jobs:
           package-name: ${{ github.event.repository.name }}
           package-type: container
           age: 72h
-          version-match: "pr-\d+$"
+          version-match: "pr-\\d+$"
