@@ -16,6 +16,8 @@ jobs:
         name: Delete PR tagged images older than 72 hours
         with:
           package-name: ${{ github.event.repository.name }}
+          organization-name: ${{ github.repository_owner }}
+          token:  ${{ secrets.GITHUB_TOKEN }}
           package-type: container
           age: 72h
-          version-match: "pr-\\d+$"
+          version-match: "^pr-.+"
