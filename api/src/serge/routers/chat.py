@@ -11,6 +11,7 @@ import os
 
 from loguru import logger
 
+logger.debug("Starting redis client")
 R = Redis(host=os.environ.get("REDIS_HOST", "localhost"), port=int(os.environ.get("REDIS_PORT", "6379")))
 
 chat_router = APIRouter(
@@ -142,7 +143,6 @@ async def delete_chat(chat_id: str):
 
 @chat_router.get("/{chat_id}/question")
 def stream_ask_a_question(chat_id: str, prompt: str):
-    logger.debug("Starting redis client")
     client = R
 
     if not client.sismember("chats", chat_id):
@@ -249,4 +249,71 @@ async def ask_a_question(chat_id: str, prompt: str):
         return error
 
     history.add_ai_message(answer)
+    return answer
+
+@chat_router.post("/{chat_id}/completion")    
+async def complete_a_question(chat_id: str, prompt: str):
+    client = R
+
+    if not client.sismember("chats", chat_id):
+        raise ValueError("Chat does not exist")
+    
+    chat_raw = client.get(f"chat:{chat_id}")
+    chat = Chat.parse_raw(chat_raw)
+    
+    history = RedisChatMessageHistory(chat.id)
+    history.add_user_message(prompt)
+
+    # djdj: try to see if past session is useful or not
+    prompt = get_prompt(history)
+    prompt += "### Response:\n"
+    
+    try:
+        client = Llama(
+                    model_path="/usr/src/app/weights/"+chat.params.model_path+".bin",
+                    n_ctx=chat.params.n_ctx,
+                    n_threads=chat.params.n_threads,
+                    last_n_tokens_size=chat.params.last_n_tokens_size,
+                    )
+        answer = client.create_completion(prompt)
+    except Exception as e:
+        error = e.__str__()
+        logger.error(error)
+        history.append(SystemMessage(content=error))
+        return error
+
+    history.add_ai_message(prompt + '' + answer["choices"][0]["text"])  # djdj: need to update the validation to support completion as output, optional for now
+    # return answer['choices'][0]["text"]  # djdj: let client to decode it
+    return answer 
+
+@chat_router.post("/semantic_search/create_embedding")    
+async def create_embedding(input: str):
+    client = R
+    
+    default_chat_id_semantic_search = "e79e415f-7650-44b0-9e65-967f6127e305"  # djdj: pre-generated chat id for creating embedding. 
+    chat_raw = client.get(f"chat:{default_chat_id_semantic_search}")
+    chat = Chat.parse_raw(chat_raw)
+
+    history = RedisChatMessageHistory(chat.id)
+    history.add_user_message(input)
+
+    prompt = get_prompt(history)
+    prompt += "### Response:\n"
+    
+    try:
+        client = Llama(
+                    model_path="/usr/src/app/weights/"+chat.params.model_path+".bin",
+                    n_ctx=chat.params.n_ctx,
+                    n_threads=chat.params.n_threads,
+                    last_n_tokens_size=chat.params.last_n_tokens_size,
+                    embedding=True
+                    )
+        answer = client.create_embedding(input=input)
+    except Exception as e:
+        error = e.__str__()
+        logger.error(error)
+        history.append(SystemMessage(content=error))
+        return error
+
+    history.add_ai_message(input + ': ' + ','.join(str(num) for num in answer["data"][0]["embedding"]))  # djdj: need to update the validation to support embedding as output, optional for now
     return answer
