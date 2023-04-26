@@ -1,24 +1,21 @@
-name: Cleanup PR Docker Images
+name: Cleanup PR tagged images every older than 72 hours
 
 on:
   pull_request:
     types: [closed]
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
-  purge-pr-tagged-image:
-    name: Delete container images from PR's
-    if: ${{ contains(fromJSON('["nsarrazin","gaby"]'), github.event.pull_request.user.login) }}
-    continue-on-error: true
+  package-retention:
+    permissions:
+      packages: write
     runs-on: ubuntu-latest
     steps:
-      - uses: castlabs/get-package-version-id-action@v2.1
-        id: version
-        with:
-          version: "pr-${{ github.event.pull_request.number }}"
-
-      - uses: actions/delete-package-versions@v4
-        if: ${{ steps.version.outputs.ids != '' }}
+      - uses: doodlescheduling/package-retention@v1
+        name: Delete PR tagged images older than 72 hours
         with:
           package-name: ${{ github.event.repository.name }}
-          min-versions-to-keep: 0
-          package-version-ids: "${{ steps.version.outputs.ids }}"
+          package-type: container
+          age: 72h
+          version-match: "pr-\\d+$"
