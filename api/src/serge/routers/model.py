@@ -59,8 +59,12 @@ models_info = {
         "eachadea/ggml-vicuna-13b-1.1",
         "ggml-vicuna-13b-1.1-q4_2.bin",
         8.13E9,
-    ]
-
+    ],
+    "tackgpt": [
+        "tackgpt",
+        "tackgpt-7B-ggml/ggml-model-q4_0.bin", 
+        4.20E9,
+        ],
     }
 
 WEIGHTS = "/usr/src/app/weights/"
@@ -99,7 +103,7 @@ async def list_of_all_models():
 @model_router.get("/downloadable")
 async def list_of_downloadable_models():
     files = os.listdir(WEIGHTS)
-    files = list(filter(lambda x: x.endswith(".bin"), files))
+    files = list(filter(lambda x: x.endswith(".bin") and not x.startswith("tackgpt"), files))
 
     installed_models = [i.rstrip(".bin") for i in files]
     
@@ -108,7 +112,8 @@ async def list_of_downloadable_models():
 @model_router.get("/installed")
 async def list_of_installed_models():
     #after iterating through the WEIGHTS directory, return location and filename
-    files = [model_location.replace(WEIGHTS,"") +'/'+ bin_file for model_location, directory, filenames in os.walk(WEIGHTS) for bin_file in filenames if os.path.splitext(bin_file)[1] == '.bin']
+    files = [model_location.replace(WEIGHTS,"") +'/'+ bin_file for model_location, directory, filenames in os.walk(WEIGHTS) 
+             for bin_file in filenames if os.path.splitext(bin_file)[1] == '.bin']
     files = [i.lstrip("/") for i in files]
     return files 
 
