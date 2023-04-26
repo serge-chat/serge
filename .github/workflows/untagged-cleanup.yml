@@ -4,12 +4,8 @@ on:
   push:
     branches:
       - 'main'
-    paths-ignore:
-      - '**.md'
-      - 'docker-compose.yml'
-      - 'docker-compose.dev.yml'
-      - '.github/ISSUE_TEMPLATE/*.yml'
-      - '.github/dependabot.yml'
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   purge-untagged-images:
