@@ -26,11 +26,6 @@ on:
 jobs:
   build-and-publish-image:
     runs-on: ubuntu-latest
-    env:
-      # Users allowed to build PR images should be added here and as contributors to the project
-      IS_MAIN_BRANCH_PUSH: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-      IS_RELEASE_EVENT: ${{ github.event_name == 'release' }}
-      IS_ALLOWED_USER: ${{ (github.event_name == 'pull_request') && contains(fromJSON('["nsarrazin","gaby"]'), github.event.pull_request.user.login) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -55,7 +50,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Login to GitHub Container Registry
-        if: ${{ env.IS_MAIN_BRANCH_PUSH || env.IS_RELEASE_EVENT || env.IS_ALLOWED_USER }}
+        if: github.event_name != 'pull_request'
         uses: docker/login-action@v2 
         with:
           registry: ghcr.io
@@ -66,7 +61,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          push: ${{ env.IS_MAIN_BRANCH_PUSH || env.IS_RELEASE_EVENT || env.IS_ALLOWED_USER }}
+          push: ${{ github.event_name != 'pull_request' }}
           target: release
           cache-from: type=gha
           cache-to: type=gha,mode=max
