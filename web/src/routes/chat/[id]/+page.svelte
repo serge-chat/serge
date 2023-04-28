@@ -133,7 +133,7 @@
     const content = token.content;
 
     // Create copy button HTML
-    const copyButton = `<button class="copy-button cursor-pointer color-neutral-content py-0.5 px-2 mt-1 mr-1 border rounded border-neutral-content absolute top-0 right-1 opacity-20"  data-clipboard-target="#code-block-${id}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12"><path class="fill-neutral-content" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path class="fill-base-content" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path></svg></button>`;
+    const copyButton = `<button class="copy-button cursor-pointer color-neutral-content bg-neutral py-0.5 px-2 mt-1 mr-1 border rounded border-neutral-content absolute top-0 right-1 opacity-20"  data-clipboard-target="#code-block-${id}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12"><path class="fill-neutral-content" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path class="fill-base-content" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path></svg></button>`;
 
     // Wrap the fenced code block and copy button in a container
     const html = `
@@ -219,7 +219,7 @@
               class="chat-bubble bg-base-300 whitespace-normal text-base text-base-content font-light break-words"
             >
               <!-- {question.data.content} -->
-              <div class="break-words w-full overflow-x-auto">
+              <div class="break-words w-full overflow-x-auto overflow-y-hidden">
                 {@html renderMarkdown(question.data.content)}
               </div>
             </div>
@@ -253,7 +253,7 @@
                 </div>
               {/if}
               <!-- {question.data.content} -->
-              <div class="break-words w-full overflow-x-auto">
+              <div class="break-words w-full overflow-x-auto overflow-y-hidden">
                 {@html renderMarkdown(question.data.content)}
               </div>
             </div>
