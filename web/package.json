@@ -12,7 +12,7 @@
 	"devDependencies": {
 		"@feltjs/eslint-config": "^0.2.1",
 		"@sveltejs/adapter-auto": "^2.0.1",
-		"@sveltejs/adapter-node": "^1.2.3",
+		"@sveltejs/adapter-node": "^1.2.4",
 		"@sveltejs/adapter-static": "^2.0.2",
 		"@sveltejs/kit": "^1.15.9",
 		"@types/markdown-it": "^12.2.3",
