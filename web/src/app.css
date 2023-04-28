@@ -11,7 +11,8 @@ pre {
 
 code {
   border-radius: 0.25rem;
-  background: #191d24;
+  background: hsl(var(--n));
+  color: hsl(var(--nc));
   padding: 4px;
   overflow-wrap: break-word;
 }
