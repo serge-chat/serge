@@ -6,8 +6,8 @@
 A chat interface based on [llama.cpp](https://github.com/ggerganov/llama.cpp) for running Alpaca models. Entirely self-hosted, no API keys needed. Fits on 4GB of RAM and runs on the CPU.
 
 - **SvelteKit** frontend
-- **MongoDB** for storing chat history & parameters
-- **FastAPI + beanie** for the API, wrapping calls to [llama.cpp](https://github.com/ggerganov/llama.cpp)
+- **Redis** for storing chat history & parameters
+- **FastAPI + langchain** for the API, wrapping calls to [llama.cpp](https://github.com/ggerganov/llama.cpp) using the [python bindings](https://github.com/abetlen/llama-cpp-python)
 
 [demo.webm](https://user-images.githubusercontent.com/25119303/226897188-914a6662-8c26-472c-96bd-f51fc020abf6.webm)
 
@@ -35,11 +35,15 @@ Setting up Serge on Kubernetes or docker compose can be found in the wiki: https
 
 Currently the following models are supported:
 
-- 7B
-- 7B-native
-- 13B
-- 30B
+- Alpaca 7B
+- Alpaca 7B-native
+- Alpaca 13B
+- Alpaca 30B
 - GPT4All
+- Vicuna 7B
+- Vicuna 13B
+- Open Assistant 13B
+- Open Assistant 30B
 
 If you have existing weights from another project you can add them to the `serge_weights` volume using `docker cp`.
 
@@ -51,9 +55,6 @@ LLaMA will just crash if you don't have enough available memory for your model.
 - 13B requires about 12GB free
 - 30B requires about 20GB free
 
-### Compatible CPUS
-
-Currently Serge requires a CPU compatible with AVX2 instructions. Try `lscpu | grep avx2` in a shell, and if this returns nothing then your CPU is incompatible for now.
 
 ## Support
 

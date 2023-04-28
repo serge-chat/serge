@@ -28,6 +28,16 @@
     }
     downloading = false;
   }
+
+  async function deleteModel(model: string) {
+    const r = await fetch(`/api/model/${model}`, {
+      method: "DELETE",
+    });
+
+    if (r.ok) {
+      await invalidate("/api/model/all");
+    }
+  }
 </script>
 
 <div class="flex flex-row justify-center items-center">
@@ -52,9 +62,6 @@
           </svg>
           {/if}
         </div>
-        <!-- <h2 class="text-3xl font-semibold mx-auto">
-          {model.name + " " + (model.available ? "☑️" : "")}
-        </h2> -->
         <p class="text-xl font-light mx-auto pb-2">
           ({model.size / 1e9}GB)
         </p>
@@ -68,15 +75,22 @@
             />
           </div>
         {/if}
-        <button
-          on:click={() => onClick(model.name)}
-          class="btn btn-primary mx-auto"
-          class:model.available={() => "btn-outline"}
-          disabled={model.available ||
-            (model.progress && model.progress > 0 ? true : false)}
-        >
-          Download
-        </button>
+        {#if model.available}
+          <button
+            on:click={() => deleteModel(model.name)}
+            class="btn btn-warning btn-outline mx-auto">Delete</button
+          >
+        {:else}
+          <button
+            on:click={() => onClick(model.name)}
+            class="btn btn-primary mx-auto"
+            class:model.available={() => "btn-outline"}
+            disabled={model.available ||
+              (model.progress && model.progress > 0 ? true : false)}
+          >
+            Download
+          </button>
+        {/if}
       </div>
       <div class="divider" />
     {/each}

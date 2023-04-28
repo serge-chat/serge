@@ -50,7 +50,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Login to GitHub Container Registry
-        if: ${{ contains(fromJSON('["nsarrazin","gaby"]'), github.actor) }}
+        if: github.event_name != 'pull_request'
         uses: docker/login-action@v2 
         with:
           registry: ghcr.io
@@ -61,7 +61,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          push: ${{ contains(fromJSON('["nsarrazin","gaby"]'), github.actor) }}
+          push: ${{ github.event_name != 'pull_request' }}
           target: release
           cache-from: type=gha
           cache-to: type=gha,mode=max
