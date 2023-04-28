@@ -52,12 +52,12 @@ models_info = {
     ],
     "Vicuna-7B" : [
         "eachadea/ggml-vicuna-7b-1.1",
-        "ggml-vicuna-7b-1.1-q4_1.bin",
+        "ggml-vic7b-q4_1.bin",
         5.04E9,
     ],
     "Vicuna-13B" : [
         "eachadea/ggml-vicuna-13b-1.1",
-        "ggml-vicuna-13b-1.1-q4_2.bin",
+        "ggml-vic13b-q4_2.bin",
         8.13E9,
     ]
 
@@ -69,7 +69,6 @@ WEIGHTS = "/usr/src/app/weights/"
 async def list_of_all_models():
     res = []
     installed_models = await list_of_installed_models()
-
     for model in models_info.keys():
         progress = await download_status(model)
         if f"{model}.bin" in installed_models:
