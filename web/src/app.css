@@ -11,10 +11,14 @@ pre {
 
 code {
   border-radius: 0.25rem;
-  background: hsl(var(--n));
-  color: hsl(var(--nc));
+  background: hsl(var(--b3));
+  color: hsl(var(--bc));
   padding: 4px;
   overflow-wrap: break-word;
+}
+
+.hljs {
+  background: hsl(var(--b3)) !important;
 }
 
 .dots-load {
