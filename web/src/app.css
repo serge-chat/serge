@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+pre {
+  width: 100%;
+  max-width: 800px;
+  overflow-x: auto;
+  overflow-wrap: break-word;
+}
+
+code {
+  border-radius: 0.25rem;
+  background: #191d24;
+  padding: 4px;
+  overflow-wrap: break-word;
+}
 
 .dots-load {
   animation: d5 1s infinite linear alternate;
