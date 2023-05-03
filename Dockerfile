@@ -61,4 +61,5 @@ COPY --chmod=0755 scripts/deploy.sh /usr/src/app/deploy.sh
 
 RUN pip install --no-cache-dir ./api
 
+EXPOSE 8008
 CMD ./deploy.sh
