@@ -1,3 +1,5 @@
+import re
+
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.memory import RedisChatMessageHistory
 from redis import Redis
@@ -17,7 +19,7 @@ class ChainRedisHandler(StreamingStdOutCallbackHandler):
         self.id = id
         self.client = Redis()
         logger.info(f"Stream key : {self.stream_key}")
-    
+
     @property
     def stream_key(self):
         return "stream:"+self.id
@@ -36,11 +38,11 @@ class ChainRedisHandler(StreamingStdOutCallbackHandler):
         self.client.append(self.stream_key, token)
 
         """Run on new LLM token. Only available when streaming is enabled."""
-        
+
     def on_llm_end(self, response: LLMResult, **kwargs: Any) -> None:
         super().on_llm_end(response, **kwargs)
         self.client.set(self.stream_key, "")
-        
+
         """Run when LLM ends running."""
 
     def on_llm_error(
@@ -51,21 +53,62 @@ class ChainRedisHandler(StreamingStdOutCallbackHandler):
         """Run when LLM errors."""
 
 
-def get_prompt(history: RedisChatMessageHistory):
+def get_prompt(history: RedisChatMessageHistory, params):
     """
     Get the prompt for the LLM from the chat history.
     """
-    prompt = ""
 
-    for message in history.messages:
+    def tokenize_content(content):
+        split_content = list(filter(None, re.split('([^\\n\.\?!]+[\\n\.\?* ]+)', content)))
+        split_content.reverse()
+        return split_content
+
+    def sum_prompts_lengths(prompts):
+        prompt_length = 0
+        for s in prompts:
+            prompt_length += len(s)
+        return prompt_length
+
+    dupes = {}
+    prompts = []
+    messages = history.messages.copy()
+    messages.reverse()
+    for message in messages:
+        if message.content in dupes:
+            continue
+        dupes[message.content] = True
+
+        instruction = ""
         match message.type:
             case "human":
-                prompt += "### Instruction:\n" + message.content + "\n"
+                instruction = "### Instruction: "
             case "ai":
-                prompt += "### Response:\n" + message.content + "\n"
-            case "system":
-                prompt += "### System:\n" + message.content + "\n"
+                instruction = "### Response: "
+            # case "system":
+            #     instruction = "### System: "
             case _:
-                pass
-    
-    return prompt
+                continue
+
+        stop = False
+        next_prompt = ""
+        tokens = tokenize_content(message.content)
+        prompt_length = sum_prompts_lengths(prompts)
+        for token in tokens:
+            if prompt_length + len(next_prompt) + len(token) < params.n_ctx:
+                next_prompt = token + next_prompt
+            else:
+                stop = True
+        if len(next_prompt) > 0:
+            prompts.append(instruction + next_prompt + "\n")
+        if stop:
+            break
+
+    message_prompt = ""
+    prompts.reverse()
+    for next_prompt in prompts:
+        print("PROMPT", next_prompt)
+        message_prompt += next_prompt
+
+    final_prompt = params.init_prompt + '\n' + message_prompt[:params.n_ctx]
+    print("FINAL", final_prompt)
+    return final_prompt

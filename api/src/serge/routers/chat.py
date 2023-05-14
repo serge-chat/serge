@@ -157,7 +157,7 @@ def stream_ask_a_question(chat_id: str, prompt: str):
     logger.debug(f"adding question {prompt}")
 
     history.add_user_message(prompt)
-    prompt = get_prompt(history)
+    prompt = get_prompt(history, chat.params)
     prompt += "### Response:\n"
 
     logger.debug("creating Llama client")
@@ -222,7 +222,7 @@ async def ask_a_question(chat_id: str, prompt: str):
     history = RedisChatMessageHistory(chat.id)
     history.add_user_message(prompt)
 
-    prompt = get_prompt(history)
+    prompt = get_prompt(history, chat.params)
     prompt += "### Response:\n"
 
 
