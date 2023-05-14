@@ -35,7 +35,7 @@ async def create_new_chat(
         del client
     except:
         raise ValueError("Model can't be found")
-    
+
 
     client = Redis()
 
@@ -49,13 +49,14 @@ async def create_new_chat(
         last_n_tokens_size=repeat_last_n,
         repeat_penalty=repeat_penalty,
         n_threads=n_threads,
+        init_prompt=init_prompt,
     )
     # create the chat
     chat = Chat(params=params)
 
     # store the parameters
     client.set(f"chat:{chat.id}", chat.json())
-               
+
     # create the message history
     history = RedisChatMessageHistory(chat.id)
     history.append(SystemMessage(content=init_prompt))
@@ -70,11 +71,11 @@ async def create_new_chat(
 async def get_all_chats():
     res = []
     client = Redis()
-    
+
     ids = client.smembers("chats")
-    
+
     chats = sorted([await get_specific_chat(id.decode()) for id in ids],
-                   key=lambda x: x["created"], 
+                   key=lambda x: x["created"],
                    reverse=True)
 
     for chat in chats:
@@ -100,10 +101,10 @@ async def get_specific_chat(chat_id: str):
 
     if not client.sismember("chats", chat_id):
         raise ValueError("Chat does not exist")
-    
+
     chat_raw = client.get(f"chat:{chat_id}")
     chat = Chat.parse_raw(chat_raw)
-    
+
     history = RedisChatMessageHistory(chat.id)
 
     chat_dict = chat.dict()
@@ -130,8 +131,8 @@ async def delete_chat(chat_id: str):
         raise ValueError("Chat does not exist")
 
     RedisChatMessageHistory(chat_id).clear()
-    
-    client.delete(f"chat:{chat_id}")    
+
+    client.delete(f"chat:{chat_id}")
     client.srem("chats", chat_id)
 
     return True
@@ -144,12 +145,12 @@ def stream_ask_a_question(chat_id: str, prompt: str):
 
     if not client.sismember("chats", chat_id):
         raise ValueError("Chat does not exist")
-    
+
     logger.debug("creating chat")
     chat_raw = client.get(f"chat:{chat_id}")
     chat = Chat.parse_raw(chat_raw)
 
-    logger.debug(chat.params)    
+    logger.debug(chat.params)
     logger.debug("creating history")
     history = RedisChatMessageHistory(chat.id)
 
@@ -163,7 +164,7 @@ def stream_ask_a_question(chat_id: str, prompt: str):
     try:
         client = Llama(
                         model_path="/usr/src/app/weights/"+chat.params.model_path+".bin",
-                        n_ctx=chat.params.n_ctx,
+                        n_ctx=len(chat.params.init_prompt) + chat.params.n_ctx,
                         n_threads=chat.params.n_threads,
                         last_n_tokens_size=chat.params.last_n_tokens_size,
                         )
@@ -177,7 +178,7 @@ def stream_ask_a_question(chat_id: str, prompt: str):
         full_answer = ""
         error = None
         try:
-            for output in client(prompt, 
+            for output in client(prompt,
                     stream=True,
                     temperature=chat.params.temperature,
                     top_p=chat.params.top_p,
@@ -188,13 +189,13 @@ def stream_ask_a_question(chat_id: str, prompt: str):
                 txt = output["choices"][0]["text"]
                 full_answer += txt
                 yield {
-                    "event": "message", 
+                    "event": "message",
                     "data": txt}
-                
+
         except Exception as e:
             if type(e) == UnicodeDecodeError:
                 pass
-            else: 
+            else:
                 error = e.__str__()
                 logger.error(error)
                 yield({"event" : "error"})
@@ -208,31 +209,31 @@ def stream_ask_a_question(chat_id: str, prompt: str):
 
     return EventSourceResponse(event_generator())
 
-@chat_router.post("/{chat_id}/question")    
+@chat_router.post("/{chat_id}/question")
 async def ask_a_question(chat_id: str, prompt: str):
     client = Redis()
 
     if not client.sismember("chats", chat_id):
         raise ValueError("Chat does not exist")
-    
+
     chat_raw = client.get(f"chat:{chat_id}")
     chat = Chat.parse_raw(chat_raw)
-    
+
     history = RedisChatMessageHistory(chat.id)
     history.add_user_message(prompt)
 
     prompt = get_prompt(history)
     prompt += "### Response:\n"
-    
-    
+
+
     try:
         client = Llama(
                     model_path="/usr/src/app/weights/"+chat.params.model_path+".bin",
-                    n_ctx=chat.params.n_ctx,
+                    n_ctx=len(chat.params.init_prompt) + chat.params.n_ctx,
                     n_threads=chat.params.n_threads,
                     last_n_tokens_size=chat.params.last_n_tokens_size,
                     )
-        answer = client(prompt, 
+        answer = client(prompt,
                         temperature=chat.params.temperature,
                         top_p=chat.params.top_p,
                         top_k=chat.params.top_k,

@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field
+from typing import Optional
 from uuid import uuid4
 from datetime import datetime
 from serge.utils.llm import LlamaCpp
@@ -25,10 +26,10 @@ class ChatParameters(BaseModel):
     repeat_penalty: float
     top_k: int
     # stream: bool
-    
+    init_prompt: Optional[str] = "Below is an instruction that describes a task. Write a response that appropriately completes the request."
+
 class Chat(BaseModel):
     id: str = Field(default_factory=lambda:str(uuid4()))
     created: datetime = Field(default_factory=datetime.now)
 
     params: ChatParameters
-    
