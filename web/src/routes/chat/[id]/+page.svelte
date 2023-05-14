@@ -48,9 +48,10 @@
       });
 
       eventSource.onerror = async (error) => {
+        console.log("error", error);
         eventSource.close();
-        history[history.length - 1].data.content = "A server error occurred.";
-        await invalidate("/api/chat/" + $page.params.id);
+        //history[history.length - 1].data.content = "A server error occurred.";
+        //await invalidate("/api/chat/" + $page.params.id);
       };
     }
   }
