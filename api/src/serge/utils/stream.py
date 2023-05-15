@@ -59,7 +59,7 @@ def get_prompt(history: RedisChatMessageHistory, params):
     """
 
     def tokenize_content(content):
-        split_content = list(filter(None, re.split('([^\\n\.\?!]+[\\n\.\?* ]+)', content)))
+        split_content = list(filter(None, re.split('([^\\n\.\?!]+[\\n\.\?! ]+)', content)))
         split_content.reverse()
         return split_content
 
