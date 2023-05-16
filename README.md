@@ -31,6 +31,10 @@ Make sure you have docker desktop installed, WSL2 configured and enough free RAM
 
 Setting up Serge on Kubernetes or docker compose can be found in the wiki: https://github.com/nsarrazin/serge/wiki/Integrating-Serge-in-your-orchestration#kubernetes-example
 
+#### Web3
+
+<a href="https://deploy.cloudmos.io/templates/akash-network-awesome-akash-serge"><img src="https://github.com/nsarrazin/serge/assets/19512127/f8c28c01-0c28-4dd8-a255-c3439fb2b150" width="250"></a>
+
 ## Models
 
 Currently the following models are supported:
