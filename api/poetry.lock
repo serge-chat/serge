@@ -1761,14 +1761,14 @@ sqlcipher = ["sqlcipher3-binary"]
 
 [[package]]
 name = "sse-starlette"
-version = "1.5.0"
+version = "1.6.0"
 description = "\"SSE plugin for Starlette\""
 category = "main"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "sse-starlette-1.5.0.tar.gz", hash = "sha256:4fa989d906f29ba456a047071cbd9eab8c934042d5da4660543ad4b61c59c092"},
-    {file = "sse_starlette-1.5.0-py3-none-any.whl", hash = "sha256:b41aac15f83191a4fc381e8cd152285cd44e328f409dc2bdfd4b7d7f33ea3865"},
+    {file = "sse-starlette-1.6.0.tar.gz", hash = "sha256:b9cb77cd61a686466105171090a050a42df45ff76d6034f6668b1bca7dba55fb"},
+    {file = "sse_starlette-1.6.0-py3-none-any.whl", hash = "sha256:14dfde4d5c8e319251655800c4efcae581b2283503ece3826a62d92975e997ff"},
 ]
 
 [package.dependencies]
@@ -1946,20 +1946,21 @@ files = [
 
 [[package]]
 name = "urllib3"
-version = "1.26.15"
+version = "2.0.2"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
 category = "main"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
+python-versions = ">=3.7"
 files = [
-    {file = "urllib3-1.26.15-py2.py3-none-any.whl", hash = "sha256:aa751d169e23c7479ce47a0cb0da579e3ede798f994f5816a74e4f4500dcea42"},
-    {file = "urllib3-1.26.15.tar.gz", hash = "sha256:8a388717b9476f934a21484e8c8e61875ab60644d29b9b39e11e4b9dc1c6b305"},
+    {file = "urllib3-2.0.2-py3-none-any.whl", hash = "sha256:d055c2f9d38dc53c808f6fdc8eab7360b6fdbbde02340ed25cfbcd817c62469e"},
+    {file = "urllib3-2.0.2.tar.gz", hash = "sha256:61717a1095d7e155cdb737ac7bb2f4324a858a1e2e6466f6d03ff630ca68d3cc"},
 ]
 
 [package.extras]
-brotli = ["brotli (>=1.0.9)", "brotlicffi (>=0.8.0)", "brotlipy (>=0.6.0)"]
-secure = ["certifi", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "ipaddress", "pyOpenSSL (>=0.14)", "urllib3-secure-extra"]
-socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
+brotli = ["brotli (>=1.0.9)", "brotlicffi (>=0.8.0)"]
+secure = ["certifi", "cryptography (>=1.9)", "idna (>=2.0.0)", "pyopenssl (>=17.1.0)", "urllib3-secure-extra"]
+socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
+zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
 name = "uvicorn"
@@ -2246,4 +2247,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4.0"
-content-hash = "8a7bc2a113ba0acabc78bc442a54504610a8b931564188c29218726540d01b6d"
+content-hash = "0bd21b12baa706bcfc06ef472a80f1215a8019e9892d0ea5ac3622d732f5f3e3"
