@@ -52,12 +52,12 @@ models_info = {
     ],
     "Vicuna-7B" : [
         "eachadea/ggml-vicuna-7b-1.1",
-        "ggml-vic7b-q4_1.bin",
+        "ggml-old-vic7b-q4_1.bin",
         5.04E9,
     ],
     "Vicuna-13B" : [
         "eachadea/ggml-vicuna-13b-1.1",
-        "ggml-vic13b-q4_2.bin",
+        "ggml-old-vic13b-q4_2.bin",  
         8.13E9,
     ]
 
