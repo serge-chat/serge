@@ -192,14 +192,14 @@ tests-no-zope = ["cloudpickle", "hypothesis", "mypy (>=1.1.1)", "pympler", "pyte
 
 [[package]]
 name = "beanie"
-version = "1.19.0"
+version = "1.19.1"
 description = "Asynchronous Python ODM for MongoDB"
 category = "main"
 optional = false
 python-versions = ">=3.7,<4.0"
 files = [
-    {file = "beanie-1.19.0-py3-none-any.whl", hash = "sha256:b8f61c1e15eac43e0fe62b01d1b5f520b8f69ece5ca5b8672c0bfeb560ca873c"},
-    {file = "beanie-1.19.0.tar.gz", hash = "sha256:31a95a17b3059f232510279f09ebb1221c5fa5d71e28368752f600bc05a10046"},
+    {file = "beanie-1.19.1-py3-none-any.whl", hash = "sha256:98499e5875e25211b14e78be18a7af9ebf1533d630d27f29d9e6fd3b3dcdc92d"},
+    {file = "beanie-1.19.1.tar.gz", hash = "sha256:82de69b7375f169839f21dd6ffd6760af4c7004e34f0648fa86a657a99ec9dd9"},
 ]
 
 [package.dependencies]
@@ -2250,4 +2250,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4.0"
-content-hash = "edc203888d28cefd1e491f30e4f45fc4fa0c07965fb7a7163a9e1314c1519a50"
+content-hash = "1b9f593a0aaa1478c62688215e6d7acad4f3974c80e325a841a577dc9bc361a4"
