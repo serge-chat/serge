@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik+Pixels&display=swap');
+@import url('@fontsource/rubik-pixels');
 
 @tailwind base;
 @tailwind components;

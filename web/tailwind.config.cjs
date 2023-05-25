@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'rubik-pixels': ['Rubik Pixels', 'cursive'],
+        'rubik-pixels': ['Rubik Pixels', 'sans-serif'],
       },
     },
   },
