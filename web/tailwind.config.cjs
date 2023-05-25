@@ -2,7 +2,11 @@
 module.exports = {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'rubik-pixels': ['Rubik Pixels', 'cursive'],
+      },
+    },
   },
   plugins: [require("daisyui")],
 }
