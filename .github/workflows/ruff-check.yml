@@ -1,0 +1,14 @@
+name: 'Python - Ruff Check'
+on: [pull_request]
+
+jobs:
+  lint-api-code:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - uses: jpetrucciani/ruff-check@0.0.270
+        with:
+          path: 'api/'
