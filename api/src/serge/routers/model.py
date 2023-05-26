@@ -23,7 +23,7 @@ models_info = {
     "AlpacaLoRA-65B": [
         "TheBloke/alpaca-lora-65B-GGML",
         "alpaca-lora-65B.ggmlv3.q5_1.bin",
-        49.0E9,
+        48.97E9,
         ],
     "OpenAssistant-30B": [
         "TheBloke/OpenAssistant-SFT-7-Llama-30B-GGML",
@@ -58,7 +58,7 @@ models_info = {
     "Guanaco-65B" : [
         "TheBloke/guanaco-65B-GGML",
         "guanaco-65B.ggmlv3.q5_1.bin",
-        49.0E9,
+        48.97E9,
         ]
 
     }
