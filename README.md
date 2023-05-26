@@ -35,15 +35,15 @@ Setting up Serge on Kubernetes or docker compose can be found in the wiki: https
 
 Currently the following models are supported:
 
-- Alpaca 7B
-- Alpaca 7B-native
-- Alpaca 13B
-- Alpaca 30B
-- GPT4All
-- Vicuna 7B
-- Vicuna 13B
-- Open Assistant 13B
-- Open Assistant 30B
+- GPT4-Alpaca-LoRA-30B
+- Alpaca-LoRA-65B
+- OpenAssistant-30B
+- GPT4All-13B
+- Stable-Vicuna-13B
+- Guanaco-7B
+- Guanaco-13B
+- Guanaco-33B
+- Guanaco-65B
 
 If you have existing weights from another project you can add them to the `serge_weights` volume using `docker cp`.
 
