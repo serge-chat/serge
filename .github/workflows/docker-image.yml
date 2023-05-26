@@ -36,9 +36,7 @@ jobs:
           images: |
             ghcr.io/nsarrazin/serge
           tags: |
-            type=raw,value=latest,enable={{is_default_branch}}
             type=ref,event=branch
-            type=ref,event=pr
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}
             type=semver,pattern={{major}}.{{minor}}
