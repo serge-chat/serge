@@ -15,51 +15,51 @@ model_router = APIRouter(
 )
 
 models_info = {
-    "Alpaca-7B": [
-        "nsarrazin/alpaca",
-        "alpaca-7B-ggml/ggml-model-q4_0.bin", 
-        4.20E9,
+    "GPT4AlpacaLoRA-30B": [
+        "TheBloke/gpt4-alpaca-lora-30B-4bit-GGML",
+        "gpt4-alpaca-lora-30b.ggmlv3.q5_1.bin",
+        24.4E9,
         ],
-    "Alpaca-7B-native": [
-        "nsarrazin/alpaca", 
-        "alpaca-native-7B-ggml/ggml-model-q4_0.bin", 
-        4.20E9,
+    "AlpacaLoRA-65B": [
+        "TheBloke/alpaca-lora-65B-GGML",
+        "alpaca-lora-65B.ggmlv3.q5_1.bin",
+        48.97E9,
         ],
-    "Alpaca-13B": [
-        "nsarrazin/alpaca", 
-        "alpaca-13B-ggml/ggml-model-q4_0.bin", 
-        8.13E9,
+    "OpenAssistant-30B": [
+        "TheBloke/OpenAssistant-SFT-7-Llama-30B-GGML",
+        "OpenAssistant-SFT-7-Llama-30B.ggmlv3.q5_1.bin",
+        24.4E9,
         ],
-    "Alpaca-30B": [
-        "nsarrazin/alpaca", 
-        "alpaca-30B-ggml/ggml-model-q4_0.bin", 
-        20.2E9,
+    "GPT4All-13B": [
+        "TheBloke/GPT4All-13B-snoozy-GGML",
+        "GPT4All-13B-snoozy.ggmlv3.q5_1.bin",
+        9.76E9,
         ],
-    "GPT4All": [
-        "nsarrazin/alpaca",
-        "gpt4all/gpt4all.bin",
-        4.20E9
-    ],
-    "OAsst-LLaMA-13B": [
-        "Black-Engineer/oasst-llama13b-ggml-q4",
-        "qunt4_0.bin",
-        8.13E9,
-    ],
-    "OAsst-LLaMA-30B" : [
-        "Black-Engineer/oasst-llama30b-ggml-q4",
-        "qunt4_0.bin",
-        20.2E9,
-    ],
-    "Vicuna-7B" : [
-        "eachadea/ggml-vicuna-7b-1.1",
-        "ggml-old-vic7b-q4_1.bin",
-        5.04E9,
-    ],
-    "Vicuna-13B" : [
-        "eachadea/ggml-vicuna-13b-1.1",
-        "ggml-old-vic13b-q4_2.bin",  
-        8.13E9,
-    ]
+    "StableVicuna-13B": [
+        "TheBloke/stable-vicuna-13B-GGML",
+        "stable-vicuna-13B.ggmlv3.q5_1.bin",
+        9.76E9,
+        ],
+    "Guanaco-7B": [
+        "TheBloke/guanaco-7B-GGML",
+        "guanaco-7B.ggmlv3.q5_1.bin",
+        5.06E9,
+        ],
+    "Guanaco-13B" : [
+        "TheBloke/guanaco-13B-GGML",
+        "guanaco-13B.ggmlv3.q5_1.bin",
+        9.76E9,
+        ],
+    "Guanaco-33B" : [
+        "TheBloke/guanaco-33B-GGML",
+        "guanaco-33B.ggmlv3.q5_1.bin",
+        24.4E9,
+        ],
+    "Guanaco-65B" : [
+        "TheBloke/guanaco-65B-GGML",
+        "guanaco-65B.ggmlv3.q5_1.bin",
+        48.97E9,
+        ]
 
     }
 

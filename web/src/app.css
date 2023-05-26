@@ -1,3 +1,35 @@
+@import url('@fontsource/rubik-pixels');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+pre {
+  width: 100%;
+  max-width: 800px;
+  overflow-x: auto;
+  overflow-wrap: break-word;
+}
+
+code {
+  border-radius: 0.25rem;
+  background: hsl(var(--b3));
+  color: hsl(var(--bc));
+  padding: 4px;
+  overflow-wrap: break-word;
+}
+
+.hljs {
+  background: hsl(var(--b3)) !important;
+}
+
+.dots-load {
+  animation: d5 1s infinite linear alternate;
+}
+
+@keyframes d5 {
+    0%  {box-shadow: 10px 0 #fff, -10px 0 #fff2;background: #fff }
+    33% {box-shadow: 10px 0 #fff, -10px 0 #fff2;background: #fff2}
+    66% {box-shadow: 10px 0 #fff2,-10px 0 #fff; background: #fff2}
+    100%{box-shadow: 10px 0 #fff2,-10px 0 #fff; background: #fff }
+}
