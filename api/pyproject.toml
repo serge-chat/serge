@@ -109,7 +109,7 @@ line-length = 150
 # Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
-# Assume Python 3.10.
+# Assume Python 3.11
 target-version = "py311"
 
 [tool.ruff.per-file-ignores]
@@ -118,3 +118,7 @@ target-version = "py311"
 [tool.ruff.mccabe]
 # Unlike Flake8, default to a complexity level of 10.
 max-complexity = 10
+
+[tool.black]
+line-length = 150
+target-version = ['py311']
