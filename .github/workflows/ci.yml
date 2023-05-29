@@ -1,4 +1,4 @@
-name: Create and publish a Docker image
+name: CI/CD Process for Serge
 
 on:
   push:
@@ -24,6 +24,23 @@ on:
     types: [published, edited]
 
 jobs:
+  lint-api-code:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Run ruff check
+        uses: chartboost/ruff-action@v1
+        with:
+          src: "./api"
+          args: "--verbose"
+      - name: Run black check
+        uses: psf/black@stable
+        with:
+          options: "--check --diff --verbose"
+          src: "./api"
   build-and-publish-image:
     runs-on: ubuntu-latest
     steps:
