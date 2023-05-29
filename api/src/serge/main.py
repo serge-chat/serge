@@ -41,9 +41,7 @@ origins = [
     "http://localhost:9124",
 ]
 
-app = FastAPI(
-    title="Serge", version="0.0.1", description=description, tags_metadata=tags_metadata
-)
+app = FastAPI(title="Serge", version="0.0.1", description=description, tags_metadata=tags_metadata)
 
 api_app = FastAPI(title="Serge API")
 api_app.include_router(chat_router)

@@ -184,9 +184,7 @@ def copy_tensors(fin, fout, part_id, n_parts):
         blck_size = GGML_BLCK_SIZE[WTYPES[ftype]]
         type_size = GGML_TYPE_SIZE[WTYPES[ftype]]
 
-        print(
-            f"Processing tensor {name} with shape: {partshape} and type: {WTYPE_NAMES[ftype]}"
-        )
+        print(f"Processing tensor {name} with shape: {partshape} and type: {WTYPE_NAMES[ftype]}")
 
         # determine dimension along which multipart tensor is sharded
         #
@@ -271,16 +269,11 @@ def migrate(fin_path):
         tokens = read_tokens(fin, hparams)
 
     if hparams["magic"] == 0x67676A74:  # ggjt
-        print(
-            "%s: input ggml has already been converted to 'ggjt' magic\n" % (fin_path)
-        )
+        print("%s: input ggml has already been converted to 'ggjt' magic\n" % (fin_path))
         return
 
     if hparams["magic"] != 0x67676D66:  # ggmf
-        print(
-            "%s: input ggml file doesn't have expected 'ggmf' magic: %#x\n"
-            % (fin_path, hparams["magic"])
-        )
+        print("%s: input ggml file doesn't have expected 'ggmf' magic: %#x\n" % (fin_path, hparams["magic"]))
         return
 
     hparams["magic"] = 0x67676A74  # ggjt

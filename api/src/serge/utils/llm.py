@@ -174,9 +174,7 @@ class LlamaCpp(LLM):
         )
 
         if self.stop_sequences and stop is not None:
-            raise ValueError(
-                "`stop_sequences` found in both the input and default params."
-            )
+            raise ValueError("`stop_sequences` found in both the input and default params.")
         elif self.stop_sequences:
             params["stop_sequences"] = self.stop_sequences
         else:
