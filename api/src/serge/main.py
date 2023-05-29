@@ -1,15 +1,15 @@
-import sys
 import os
+import sys
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from starlette.responses import FileResponse
 from loguru import logger
+from starlette.responses import FileResponse
 
+from serge.models.settings import Settings
 from serge.routers.chat import chat_router
 from serge.routers.model import model_router
-from serge.models.settings import Settings
 from serge.utils.convert import convert_all
 
 # Configure logging settings

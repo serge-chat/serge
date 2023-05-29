@@ -10,6 +10,7 @@ import struct
 import sys
 
 from sentencepiece import SentencePieceProcessor
+
 from serge.utils.migrate import migrate
 
 HPARAMS = keys = ["vocab_size", "dim", "multiple_of", "n_heads", "n_layers"]

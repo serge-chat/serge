@@ -1,7 +1,7 @@
-from pydantic import BaseModel, Field
-from uuid import uuid4
 from datetime import datetime
-from serge.utils.llm import LlamaCpp
+from uuid import uuid4
+
+from pydantic import BaseModel, Field
 
 
 class ChatParameters(BaseModel):
@@ -25,10 +25,10 @@ class ChatParameters(BaseModel):
     repeat_penalty: float
     top_k: int
     # stream: bool
-    
+
+
 class Chat(BaseModel):
-    id: str = Field(default_factory=lambda:str(uuid4()))
+    id: str = Field(default_factory=lambda: str(uuid4()))
     created: datetime = Field(default_factory=datetime.now)
 
     params: ChatParameters
-    

@@ -9,6 +9,5 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-      - uses: jpetrucciani/ruff-check@0.0.270
-        with:
-          path: 'api/'
+      - uses: chartboost/ruff-action@v1
+        src: 'api'
