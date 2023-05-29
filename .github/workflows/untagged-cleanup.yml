@@ -9,6 +9,7 @@ on:
 
 jobs:
   purge-untagged-images:
+    if: ${{ github.repository_owner == 'nsarrazin' }}
     name: Delete untagged images from ghcr.io
     runs-on: ubuntu-latest
     steps:
