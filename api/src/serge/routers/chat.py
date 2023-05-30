@@ -246,5 +246,8 @@ async def ask_a_question(chat_id: str, prompt: str):
         history.append(SystemMessage(content=error))
         return error
 
+    if not isinstance(answer, str):
+        answer = str(answer)
+
     history.add_ai_message(answer)
     return answer
