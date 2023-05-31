@@ -33,7 +33,7 @@ Setting up Serge on Kubernetes or docker compose can be found in the wiki: https
 
 #### Web3 - Akash Network (AKT)
 
-Deploy Serge effortlessly on the [Akash.Network](https://akash.network) via Cloudmos, a transparent and secure decentralized cloud computing platform. 
+Deploy Serge on a decentralized hosting provider for as little as $0.10/hour using the [Akash.Network](https://akash.network) via Cloudmos.
 
 [<img src="https://github.com/88plug/serge/blob/main/Cloudmos.png?raw=true">](https://deploy.cloudmos.io/templates/akash-network-awesome-akash-serge/)
 
