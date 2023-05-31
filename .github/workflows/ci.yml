@@ -31,12 +31,16 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-      - name: Run ruff check
+      - name: Install dependencies and mypy
+        run: pip install ./api mypy
+      - name: Run mypy
+        run: mypy serge
+      - name: Run ruff
         uses: chartboost/ruff-action@v1
         with:
           src: "./api"
           args: "--verbose"
-      - name: Run black check
+      - name: Run black
         uses: psf/black@stable
         with:
           options: "--check --diff --verbose"
