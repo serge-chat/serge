@@ -31,13 +31,15 @@ Make sure you have docker desktop installed, WSL2 configured and enough free RAM
 
 Setting up Serge on Kubernetes or docker compose can be found in the wiki: https://github.com/nsarrazin/serge/wiki/Integrating-Serge-in-your-orchestration#kubernetes-example
 
-#### Web3 - Akash Network (AKT) on Cosmos (ATOM)
+#### Web3 - Akash Network (AKT)
+
+Deploy Serge effortlessly on the [Akash.Network](https://akash.network) via Cloudmos, a transparent and secure decentralized cloud computing platform. 
 
 [<img src="https://github.com/88plug/serge/blob/main/Cloudmos.png?raw=true">](https://deploy.cloudmos.io/templates/akash-network-awesome-akash-serge/)
 
-1. Visit the [Get Started](https://deploy.cloudmos.io/get-started/wallet) guide to set up Cloudmos.
-2. Use the Serge template to create a new deployment. Choose a decentralized provider to run on.
-3. Access the web interface by clicking the unique URI(s) link on the `Deployment detail > Leases` tab after deployment. 
+1. Follow the [Get Started](https://deploy.cloudmos.io/get-started/wallet) guide to set up Cloudmos.
+2. Utilize the Serge template for a new deployment. 
+3. After deployment, access the web interface via the unique URI(s) link found on the `Deployment detail > Leases` tab. 
 
 ## Models
 
