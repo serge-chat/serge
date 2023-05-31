@@ -33,13 +33,11 @@ Setting up Serge on Kubernetes or docker compose can be found in the wiki: https
 
 #### Web3 - Akash Network (AKT) on Cosmos (ATOM)
 
-<a href="https://deploy.cloudmos.io/templates/akash-network-awesome-akash-serge">
-  <img src="https://github.com/88plug/serge/assets/19512127/483ae7f0-b3e4-483b-98d8-108a6a9db9fc" alt="Deploy Serge on Cloudmos">
-</a>
+[<img src="https://github.com/88plug/serge/blob/main/Cloudmos.png?raw=true">](https://deploy.cloudmos.io/templates/akash-network-awesome-akash-serge/)
 
-1. Install [Keplr Wallet](https://www.keplr.app/)
-2. Swap ATOM for AKT on https://osmosis.zone/
-3. Connect your Keplr wallet to [https://deploy.cloudmos.io](https://deploy.cloudmos.io/templates/akash-network-awesome-akash-serge) and click Deploy.
+1. Visit the [Get Started](https://deploy.cloudmos.io/get-started/wallet) guide to set up Cloudmos.
+2. Use the Serge template to create a new deployment. Choose a decentralized provider to run on.
+3. Access the web interface by clicking the unique URI(s) link on the `Deployment detail > Leases` tab after deployment. 
 
 ## Models
 
