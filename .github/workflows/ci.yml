@@ -33,6 +33,8 @@ jobs:
           python-version: '3.11'
       - name: Install dependencies and mypy
         run: pip install ./api mypy
+      - name: Install all types
+        run: mypy --install-types ./api
       - name: Run mypy
         run: mypy ./api
       - name: Run ruff
