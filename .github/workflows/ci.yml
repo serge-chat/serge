@@ -34,7 +34,7 @@ jobs:
       - name: Install dependencies and mypy
         run: pip install ./api mypy
       - name: Run mypy
-        run: mypy serge
+        run: mypy ./api
       - name: Run ruff
         uses: chartboost/ruff-action@v1
         with:
