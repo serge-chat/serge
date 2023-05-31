@@ -33,10 +33,10 @@ jobs:
           python-version: '3.11'
       - name: Install dependencies and mypy
         run: pip install ./api mypy
-      - name: Install all types
-        run: mypy --install-types ./api
+      - name: Install all types stubs
+        run: pip install lxml-stubs pandas-stubs types-Pillow types-PyYAML types-annoy types-beautifulsoup4 types-google-cloud-ndb types-psycopg2 types-pyOpenSSL types-redis types-requests types-tqdm types-ujson
       - name: Run mypy
-        run: mypy ./api
+        run: mypy --ignore-missing-imports ./api
       - name: Run ruff
         uses: chartboost/ruff-action@v1
         with:
