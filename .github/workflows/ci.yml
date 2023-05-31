@@ -35,7 +35,7 @@ jobs:
         uses: jpetrucciani/mypy-check@master
         with:
           path: './api'
-          mypy_flags: '--config-file pyproject.toml'
+          mypy_flags: '--config-file ./api/pyproject.toml'
       - name: Run ruff
         uses: chartboost/ruff-action@v1
         with:
