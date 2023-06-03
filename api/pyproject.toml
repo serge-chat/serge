@@ -65,7 +65,7 @@ dnspython = "^2.3.0"
 lazy-model = "^0.0.5"
 requests = "^2.31.0"
 numpy = "^1.24.2"
-langchain = "^0.0.180"
+langchain = "^0.0.189"
 loguru = "^0.7.0"
 redis = {extras = ["hiredis"], version = "^4.5.5"}
 
