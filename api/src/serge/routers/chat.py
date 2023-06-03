@@ -9,7 +9,6 @@ from sse_starlette.sse import EventSourceResponse
 from serge.models.chat import Chat, ChatParameters
 from serge.utils.stream import get_prompt
 
-import json
 
 chat_router = APIRouter(
     prefix="/chat",
@@ -142,7 +141,7 @@ async def delete_prompt(chat_id: str, content: str):
 
     logger.debug(f"SHOULD DELETE {content}")
     for message in old_messages:
-        test_content = message.content.replace('\n', '')
+        test_content = message.content.replace("\n", "")
         if test_content != content or deleted:
             logger.debug(f"APPEND {test_content}")
             new_messages.append(message)
