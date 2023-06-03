@@ -12,48 +12,51 @@
   $: prompt = "";
 
   async function askQuestion() {
-    if (prompt) {
-      const data = new URLSearchParams();
-      data.append("prompt", prompt);
+    const data = new URLSearchParams();
 
-      const eventSource = new EventSource(
-        "/api/chat/" + $page.params.id + "/question?" + data.toString()
-      );
-
-      history = [
-        ...history,
-        {
-          type: "human",
-          data: {
-            content: prompt,
-          },
-        },
-        {
-          type: "ai",
-          data: {
-            content: "",
-          },
-        },
-      ];
-
-      prompt = "";
-
-      eventSource.addEventListener("message", (event) => {
-        history[history.length - 1].data.content += event.data;
-      });
-
-      eventSource.addEventListener("close", async () => {
-        eventSource.close();
-        await invalidate("/api/chat/" + $page.params.id);
-      });
-
-      eventSource.onerror = async (error) => {
-        console.log("error", error);
-        eventSource.close();
-        //history[history.length - 1].data.content = "A server error occurred.";
-        //await invalidate("/api/chat/" + $page.params.id);
-      };
+    if (!prompt || prompt === "") {
+      prompt = "Reformulate your last answer."
     }
+
+    data.append("prompt", prompt);
+
+    const eventSource = new EventSource(
+      "/api/chat/" + $page.params.id + "/question?" + data.toString()
+    );
+
+    history = [
+      ...history,
+      {
+        type: "human",
+        data: {
+          content: prompt,
+        },
+      },
+      {
+        type: "ai",
+        data: {
+          content: "",
+        },
+      },
+    ];
+
+    prompt = "";
+
+    eventSource.addEventListener("message", (event) => {
+      history[history.length - 1].data.content += event.data;
+    });
+
+    eventSource.addEventListener("close", async () => {
+      eventSource.close();
+      await invalidate("/api/chat/" + $page.params.id);
+    });
+
+    eventSource.onerror = async (error) => {
+      console.log("error", error);
+      eventSource.close();
+      //history[history.length - 1].data.content = "A server error occurred.";
+      //await invalidate("/api/chat/" + $page.params.id);
+    };
   }
 
   async function handleKeyDown(event: KeyboardEvent) {
@@ -85,6 +88,21 @@
       await createSameSession();
     }
   });
+
+  function deleteHistory(i: number) {
+    history.splice(i, 1);
+    return history;
+  }
+
+  async function deletePrompt(chatID: string, content: string, i: number) {
+    console.log(chatID, content);
+    const response = await fetch(`/api/chat/${chatID}/prompt?content=${content}`, { method: "DELETE" });
+    if (response.status === 200) {
+      history = deleteHistory(i);
+    } else {
+      console.error("Error " + response.status + ": " + response.statusText);
+    }
+  }
 </script>
 
 <div
@@ -115,13 +133,22 @@
   </h4>
   <div class="overflow-y-auto h-[calc(97vh-12rem)] px-10 mb-11">
     <div class="h-max pb-32">
-      {#each history as question}
+      {#each history as question, i}
         {#if question.type === "human"}
           <div class="chat chat-end my-2">
             <div
               class="chat-bubble chat-bubble-secondary whitespace-pre-line text-lg"
             >
               {question.data.content}
+              {#if i == history.length - 1 && !isLoading}
+                <button
+                  disabled={isLoading}
+                  class="btn btn-ghost btn-sm"
+                  on:click|preventDefault={() => deletePrompt(data.chat.id, question.data.content, i)}
+                >
+                  🗑️
+                </button>
+              {/if}
             </div>
           </div>
         {:else if question.type === "ai"}
@@ -136,6 +163,15 @@
                 />
               {/if}
               {question.data.content}
+              {#if i == history.length - 1 && !isLoading}
+                <button
+                  disabled={isLoading}
+                  class="btn btn-ghost btn-sm"
+                  on:click|preventDefault={() => deletePrompt(data.chat.id, question.data.content, i)}
+                >
+                  🗑️
+                </button>
+              {/if}
             </div>
           </div>
         {:else if question.type === "system"}

@@ -10,6 +10,8 @@ from redis import Redis
 
 from loguru import logger
 
+import json
+
 chat_router = APIRouter(
     prefix="/chat",
     tags=["chat"],
@@ -66,7 +68,6 @@ async def create_new_chat(
 
     return chat.id
 
-
 @chat_router.get("/")
 async def get_all_chats():
     res = []
@@ -122,6 +123,40 @@ async def get_chat_history(chat_id: str):
     history = RedisChatMessageHistory(chat_id)
     return messages_to_dict(history.messages)
 
+@chat_router.delete("/{chat_id}/prompt")
+async def delete_prompt(chat_id: str, content: str):
+    client = Redis()
+
+    if not client.sismember("chats", chat_id):
+        raise ValueError("Chat does not exist")
+
+    history = RedisChatMessageHistory(chat_id)
+
+    deleted = False
+    old_messages = history.messages.copy()
+    old_messages.reverse()
+    new_messages = []
+
+    logger.debug(f"SHOULD DELETE {content}")
+    for message in old_messages:
+        test_content = message.content.replace('\n', '')
+        if test_content != content or deleted:
+            logger.debug(f"APPEND {test_content}")
+            new_messages.append(message)
+        elif test_content == content and not deleted:
+            logger.debug(f"DELETE {test_content}")
+            deleted = True
+    new_messages.reverse()
+
+    if len(new_messages) == len(old_messages):
+        raise ValueError("Prompt not deleted")
+
+    if len(new_messages) > 0:
+        history.clear()
+        for new_message in new_messages:
+            history.append(new_message)
+
+    return True
 
 @chat_router.delete("/{chat_id}" )
 async def delete_chat(chat_id: str):
@@ -154,9 +189,9 @@ def stream_ask_a_question(chat_id: str, prompt: str):
     logger.debug("creating history")
     history = RedisChatMessageHistory(chat.id)
 
-    logger.debug(f"adding question {prompt}")
-
-    history.add_user_message(prompt)
+    if len(prompt) > 0:
+        logger.debug(f"adding question {prompt}")
+        history.add_user_message(prompt)
     prompt = get_prompt(history, chat.params)
     prompt += "### Response:\n"
 
@@ -220,11 +255,12 @@ async def ask_a_question(chat_id: str, prompt: str):
     chat = Chat.parse_raw(chat_raw)
 
     history = RedisChatMessageHistory(chat.id)
-    history.add_user_message(prompt)
+
+    if len(prompt) > 0:
+        history.add_user_message(prompt)
 
     prompt = get_prompt(history, chat.params)
     prompt += "### Response:\n"
-
 
     try:
         client = Llama(
