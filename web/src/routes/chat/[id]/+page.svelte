@@ -45,18 +45,32 @@
       {
         type: "human",
         data: {
+          additional_kwargs: {
+            id: "",
+          },
           content: prompt,
         },
       },
       {
         type: "ai",
         data: {
+          additional_kwargs: {
+            id: "",
+          },
           content: "",
         },
       },
     ];
 
     prompt = "";
+
+    eventSource.addEventListener("human_id", (event) => {
+      history[history.length - 2].data.additional_kwargs.id = event.data;
+    });
+
+    eventSource.addEventListener("ai_id", (event) => {
+      history[history.length - 1].data.additional_kwargs.id = event.data;
+    });
 
     eventSource.addEventListener("message", (event) => {
       history[history.length - 1].data.content += event.data;
@@ -110,7 +124,7 @@
     return history;
   }
 
-  async function deletePrompt(chatID: string, content: string, i: number) {
+  async function deletePrompt(chatID: string, content: string, id: string, i: number) {
     const response = await fetch(`/api/chat/${chatID}/prompt?content=${content}`, { method: "DELETE" });
     if (response.status === 200) {
       history = deleteHistory(i);
@@ -238,7 +252,7 @@
                 <button
                   disabled={isLoading}
                   class="btn btn-ghost btn-sm"
-                  on:click|preventDefault={() => deletePrompt(data.chat.id, question.data.content, i)}
+                  on:click|preventDefault={() => deletePrompt(data.chat.id, question.data.content, question.data.additional_kwargs.id, i)}
                 >
                   🗑️
                 </button>
@@ -270,7 +284,7 @@
                 <button
                   disabled={isLoading}
                   class="btn btn-ghost btn-sm"
-                  on:click|preventDefault={() => deletePrompt(data.chat.id, question.data.content, i)}
+                  on:click|preventDefault={() => deletePrompt(data.chat.id, question.data.content, question.data.additional_kwargs.id, i)}
                 >
                   🗑️
                 </button>
