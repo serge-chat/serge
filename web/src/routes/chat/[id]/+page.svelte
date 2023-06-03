@@ -29,48 +29,51 @@
   let container;
 
   async function askQuestion() {
-    if (prompt) {
-      const data = new URLSearchParams();
-      data.append("prompt", prompt);
+    const data = new URLSearchParams();
 
-      const eventSource = new EventSource(
-        "/api/chat/" + $page.params.id + "/question?" + data.toString()
-      );
-
-      history = [
-        ...history,
-        {
-          type: "human",
-          data: {
-            content: prompt,
-          },
-        },
-        {
-          type: "ai",
-          data: {
-            content: "",
-          },
-        },
-      ];
-
-      prompt = "";
-
-      eventSource.addEventListener("message", (event) => {
-        history[history.length - 1].data.content += event.data;
-      });
-
-      eventSource.addEventListener("close", async () => {
-        eventSource.close();
-        await invalidate("/api/chat/" + $page.params.id);
-      });
-
-      eventSource.onerror = async (error) => {
-        console.log("error", error);
-        eventSource.close();
-        //history[history.length - 1].data.content = "A server error occurred.";
-        //await invalidate("/api/chat/" + $page.params.id);
-      };
+    if (!prompt || prompt === "") {
+      prompt = "Reformulate your last answer."
     }
+
+    data.append("prompt", prompt);
+
+    const eventSource = new EventSource(
+      "/api/chat/" + $page.params.id + "/question?" + data.toString()
+    );
+
+    history = [
+      ...history,
+      {
+        type: "human",
+        data: {
+          content: prompt,
+        },
+      },
+      {
+        type: "ai",
+        data: {
+          content: "",
+        },
+      },
+    ];
+
+    prompt = "";
+
+    eventSource.addEventListener("message", (event) => {
+      history[history.length - 1].data.content += event.data;
+    });
+
+    eventSource.addEventListener("close", async () => {
+      eventSource.close();
+      await invalidate("/api/chat/" + $page.params.id);
+    });
+
+    eventSource.onerror = async (error) => {
+      console.log("error", error);
+      eventSource.close();
+      //history[history.length - 1].data.content = "A server error occurred.";
+      //await invalidate("/api/chat/" + $page.params.id);
+    };
   }
 
   async function handleKeyDown(event: KeyboardEvent) {
