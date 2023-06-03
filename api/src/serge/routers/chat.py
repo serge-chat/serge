@@ -157,7 +157,7 @@ async def delete_prompt(chat_id: str, content: str, id: str):
             elif message.additional_kwargs.get("id") == id and not deleted:
                 deleted = True
     elif len(old_messages) > 0:
-        logger.debug(f"DELETE last message")
+        logger.debug("DELETE last message")
         new_messages = old_messages[1:]
 
     if len(new_messages) == len(old_messages):
