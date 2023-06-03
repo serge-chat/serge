@@ -32,7 +32,7 @@
 	"type": "module",
 	"dependencies": {
 		"@fontsource/rubik-pixels": "^5.0.1",
-		"@iconify/svelte": "^3.1.3",
+		"@iconify/svelte": "^3.1.4",
 		"@sveltestack/svelte-query": "^1.6.0",
 		"clipboard": "^2.0.11",
 		"daisyui": "^2.52.0",
