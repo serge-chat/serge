@@ -10,15 +10,14 @@ import struct
 import sys
 
 from sentencepiece import SentencePieceProcessor
+
 from serge.utils.migrate import migrate
 
 HPARAMS = keys = ["vocab_size", "dim", "multiple_of", "n_heads", "n_layers"]
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(
-        description="Upgrade old ggml model files to the current format"
-    )
+    parser = argparse.ArgumentParser(description="Upgrade old ggml model files to the current format")
     parser.add_argument("dir_model", help="directory containing ggml .bin files")
     parser.add_argument("tokenizer_model", help="path to LLaMA tokenizer.model file")
     return parser.parse_args()

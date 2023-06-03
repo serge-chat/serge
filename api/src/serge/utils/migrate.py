@@ -48,22 +48,19 @@
 #     mv models/13B/ggml-model-f16-ggjt.bin models/13B/ggml-model-f16.bin
 #
 
-import argparse
 import os
-import sys
-import json
 import struct
-import numpy as np
+
 
 QK = 32
 
-GGML_TYPE_Q4_0  = 0
-GGML_TYPE_Q4_1  = 1
-GGML_TYPE_I8    = 2
-GGML_TYPE_I16   = 3
-GGML_TYPE_I32   = 4
-GGML_TYPE_F16   = 5
-GGML_TYPE_F32   = 6
+GGML_TYPE_Q4_0 = 0
+GGML_TYPE_Q4_1 = 1
+GGML_TYPE_I8 = 2
+GGML_TYPE_I16 = 3
+GGML_TYPE_I32 = 4
+GGML_TYPE_F16 = 5
+GGML_TYPE_F32 = 6
 
 WTYPE_NAMES = {
     0: "F32",
@@ -80,36 +77,37 @@ WTYPES = {
 }
 
 GGML_BLCK_SIZE = {
-    GGML_TYPE_Q4_0:  QK,
-    GGML_TYPE_Q4_1:  QK,
-    GGML_TYPE_I8:    1,
-    GGML_TYPE_I16:   1,
-    GGML_TYPE_I32:   1,
-    GGML_TYPE_F16:   1,
-    GGML_TYPE_F32:   1,
+    GGML_TYPE_Q4_0: QK,
+    GGML_TYPE_Q4_1: QK,
+    GGML_TYPE_I8: 1,
+    GGML_TYPE_I16: 1,
+    GGML_TYPE_I32: 1,
+    GGML_TYPE_F16: 1,
+    GGML_TYPE_F32: 1,
 }
 
 GGML_TYPE_SIZE = {
-    GGML_TYPE_Q4_0: 4   + QK//2,
-    GGML_TYPE_Q4_1: 4*2 + QK//2,
-    GGML_TYPE_I8:   1,
-    GGML_TYPE_I16:  2,
-    GGML_TYPE_I32:  4,
-    GGML_TYPE_F16:  2,
-    GGML_TYPE_F32:  4,
+    GGML_TYPE_Q4_0: 4 + QK // 2,
+    GGML_TYPE_Q4_1: 4 * 2 + QK // 2,
+    GGML_TYPE_I8: 1,
+    GGML_TYPE_I16: 2,
+    GGML_TYPE_I32: 4,
+    GGML_TYPE_F16: 2,
+    GGML_TYPE_F32: 4,
 }
 
 HPARAMS = [
-    'magic',    # int32
-    'version',  # int32
-    'n_vocab',  # int32
-    'n_embd',   # int32
-    'n_mult',   # int32
-    'n_head',   # int32
-    'n_layer',  # int32
-    'n_rot',    # int32
-    'f16',      # int32
+    "magic",  # int32
+    "version",  # int32
+    "n_vocab",  # int32
+    "n_embd",  # int32
+    "n_mult",  # int32
+    "n_head",  # int32
+    "n_layer",  # int32
+    "n_rot",  # int32
+    "f16",  # int32
 ]
+
 
 def read_hparams(fin):
     struct_fmt = "i" * len(HPARAMS)
@@ -119,15 +117,17 @@ def read_hparams(fin):
     hparams = dict(zip(HPARAMS, ints))
     return hparams
 
+
 def write_hparams(fout, hparams):
     struct_fmt = "i" * len(HPARAMS)
-    struct_size = struct.calcsize(struct_fmt)
+    struct.calcsize(struct_fmt)
     ints = [hparams[h] for h in HPARAMS]
     fout.write(struct.pack(struct_fmt, *ints))
 
+
 def read_tokens(fin, hparams):
     tokens = []
-    for i in range(hparams['n_vocab']):
+    for i in range(hparams["n_vocab"]):
         len_b = fin.read(4)
         (length,) = struct.unpack("i", len_b)
         word = fin.read(length)
@@ -136,17 +136,20 @@ def read_tokens(fin, hparams):
         tokens.append((word, score))
     return tokens
 
+
 def write_tokens(fout, tokens):
     for word, score in tokens:
         fout.write(struct.pack("i", len(word)))
         fout.write(word)
         fout.write(struct.pack("f", score))
 
+
 def ggml_nelements(shape):
     r = 1
     for i in shape:
         r *= i
     return r
+
 
 def ggml_nbytes(shape, ftype):
     x = ggml_nelements(shape)
@@ -155,11 +158,12 @@ def ggml_nbytes(shape, ftype):
     x //= GGML_BLCK_SIZE[t]
     return x
 
+
 def copy_tensors(fin, fout, part_id, n_parts):
     while True:
-
         b = fin.read(4)
-        if not b: break
+        if not b:
+            break
         (n_dims,) = struct.unpack("i", b)
         b = fin.read(4)
         (length,) = struct.unpack("i", b)
@@ -250,10 +254,11 @@ def copy_tensors(fin, fout, part_id, n_parts):
                 offset_row = row * bytes_per_row
                 offset = offset_row + offset_current_col
                 fout.seek(tensor_data_offset + offset)
-                fout.write(data[row * bpr:row * bpr + bpr])
+                fout.write(data[row * bpr : row * bpr + bpr])
 
         # advance file position to next tensor
         fout.seek(tensor_data_offset + ggml_nbytes(fullshape, ftype))
+
 
 def migrate(fin_path):
     assert fin_path
@@ -263,17 +268,15 @@ def migrate(fin_path):
         hparams = read_hparams(fin)
         tokens = read_tokens(fin, hparams)
 
-    if hparams['magic'] == 0x67676a74:  # ggjt
-        print("%s: input ggml has already been converted to 'ggjt' magic\n" %
-              (fin_path))
+    if hparams["magic"] == 0x67676A74:  # ggjt
+        print("%s: input ggml has already been converted to 'ggjt' magic\n" % (fin_path))
         return
 
-    if hparams['magic'] != 0x67676d66:  # ggmf
-        print("%s: input ggml file doesn't have expected 'ggmf' magic: %#x\n" %
-              (fin_path, hparams['magic']))
+    if hparams["magic"] != 0x67676D66:  # ggmf
+        print("%s: input ggml file doesn't have expected 'ggmf' magic: %#x\n" % (fin_path, hparams["magic"]))
         return
 
-    hparams['magic'] = 0x67676a74  # ggjt
+    hparams["magic"] = 0x67676A74  # ggjt
 
     # count number of multipart files by convention
     n_parts = 1
@@ -284,7 +287,7 @@ def migrate(fin_path):
             break
 
     # we output a single file for ggml
-    with open(fin_path+".migrated", "wb") as fout:
+    with open(fin_path + ".migrated", "wb") as fout:
         write_hparams(fout, hparams)
         write_tokens(fout, tokens)
         offset_of_tensors = fout.tell()
@@ -300,6 +303,6 @@ def migrate(fin_path):
                 copy_tensors(fin, fout, part_id, n_parts)
 
     os.remove(fin_path)
-    os.rename(fin_path+".migrated", fin_path)
+    os.rename(fin_path + ".migrated", fin_path)
 
     print(f"Done. Output file: {fin_path+'.migrated'}\n")
