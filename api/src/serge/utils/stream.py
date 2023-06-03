@@ -105,4 +105,5 @@ def get_prompt(history: RedisChatMessageHistory, params):
         message_prompt += next_prompt
 
     final_prompt = params.init_prompt + "\n" + message_prompt[: params.n_ctx]
+    logger.debug(final_prompt)
     return final_prompt
