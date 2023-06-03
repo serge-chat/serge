@@ -128,7 +128,7 @@ async def get_chat_history(chat_id: str):
 
 
 @chat_router.delete("/{chat_id}/prompt")
-async def delete_prompt(chat_id: str, content: str):
+async def delete_prompt(chat_id: str, content: str, id: str):
     client = Redis()
 
     if not client.sismember("chats", chat_id):
@@ -141,19 +141,29 @@ async def delete_prompt(chat_id: str, content: str):
     old_messages.reverse()
     new_messages = []
 
-    logger.debug(f"SHOULD DELETE {content}")
-    for message in old_messages:
-        test_content = message.content.replace("\n", "").replace("+", " ")
-        if not test_content.startswith(content) or deleted:
-            logger.debug(f"APPEND {test_content}")
-            new_messages.append(message)
-        elif test_content.startswith(content) and not deleted:
-            logger.debug(f"DELETE {test_content}")
-            deleted = True
-    new_messages.reverse()
+    if len(content) > 0:
+        logger.debug(f"DELETE content:{content}")
+        for message in old_messages:
+            test_content = message.content.replace("\n", "").replace("+", " ")
+            if not test_content.startswith(content) or deleted:
+                new_messages.append(message)
+            elif test_content.startswith(content) and not deleted:
+                deleted = True
+    elif len(id) > 0:
+        logger.debug(f"DELETE id:{id}")
+        for message in old_messages:
+            if not message.additional_kwargs.get("id") == id:
+                new_messages.append(message)
+            elif message.additional_kwargs.get("id") == id and not deleted:
+                deleted = True
+    elif len(old_messages) > 0:
+        logger.debug(f"DELETE last message")
+        new_messages = old_messages[1:]
 
     if len(new_messages) == len(old_messages):
         raise ValueError("Prompt not deleted")
+
+    new_messages.reverse()
 
     if len(new_messages) > 0:
         history.clear()
