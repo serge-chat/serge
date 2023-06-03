@@ -26,51 +26,67 @@
   $: history = data.chat.history;
 
   $: prompt = "";
-  let container;
 
   async function askQuestion() {
-    if (prompt) {
-      const data = new URLSearchParams();
-      data.append("prompt", prompt);
+    const data = new URLSearchParams();
 
-      const eventSource = new EventSource(
-        "/api/chat/" + $page.params.id + "/question?" + data.toString()
-      );
-
-      history = [
-        ...history,
-        {
-          type: "human",
-          data: {
-            content: prompt,
-          },
-        },
-        {
-          type: "ai",
-          data: {
-            content: "",
-          },
-        },
-      ];
-
-      prompt = "";
-
-      eventSource.addEventListener("message", (event) => {
-        history[history.length - 1].data.content += event.data;
-      });
-
-      eventSource.addEventListener("close", async () => {
-        eventSource.close();
-        await invalidate("/api/chat/" + $page.params.id);
-      });
-
-      eventSource.onerror = async (error) => {
-        console.log("error", error);
-        eventSource.close();
-        //history[history.length - 1].data.content = "A server error occurred.";
-        //await invalidate("/api/chat/" + $page.params.id);
-      };
+    if (!prompt || prompt === "") {
+      prompt = "Reformulate your last answer."
     }
+
+    data.append("prompt", prompt);
+
+    const eventSource = new EventSource(
+      "/api/chat/" + $page.params.id + "/question?" + data.toString()
+    );
+
+    history = [
+      ...history,
+      {
+        type: "human",
+        data: {
+          additional_kwargs: {
+            id: undefined,
+          },
+          content: prompt,
+        },
+      },
+      {
+        type: "ai",
+        data: {
+          additional_kwargs: {
+            id: undefined,
+          },
+          content: "",
+        },
+      },
+    ];
+
+    prompt = "";
+
+    eventSource.addEventListener("human_id", (event) => {
+      history[history.length - 2].data.additional_kwargs.id = event.data;
+    });
+
+    eventSource.addEventListener("ai_id", (event) => {
+      history[history.length - 1].data.additional_kwargs.id = event.data;
+    });
+
+    eventSource.addEventListener("message", (event) => {
+      history[history.length - 1].data.content += event.data;
+    });
+
+    eventSource.addEventListener("close", async () => {
+      eventSource.close();
+      await invalidate("/api/chat/" + $page.params.id);
+    });
+
+    eventSource.onerror = async (error) => {
+      console.log("error", error);
+      eventSource.close();
+      //history[history.length - 1].data.content = "A server error occurred.";
+      //await invalidate("/api/chat/" + $page.params.id);
+    };
   }
 
   async function handleKeyDown(event: KeyboardEvent) {
@@ -102,6 +118,25 @@
       await createSameSession();
     }
   });
+
+  function deleteHistory(i: number) {
+    history.splice(i, 1);
+    return history;
+  }
+
+  async function deletePrompt(chatID: string, content: string, id: string, i: number) {
+    let endpoint = `/api/chat/${chatID}/prompt?content=${content}&id=`
+    if (id) {
+      endpoint = `/api/chat/${chatID}/prompt?id=${id}&content=`
+    }
+
+    const response = await fetch(endpoint, { method: "DELETE" });
+    if (response.status === 200) {
+      history = deleteHistory(i);
+    } else {
+      console.error("Error " + response.status + ": " + response.statusText);
+    }
+  }
 
   let md: MarkdownIt = new MarkdownIt({
     html: true,
@@ -201,7 +236,7 @@
   </div>
   <div class="overflow-y-auto h-[calc(97vh-12rem)] mb-11">
     <div class="h-max pb-32">
-      {#each history as question}
+      {#each history as question, i}
         {#if question.type === "human"}
           <div class="chat chat-start px-10 md:px-16 py-4 bg-base-300 border-t border-base-content/[.2]">
             <div class="chat-image self-start pl-1 pt-1">
@@ -217,6 +252,17 @@
                 {@html renderMarkdown(question.data.content)}
               </div>
             </div>
+            {#if i == history.length - 1 && !isLoading}
+            <div style="width: 100%; text-align: right;">
+                <button
+                  disabled={isLoading}
+                  class="btn btn-ghost btn-sm"
+                  on:click|preventDefault={() => deletePrompt(data.chat.id, question.data.content, question.data.additional_kwargs?.id, i)}
+                >
+                  🗑️
+                </button>
+              </div>
+            {/if}
           </div>
         {:else if question.type === "ai"}
           <div class="chat chat-start px-10 md:px-16 py-4 bg-base-100 border-t border-base-content/[.2]">
@@ -238,6 +284,17 @@
                 {@html renderMarkdown(question.data.content)}
               </div>
             </div>
+            {#if i == history.length - 1 && !isLoading}
+              <div style="width: 100%; text-align: right;">
+                <button
+                  disabled={isLoading}
+                  class="btn btn-ghost btn-sm"
+                  on:click|preventDefault={() => deletePrompt(data.chat.id, question.data.content, question.data.additional_kwargs?.id, i)}
+                >
+                  🗑️
+                </button>
+              </div>
+            {/if}
           </div>
         {:else if question.type === "system"}
           <div
@@ -270,7 +327,7 @@
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
           <path class="{sendBottomHovered ? 'fill-primary-content' : 'fill-base-content'}" d="M.989 8 .064 2.68a1.342 1.342 0 0 1 1.85-1.462l13.402 5.744a1.13 1.13 0 0 1 0 2.076L1.913 14.782a1.343 1.343 0 0 1-1.85-1.463L.99 8Zm.603-5.288L2.38 7.25h4.87a.75.75 0 0 1 0 1.5H2.38l-.788 4.538L13.929 8Z"></path>
-        </svg>       
+        </svg>
       </button>
     </div>
   </div>
