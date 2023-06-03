@@ -141,11 +141,11 @@ async def delete_prompt(chat_id: str, content: str):
 
     logger.debug(f"SHOULD DELETE {content}")
     for message in old_messages:
-        test_content = message.content.replace("\n", "")
-        if test_content != content or deleted:
+        test_content = message.content.replace("\n", "").replace("+", " ")
+        if not test_content.startswith(content) or deleted:
             logger.debug(f"APPEND {test_content}")
             new_messages.append(message)
-        elif test_content == content and not deleted:
+        elif test_content.startswith(content) and not deleted:
             logger.debug(f"DELETE {test_content}")
             deleted = True
     new_messages.reverse()
