@@ -1,3 +1,5 @@
+from typing import Optional
+
 from datetime import datetime
 from uuid import uuid4
 
@@ -25,6 +27,7 @@ class ChatParameters(BaseModel):
     repeat_penalty: float
     top_k: int
     # stream: bool
+    init_prompt: Optional[str] = "Below is an instruction that describes a task. Write a response that appropriately completes the request."
 
 
 class Chat(BaseModel):

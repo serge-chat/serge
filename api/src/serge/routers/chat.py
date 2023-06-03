@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from langchain.memory import RedisChatMessageHistory
-from langchain.schema import SystemMessage, messages_to_dict
+from langchain.schema import SystemMessage, messages_to_dict, AIMessage, HumanMessage
 from llama_cpp import Llama
 from loguru import logger
 from redis import Redis
@@ -8,6 +8,9 @@ from sse_starlette.sse import EventSourceResponse
 
 from serge.models.chat import Chat, ChatParameters
 from serge.utils.stream import get_prompt
+
+import uuid
+
 
 chat_router = APIRouter(
     prefix="/chat",
@@ -48,6 +51,7 @@ async def create_new_chat(
         last_n_tokens_size=repeat_last_n,
         repeat_penalty=repeat_penalty,
         n_threads=n_threads,
+        init_prompt=init_prompt,
     )
     # create the chat
     chat = Chat(params=params)
@@ -123,6 +127,52 @@ async def get_chat_history(chat_id: str):
     return messages_to_dict(history.messages)
 
 
+@chat_router.delete("/{chat_id}/prompt")
+async def delete_prompt(chat_id: str, content: str, id: str):
+    client = Redis()
+
+    if not client.sismember("chats", chat_id):
+        raise ValueError("Chat does not exist")
+
+    history = RedisChatMessageHistory(chat_id)
+
+    deleted = False
+    old_messages = history.messages.copy()
+    old_messages.reverse()
+    new_messages = []
+
+    if len(content) > 0:
+        logger.debug(f"DELETE content:{content}")
+        for message in old_messages:
+            test_content = message.content.replace("\n", "").replace("+", " ")
+            if not test_content.startswith(content) or deleted:
+                new_messages.append(message)
+            elif test_content.startswith(content) and not deleted:
+                deleted = True
+    elif len(id) > 0:
+        logger.debug(f"DELETE id:{id}")
+        for message in old_messages:
+            if not message.additional_kwargs.get("id") == id:
+                new_messages.append(message)
+            elif message.additional_kwargs.get("id") == id and not deleted:
+                deleted = True
+    elif len(old_messages) > 0:
+        logger.debug("DELETE last message")
+        new_messages = old_messages[1:]
+
+    if len(new_messages) == len(old_messages):
+        raise ValueError("Prompt not deleted")
+
+    new_messages.reverse()
+
+    if len(new_messages) > 0:
+        history.clear()
+        for new_message in new_messages:
+            history.append(new_message)
+
+    return True
+
+
 @chat_router.delete("/{chat_id}")
 async def delete_chat(chat_id: str):
     client = Redis()
@@ -154,17 +204,19 @@ def stream_ask_a_question(chat_id: str, prompt: str):
     logger.debug("creating history")
     history = RedisChatMessageHistory(chat.id)
 
-    logger.debug(f"adding question {prompt}")
-
-    history.add_user_message(prompt)
-    prompt = get_prompt(history)
+    human_uuid = str(uuid.uuid4())
+    if len(prompt) > 0:
+        logger.debug(f"adding question {prompt}")
+        human_message = HumanMessage(content=prompt, additional_kwargs={"id": human_uuid})
+        history.append(message=human_message)
+    prompt = get_prompt(history, chat.params)
     prompt += "### Response:\n"
 
     logger.debug("creating Llama client")
     try:
         client = Llama(
             model_path="/usr/src/app/weights/" + chat.params.model_path + ".bin",
-            n_ctx=chat.params.n_ctx,
+            n_ctx=len(chat.params.init_prompt) + chat.params.n_ctx,
             n_threads=chat.params.n_threads,
             last_n_tokens_size=chat.params.last_n_tokens_size,
         )
@@ -175,6 +227,11 @@ def stream_ask_a_question(chat_id: str, prompt: str):
         return {"event": "error"}
 
     def event_generator():
+        yield {"event": "human_id", "data": human_uuid}
+
+        ai_uuid = str(uuid.uuid4())
+        yield {"event": "ai_id", "data": ai_uuid}
+
         full_answer = ""
         error = None
         try:
@@ -203,7 +260,8 @@ def stream_ask_a_question(chat_id: str, prompt: str):
                 history.append(SystemMessage(content=error))
             else:
                 logger.info(full_answer)
-                history.add_ai_message(full_answer)
+                ai_message = AIMessage(content=full_answer, additional_kwargs={"id": ai_uuid})
+                history.append(message=ai_message)
             yield ({"event": "close"})
 
     return EventSourceResponse(event_generator())
@@ -220,15 +278,19 @@ async def ask_a_question(chat_id: str, prompt: str):
     chat = Chat.parse_raw(chat_raw)
 
     history = RedisChatMessageHistory(chat.id)
-    history.add_user_message(prompt)
 
-    prompt = get_prompt(history)
+    if len(prompt) > 0:
+        uuid_str = str(uuid.uuid4())
+        human_message = HumanMessage(content=prompt, additional_kwargs={"id": uuid_str})
+        history.append(message=human_message)
+
+    prompt = get_prompt(history, chat.params)
     prompt += "### Response:\n"
 
     try:
         client = Llama(
             model_path="/usr/src/app/weights/" + chat.params.model_path + ".bin",
-            n_ctx=chat.params.n_ctx,
+            n_ctx=len(chat.params.init_prompt) + chat.params.n_ctx,
             n_threads=chat.params.n_threads,
             last_n_tokens_size=chat.params.last_n_tokens_size,
         )
@@ -249,5 +311,7 @@ async def ask_a_question(chat_id: str, prompt: str):
     if not isinstance(answer, str):
         answer = str(answer)
 
-    history.add_ai_message(answer)
+    uuid_str = str(uuid.uuid4())
+    ai_message = AIMessage(content=answer, additional_kwargs={"id": uuid_str})
+    history.append(message=ai_message)
     return answer
