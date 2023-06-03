@@ -24,7 +24,9 @@ class ChainRedisHandler(StreamingStdOutCallbackHandler):
     def stream_key(self):
         return "stream:" + self.id
 
-    def on_llm_start(self, serialized: Dict[str, Any], prompts: List[str], **kwargs: Any) -> None:
+    def on_llm_start(
+        self, serialized: Dict[str, Any], prompts: List[str], **kwargs: Any
+    ) -> None:
         super().on_llm_start(serialized, prompts, **kwargs)
         logger.info("starting")
         self.client.set(self.stream_key, "")
@@ -43,7 +45,9 @@ class ChainRedisHandler(StreamingStdOutCallbackHandler):
 
         """Run when LLM ends running."""
 
-    def on_llm_error(self, error: Union[Exception, KeyboardInterrupt], **kwargs: Any) -> None:
+    def on_llm_error(
+        self, error: Union[Exception, KeyboardInterrupt], **kwargs: Any
+    ) -> None:
         super().on_llm_error(error, **kwargs)
         self.client.set(self.stream_key, str(error))
         """Run when LLM errors."""
@@ -55,7 +59,9 @@ def get_prompt(history: RedisChatMessageHistory, params):
     """
 
     def tokenize_content(content):
-        split_content = list(filter(None, re.split('([^\\n\.\?!]+[\\n\.\?! ]+)', content)))
+        split_content = list(
+            filter(None, re.split("([^\\n\.\?!]+[\\n\.\?! ]+)", content))
+        )
         split_content.reverse()
         return split_content
 
@@ -104,6 +110,5 @@ def get_prompt(history: RedisChatMessageHistory, params):
     for next_prompt in prompts:
         message_prompt += next_prompt
 
-    final_prompt = params.init_prompt + '\n' + message_prompt[:params.n_ctx]
+    final_prompt = params.init_prompt + "\n" + message_prompt[: params.n_ctx]
     return final_prompt
-
