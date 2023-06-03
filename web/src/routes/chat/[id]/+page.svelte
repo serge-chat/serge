@@ -26,7 +26,6 @@
   $: history = data.chat.history;
 
   $: prompt = "";
-  let container;
 
   async function askQuestion() {
     const data = new URLSearchParams();
