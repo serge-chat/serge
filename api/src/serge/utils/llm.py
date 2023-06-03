@@ -1,9 +1,9 @@
 """Wrapper around llama.cpp."""
 from typing import Any, Dict, List, Optional
 
-from pydantic import Field, root_validator, Extra
-
 from langchain.llms.base import LLM
+from pydantic import Extra, Field, root_validator
+
 
 class LlamaCpp(LLM):
     """Wrapper around the llama.cpp model.
@@ -80,7 +80,7 @@ class LlamaCpp(LLM):
     last_n_tokens_size: Optional[int] = 64
     """The number of tokens to look back when applying the repeat_penalty."""
 
-    streaming: bool = False    
+    streaming: bool = False
 
     class Config:
         extra = Extra.ignore
@@ -91,7 +91,7 @@ class LlamaCpp(LLM):
         model_path = values["model_path"]
 
         try:
-            from llama_cpp import Llama
+            pass
 
         except ImportError:
             raise ModuleNotFoundError(
@@ -116,17 +116,17 @@ class LlamaCpp(LLM):
             "stop_sequences": self.stop_sequences,
             "repeat_penalty": self.repeat_penalty,
             "top_k": self.top_k,
-            "n_threads" : self.n_threads,
-            "n_ctx" : self.n_ctx,
-            "n_parts" : self.n_parts,
-            "seed" : self.seed,
-            "f16_kv" : self.f16_kv,
-            "logits_all" : self.logits_all,
-            "vocab_only" : self.vocab_only,
-            "use_mlock" : self.use_mlock,
-            "n_batch" : self.n_batch,
-            "last_n_tokens_size" : self.last_n_tokens_size,
-            "streaming" : self.streaming,
+            "n_threads": self.n_threads,
+            "n_ctx": self.n_ctx,
+            "n_parts": self.n_parts,
+            "seed": self.seed,
+            "f16_kv": self.f16_kv,
+            "logits_all": self.logits_all,
+            "vocab_only": self.vocab_only,
+            "use_mlock": self.use_mlock,
+            "n_batch": self.n_batch,
+            "last_n_tokens_size": self.last_n_tokens_size,
+            "streaming": self.streaming,
         }
 
     @property
@@ -160,19 +160,19 @@ class LlamaCpp(LLM):
 
         params = self._identifying_params
         client = Llama(
-                        model_path="/usr/src/app/weights/"+self.model_path+".bin",
-                        n_ctx=self.n_ctx,
-                        n_parts=self.n_parts,
-                        seed=self.seed,
-                        f16_kv=self.f16_kv,
-                        logits_all=self.logits_all,
-                        vocab_only=self.vocab_only,
-                        use_mlock=self.use_mlock,
-                        n_threads=self.n_threads,
-                        n_batch=self.n_batch,
-                        last_n_tokens_size=self.last_n_tokens_size,
-                    )
-        
+            model_path="/usr/src/app/weights/" + self.model_path + ".bin",
+            n_ctx=self.n_ctx,
+            n_parts=self.n_parts,
+            seed=self.seed,
+            f16_kv=self.f16_kv,
+            logits_all=self.logits_all,
+            vocab_only=self.vocab_only,
+            use_mlock=self.use_mlock,
+            n_threads=self.n_threads,
+            n_batch=self.n_batch,
+            last_n_tokens_size=self.last_n_tokens_size,
+        )
+
         if self.stop_sequences and stop is not None:
             raise ValueError("`stop_sequences` found in both the input and default params.")
         elif self.stop_sequences:
@@ -192,14 +192,14 @@ class LlamaCpp(LLM):
                 stop=params["stop_sequences"],
                 repeat_penalty=params["repeat_penalty"],
                 top_k=params["top_k"],
-                stream=True
+                stream=True,
             )
             for stream_resp in stream:
                 try:
                     token = stream_resp["choices"][0]["text"]
-                except:
+                except BaseException:
                     token = ""
-                
+
                 response += token
 
                 self.callback_manager.on_llm_new_token(token, verbose=self.verbose)
@@ -222,13 +222,20 @@ class LlamaCpp(LLM):
 
             return text
 
+
 if __name__ == "__main__":
     from langchain.callbacks.base import CallbackManager
+
     from serge.utils.stream import ChainRedisHandler
 
-    llm = LlamaCpp(streaming=True, model_path="gpt4all", 
-                   callback_manager=CallbackManager([ChainRedisHandler("1")]),
-                    verbose=True, temperature=0.1, max_tokens=128)
+    llm = LlamaCpp(
+        streaming=True,
+        model_path="gpt4all",
+        callback_manager=CallbackManager([ChainRedisHandler("1")]),
+        verbose=True,
+        temperature=0.1,
+        max_tokens=128,
+    )
 
     input()
     resp = llm("Write a paragraph about France please.")
