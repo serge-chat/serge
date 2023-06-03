@@ -48,6 +48,7 @@ async def create_new_chat(
         last_n_tokens_size=repeat_last_n,
         repeat_penalty=repeat_penalty,
         n_threads=n_threads,
+        init_prompt=init_prompt,
     )
     # create the chat
     chat = Chat(params=params)
@@ -157,14 +158,14 @@ def stream_ask_a_question(chat_id: str, prompt: str):
     logger.debug(f"adding question {prompt}")
 
     history.add_user_message(prompt)
-    prompt = get_prompt(history)
+    prompt = get_prompt(history, chat.params)
     prompt += "### Response:\n"
 
     logger.debug("creating Llama client")
     try:
         client = Llama(
             model_path="/usr/src/app/weights/" + chat.params.model_path + ".bin",
-            n_ctx=chat.params.n_ctx,
+            n_ctx=len(chat.params.init_prompt) + chat.params.n_ctx,
             n_threads=chat.params.n_threads,
             last_n_tokens_size=chat.params.last_n_tokens_size,
         )
@@ -222,13 +223,13 @@ async def ask_a_question(chat_id: str, prompt: str):
     history = RedisChatMessageHistory(chat.id)
     history.add_user_message(prompt)
 
-    prompt = get_prompt(history)
+    prompt = get_prompt(history, chat.params)
     prompt += "### Response:\n"
 
     try:
         client = Llama(
             model_path="/usr/src/app/weights/" + chat.params.model_path + ".bin",
-            n_ctx=chat.params.n_ctx,
+            n_ctx=len(chat.params.init_prompt) + chat.params.n_ctx,
             n_threads=chat.params.n_threads,
             last_n_tokens_size=chat.params.last_n_tokens_size,
         )

@@ -7,3 +7,4 @@ api/weights/**
 
 node_modules
 __pycache__
+api/static/*
