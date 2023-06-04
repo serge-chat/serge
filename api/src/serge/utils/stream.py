@@ -66,7 +66,7 @@ def get_prompt(history: RedisChatMessageHistory, params):
         return prompt_length
 
     dupes = {}
-    prompts = []
+    prompts: list[str] = []
     messages = history.messages.copy()
     messages.reverse()
     for message in messages:
