@@ -37,6 +37,7 @@ jobs:
         uses: jakebailey/pyright-action@v1
         with:
           working-directory: "./api"
+          ignore-external: true
       - name: Install mypy
         run: pip install mypy
       - name: Install all types stubs
