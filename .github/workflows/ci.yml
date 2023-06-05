@@ -33,15 +33,14 @@ jobs:
           python-version: '3.11'
       - name: Install dependencies
         run: pip install ./api
-      - name: Run pyright
-        uses: jakebailey/pyright-action@v1
-        with:
-          working-directory: "./api"
-          ignore-external: true
       - name: Install mypy
         run: pip install mypy
       - name: Install all types stubs
         run: pip install lxml-stubs pandas-stubs types-Pillow types-PyYAML types-annoy types-beautifulsoup4 types-google-cloud-ndb types-psycopg2 types-pyOpenSSL types-redis types-requests types-tqdm types-ujson
+      - name: Run pyright
+        uses: jakebailey/pyright-action@v1
+        with:
+          working-directory: "./api"
       - name: Run mypy
         run: mypy --ignore-missing-imports ./api
       - name: Run ruff
