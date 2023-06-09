@@ -39,11 +39,31 @@ Currently the following models are supported:
 - Alpaca-LoRA-65B
 - OpenAssistant-30B
 - GPT4All-13B
+- Vicuna-v1.1-7B
+- Vicuna-v1.1-13B
+- Vicuna-CoT-7B
+- Vicuna-CoT-13B
 - Stable-Vicuna-13B
 - Guanaco-7B
 - Guanaco-13B
 - Guanaco-33B
 - Guanaco-65B
+- Wizard-Vicuna-Uncensored-7B
+- Wizard-Vicuna-Uncensored-13B
+- Wizard-Vicuna-Uncensored-30B
+- WizardLM-30B
+- WizardLM-Uncensored-7B
+- WizardLM-Uncensored-13B
+- WizardLM-Uncensored-30B
+- Wizard-Mega-13B
+- Lazarus-30B
+- Nous-Hermes-13B
+- Samantha-7B
+- Samantha-13B
+- Samantha-33B
+- Koala-7B
+- Koala-13B
+
 
 If you have existing weights from another project you can add them to the `serge_weights` volume using `docker cp`.
 
