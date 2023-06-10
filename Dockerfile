@@ -1,6 +1,6 @@
 # ---------------------------------------
 # Base image for node
-FROM node:19-slim as node_base
+FROM node:20-slim as node_base
 
 WORKDIR /usr/src/app
 
