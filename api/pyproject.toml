@@ -12,7 +12,7 @@ packages = [
 ]
 
 homepage = "https://serge.chat/"
-repository = "https://github.com/nsarrazin/serge"
+repository = "https://github.com/serge-chat/serge"
 
 include = [{path="src"}]
 
