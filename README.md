@@ -1,6 +1,6 @@
 # Serge - LLaMA made easy 🦙
 
-![License](https://img.shields.io/github/license/nsarrazin/serge)
+![License](https://img.shields.io/github/license/serge-chat/serge)
 [![Discord](https://img.shields.io/discord/1088427963801948201?label=Discord)](https://discord.gg/62Hc6FEYQH)
 
 A chat interface based on [llama.cpp](https://github.com/ggerganov/llama.cpp) for running Alpaca models. Entirely self-hosted, no API keys needed. Fits on 4GB of RAM and runs on the CPU.
@@ -21,7 +21,7 @@ docker run -d \
     -v weights:/usr/src/app/weights \
     -v datadb:/data/db/ \
     -p 8008:8008 \
-    ghcr.io/nsarrazin/serge:latest
+    ghcr.io/serge-chat/serge:latest
 ```
 
 Then just go to http://localhost:8008/ and you're good to go!
@@ -34,7 +34,7 @@ Make sure you have docker desktop installed, WSL2 configured and enough free RAM
 
 #### Kubernetes & docker compose
 
-Setting up Serge on Kubernetes or docker compose can be found in the wiki: https://github.com/nsarrazin/serge/wiki/Integrating-Serge-in-your-orchestration#kubernetes-example
+Setting up Serge on Kubernetes or docker compose can be found in the wiki: https://github.com/serge-chat/serge/wiki/Integrating-Serge-in-your-orchestration#kubernetes-example
 
 ## Models
 
@@ -79,7 +79,6 @@ LLaMA will just crash if you don't have enough available memory for your model.
 - 13B requires about 12GB free
 - 30B requires about 20GB free
 
-
 ## Support
 
 Feel free to join the discord if you need help with the setup: https://discord.gg/62Hc6FEYQH
@@ -91,7 +90,7 @@ Serge is always open for contributions! If you catch a bug or have a feature ide
 If you want to run Serge in development mode (with hot-module reloading for svelte & autoreload for FastAPI) you can do so like this:
 
 ```
-git clone https://github.com/nsarrazin/serge.git
+git clone https://github.com/serge-chat/serge.git
 DOCKER_BUILDKIT=1 docker compose -f docker-compose.dev.yml up -d --build
 ```
 
