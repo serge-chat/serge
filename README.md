@@ -16,7 +16,12 @@ A chat interface based on [llama.cpp](https://github.com/ggerganov/llama.cpp) fo
 Setting up Serge is very easy. Starting it up can be done in a single command:
 
 ```
-docker run -d -v weights:/usr/src/app/weights -v datadb:/data/db/ -p 8008:8008 ghcr.io/nsarrazin/serge:latest
+docker run -d \
+    --name serge \
+    -v weights:/usr/src/app/weights \
+    -v datadb:/data/db/ \
+    -p 8008:8008 \
+    ghcr.io/nsarrazin/serge:latest
 ```
 
 Then just go to http://localhost:8008/ and you're good to go!
@@ -35,19 +40,27 @@ Setting up Serge on Kubernetes or docker compose can be found in the wiki: https
 
 Currently the following models are supported:
 
-- GPT4-Alpaca-LoRA-30B
 - Alpaca-LoRA-65B
-- OpenAssistant-30B
+- GPT4-Alpaca-LoRA-30B
 - GPT4All-13B
-- Vicuna-v1.1-7B
-- Vicuna-v1.1-13B
-- Vicuna-CoT-7B
-- Vicuna-CoT-13B
-- Stable-Vicuna-13B
 - Guanaco-7B
 - Guanaco-13B
 - Guanaco-33B
 - Guanaco-65B
+- Koala-7B
+- Koala-13B
+- Lazarus-30B
+- Nous-Hermes-13B
+- OpenAssistant-30B
+- Samantha-7B
+- Samantha-13B
+- Samantha-33B
+- Stable-Vicuna-13B
+- Vicuna-CoT-7B
+- Vicuna-CoT-13B
+- Vicuna-v1.1-7B
+- Vicuna-v1.1-13B
+- Wizard-Mega-13B
 - Wizard-Vicuna-Uncensored-7B
 - Wizard-Vicuna-Uncensored-13B
 - Wizard-Vicuna-Uncensored-30B
@@ -55,15 +68,6 @@ Currently the following models are supported:
 - WizardLM-Uncensored-7B
 - WizardLM-Uncensored-13B
 - WizardLM-Uncensored-30B
-- Wizard-Mega-13B
-- Lazarus-30B
-- Nous-Hermes-13B
-- Samantha-7B
-- Samantha-13B
-- Samantha-33B
-- Koala-7B
-- Koala-13B
-
 
 If you have existing weights from another project you can add them to the `serge_weights` volume using `docker cp`.
 
@@ -96,14 +100,3 @@ You can test the production image with
 ```
 DOCKER_BUILDKIT=1 docker compose up -d --build
 ```
-
-## What's next
-
-- [x] Front-end to interface with the API
-- [x] Pass model parameters when creating a chat
-- [x] Manager for model files
-- [ ] Support for other models
-- [ ] LangChain integration
-- [ ] User profiles & authentication
-
-And a lot more!
