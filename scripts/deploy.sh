@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pip install llama-cpp-python==0.1.61
+pip install llama-cpp-python==0.1.62
 
 redis-server /etc/redis/redis.conf &
 # Start the API
