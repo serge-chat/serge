@@ -41,7 +41,7 @@ models_info = {
     "Vicuna-v1.1-7B": [
         "TheBloke/vicuna-7B-1.1-GGML",
         "vicuna-7b-1.1.ggmlv3.q5_1.bin",
-        5.53e9,
+        5.06e9,
     ],
     "Vicuna-v1.1-7B-q6_K": [
         "TheBloke/vicuna-7B-1.1-GGML",
@@ -56,7 +56,7 @@ models_info = {
     "Vicuna-CoT-7B": [
         "TheBloke/Vicuna-7B-CoT-GGML",
         "vicuna-7B-cot.ggmlv3.q5_1.bin",
-        5.53e9,
+        5.06e9,
     ],
     "Vicuna-CoT-7B-q6_K": [
         "TheBloke/Vicuna-7B-CoT-GGML",
@@ -71,7 +71,7 @@ models_info = {
     "Guanaco-7B": [
         "TheBloke/guanaco-7B-GGML",
         "guanaco-7B.ggmlv3.q5_1.bin",
-        5.53e9,
+        5.06e9,
     ],
     "Guanaco-7B-q6_K": [
         "TheBloke/guanaco-7B-GGML",
@@ -96,7 +96,7 @@ models_info = {
     "Wizard-Vicuna-Uncensored-7B": [
         "TheBloke/Wizard-Vicuna-7B-Uncensored-GGML",
         "Wizard-Vicuna-7B-Uncensored.ggmlv3.q5_1.bin",
-        5.53e9,
+        5.06e9,
     ],
     "Wizard-Vicuna-Uncensored-7B-q6_K": [
         "TheBloke/Wizard-Vicuna-7B-Uncensored-GGML",
@@ -121,7 +121,7 @@ models_info = {
     "WizardLM-Uncensored-7B": [
         "TheBloke/WizardLM-7B-uncensored-GGML",
         "WizardLM-7B-uncensored.ggmlv3.q5_1.bin",
-        5.53e9,
+        5.06e9,
     ],
     "WizardLM-Uncensored-7B-q6_K": [
         "TheBloke/WizardLM-7B-uncensored-GGML",
@@ -156,7 +156,7 @@ models_info = {
     "Samantha-7B": [
         "TheBloke/Samantha-7B-GGML",
         "Samantha-7B.ggmlv3.q5_1.bin",
-        5.53e9,
+        5.06e9,
     ],
     "Samantha-7B-q6_K": [
         "TheBloke/Samantha-7B-GGML",
@@ -176,7 +176,7 @@ models_info = {
     "Koala-7B": [
         "TheBloke/koala-7B-GGML",
         "koala-7B.ggmlv3.q5_1.bin",
-        5.53e9,
+        5.06e9,
     ],
     "Koala-7B": [
         "TheBloke/koala-7B-GGML",
