@@ -18,7 +18,7 @@ models_info = {
         "gpt4-alpaca-lora-30b.ggmlv3.q5_1.bin",
         24.4e9,
     ],
-    "AlpacaLoRA-65B-q5_K_M": [
+    "AlpacaLoRA-65B": [
         "TheBloke/alpaca-lora-65B-GGML",
         "alpaca-lora-65B.ggmlv3.q5_K_M.bin",
         46.2e9,
@@ -73,7 +73,7 @@ models_info = {
         "guanaco-33B.ggmlv3.q6_K.bin",
         26.7e9,
     ],
-    "Guanaco-65B-q5_K_M": [
+    "Guanaco-65B": [
         "TheBloke/guanaco-65B-GGML",
         "guanaco-65B.ggmlv3.q5_K_M.bin",
         46.2e9,
