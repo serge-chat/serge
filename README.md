@@ -40,26 +40,47 @@ Setting up Serge on Kubernetes or docker compose can be found in the wiki: https
 
 Currently the following models are supported:
 
+### Alpaca
 - Alpaca-LoRA-65B
 - GPT4-Alpaca-LoRA-30B
+
+### GPT4All
 - GPT4All-13B
+
+### Guanaco
 - Guanaco-7B
 - Guanaco-13B
 - Guanaco-33B
 - Guanaco-65B
+
+### Koala
 - Koala-7B
 - Koala-13B
+
+### Lazarus
 - Lazarus-30B
+
+### Nous
 - Nous-Hermes-13B
+
+### OpenAssistant
 - OpenAssistant-30B
+
+### Samantha
 - Samantha-7B
 - Samantha-13B
 - Samantha-33B
+
+### Stable
 - Stable-Vicuna-13B
+
+### Vicuna
 - Vicuna-CoT-7B
 - Vicuna-CoT-13B
 - Vicuna-v1.1-7B
 - Vicuna-v1.1-13B
+
+### Wizard
 - Wizard-Mega-13B
 - Wizard-Vicuna-Uncensored-7B
 - Wizard-Vicuna-Uncensored-13B
