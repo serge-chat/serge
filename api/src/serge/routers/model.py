@@ -178,7 +178,7 @@ models_info = {
         "koala-7B.ggmlv3.q5_1.bin",
         5.06e9,
     ],
-    "Koala-7B": [
+    "Koala-7B-q6_K": [
         "TheBloke/koala-7B-GGML",
         "koala-7B.ggmlv3.q6_K.bin",
         5.53e9,
