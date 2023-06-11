@@ -6,6 +6,7 @@ on:
       - "main"
     paths-ignore:
       - "**.md"
+      - LICENSE
       - "docker-compose.yml"
       - "docker-compose.dev.yml"
       - ".github/ISSUE_TEMPLATE/*.yml"
@@ -15,6 +16,7 @@ on:
       - "*"
     paths-ignore:
       - "**.md"
+      - LICENSE
       - "docker-compose.yml"
       - "docker-compose.dev.yml"
       - ".github/ISSUE_TEMPLATE/*.yml"
