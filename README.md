@@ -5,11 +5,13 @@
 
 Serge is a chat interface crafted with [llama.cpp](https://github.com/ggerganov/llama.cpp) for running Alpaca models. No API keys, entirely self-hosted!
 
-🌐 **SvelteKit** frontend
-💾 **Redis** for storing chat history & parameters
-⚙️ **FastAPI + LangChain** for the API, wrapping calls to [llama.cpp](https://github.com/ggerganov/llama.cpp) using the [python bindings](https://github.com/abetlen/llama-cpp-python)
+- 🌐 **SvelteKit** frontend
+- 💾 **Redis** for storing chat history & parameters
+- ⚙️ **FastAPI + LangChain** for the API, wrapping calls to [llama.cpp](https://github.com/ggerganov/llama.cpp) using the [python bindings](https://github.com/abetlen/llama-cpp-python)
 
-🎥 Demo: [demo.webm](https://user-images.githubusercontent.com/25119303/226897188-914a6662-8c26-472c-96bd-f51fc020abf6.webm)
+🎥 Demo:
+
+[demo.webm](https://user-images.githubusercontent.com/25119303/226897188-914a6662-8c26-472c-96bd-f51fc020abf6.webm)
 
 ## ⚡️ Quick start
 
