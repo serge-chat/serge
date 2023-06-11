@@ -18,140 +18,140 @@ models_info = {
         "gpt4-alpaca-lora-30b.ggmlv3.q5_1.bin",
         24.4e9,
     ],
-    "AlpacaLoRA-65B": [
+    "AlpacaLoRA-65B-q5_K_M": [
         "TheBloke/alpaca-lora-65B-GGML",
-        "alpaca-lora-65B.ggmlv3.q5_1.bin",
-        48.97e9,
+        "alpaca-lora-65B.ggmlv3.q5_K_M.bin",
+        46.2e9,
     ],
-    "OpenAssistant-30B": [
+    "OpenAssistant-30B-q6_K": [
         "TheBloke/OpenAssistant-SFT-7-Llama-30B-GGML",
-        "OpenAssistant-SFT-7-Llama-30B.ggmlv3.q5_1.bin",
-        24.4e9,
+        "OpenAssistant-SFT-7-Llama-30B.ggmlv3.q6_K.bin",
+        26.7e9,
     ],
-    "GPT4All-13B": [
+    "GPT4All-13B-q6_K": [
         "TheBloke/GPT4All-13B-snoozy-GGML",
-        "GPT4All-13B-snoozy.ggmlv3.q5_1.bin",
-        9.76e9,
+        "GPT4All-13B-snoozy.ggmlv3.q6_K.bin",
+        10.7e9,
     ],
-    "StableVicuna-13B": [
+    "StableVicuna-13B-q6_K": [
         "TheBloke/stable-vicuna-13B-GGML",
-        "stable-vicuna-13B.ggmlv3.q5_1.bin",
-        9.76e9,
+        "stable-vicuna-13B.ggmlv3.q6_K.bin",
+        10.7e9,
     ],
-    "Vicuna-v1.1-7B": [
+    "Vicuna-v1.1-7B-q6_K": [
         "TheBloke/vicuna-7B-1.1-GGML",
-        "vicuna-7b-1.1.ggmlv3.q5_1.bin",
-        5.06e9,
+        "vicuna-7b-1.1.ggmlv3.q6_K.bin",
+        5.53e9,
     ],
-    "Vicuna-v1.1-13B": [
+    "Vicuna-v1.1-13B-q6_K": [
         "TheBloke/vicuna-13b-1.1-GGML",
-        "vicuna-13b-1.1.ggmlv3.q5_1.bin",
-        9.76e9,
+        "vicuna-13b-1.1.ggmlv3.q6_K.bin",
+        10.7e9,
     ],
-    "Vicuna-CoT-7B": [
+    "Vicuna-CoT-7B-q6_K": [
         "TheBloke/Vicuna-7B-CoT-GGML",
-        "vicuna-7B-cot.ggmlv3.q5_1.bin",
-        5.06e9,
+        "vicuna-7B-cot.ggmlv3.q6_K.bin",
+        5.53e9,
     ],
-    "Vicuna-CoT-13B": [
+    "Vicuna-CoT-13B-q6_K": [
         "TheBloke/Vicuna-13B-CoT-GGML",
-        "vicuna-13b-cot.ggmlv3.q5_1.bin",
-        9.76e9,
+        "vicuna-13b-cot.ggmlv3.q6_K.bin",
+        10.7e9,
     ],
-    "Guanaco-7B": [
+    "Guanaco-7B-q6_K": [
         "TheBloke/guanaco-7B-GGML",
-        "guanaco-7B.ggmlv3.q5_1.bin",
-        5.06e9,
+        "guanaco-7B.ggmlv3.q6_K.bin",
+        5.53e9,
     ],
-    "Guanaco-13B": [
+    "Guanaco-13B-q6_K": [
         "TheBloke/guanaco-13B-GGML",
-        "guanaco-13B.ggmlv3.q5_1.bin",
-        9.76e9,
+        "guanaco-13B.ggmlv3.q6_K.bin",
+        10.7e9,
     ],
-    "Guanaco-33B": [
+    "Guanaco-33B-q6_K": [
         "TheBloke/guanaco-33B-GGML",
-        "guanaco-33B.ggmlv3.q5_1.bin",
-        24.4e9,
+        "guanaco-33B.ggmlv3.q6_K.bin",
+        26.7e9,
     ],
-    "Guanaco-65B": [
+    "Guanaco-65B-q5_K_M": [
         "TheBloke/guanaco-65B-GGML",
-        "guanaco-65B.ggmlv3.q5_1.bin",
-        48.97e9,
+        "guanaco-65B.ggmlv3.q5_K_M.bin",
+        46.2e9,
     ],
-    "Wizard-Vicuna-Uncensored-7B": [
+    "Wizard-Vicuna-Uncensored-7B-q6_K": [
         "TheBloke/Wizard-Vicuna-7B-Uncensored-GGML",
-        "Wizard-Vicuna-7B-Uncensored.ggmlv3.q5_1.bin",
-        5.06e9,
+        "Wizard-Vicuna-7B-Uncensored.ggmlv3.q6_K.bin",
+        5.53e9,
     ],
-    "Wizard-Vicuna-Uncensored-13B": [
+    "Wizard-Vicuna-Uncensored-13B-q6_K": [
         "TheBloke/Wizard-Vicuna-13B-Uncensored-GGML",
-        "Wizard-Vicuna-13B-Uncensored.ggmlv3.q5_1.bin",
-        9.76e9,
+        "Wizard-Vicuna-13B-Uncensored.ggmlv3.q6_K.bin",
+        10.7e9,
     ],
-    "Wizard-Vicuna-Uncensored-30B": [
+    "Wizard-Vicuna-Uncensored-30B-q6_K": [
         "TheBloke/Wizard-Vicuna-30B-Uncensored-GGML",
-        "Wizard-Vicuna-30B-Uncensored.ggmlv3.q5_1.bin",
-        24.4e9,
+        "Wizard-Vicuna-30B-Uncensored.ggmlv3.q6_K.bin",
+        26.7e9,
     ],
-    "WizardLM-30B": [
+    "WizardLM-30B-q6_K": [
         "TheBloke/WizardLM-30B-GGML",
-        "wizardlm-30b.ggmlv3.q5_1.bin",
-        24.4e9,
+        "wizardlm-30b.ggmlv3.q6_K.bin",
+        26.7e9,
     ],
-    "WizardLM-Uncensored-7B": [
+    "WizardLM-Uncensored-7B-q6_K": [
         "TheBloke/WizardLM-7B-uncensored-GGML",
-        "WizardLM-7B-uncensored.ggmlv3.q5_1.bin",
-        5.06e9,
+        "WizardLM-7B-uncensored.ggmlv3.q6_K.bin",
+        5.53e9,
     ],
-    "WizardLM-Uncensored-13B": [
+    "WizardLM-Uncensored-13B-q6_K": [
         "TheBloke/WizardLM-13B-Uncensored-GGML",
-        "WizardLM-13B-Uncensored.ggmlv3.q5_1.bin",
-        9.76e9,
+        "WizardLM-13B-Uncensored.ggmlv3.q6_K.bin",
+        10.7e9,
     ],
-    "WizardLM-Uncensored-30B": [
+    "WizardLM-Uncensored-30B-q6_K": [
         "TheBloke/WizardLM-30B-Uncensored-GGML",
-        "WizardLM-30B-Uncensored.ggmlv3.q5_1.bin",
-        24.4e9,
+        "WizardLM-30B-Uncensored.ggmlv3.q6_K.bin",
+        26.7e9,
     ],
     "Wizard-Mega-13B": [
         "TheBloke/wizard-mega-13B-GGML",
         "wizard-mega-13B.ggmlv3.q5_1.bin",
         9.76e9,
     ],
-    "Lazarus-30B": [
+    "Lazarus-30B-q6_K": [
         "TheBloke/30B-Lazarus-GGML",
-        "30b-Lazarus.ggmlv3.q5_1.bin",
-        24.4e9,
+        "30b-Lazarus.ggmlv3.q6_K.bin",
+        26.7e9,
     ],
-    "Nous-Hermes-13B": [
+    "Nous-Hermes-13B-q6_K": [
         "TheBloke/Nous-Hermes-13B-GGML",
-        "nous-hermes-13b.ggmlv3.q5_1.bin",
-        9.76e9,
+        "nous-hermes-13b.ggmlv3.q6_K.bin",
+        10.7e9,
     ],
-    "Samantha-7B": [
+    "Samantha-7B-q6_K": [
         "TheBloke/Samantha-7B-GGML",
-        "Samantha-7B.ggmlv3.q5_1.bin",
-        5.06e9,
+        "Samantha-7B.ggmlv3.q6_K.bin",
+        5.53e9,
     ],
-    "Samantha-13B": [
+    "Samantha-13B-q6_K": [
         "TheBloke/Samantha-13B-GGML",
-        "samantha-13b.ggmlv3.q5_1.bin",
-        9.76e9,
+        "samantha-13b.ggmlv3.q6_K.bin",
+        10.7e9,
     ],
-    "Samantha-33B": [
+    "Samantha-33B-q6_K": [
         "TheBloke/Samantha-33B-GGML",
-        "samantha-33B.ggmlv3.q5_1.bin",
-        24.4e9,
+        "samantha-33B.ggmlv3.q6_K.bin",
+        26.7e9,
     ],
-    "Koala-7B": [
+    "Koala-7B-q6_K": [
         "TheBloke/koala-7B-GGML",
-        "koala-7B.ggmlv3.q5_1.bin",
-        5.06e9,
+        "koala-7B.ggmlv3.q6_K.bin",
+        5.53e9,
     ],
-    "Koala-13B": [
+    "Koala-13B-q6_K": [
         "TheBloke/koala-13B-GGML",
-        "koala-13B.ggmlv3.q5_1.bin",
-        9.76e9,
+        "koala-13B.ggmlv3.q6_K.bin",
+        10.7e9,
     ],
 }
 
