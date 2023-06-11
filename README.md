@@ -76,8 +76,11 @@ If you have existing weights from another project you can add them to the `serge
 LLaMA will just crash if you don't have enough available memory for your model.
 
 - 7B requires about 4.5GB of free RAM
+- 7B-q6_K requires about 8.03 GB of free RAM
 - 13B requires about 12GB free
+- 13B-q6_K requires about 13.18 GB free
 - 30B requires about 20GB free
+- 30B-q6_K requires about 29.19 GB free
 
 ## Support
 
