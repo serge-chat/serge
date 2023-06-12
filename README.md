@@ -1,4 +1,4 @@
-# 🦙 Serge - LLaMA made easy
+# Serge - LLaMA made easy 🦙
 
 ![License](https://img.shields.io/github/license/serge-chat/serge)
 [![Discord](https://img.shields.io/discord/1088427963801948201?label=Discord)](https://discord.gg/62Hc6FEYQH)
@@ -49,7 +49,7 @@ Then, just visit http://localhost:8008/, You can find the API documentation at h
 
 Ensure you have Docker Desktop installed, WSL2 configured, and enough free RAM to run models. 
 
-## ☁️Kubernetes & Docker Compose Setup
+## ☁️ Kubernetes & Docker Compose Setup
 
 Instructions for setting up Serge on Kubernetes can be found in the [wiki](https://github.com/serge-chat/serge/wiki/Integrating-Serge-in-your-orchestration#kubernetes-example).
 
