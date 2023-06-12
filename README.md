@@ -1,4 +1,4 @@
-# 🦙 Serge - LLaMA made easy
+# Serge - LLaMA made easy 🦙
 
 ![License](https://img.shields.io/github/license/serge-chat/serge)
 [![Discord](https://img.shields.io/discord/1088427963801948201?label=Discord)](https://discord.gg/62Hc6FEYQH)
@@ -49,7 +49,7 @@ Then, just visit http://localhost:8008/, You can find the API documentation at h
 
 Ensure you have Docker Desktop installed, WSL2 configured, and enough free RAM to run models. 
 
-## ☁️Kubernetes & Docker Compose Setup
+## ☁️ Kubernetes & Docker Compose Setup
 
 Instructions for setting up Serge on Kubernetes can be found in the [wiki](https://github.com/serge-chat/serge/wiki/Integrating-Serge-in-your-orchestration#kubernetes-example).
 
@@ -57,9 +57,16 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 
 We currently support the following models:
 
+- Airoboros 🎈
+  - Airoboros-7B
+  - Airoboros-13B
+  - Airoboros-30B
 - Alpaca 🦙
   - Alpaca-LoRA-65B
   - GPT4-Alpaca-LoRA-30B
+- Chronos 🌑
+  - Chronos-13B
+  - Chronos-33B
 - GPT4All 🌍
   - GPT4All-13B
 - Guanaco 🦙
@@ -70,6 +77,9 @@ We currently support the following models:
 - Koala 🐨
   - Koala-7B
   - Koala-13B
+- Llama 🦙
+  - FinLlama-33B
+  - Llama-Supercot-30B
 - Lazarus 💀
   - Lazarus-30B
 - Nous 🧠
@@ -80,13 +90,18 @@ We currently support the following models:
   - Samantha-7B
   - Samantha-13B
   - Samantha-33B
-- Stable 🐎
-  - Stable-Vicuna-13B
+- Tulu 🎚
+  - Tulu-7B
+  - Tulu-13B
+  - Tulu-30B
 - Vicuna 🦙
+  - Stable-Vicuna-13B
   - Vicuna-CoT-7B
   - Vicuna-CoT-13B
   - Vicuna-v1.1-7B
   - Vicuna-v1.1-13B
+  - VicUnlocked-30B
+  - VicUnlocked-65B
 - Wizard 🧙
   - Wizard-Mega-13B
   - Wizard-Vicuna-Uncensored-7B
