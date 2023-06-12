@@ -201,12 +201,12 @@ models_info = {
     "VicUnlocked-30B": [
         "TheBloke/VicUnlocked-30B-LoRA-GGML",
         "VicUnlocked-30B-LoRA.ggmlv3.q6_K.bin",
-        10.7e9,
+        26.7e9,
     ],
     "VicUnlocked-65B": [
         "TheBloke/VicUnlocked-alpaca-65B-QLoRA-GGML",
         "vicunlocked-65b.ggmlv3.q5_K_M.bin",
-        26.7e9,
+        46.2e9,
     ],
     "Wizard-Mega-13B": [
         "TheBloke/wizard-mega-13B-GGML",
