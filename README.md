@@ -40,9 +40,18 @@ Setting up Serge on Kubernetes or docker compose can be found in the wiki: https
 
 Currently the following models are supported:
 
+#### Airoboros
+- Airoboros-7B
+- Airoboros-13B
+- Airoboros-30B
+
 #### Alpaca
 - Alpaca-LoRA-65B
 - GPT4-Alpaca-LoRA-30B
+
+#### Chronos
+- Chronos-13B
+- Chronos-33B
 
 #### GPT4All
 - GPT4All-13B
@@ -56,6 +65,10 @@ Currently the following models are supported:
 #### Koala
 - Koala-7B
 - Koala-13B
+
+#### Llama
+- FinLlama-33B
+- Llama-Supercot-30B
 
 #### Lazarus
 - Lazarus-30B
@@ -71,14 +84,19 @@ Currently the following models are supported:
 - Samantha-13B
 - Samantha-33B
 
-#### Stable
-- Stable-Vicuna-13B
+#### Tulu
+- Tulu-7B
+- Tulu-13B
+- Tulu-30B
 
 #### Vicuna
+- Stable-Vicuna-13B
 - Vicuna-CoT-7B
 - Vicuna-CoT-13B
 - Vicuna-v1.1-7B
 - Vicuna-v1.1-13B
+- VicUnlocked-30B
+- VicUnlocked-65B
 
 #### Wizard
 - Wizard-Mega-13B
