@@ -24,6 +24,7 @@ npm-debug.log
 .env
 .aws
 
+**/.ruff_cache/
 __pycache__
 *.pyc
 *.pyo
