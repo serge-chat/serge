@@ -1,18 +1,14 @@
-version: "3.9"
 services:
   serge:
-    restart: on-failure
-    build: 
-      context: .
-      dockerfile: Dockerfile
-      target: release
-    volumes:
-      - datadb:/data/db
-      - weights:/usr/src/app/weights/
-      - /etc/localtime:/etc/localtime:ro 
+    image: ghcr.io/serge-chat/serge:latest
+    container_name: serge
+    restart: unless-stopped
     ports:
-      - "8008:8008"
+      - 8008:8008
+    volumes:
+      - weights:/usr/src/app/weights
+      - datadb:/data/db/
 
 volumes:
-  datadb:
   weights:
+  datadb:
