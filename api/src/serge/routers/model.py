@@ -250,7 +250,7 @@ models_info = {
     ],
     "WizardLM-Uncensored-13B": [
         "TheBloke/WizardLM-13B-Uncensored-GGML",
-        "WizardLM-13B-Uncensored.ggmlv3.q6_K.bin",
+        "wizardLM-13B-Uncensored.ggmlv3.q6_K.bin",
         10.7e9,
     ],
     "WizardLM-Uncensored-30B": [
