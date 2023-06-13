@@ -20,12 +20,12 @@ models_info = {
     ],
     "Airoboros-7B-q6_K": [
         "TheBloke/airoboros-7b-gpt4-GGML",
-        "airoboros-7b-gpt4.ggmlv3.q6_K.bin",
+        "airoboros-7B.ggmlv3.q6_K.bin",
         5.53e9,
     ],
     "Airoboros-13B": [
         "TheBloke/airoboros-13b-gpt4-GGML",
-        "airoboros-13b-gpt4.ggmlv3.q6_K.bin",
+        "airoboros-13b.ggmlv3.q6_K.bin",
         10.7e9,
     ],
     "Airoboros-33B": [
