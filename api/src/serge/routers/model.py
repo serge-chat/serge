@@ -58,6 +58,11 @@ models_info = {
         "chronos-33b.ggmlv3.q6_K.bin",
         26.7e9,
     ],
+    "Chronos-Hermes-13B": [
+        "TheBloke/chronos-hermes-13B-GGML",
+        "chronos-hermes-13b.ggmlv3.q6_K.bin",
+        10.7e9,
+    ],
     "Guanaco-7B": [
         "TheBloke/guanaco-7B-GGML",
         "guanaco-7B.ggmlv3.q5_1.bin",
