@@ -67,6 +67,7 @@ We currently support the following models:
 - Chronos 🌑
   - Chronos-13B
   - Chronos-33B
+  - Chronos-Hermes-13B
 - GPT4All 🌍
   - GPT4All-13B
 - Guanaco 🦙
