@@ -269,11 +269,11 @@ def migrate(fin_path):
         tokens = read_tokens(fin, hparams)
 
     if hparams["magic"] == 0x67676A74:  # ggjt
-        print("%s: input ggml has already been converted to 'ggjt' magic\n" % (fin_path))
+        print(f"{fin_path}: input ggml has already been converted to 'ggjt' magic\n")
         return
 
     if hparams["magic"] != 0x67676D66:  # ggmf
-        print("%s: input ggml file doesn't have expected 'ggmf' magic: %#x\n" % (fin_path, hparams["magic"]))
+        print(f"{fin_path}: input ggml file doesn't have expected 'ggmf' magic: {hparams['magic']:#x}\n")
         return
 
     hparams["magic"] = 0x67676A74  # ggjt

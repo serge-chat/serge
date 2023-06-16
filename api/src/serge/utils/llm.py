@@ -1,5 +1,5 @@
 """Wrapper around llama.cpp."""
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from langchain.llms.base import LLM
 from pydantic import Extra, Field, root_validator
@@ -45,39 +45,39 @@ class LlamaCpp(LLM):
     use_mlock: bool = Field(False, alias="use_mlock")
     """Force system to keep model in RAM."""
 
-    n_threads: Optional[int] = Field(None, alias="n_threads")
+    n_threads: int | None = Field(None, alias="n_threads")
     """Number of threads to use. 
     If None, the number of threads is automatically determined."""
 
-    n_batch: Optional[int] = Field(8, alias="n_batch")
+    n_batch: int | None = Field(8, alias="n_batch")
     """Number of tokens to process in parallel.
     Should be a number between 1 and n_ctx."""
 
-    max_tokens: Optional[int] = 256
+    max_tokens: int | None = 256
     """The maximum number of tokens to generate."""
 
-    temperature: Optional[float] = 0.8
+    temperature: float | None = 0.8
     """The temperature to use for sampling."""
 
-    top_p: Optional[float] = 0.95
+    top_p: float | None = 0.95
     """The top-p value to use for sampling."""
 
-    logprobs: Optional[int] = Field(None)
+    logprobs: int | None = Field(None)
     """The number of logprobs to return. If None, no logprobs are returned."""
 
-    echo: Optional[bool] = False
+    echo: bool | None = False
     """Whether to echo the prompt."""
 
-    stop_sequences: Optional[List[str]] = []
+    stop_sequences: list[str] | None = []
     """A list of strings to stop generation when encountered."""
 
-    repeat_penalty: Optional[float] = 1.1
+    repeat_penalty: float | None = 1.1
     """The penalty to apply to repeated tokens."""
 
-    top_k: Optional[int] = 40
+    top_k: int | None = 40
     """The top-k value to use for sampling."""
 
-    last_n_tokens_size: Optional[int] = 64
+    last_n_tokens_size: int | None = 64
     """The number of tokens to look back when applying the repeat_penalty."""
 
     streaming: bool = False
@@ -86,7 +86,7 @@ class LlamaCpp(LLM):
         extra = Extra.ignore
 
     @root_validator()
-    def validate_environment(cls, values: Dict) -> Dict:
+    def validate_environment(cls, values: dict) -> dict:
         """Validate that llama-cpp-python library is installed."""
         model_path = values["model_path"]
 
@@ -105,7 +105,7 @@ class LlamaCpp(LLM):
         return values
 
     @property
-    def _default_params(self) -> Dict[str, Any]:
+    def _default_params(self) -> dict[str, Any]:
         """Get the default parameters for calling llama_cpp."""
         return {
             "max_tokens": self.max_tokens,
@@ -130,7 +130,7 @@ class LlamaCpp(LLM):
         }
 
     @property
-    def _identifying_params(self) -> Dict[str, Any]:
+    def _identifying_params(self) -> dict[str, Any]:
         """Get the identifying parameters."""
         return {**{"model_path": self.model_path}, **self._default_params}
 
@@ -139,7 +139,7 @@ class LlamaCpp(LLM):
         """Return type of llm."""
         return "llama.cpp"
 
-    def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
+    def _call(self, prompt: str, stop: list[str] | None = None) -> str:
         """Call the Llama model and return the output.
 
         Args:
