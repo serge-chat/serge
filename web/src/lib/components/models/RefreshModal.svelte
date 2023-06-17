@@ -24,7 +24,7 @@
   };
 </script>
 
-<button class="btn btn-ghost" on:click={() => dialogTag.showModal()}
+<button class="btn btn-outline" on:click={() => dialogTag.showModal()}
   >Refresh Models</button
 >
 <dialog bind:this={dialogTag} class="modal">
@@ -35,7 +35,7 @@
     <form on:submit|preventDefault={handleRefresh}>
       <h3 class="text-lg font-bold">Model refresh</h3>
       <p class="py-4">
-        Enter the URL of the JSON file containing the models below:
+        Enter the URL of the JSON file containing the models below
       </p>
       <input
         type="text"
