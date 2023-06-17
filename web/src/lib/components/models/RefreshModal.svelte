@@ -18,7 +18,7 @@
       await invalidate("/api/model/all");
       dialogTag.close();
     } else {
-      alert("Error refreshing models");
+      console.error("Error refreshing models");
     }
     isLoading = false;
   };

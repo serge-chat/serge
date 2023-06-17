@@ -11,4 +11,5 @@ module.exports = {
     ecmaVersion: 2020,
   },
   extends: ["@feltjs"],
+  ignorePatterns: ["*.cjs", "*.config.js"],
 };

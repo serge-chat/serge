@@ -143,15 +143,15 @@
     }
   }
 
-  let md: MarkdownIt = new MarkdownIt({
+  const md: MarkdownIt = new MarkdownIt({
     html: true,
     linkify: true,
     typographer: true,
     breaks: true,
-    highlight: function (code: string, lang: string) {
+    highlight: (code_string: string, lang: string) => {
       if (lang && hljs.getLanguage(lang)) {
         try {
-          code = hljs.highlight(code, lang).value;
+          const code = hljs.highlight(code_string, lang).value;
           return hljs.highlight(code, { language: lang }).value;
         } catch (__) {}
       }
@@ -171,6 +171,9 @@
     // Increment the codeblock id
     const id = `code-block-${Math.random().toString(36).substring(7)}`;
     // Generate original fenced code block HTML
+    if (!originalFenceRenderer)
+      throw new Error("originalFenceRenderer is undefined");
+
     const codeBlock = originalFenceRenderer(
       tokens,
       index,
@@ -202,7 +205,7 @@
   };
 
   onMount(() => {
-    new ClipboardJS(".copy-button");
+    const cbJS = new ClipboardJS(".copy-button");
   });
 
   let sendBottomHovered = false;
@@ -286,7 +289,7 @@
                 {@html renderMarkdown(question.data.content)}
               </div>
             </div>
-            {#if i == history.length - 1 && !isLoading}
+            {#if i === history.length - 1 && !isLoading}
               <div style="width: 100%; text-align: right;">
                 <button
                   disabled={isLoading}
@@ -295,7 +298,7 @@
                     deletePrompt(
                       data.chat.id,
                       question.data.content,
-                      question.data.additional_kwargs?.id,
+                      question.data.additional_kwargs?.id ?? "",
                       i
                     )}
                 >
@@ -328,7 +331,7 @@
                 {@html renderMarkdown(question.data.content)}
               </div>
             </div>
-            {#if i == history.length - 1 && !isLoading}
+            {#if i === history.length - 1 && !isLoading}
               <div style="width: 100%; text-align: right;">
                 <button
                   disabled={isLoading}
@@ -337,7 +340,7 @@
                     deletePrompt(
                       data.chat.id,
                       question.data.content,
-                      question.data.additional_kwargs?.id,
+                      question.data.additional_kwargs?.id ?? "",
                       i
                     )}
                 >
@@ -363,7 +366,6 @@
       class="input-bordered input flex h-auto w-full max-w-3xl flex-row items-center justify-between rounded-lg bg-base-200 px-0 drop-shadow-md"
     >
       <textarea
-        autofocus
         name="question"
         class="textarea h-10 flex-1 resize-y bg-[transparent] text-lg placeholder-base-content outline-0 ring-0 focus:outline-0"
         disabled={isLoading}

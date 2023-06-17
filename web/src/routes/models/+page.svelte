@@ -122,7 +122,7 @@
             class="btn-primary btn mx-auto"
             class:model.available={() => "btn-outline"}
             disabled={model.available ||
-              (model.progress && model.progress > 0 ? true : false)}
+              !!(model.progress && model.progress > 0)}
           >
             Download
           </button>
