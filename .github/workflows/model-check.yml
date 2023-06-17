@@ -1,0 +1,42 @@
+on:
+  push:
+    branches:
+      - "main"
+    paths-ignore:
+      - "**.md"
+      - LICENSE
+      - "docker-compose.yml"
+      - "docker-compose.dev.yml"
+      - ".github/ISSUE_TEMPLATE/*.yml"
+      - ".github/dependabot.yml"
+  pull_request:
+    branches:
+      - "*"
+    paths-ignore:
+      - "**.md"
+      - LICENSE
+      - "docker-compose.yml"
+      - "docker-compose.dev.yml"
+      - ".github/ISSUE_TEMPLATE/*.yml"
+      - ".github/dependabot.yml"
+  workflow_dispatch:
+  release:
+    types: [published, edited]
+
+jobs:
+  model-health-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Install dependencies with poetry
+        working-directory: ./api
+        run: |
+          pip install poetry
+          poetry install
+      - name: Run model health check
+        working-directory: ./api
+        run: |
+          poetry run python -m pytest test/healthcheck_models.py
