@@ -68,6 +68,7 @@ numpy = "^1.24.2"
 langchain = "^0.0.180"
 loguru = "^0.7.0"
 redis = {extras = ["hiredis"], version = "^4.5.5"}
+pytest = "^7.3.2"
 
 [tool.ruff]
 # Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.

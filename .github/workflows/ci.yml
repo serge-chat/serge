@@ -26,6 +26,38 @@ on:
     types: [published, edited]
 
 jobs:
+  model-health-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Install dependencies with poetry
+        working-directory: ./api
+        run: |
+          pip install poetry
+          poetry install
+      - name: Run model health check
+        working-directory: ./api
+        run: |
+          poetry run python -m pytest test/healthcheck_models.py
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Install dependencies with poetry
+        working-directory: ./api
+        run: |
+          pip install poetry
+          poetry install 
+      - name: Run unit tests
+        run: |
+          poetry run python -m pytest
+          
   check-sh-files:
     runs-on: ubuntu-latest
     steps:
