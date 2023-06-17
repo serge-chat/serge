@@ -5,9 +5,10 @@ import pytest
 
 from pathlib import Path
 
-test_dir = Path(__file__).parent
+# this test file specifically doesn't start with test_* so it's not picked up by pytest
 
-with open(test_dir.parent / "models.json", "r") as models_file:
+test_dir = Path(__file__).parent
+with open(test_dir.parent / "src/serge/data/models.json", "r") as models_file:
     families = json.load(models_file)
 
 # generate list of checks

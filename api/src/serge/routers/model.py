@@ -1,5 +1,4 @@
 import os
-import json
 import urllib.request
 
 import huggingface_hub
