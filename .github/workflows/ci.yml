@@ -53,8 +53,9 @@ jobs:
         working-directory: ./api
         run: |
           pip install poetry
-          poetry install 
+          poetry install
       - name: Run unit tests
+        working-directory: ./api
         run: |
           poetry run python -m pytest
           
