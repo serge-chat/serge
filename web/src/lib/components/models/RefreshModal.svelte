@@ -15,7 +15,7 @@
     });
 
     if (r.ok) {
-      await invalidate("/api/model");
+      await invalidate("/api/model/all");
       dialogTag.close();
     } else {
       alert("Error refreshing models");
