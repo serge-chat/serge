@@ -192,25 +192,6 @@ tests = ["attrs[tests-no-zope]", "zope-interface"]
 tests-no-zope = ["cloudpickle", "hypothesis", "mypy (>=1.1.1)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "pytest-xdist[psutil]"]
 
 [[package]]
-name = "beanie"
-version = "1.19.2"
-description = "Asynchronous Python ODM for MongoDB"
-category = "main"
-optional = false
-python-versions = ">=3.7,<4.0"
-files = [
-    {file = "beanie-1.19.2-py3-none-any.whl", hash = "sha256:fba803e954eff3f036db2236c1e02fe7afffe4330db2108d405ac820076e3ae1"},
-    {file = "beanie-1.19.2.tar.gz", hash = "sha256:1894c984a9f129bce03e19a9cb52ad47002bb3b4ea1a6b7af3a8a65978a35b78"},
-]
-
-[package.dependencies]
-click = ">=7"
-lazy-model = ">=0.0.3"
-motor = ">=2.5,<4.0"
-pydantic = ">=1.10.0"
-toml = "*"
-
-[[package]]
 name = "certifi"
 version = "2023.5.7"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -2324,4 +2305,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4.0"
-content-hash = "73c2bbb53df4c10082712e3f6f55a6f0f0c48f838e05eefb9e453202e15f9a9f"
+content-hash = "573af32eacbcc7123e3b85f7c52383b93e22892dc964226a7299aaa90df0b342"
