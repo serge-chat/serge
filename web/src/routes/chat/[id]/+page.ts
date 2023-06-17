@@ -4,7 +4,6 @@ type MessageType = "human" | "ai" | "system";
 
 type MessageData = {
   content: string;
-  additional_kwargs?: Record<string, string>;
 };
 
 type Message = {

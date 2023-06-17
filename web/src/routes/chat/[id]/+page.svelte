@@ -45,32 +45,18 @@
       {
         type: "human",
         data: {
-          additional_kwargs: {
-            id: undefined,
-          },
           content: prompt,
         },
       },
       {
         type: "ai",
         data: {
-          additional_kwargs: {
-            id: undefined,
-          },
           content: "",
         },
       },
     ];
 
     prompt = "";
-
-    eventSource.addEventListener("human_id", (event) => {
-      history[history.length - 2].data.additional_kwargs.id = event.data;
-    });
-
-    eventSource.addEventListener("ai_id", (event) => {
-      history[history.length - 1].data.additional_kwargs.id = event.data;
-    });
 
     eventSource.addEventListener("message", (event) => {
       history[history.length - 1].data.content += event.data;
@@ -119,25 +105,14 @@
     }
   });
 
-  function deleteHistory(i: number) {
-    history.splice(i, 1);
-    return history;
-  }
+  async function deletePrompt(chatID: string, idx: number) {
+    const response = await fetch(
+      `/api/chat/${chatID}/prompt?idx=${idx.toString()}`,
+      { method: "DELETE" }
+    );
 
-  async function deletePrompt(
-    chatID: string,
-    content: string,
-    id: string,
-    i: number
-  ) {
-    let endpoint = `/api/chat/${chatID}/prompt?content=${content}&id=`;
-    if (id) {
-      endpoint = `/api/chat/${chatID}/prompt?id=${id}&content=`;
-    }
-
-    const response = await fetch(endpoint, { method: "DELETE" });
     if (response.status === 200) {
-      history = deleteHistory(i);
+      await invalidate("/api/chat/" + $page.params.id);
     } else {
       console.error("Error " + response.status + ": " + response.statusText);
     }
@@ -294,13 +269,7 @@
                 <button
                   disabled={isLoading}
                   class="btn-ghost btn-sm btn"
-                  on:click|preventDefault={() =>
-                    deletePrompt(
-                      data.chat.id,
-                      question.data.content,
-                      question.data.additional_kwargs?.id ?? "",
-                      i
-                    )}
+                  on:click|preventDefault={() => deletePrompt(data.chat.id, i)}
                 >
                   🗑️
                 </button>
@@ -336,13 +305,7 @@
                 <button
                   disabled={isLoading}
                   class="btn-ghost btn-sm btn"
-                  on:click|preventDefault={() =>
-                    deletePrompt(
-                      data.chat.id,
-                      question.data.content,
-                      question.data.additional_kwargs?.id ?? "",
-                      i
-                    )}
+                  on:click|preventDefault={() => deletePrompt(data.chat.id, i)}
                 >
                   🗑️
                 </button>

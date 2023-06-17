@@ -9,9 +9,6 @@ from sse_starlette.sse import EventSourceResponse
 from serge.models.chat import Chat, ChatParameters
 from serge.utils.stream import get_prompt
 
-import uuid
-
-
 chat_router = APIRouter(
     prefix="/chat",
     tags=["chat"],
@@ -128,7 +125,7 @@ async def get_chat_history(chat_id: str):
 
 
 @chat_router.delete("/{chat_id}/prompt")
-async def delete_prompt(chat_id: str, content: str, id: str):
+async def delete_prompt(chat_id: str, idx: int):
     client = Redis()
 
     if not client.sismember("chats", chat_id):
@@ -136,39 +133,14 @@ async def delete_prompt(chat_id: str, content: str, id: str):
 
     history = RedisChatMessageHistory(chat_id)
 
-    deleted = False
-    old_messages = history.messages.copy()
-    old_messages.reverse()
-    new_messages = []
+    if idx >= len(history.messages):
+        raise ValueError("Index out of range")
 
-    if len(content) > 0:
-        logger.debug(f"DELETE content:{content}")
-        for message in old_messages:
-            test_content = message.content.replace("\n", "").replace("+", " ")
-            if not test_content.startswith(content) or deleted:
-                new_messages.append(message)
-            elif test_content.startswith(content) and not deleted:
-                deleted = True
-    elif len(id) > 0:
-        logger.debug(f"DELETE id:{id}")
-        for message in old_messages:
-            if not message.additional_kwargs.get("id") == id:
-                new_messages.append(message)
-            elif message.additional_kwargs.get("id") == id and not deleted:
-                deleted = True
-    elif len(old_messages) > 0:
-        logger.debug("DELETE last message")
-        new_messages = old_messages[1:]
+    messages = history.messages.copy()[: idx - 1]
+    history.clear()
 
-    if len(new_messages) == len(old_messages):
-        raise ValueError("Prompt not deleted")
-
-    new_messages.reverse()
-
-    if len(new_messages) > 0:
-        history.clear()
-        for new_message in new_messages:
-            history.append(new_message)
+    for message in messages:
+        history.append(message)
 
     return True
 
@@ -204,10 +176,9 @@ def stream_ask_a_question(chat_id: str, prompt: str):
     logger.debug("creating history")
     history = RedisChatMessageHistory(chat.id)
 
-    human_uuid = str(uuid.uuid4())
     if len(prompt) > 0:
         logger.debug(f"adding question {prompt}")
-        human_message = HumanMessage(content=prompt, additional_kwargs={"id": human_uuid})
+        human_message = HumanMessage(content=prompt)
         history.append(message=human_message)
     prompt = get_prompt(history, chat.params)
     prompt += "### Response:\n"
@@ -227,11 +198,6 @@ def stream_ask_a_question(chat_id: str, prompt: str):
         return {"event": "error"}
 
     def event_generator():
-        yield {"event": "human_id", "data": human_uuid}
-
-        ai_uuid = str(uuid.uuid4())
-        yield {"event": "ai_id", "data": ai_uuid}
-
         full_answer = ""
         error = None
         try:
@@ -260,7 +226,7 @@ def stream_ask_a_question(chat_id: str, prompt: str):
                 history.append(SystemMessage(content=error))
             else:
                 logger.info(full_answer)
-                ai_message = AIMessage(content=full_answer, additional_kwargs={"id": ai_uuid})
+                ai_message = AIMessage(content=full_answer)
                 history.append(message=ai_message)
             yield ({"event": "close"})
 
@@ -280,8 +246,7 @@ async def ask_a_question(chat_id: str, prompt: str):
     history = RedisChatMessageHistory(chat.id)
 
     if len(prompt) > 0:
-        uuid_str = str(uuid.uuid4())
-        human_message = HumanMessage(content=prompt, additional_kwargs={"id": uuid_str})
+        human_message = HumanMessage(content=prompt)
         history.append(message=human_message)
 
     prompt = get_prompt(history, chat.params)
@@ -311,7 +276,6 @@ async def ask_a_question(chat_id: str, prompt: str):
     if not isinstance(answer, str):
         answer = str(answer)
 
-    uuid_str = str(uuid.uuid4())
-    ai_message = AIMessage(content=answer, additional_kwargs={"id": uuid_str})
+    ai_message = AIMessage(content=answer)
     history.append(message=ai_message)
     return answer
