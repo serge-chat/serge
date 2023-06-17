@@ -1,9 +1,11 @@
 import os
 import urllib.request
-
+import requests
 import huggingface_hub
-from fastapi import APIRouter, HTTPException
 
+from typing import Annotated
+
+from fastapi import APIRouter, HTTPException, Form
 from serge.models.models import Families
 from serge.utils.convert import convert_one_file
 from serge.utils.migrate import migrate
@@ -29,6 +31,35 @@ for family in families.__root__:
                 file.filename,
                 file.disk_space,
             )
+
+
+@model_router.post("/refresh")
+async def refresh_models(url: Annotated[str, Form()]):
+    """
+    Refreshes the list of models available for download.
+    """
+    global models_info
+
+    r = requests.get(url)
+
+    if not r.ok:
+        raise HTTPException(
+            status_code=500, detail="Could not refresh models using the link provided."
+        )
+
+    families = Families.parse_obj(r.json())
+
+    models_info = {}
+    for family in families.__root__:
+        for model in family.models:
+            for file in model.files:
+                models_info[model.name] = (
+                    model.repo,
+                    file.filename,
+                    file.disk_space,
+                )
+
+    return
 
 
 @model_router.get("/all")
