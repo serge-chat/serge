@@ -105,7 +105,7 @@
           <div class="mx-auto my-5 w-56 justify-center">
             <p class="w-full text-center font-light">{model.progress}%</p>
             <progress
-              class="progress progress-primary mx-auto h-5 w-56"
+              class="progress-primary progress mx-auto h-5 w-56"
               value={model.progress}
               max="100"
             />
@@ -114,12 +114,12 @@
         {#if model.available}
           <button
             on:click={() => deleteModel(model.name)}
-            class="btn btn-warning btn-outline mx-auto">Delete</button
+            class="btn-warning btn-outline btn mx-auto">Delete</button
           >
         {:else}
           <button
             on:click={() => onClick(model.name)}
-            class="btn btn-primary mx-auto"
+            class="btn-primary btn mx-auto"
             class:model.available={() => "btn-outline"}
             disabled={model.available ||
               (model.progress && model.progress > 0 ? true : false)}

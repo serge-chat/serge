@@ -45,10 +45,12 @@
   }
 </script>
 
-<div class="pt-5 flex flex-col justify-center items-center">
-  <h1 class="pb-2 text-3xl font-bold">Say Hi to <span class="font-rubik-pixels">Serge</span></h1>
+<div class="flex flex-col items-center justify-center pt-5">
+  <h1 class="pb-2 text-3xl font-bold">
+    Say Hi to <span class="font-rubik-pixels">Serge</span>
+  </h1>
 </div>
-<h1 class="text-xl font-light text-center pt-2 pb-5">
+<h1 class="pb-5 pt-2 text-center text-xl font-light">
   An easy way to chat with Alpaca & other LLaMA based models.
 </h1>
 
@@ -57,18 +59,18 @@
     <div class="mx-auto w-fit pt-5">
       <button
         type="submit"
-        class="btn btn-primary mx-5"
+        class="btn-primary btn mx-5"
         disabled={!modelAvailable}>Start a new chat</button
       >
       <button
         on:click={() => goto("/models")}
         type="button"
-        class="btn btn-outline mx-5">Download Models</button
+        class="btn-outline btn mx-5">Download Models</button
       >
     </div>
   </div>
 
-  <div tabindex="-1" class="collapse collapse-arrow rounded-box bg-base-200">
+  <div tabindex="-1" class="collapse-arrow rounded-box collapse bg-base-200">
     <input type="checkbox" />
     <div class="collapse-title text-xl font-medium">Model settings</div>
     <div class="collapse-content">
@@ -91,12 +93,12 @@
           />
         </div>
         <div
-          class="flex flex-col tooltip tooltip-bottom"
+          class="tooltip tooltip-bottom flex flex-col"
           data-tip="The number of samples to consider for top_k sampling. "
         >
           <label for="top_k" class="label-text pb-1">top_k</label>
           <input
-            class="input input-bordered w-full max-w-xs"
+            class="input-bordered input w-full max-w-xs"
             name="top_k"
             type="number"
             bind:value={top_k}
@@ -119,12 +121,12 @@
           />
         </div>
         <div
-          class="flex flex-col tooltip"
+          class="tooltip flex flex-col"
           data-tip="The cumulative probability of the tokens to keep for nucleus sampling. "
         >
           <label for="top_p" class="label-text pb-1">top_p</label>
           <input
-            class="input input-bordered w-full max-w-xs"
+            class="input-bordered input w-full max-w-xs"
             name="top_p"
             type="number"
             bind:value={top_p}
@@ -152,14 +154,14 @@
         </div>
 
         <div
-          class="flex flex-col tooltip"
+          class="tooltip flex flex-col"
           data-tip="Number of tokens to look back on for deciding to apply the repeat penalty."
         >
           <label for="repeat_last_n" class="label-text pb-1"
             >repeat_last_n</label
           >
           <input
-            class="input input-bordered w-full max-w-xs"
+            class="input-bordered input w-full max-w-xs"
             name="repeat_last_n"
             type="number"
             bind:value={repeat_last_n}
@@ -169,19 +171,19 @@
         </div>
         <div class="flex flex-col">
           <label for="model" class="label-text pb-1"> Model choice </label>
-          <select name="model" class="select select-bordered w-full max-w-xs">
+          <select name="model" class="select-bordered select w-full max-w-xs">
             {#each modelsLabels as model}
               <option value={model}>{model}</option>
             {/each}
           </select>
         </div>
         <div
-          class="flex flex-col tooltip"
+          class="tooltip flex flex-col"
           data-tip="Number of threads to run LLaMA on."
         >
           <label for="n_threads" class="label-text pb-1">n_threads</label>
           <input
-            class="input input-bordered w-full max-w-xs"
+            class="input-bordered input w-full max-w-xs"
             name="n_threads"
             type="number"
             bind:value={n_threads}
@@ -190,14 +192,14 @@
           />
         </div>
         <div
-          class="flex flex-col tooltip"
+          class="tooltip flex flex-col"
           data-tip="The weight of the penalty to avoid repeating the last repeat_last_n tokens. "
         >
           <label for="repeat_penalty" class="label-text pb-1">
             repeat_penalty
           </label>
           <input
-            class="input input-bordered w-full max-w-xs"
+            class="input-bordered input w-full max-w-xs"
             name="repeat_penalty"
             type="number"
             bind:value={repeat_penalty}
@@ -211,7 +213,7 @@
             >Pre-Prompt for initializing a conversation.</label
           >
           <textarea
-            class="textarea h-24 textarea-bordered w-full"
+            class="textarea-bordered textarea h-24 w-full"
             name="init_prompt"
             bind:value={init_prompt}
             placeholder="Enter your prompt here"

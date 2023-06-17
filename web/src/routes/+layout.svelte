@@ -57,19 +57,19 @@
 
 <aside
   id="default-sidebar"
-  class="border-base-content/[.2] fixed left-0 top-0 z-40 h-screen w-80 -translate-x-full border-r transition-transform sm:translate-x-0"
+  class="fixed left-0 top-0 z-40 h-screen w-80 -translate-x-full border-r border-base-content/[.2] transition-transform sm:translate-x-0"
   aria-label="Sidebar"
 >
-  <div class="bg-base-200 h-full overflow-y-auto px-3 py-4">
+  <div class="h-full overflow-y-auto bg-base-200 px-3 py-4">
     <ul class="space-y-2">
       <li class="pt-4">
-        <a href="/" class="btn btn-outline h-6 w-full font-semibold"> Home </a>
+        <a href="/" class="btn-outline btn h-6 w-full font-semibold"> Home </a>
       </li>
       {#each data.chats as chat}
         <li>
           <a
             href={"/chat/" + chat.id}
-            class="hover:text-base-content hover:from-base-100 flex items-center rounded-lg p-2 text-base font-normal hover:bg-gradient-to-r hover:to-transparent"
+            class="flex items-center rounded-lg p-2 text-base font-normal hover:bg-gradient-to-r hover:from-base-100 hover:to-transparent hover:text-base-content"
             class:bg-base-300={id === chat.id}
           >
             <div class="flex w-full flex-col">
@@ -83,7 +83,7 @@
                       <div class="flex flex-row items-center">
                         <button
                           name="confirm-delete"
-                          class="btn btn-ghost btn-sm"
+                          class="btn-ghost btn-sm btn"
                           on:click|preventDefault={() => deleteChat(chat.id)}
                         >
                           <svg
@@ -100,7 +100,7 @@
                         </button>
                         <button
                           name="cancel-delete"
-                          class="btn btn-ghost btn-sm"
+                          class="btn-ghost btn-sm btn"
                           on:click|preventDefault={toggleDeleteConfirm}
                         >
                           <svg
@@ -118,7 +118,7 @@
                       </div>
                     {:else}
                       <button
-                        class="btn btn-ghost btn-sm"
+                        class="btn-ghost btn-sm btn"
                         on:click|preventDefault={toggleDeleteConfirm}
                       >
                         <svg
