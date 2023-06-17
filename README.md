@@ -61,12 +61,14 @@ We currently support the following models:
   - Airoboros-7B
   - Airoboros-13B
   - Airoboros-30B
+  - Airoboros-65B
 - Alpaca 🦙
   - Alpaca-LoRA-65B
   - GPT4-Alpaca-LoRA-30B
 - Chronos 🌑
   - Chronos-13B
   - Chronos-33B
+  - Chronos-Hermes-13B
 - GPT4All 🌍
   - GPT4All-13B
 - Guanaco 🦙

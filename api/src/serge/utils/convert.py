@@ -53,7 +53,7 @@ def write_header(f_out, header):
 def write_tokens(fout, tokenizer):
     for i in range(tokenizer.vocab_size()):
         if tokenizer.is_unknown(i):
-            text = " \u2047 ".encode("utf-8")
+            text = " \u2047 ".encode()
         elif tokenizer.is_control(i):
             text = b""
         elif tokenizer.is_byte(i):

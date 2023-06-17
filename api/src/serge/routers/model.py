@@ -14,24 +14,29 @@ model_router = APIRouter(
 
 models_info = {
     "Airoboros-7B": [
-        "TheBloke/airoboros-7b-gpt4-GGML",
-        "airoboros-7b-gpt4.ggmlv3.q5_1.bin",
+        "TheBloke/airoboros-7b-gpt4-1.2-GGML",
+        "airoboros-7b-gpt4-1.2.ggmlv3.q5_1.bin",
         5.06e9,
     ],
     "Airoboros-7B-q6_K": [
-        "TheBloke/airoboros-7b-gpt4-GGML",
-        "airoboros-7B.ggmlv3.q6_K.bin",
+        "TheBloke/airoboros-7b-gpt4-1.2-GGML",
+        "airoboros-7B-1.2.ggmlv3.q6_K.bin",
         5.53e9,
     ],
     "Airoboros-13B": [
-        "TheBloke/airoboros-13b-gpt4-GGML",
-        "airoboros-13b.ggmlv3.q6_K.bin",
+        "TheBloke/airoboros-13b-gpt4-1.2-GGML",
+        "airoboros-13b-gpt4-1.2.ggmlv3.q6_K.bin",
         10.7e9,
     ],
     "Airoboros-33B": [
-        "TheBloke/airoboros-33b-gpt4-GGML",
-        "airoboros-33b-gpt4.ggmlv3.q6_K.bin",
+        "TheBloke/airoboros-33b-gpt4-1.2-GGML",
+        "airoboros-33b-gpt4-1.2.ggmlv3.q6_K.bin",
         26.7e9,
+    ],
+    "Airoboros-65B": [
+        "TheBloke/airoboros-65B-gpt4-1.2-GGML",
+        "airoboros-65B-gpt4-1.2.ggmlv3.q5_K_M.bin",
+        46.3e9,
     ],
     "GPT4AlpacaLoRA-30B": [
         "TheBloke/gpt4-alpaca-lora-30B-4bit-GGML",
@@ -57,6 +62,11 @@ models_info = {
         "TheBloke/chronos-33b-GGML",
         "chronos-33b.ggmlv3.q6_K.bin",
         26.7e9,
+    ],
+    "Chronos-Hermes-13B": [
+        "TheBloke/chronos-hermes-13B-GGML",
+        "chronos-hermes-13b.ggmlv3.q6_K.bin",
+        10.7e9,
     ],
     "Guanaco-7B": [
         "TheBloke/guanaco-7B-GGML",
