@@ -1,0 +1,5 @@
+node_modules
+/.svelte-kit
+
+package-lock.json
+.prettierrc

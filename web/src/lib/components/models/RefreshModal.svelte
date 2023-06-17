@@ -18,18 +18,18 @@
       await invalidate("/api/model/all");
       dialogTag.close();
     } else {
-      alert("Error refreshing models");
+      console.error("Error refreshing models");
     }
     isLoading = false;
   };
 </script>
 
-<button class="btn btn-outline" on:click={() => dialogTag.showModal()}
+<button class="btn-outline btn" on:click={() => dialogTag.showModal()}
   >Refresh Models</button
 >
 <dialog bind:this={dialogTag} class="modal">
   <form method="dialog" class="modal-box">
-    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+    <button class="btn-ghost btn-sm btn-circle btn absolute right-2 top-2"
       >✕</button
     >
     <form on:submit|preventDefault={handleRefresh}>
@@ -40,7 +40,7 @@
       <input
         type="text"
         name="url"
-        class="input input-bordered input-primary mb-4 w-full"
+        class="input-bordered input-primary input mb-4 w-full"
         bind:value={link}
       />
       <div class="modal-action">
