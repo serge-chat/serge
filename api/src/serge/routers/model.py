@@ -43,9 +43,7 @@ async def refresh_models(url: Annotated[str, Form()]):
     r = requests.get(url)
 
     if not r.ok:
-        raise HTTPException(
-            status_code=500, detail="Could not refresh models using the link provided."
-        )
+        raise HTTPException(status_code=500, detail="Could not refresh models using the link provided.")
 
     families = Families.parse_obj(r.json())
 
@@ -139,9 +137,7 @@ def download_model(model_name: str):
     repo_id, filename, _ = models_info[model_name]
 
     print(f"Downloading {model_name} model from {repo_id}...")
-    url = huggingface_hub.hf_hub_url(
-        repo_id, filename, repo_type="model", revision="main"
-    )
+    url = huggingface_hub.hf_hub_url(repo_id, filename, repo_type="model", revision="main")
     urllib.request.urlretrieve(url, WEIGHTS + f"{model_name}.bin.tmp")
 
     os.rename(WEIGHTS + f"{model_name}.bin.tmp", WEIGHTS + f"{model_name}.bin")
