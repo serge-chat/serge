@@ -136,7 +136,7 @@ async def delete_prompt(chat_id: str, idx: int):
     if idx >= len(history.messages):
         raise ValueError("Index out of range")
 
-    messages = history.messages.copy()[: idx - 1]
+    messages = history.messages.copy()[:idx]
     history.clear()
 
     for message in messages:
