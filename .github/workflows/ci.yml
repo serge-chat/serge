@@ -77,10 +77,13 @@ jobs:
         with:
           node-version: '18'
       - name: Install web
+        working-directory: ./api
         run: npm ci
       - name: Run linting
+        working-directory: ./api
         run: npm run lint
       - name: Check type errors
+        working-directory: ./api
         run: npm run check
   build-and-publish-image:
     runs-on: ubuntu-latest

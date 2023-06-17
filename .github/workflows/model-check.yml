@@ -1,3 +1,5 @@
+name: Check that models are available for download
+
 on:
   push:
     branches:
