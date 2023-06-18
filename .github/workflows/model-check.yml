@@ -24,6 +24,8 @@ on:
   workflow_dispatch:
   release:
     types: [published, edited]
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   model-health-check:
