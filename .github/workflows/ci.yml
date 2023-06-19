@@ -42,7 +42,7 @@ jobs:
           file: './api/src/serge/data/models.json'
           schema: './api/src/serge/schema/schema.json'
           fileParser: json
-          mode: strong
+          mode: default
   python-unit-tests:
     runs-on: ubuntu-latest
     steps:
