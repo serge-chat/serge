@@ -31,7 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Check models JSON file
-        run: cat ./api/src/data/models.json | jq -e .
+        run: cat ./api/src/serge/data/models.json | jq -e .
   python-unit-tests:
     runs-on: ubuntu-latest
     steps:
