@@ -26,6 +26,12 @@ on:
     types: [published, edited]
 
 jobs:
+  check-models-json:
+    runs-on: ubuntu-latst
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check models JSON file
+        run: cat ./api/src/data/models.json | jq -e .
   python-unit-tests:
     runs-on: ubuntu-latest
     steps:
@@ -88,6 +94,7 @@ jobs:
   build-and-publish-image:
     runs-on: ubuntu-latest
     needs:
+      - check-models-json
       - check-api-code
       - check-web-code
       - python-unit-tests
