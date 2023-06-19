@@ -921,17 +921,17 @@
                   },
                   {
                       "name": "q5_0",
-                      "filename": "minotaur-13b.ggmlv3.q5_0.bin",
+                      "filename": "minotaur-15b.ggmlv3.q5_0.bin",
                       "disk_space": 13100000000.0
                   },
                   {
                       "name": "q5_1",
-                      "filename": "minotaur-13b.ggmlv3.q5_1.bin",
+                      "filename": "minotaur-15b.ggmlv3.q5_1.bin",
                       "disk_space": 14300000000.0
                   },
                   {
                       "name": "q8_0",
-                      "filename": "minotaur-13b.ggmlv3.q8_0.bin",
+                      "filename": "minotaur-15b.ggmlv3.q8_0.bin",
                       "disk_space": 20100000000.0
                   }
               ]
