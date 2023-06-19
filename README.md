@@ -65,6 +65,8 @@ We currently support the following models:
 - Alpaca 🦙
   - Alpaca-LoRA-65B
   - GPT4-Alpaca-LoRA-30B
+- BigTrans 🗺
+  - BigTrans-13B
 - Chronos 🌑
   - Chronos-13B
   - Chronos-33B
@@ -84,6 +86,8 @@ We currently support the following models:
   - Llama-Supercot-30B
 - Lazarus 💀
   - Lazarus-30B
+- Minotour
+  - Minotaur-15B
 - Nous 🧠
   - Nous-Hermes-13B
 - OpenAssistant 🎙️
