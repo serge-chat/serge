@@ -68,13 +68,48 @@
                 ]
             },
             {
-                "name": "Chronos-33B",
-                "repo": "TheBloke/chronos-33B-GGML",
+                "name": "Chronos-Hermes-13B",
+                "repo": "TheBloke/chronos-hermes-13B-GGML",
                 "files": [
                     {
+                        "name": "q2_K",
+                        "filename": "chronos-hermes-13b.ggmlv3.q2_K.bin",
+                        "disk_space": 55100000000.0
+                    },
+                    {
+                        "name": "q3_K_L",
+                        "filename": "chronos-hermes-13b.ggmlv3.q3_K_L.bin",
+                        "disk_space": 69300000000.0
+                    },
+                    {
+                        "name": "q4_1",
+                        "filename": "chronos-hermes-13b.ggmlv3.q4_1.bin",
+                        "disk_space": 81400000000.0
+                    },
+                    {
+                        "name": "q4_K_M",
+                        "filename": "chronos-hermes-13b.ggmlv3.q4_K_M.bin",
+                        "disk_space": 78700000000.0
+                    },
+                    {
+                        "name": "q5_1",
+                        "filename": "chronos-hermes-13b.ggmlv3.q5_1.bin",
+                        "disk_space": 97600000000.0
+                    },
+                    {
+                        "name": "q5_K_M",
+                        "filename": "chronos-hermes-13b.ggmlv3.q5_K_M.bin",
+                        "disk_space": 92300000000.0
+                    },
+                    {
                         "name": "q6_K",
-                        "filename": "chronos-33b.ggmlv3.q6_K.bin",
-                        "disk_space": 26700000000.0
+                        "filename": "chronos-hermes-13b.ggmlv3.q6_K.bin",
+                        "disk_space": 10700000000.0
+                    },
+                    {
+                      "name": "q8_0",
+                      "filename": "chronos-hermes-13b.ggmlv3.q8_0.bin",
+                      "disk_space": 13800000000.0
                     }
                 ]
             }
@@ -380,47 +415,57 @@
                         "name": "q6_K",
                         "filename": "vicuna-7b-v1.3.ggmlv3.q6_K.bin",
                         "disk_space": 55300000000.0
+                    },
+                    {
+                        "name": "q8_0",
+                        "filename": "vicuna-7b-v1.3.ggmlv3.q8_0.bin",
+                        "disk_space": 71600000000.0
                     }
                 ]
             },
             {
               "name": "Vicuna-v1.3-13B",
-              "repo": "TheBloke/vicuna-13B-v1.3-GGML",
+              "repo": "TheBloke/vicuna-13b-v1.3-GGML",
               "files": [
                   {
                     "name": "q2_K",
-                    "filename": "vicuna-13B-v1.3.ggmlv3.q2_K.bin",
+                    "filename": "vicuna-13b-v1.3.ggmlv3.q2_K.bin",
                     "disk_space": 55100000000.0
                   },
                   {
                     "name": "q3_L",
-                    "filename": "vicuna-13B-v1.3.ggmlv3.q3_L.bin",
+                    "filename": "vicuna-13b-v1.3.ggmlv3.q3_L.bin",
                     "disk_space": 69300000000.0
                   },
                   {
                     "name": "q4_1",
-                    "filename": "vicuna-13B-v1.3.ggmlv3.q4_1.bin",
+                    "filename": "vicuna-13b-v1.3.ggmlv3.q4_1.bin",
                     "disk_space": 81400000000.0
                   },
                   {
                     "name": "q4_K_M",
-                    "filename": "vicuna-13B-v1.3.ggmlv3.q4_K_M.bin",
+                    "filename": "vicuna-13b-v1.3.ggmlv3.q4_K_M.bin",
                     "disk_space": 78700000000.0
                   },
                   {
                     "name": "q5_1",
-                    "filename": "vicuna-13B-v1.3.ggmlv3.q5_1.bin",
+                    "filename": "vicuna-13b-v1.3.ggmlv3.q5_1.bin",
                     "disk_space": 97600000000.0
                   },
                   {
                     "name": "q5_K_M",
-                    "filename": "vicuna-13B-v1.3.ggmlv3.q5_K_M.bin",
+                    "filename": "vicuna-13b-v1.3.ggmlv3.q5_K_M.bin",
                     "disk_space": 92300000000.0
                   },
                   {
                       "name": "q6_K",
-                      "filename": "vicuna-13B-v1.3.ggmlv3.q6_K.bin",
+                      "filename": "vicuna-13b-v1.3.ggmlv3.q6_K.bin",
                       "disk_space": 10700000000.0
+                  },
+                  {
+                      "name": "q8_0",
+                      "filename": "vicuna-13b-v1.3.ggmlv3.q8_0.bin",
+                      "disk_space": 13800000000.0
                   }
               ]
             }
@@ -610,19 +655,19 @@
                       "disk_space": 50600000000.0
                   },
                   {
-                        "name": "q5_K_M",
-                        "filename": "robin-7b.ggmlv3.q5_K_M.bin",
-                        "disk_space": 47800000000.0
+                      "name": "q5_K_M",
+                      "filename": "robin-7b.ggmlv3.q5_K_M.bin",
+                      "disk_space": 47800000000.0
                   },
                   {
-                        "name": "q6_K",
-                        "filename": "robin-7b.ggmlv3.q6_K.bin",
-                        "disk_space": 55300000000.0
+                      "name": "q6_K",
+                      "filename": "robin-7b.ggmlv3.q6_K.bin",
+                      "disk_space": 55300000000.0
                   },
                   {
-                        "name": "q8_0",
-                        "filename": "robin-7b.ggmlv3.q8_0.bin",
-                        "disk_space": 71600000000.0
+                      "name": "q8_0",
+                      "filename": "robin-7b.ggmlv3.q8_0.bin",
+                      "disk_space": 71600000000.0
                   }
               ]
           },
@@ -632,43 +677,43 @@
             "files": [
                 {
                     "name": "q2_K",
-                    "filename": "robin-13B.ggmlv3.q2_K.bin",
+                    "filename": "robin-13b.ggmlv3.q2_K.bin",
                     "disk_space": 55100000000.0
                 },
                 {
                     "name": "q3_K_L",
-                    "filename": "robin-13B.ggmlv3.q3_K_L.bin",
+                    "filename": "robin-13b.ggmlv3.q3_K_L.bin",
                     "disk_space": 69300000000.0
                 },
                 {
                     "name": "q4_1",
-                    "filename": "robin-13B.ggmlv3.q4_1.bin",
+                    "filename": "robin-13b.ggmlv3.q4_1.bin",
                     "disk_space": 81400000000.0
                 },
                 {
                     "name": "q4_K_M",
-                    "filename": "robin-13B.ggmlv3.q4_K_M.bin",
+                    "filename": "robin-13b.ggmlv3.q4_K_M.bin",
                     "disk_space": 78700000000.0
                 },
                 {
                     "name": "q5_1",
-                    "filename": "robin-13B.ggmlv3.q5_1.bin",
+                    "filename": "robin-13b.ggmlv3.q5_1.bin",
                     "disk_space": 97600000000.0
                 },
                 {
-                      "name": "q5_K_M",
-                      "filename": "robin-13B.ggmlv3.q5_K_M.bin",
-                      "disk_space": 92300000000.0
+                    "name": "q5_K_M",
+                    "filename": "robin-13b.ggmlv3.q5_K_M.bin",
+                    "disk_space": 92300000000.0
                 },
                 {
-                      "name": "q6_K",
-                      "filename": "robin-13b.ggmlv3.q6_K.bin",
-                      "disk_space": 10700000000.0
+                    "name": "q6_K",
+                    "filename": "robin-13b.ggmlv3.q6_K.bin",
+                    "disk_space": 10700000000.0
                 },
                 {
-                      "name": "q8_0",
-                      "filename": "robin-13b.ggmlv3.q8_0.bin",
-                      "disk_space": 13800000000.0
+                    "name": "q8_0",
+                    "filename": "robin-13b.ggmlv3.q8_0.bin",
+                    "disk_space": 13800000000.0
                 }
             ]
           },
@@ -678,43 +723,43 @@
             "files": [
                 {
                     "name": "q2_K",
-                    "filename": "robin-33B.ggmlv3.q2_K.bin",
+                    "filename": "robin-33b.ggmlv3.q2_K.bin",
                     "disk_space": 13700000000.0
                 },
                 {
                     "name": "q3_K_L",
-                    "filename": "robin-33B.ggmlv3.q3_K_L.bin",
+                    "filename": "robin-33b.ggmlv3.q3_K_L.bin",
                     "disk_space": 17300000000.0
                 },
                 {
                     "name": "q4_1",
-                    "filename": "robin-33B.ggmlv3.q4_1.bin",
+                    "filename": "robin-33b.ggmlv3.q4_1.bin",
                     "disk_space": 20300000000.0
                 },
                 {
                     "name": "q4_K_M",
-                    "filename": "robin-33B.ggmlv3.q4_K_M.bin",
+                    "filename": "robin-33b.ggmlv3.q4_K_M.bin",
                     "disk_space": 19600000000.0
                 },
                 {
                     "name": "q5_1",
-                    "filename": "robin-33B.ggmlv3.q5_1.bin",
+                    "filename": "robin-33b.ggmlv3.q5_1.bin",
                     "disk_space": 24400000000.0
                 },
                 {
-                      "name": "q5_K_M",
-                      "filename": "robin-33B.ggmlv3.q5_K_M.bin",
-                      "disk_space": 23000000000.0
+                    "name": "q5_K_M",
+                    "filename": "robin-33b.ggmlv3.q5_K_M.bin",
+                    "disk_space": 23000000000.0
                 },
                 {
-                      "name": "q6_K",
-                      "filename": "robin-33B.ggmlv3.q6_K.bin",
-                      "disk_space": 26700000000.0
+                    "name": "q6_K",
+                    "filename": "robin-33b.ggmlv3.q6_K.bin",
+                    "disk_space": 26700000000.0
                 },
                 {
-                      "name": "q8_0",
-                      "filename": "robin-33B.ggmlv3.q8_0.bin",
-                      "disk_space": 34600000000.0
+                    "name": "q8_0",
+                    "filename": "robin-33b.ggmlv3.q8_0.bin",
+                    "disk_space": 34600000000.0
                 }
             ]
           },
@@ -724,33 +769,33 @@
             "files": [
                 {
                     "name": "q2_K",
-                    "filename": "robin-65B.ggmlv3.q2_K.bin",
+                    "filename": "robin-65b.ggmlv3.q2_K.bin",
                     "disk_space": 27500000000.0
                 },
                 {
                     "name": "q3_K_L",
-                    "filename": "robin-65B.ggmlv3.q3_K_L.bin",
+                    "filename": "robin-65b.ggmlv3.q3_K_L.bin",
                     "disk_space": 34600000000.0
                 },
                 {
                     "name": "q4_1",
-                    "filename": "robin-65B.ggmlv3.q4_1.bin",
+                    "filename": "robin-65b.ggmlv3.q4_1.bin",
                     "disk_space": 40800000000.0
                 },
                 {
                     "name": "q4_K_M",
-                    "filename": "robin-65B.ggmlv3.q4_K_M.bin",
+                    "filename": "robin-65b.ggmlv3.q4_K_M.bin",
                     "disk_space": 39300000000.0
                 },
                 {
                     "name": "q5_1",
-                    "filename": "robin-65B.ggmlv3.q5_1.bin",
+                    "filename": "robin-65b.ggmlv3.q5_1.bin",
                     "disk_space": 49000000000.0
                 },
                 {
-                      "name": "q5_K_M",
-                      "filename": "robin-65B.ggmlv3.q5_K_M.bin",
-                      "disk_space": 46200000000.0
+                    "name": "q5_K_M",
+                    "filename": "robin-65b.ggmlv3.q5_K_M.bin",
+                    "disk_space": 46200000000.0
                 }
             ]
           }
