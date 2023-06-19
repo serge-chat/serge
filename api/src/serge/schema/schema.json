@@ -73,9 +73,16 @@
         "Name": {
             "type": "string",
             "enum": [
+                "q2_K",
+                "q3_K_L",
+                "q4_0",
+                "q4_1",
+                "q4_K_M",
+                "q5_0",
                 "q5_1",
+                "q5_K_M",
                 "q6_K",
-                "q5_K_M"
+                "q8_0"
             ],
             "title": "Name"
         }
