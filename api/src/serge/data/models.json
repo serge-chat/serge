@@ -66,6 +66,17 @@
                         "disk_space": 26700000000.0
                     }
                 ]
+            },
+            {
+                "name": "Chronos-33B",
+                "repo": "TheBloke/chronos-33B-GGML",
+                "files": [
+                    {
+                        "name": "q6_K",
+                        "filename": "chronos-33b.ggmlv3.q6_K.bin",
+                        "disk_space": 26700000000.0
+                    }
+                ]
             }
         ]
     },
@@ -330,6 +341,129 @@
                         "disk_space": 58700000000.0
                     }
                 ]
+            },
+            {
+                "name": "Vicuna-v1.3-7B",
+                "repo": "TheBloke/vicuna-7B-v1.3-GGML",
+                "files": [
+                    {
+                      "name": "q2_K",
+                      "filename": "vicuna-7b-v1.3.ggmlv3.q2_K.bin",
+                      "disk_space": 28700000000.0
+                    },
+                    {
+                      "name": "q3_L",
+                      "filename": "vicuna-7b-v1.3.ggmlv3.q3_L.bin",
+                      "disk_space": 36000000000.0
+                    },
+                    {
+                      "name": "q4_1",
+                      "filename": "vicuna-7b-v1.3.ggmlv3.q4_1.bin",
+                      "disk_space": 42100000000.0
+                    },
+                    {
+                      "name": "q4_K_M",
+                      "filename": "vicuna-7b-v1.3.ggmlv3.q4_K_M.bin",
+                      "disk_space": 40800000000.0
+                    },
+                    {
+                      "name": "q5_1",
+                      "filename": "vicuna-7b-v1.3.ggmlv3.q5_1.bin",
+                      "disk_space": 50600000000.0
+                    },
+                    {
+                      "name": "q5_K_M",
+                      "filename": "vicuna-7b-v1.3.ggmlv3.q5_K_M.bin",
+                      "disk_space": 47800000000.0
+                    },
+                    {
+                        "name": "q6_K",
+                        "filename": "vicuna-7b-v1.3.ggmlv3.q6_K.bin",
+                        "disk_space": 55300000000.0
+                    }
+                ]
+            },
+            {
+              "name": "Vicuna-v1.3-13B",
+              "repo": "TheBloke/vicuna-13B-v1.3-GGML",
+              "files": [
+                  {
+                    "name": "q2_K",
+                    "filename": "vicuna-13B-v1.3.ggmlv3.q2_K.bin",
+                    "disk_space": 55100000000.0
+                  },
+                  {
+                    "name": "q3_L",
+                    "filename": "vicuna-13B-v1.3.ggmlv3.q3_L.bin",
+                    "disk_space": 69300000000.0
+                  },
+                  {
+                    "name": "q4_1",
+                    "filename": "vicuna-13B-v1.3.ggmlv3.q4_1.bin",
+                    "disk_space": 81400000000.0
+                  },
+                  {
+                    "name": "q4_K_M",
+                    "filename": "vicuna-13B-v1.3.ggmlv3.q4_K_M.bin",
+                    "disk_space": 78700000000.0
+                  },
+                  {
+                    "name": "q5_1",
+                    "filename": "vicuna-13B-v1.3.ggmlv3.q5_1.bin",
+                    "disk_space": 97600000000.0
+                  },
+                  {
+                    "name": "q5_K_M",
+                    "filename": "vicuna-13B-v1.3.ggmlv3.q5_K_M.bin",
+                    "disk_space": 92300000000.0
+                  },
+                  {
+                      "name": "q6_K",
+                      "filename": "vicuna-13B-v1.3.ggmlv3.q6_K.bin",
+                      "disk_space": 10700000000.0
+                  }
+              ]
+            },
+            {
+              "name": "Vicuna-v1.3-13B",
+              "repo": "TheBloke/vicuna-13B-v1.3-GGML",
+              "files": [
+                  {
+                    "name": "q2_K",
+                    "filename": "vicuna-13B-v1.3.ggmlv3.q2_K.bin",
+                    "disk_space": 55100000000.0
+                  },
+                  {
+                    "name": "q3_L",
+                    "filename": "vicuna-13B-v1.3.ggmlv3.q3_L.bin",
+                    "disk_space": 69300000000.0
+                  },
+                  {
+                    "name": "q4_1",
+                    "filename": "vicuna-13B-v1.3.ggmlv3.q4_1.bin",
+                    "disk_space": 81400000000.0
+                  },
+                  {
+                    "name": "q4_K_M",
+                    "filename": "vicuna-13B-v1.3.ggmlv3.q4_K_M.bin",
+                    "disk_space": 78700000000.0
+                  },
+                  {
+                    "name": "q5_1",
+                    "filename": "vicuna-13B-v1.3.ggmlv3.q5_1.bin",
+                    "disk_space": 97600000000.0
+                  },
+                  {
+                    "name": "q5_K_M",
+                    "filename": "vicuna-13B-v1.3.ggmlv3.q5_K_M.bin",
+                    "disk_space": 92300000000.0
+                  },
+                  {
+                      "name": "q6_K",
+                      "filename": "vicuna-13B-v1.3.ggmlv3.q6_K.bin",
+                      "disk_space": 10700000000.0
+                  }
+              ]
             }
         ]
     },
