@@ -387,8 +387,8 @@
                       "disk_space": 28700000000.0
                     },
                     {
-                      "name": "q3_L",
-                      "filename": "vicuna-7b-v1.3.ggmlv3.q3_L.bin",
+                      "name": "q3_K_L",
+                      "filename": "vicuna-7b-v1.3.ggmlv3.q3_K_L.bin",
                       "disk_space": 36000000000.0
                     },
                     {
@@ -433,8 +433,8 @@
                     "disk_space": 55100000000.0
                   },
                   {
-                    "name": "q3_L",
-                    "filename": "vicuna-13b-v1.3.ggmlv3.q3_L.bin",
+                    "name": "q3_K_L",
+                    "filename": "vicuna-13b-v1.3.ggmlv3.q3_K_L.bin",
                     "disk_space": 69300000000.0
                   },
                   {

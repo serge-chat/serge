@@ -86,13 +86,13 @@ We currently support the following models:
   - Llama-Supercot-30B
 - Lazarus 💀
   - Lazarus-30B
-- Minotour
+- Minotour 🐃
   - Minotaur-15B
 - Nous 🧠
   - Nous-Hermes-13B
 - OpenAssistant 🎙️
   - OpenAssistant-30B
-- Robin
+- Robin 🏹
   - Robin-7B
   - Robin-13B
   - Robin-33B
