@@ -35,11 +35,12 @@ jobs:
   validate-models-schema:
     runs-on: ubuntu-latest
     steps:
-    - name: Validate models.json against a json schema
-      uses: cardinalby/schema-validator-action@v3
-      with:
-        file: './api/src/serge/data/models.json'
-        schema: './api/src/serge/schema/schema.json'
+      - uses: actions/checkout@v3
+      - name: Validate models.json against a json schema
+        uses: cardinalby/schema-validator-action@v3
+        with:
+          file: './api/src/serge/data/models.json'
+          schema: './api/src/serge/schema/schema.json'
   python-unit-tests:
     runs-on: ubuntu-latest
     steps:
