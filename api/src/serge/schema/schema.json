@@ -1,0 +1,83 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "type": "array",
+    "items": {
+        "$ref": "#/definitions/WelcomeElement"
+    },
+    "definitions": {
+        "WelcomeElement": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "models": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Model"
+                    }
+                }
+            },
+            "required": [
+                "models",
+                "name"
+            ],
+            "title": "WelcomeElement"
+        },
+        "Model": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "repo": {
+                    "type": "string"
+                },
+                "files": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/File"
+                    }
+                }
+            },
+            "required": [
+                "files",
+                "name",
+                "repo"
+            ],
+            "title": "Model"
+        },
+        "File": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "$ref": "#/definitions/Name"
+                },
+                "filename": {
+                    "type": "string"
+                },
+                "disk_space": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "disk_space",
+                "filename",
+                "name"
+            ],
+            "title": "File"
+        },
+        "Name": {
+            "type": "string",
+            "enum": [
+                "q5_1",
+                "q6_K",
+                "q5_K_M"
+            ],
+            "title": "Name"
+        }
+    }
+}
