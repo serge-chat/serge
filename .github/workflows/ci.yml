@@ -27,7 +27,7 @@ on:
 
 jobs:
   check-models-json:
-    runs-on: ubuntu-latst
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Check models JSON file
