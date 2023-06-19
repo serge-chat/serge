@@ -26,12 +26,23 @@ on:
     types: [published, edited]
 
 jobs:
-  check-models-json:
+  check-json-syntax:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Check models JSON file
+      - name: Check syntax of models JSON file
         run: cat ./api/src/serge/data/models.json | jq -e .
+  validate-models-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Validate models.json against a json schema
+        uses: cardinalby/schema-validator-action@v3
+        with:
+          file: './api/src/serge/data/models.json'
+          schema: './api/src/serge/schema/schema.json'
+          fileParser: json
+          mode: default
   python-unit-tests:
     runs-on: ubuntu-latest
     steps:
@@ -94,7 +105,8 @@ jobs:
   build-and-publish-image:
     runs-on: ubuntu-latest
     needs:
-      - check-models-json
+      - validate-models-schema
+      - check-json-syntax
       - check-api-code
       - check-web-code
       - python-unit-tests
