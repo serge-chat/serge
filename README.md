@@ -88,6 +88,11 @@ We currently support the following models:
   - Nous-Hermes-13B
 - OpenAssistant 🎙️
   - OpenAssistant-30B
+- Robin
+  - Robin-7B
+  - Robin-13B
+  - Robin-33B
+  - Robin-65B
 - Samantha 👩
   - Samantha-7B
   - Samantha-13B
@@ -104,6 +109,8 @@ We currently support the following models:
   - Vicuna-v1.1-13B
   - VicUnlocked-30B
   - VicUnlocked-65B
+  - Vicuna-v1.3-7B
+  - Vicuna-v1.3-13B
 - Wizard 🧙
   - Wizard-Mega-13B
   - Wizard-Vicuna-Uncensored-7B
@@ -124,14 +131,44 @@ docker cp ./my_weight.bin serge:/usr/src/app/weights/
 
 LLaMA will crash if you don't have enough available memory for the model:
 
-| Model    | RAM Required |
-|----------|-----------------|
-| 7B       | 4.5GB           |
-| 7B-q6_K  | 8.03GB          |
-| 13B      | 12GB            |
-| 13B-q6_K | 13.18GB         |
-| 30B      | 20GB            |
-| 30B-q6_K | 29.19GB         |
+| Model       | Max RAM Required |
+|-------------|------------------|
+| 7B          | 4.5GB            |
+| 7B-q2_K     | 5.37GB           |
+| 7B-q3_K_L   | 6.10GB           |
+| 7B-q4_1     | 6.71GB           |
+| 7B-q4_K_M   | 6.58GB           |
+| 7B-q5_1     | 7.56GB           |
+| 7B-q5_K_M   | 7.28GB           |
+| 7B-q6_K     | 8.03GB           |
+| 7B-q8_0     | 9.66GB           |
+| 13B         | 12GB             |
+| 13B-q2_K    | 8.01GB           |
+| 13B-q3_K_L  | 9.43GB           |
+| 13B-q4_1    | 10.64GB          |
+| 13B-q4_K_M  | 10.37GB          |
+| 13B-q5_1    | 12.26GB          |
+| 13B-q5_K_M  | 11.73GB          |
+| 13B-q6_K    | 13.18GB          |
+| 13B-q8_0    | 16.33GB          |
+| 33B         | 20GB             |
+| 33B-q2_K    | 16.21GB          |
+| 33B-q3_K_L  | 19.78GB          |
+| 33B-q4_1    | 22.83GB          |
+| 33B-q4_K_M  | 22.12GB          |
+| 33B-q5_1    | 26.90GB          |
+| 33B-q5_K_M  | 25.55GB          |
+| 33B-q6_K    | 29.19GB          |
+| 33B-q8_0    | 37.06GB          |
+| 65B         | 50GB             |
+| 65B-q2_K    | 29.95GB          |
+| 65B-q3_K_L  | 37.15GB          |
+| 65B-q4_1    | 43.31GB          |
+| 65B-q4_K_M  | 41.85GB          |
+| 65B-q5_1    | 51.47GB          |
+| 65B-q5_K_M  | 48.74GB          |
+| 65B-q6_K    | 56.06GB          |
+| 65B-q8_0    | 71.87GB          |
 
 ## 💬 Support
 
