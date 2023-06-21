@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install python bindings
-pip install llama-cpp-python==0.1.64
+pip install llama-cpp-python==0.1.65
 
 # Start Redis instance
 redis-server /etc/redis/redis.conf &
