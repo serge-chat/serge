@@ -1841,13 +1841,13 @@ telegram = ["requests"]
 
 [[package]]
 name = "typing-extensions"
-version = "4.6.3"
+version = "4.7.0"
 description = "Backported and Experimental Type Hints for Python 3.7+"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "typing_extensions-4.6.3-py3-none-any.whl", hash = "sha256:88a4153d8505aabbb4e13aacb7c486c2b4a33ca3b3f807914a9b4c844c471c26"},
-    {file = "typing_extensions-4.6.3.tar.gz", hash = "sha256:d91d5919357fe7f681a9f2b5b4cb2a5f1ef0a1e9f59c4d8ff0d3491e05c0ffd5"},
+    {file = "typing_extensions-4.7.0-py3-none-any.whl", hash = "sha256:5d8c9dac95c27d20df12fb1d97b9793ab8b2af8a3a525e68c80e21060c161771"},
+    {file = "typing_extensions-4.7.0.tar.gz", hash = "sha256:935ccf31549830cda708b42289d44b6f74084d616a00be651601a4f968e77c82"},
 ]
 
 [[package]]
@@ -2231,4 +2231,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4.0"
-content-hash = "58beaf92580270f8c408c602beb8a1d9bb75c09f94ab3c7a85b632f4ac08f1b9"
+content-hash = "0de62f30cf0e0df588e185ff38a18698fa01ce513fabe033150a3d577d7be7f9"
