@@ -475,7 +475,7 @@
         "name": "Wizard-Vicuna",
         "models": [
             {
-                "name": "Wizard-Vicuna-Unensored-7B",
+                "name": "Wizard-Vicuna-Uncensored-7B",
                 "repo": "TheBloke/Wizard-Vicuna-7B-Uncensored-GGML",
                 "files": [
                     {
