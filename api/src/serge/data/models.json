@@ -72,14 +72,9 @@
                 "repo": "TheBloke/chronos-hermes-13B-GGML",
                 "files": [
                     {
-                        "name": "q2_K",
-                        "filename": "chronos-hermes-13b.ggmlv3.q2_K.bin",
-                        "disk_space": 55100000000.0
-                    },
-                    {
-                        "name": "q3_K_L",
-                        "filename": "chronos-hermes-13b.ggmlv3.q3_K_L.bin",
-                        "disk_space": 69300000000.0
+                        "name": "q4_0",
+                        "filename": "chronos-hermes-13b.ggmlv3.q4_0.bin",
+                        "disk_space": 73200000000.0
                     },
                     {
                         "name": "q4_1",
@@ -87,24 +82,14 @@
                         "disk_space": 81400000000.0
                     },
                     {
-                        "name": "q4_K_M",
-                        "filename": "chronos-hermes-13b.ggmlv3.q4_K_M.bin",
-                        "disk_space": 78700000000.0
+                        "name": "q5_0",
+                        "filename": "chronos-hermes-13b.ggmlv3.q5_0.bin",
+                        "disk_space": 89500000000.0
                     },
                     {
                         "name": "q5_1",
                         "filename": "chronos-hermes-13b.ggmlv3.q5_1.bin",
                         "disk_space": 97600000000.0
-                    },
-                    {
-                        "name": "q5_K_M",
-                        "filename": "chronos-hermes-13b.ggmlv3.q5_K_M.bin",
-                        "disk_space": 92300000000.0
-                    },
-                    {
-                        "name": "q6_K",
-                        "filename": "chronos-hermes-13b.ggmlv3.q6_K.bin",
-                        "disk_space": 10700000000.0
                     },
                     {
                       "name": "q8_0",
@@ -475,7 +460,7 @@
         "name": "Wizard-Vicuna",
         "models": [
             {
-                "name": "Wizard-Vicuna-Unensored-7B",
+                "name": "Wizard-Vicuna-Uncensored-7B",
                 "repo": "TheBloke/Wizard-Vicuna-7B-Uncensored-GGML",
                 "files": [
                     {

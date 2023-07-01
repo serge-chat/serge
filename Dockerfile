@@ -1,12 +1,12 @@
 # ---------------------------------------
 # Base image for node
-FROM node:19-slim as node_base
+FROM node:19-bullseye-slim as node_base
 
 WORKDIR /usr/src/app
 
 # ---------------------------------------
 # Base image for runtime
-FROM python:3.11-slim as base
+FROM python:3.11-slim-bullseye as base
 
 ENV TZ=Etc/UTC
 WORKDIR /usr/src/app
