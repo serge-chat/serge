@@ -11,3 +11,4 @@ api/static/*
 **/.ruff_cache/
 **/node_modules/
 **/dist
+**/.mypy_cache/

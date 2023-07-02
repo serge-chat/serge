@@ -1,9 +1,9 @@
 import json
-import requests
+from pathlib import Path
+
 import huggingface_hub
 import pytest
-
-from pathlib import Path
+import requests
 
 # this test file specifically doesn't start with test_* so it's not picked up by pytest
 
