@@ -25,6 +25,9 @@ npm-debug.log
 .aws
 
 **/.ruff_cache/
+**/node_modules/
+**/dist
+**/.mypy_cache/
 __pycache__
 *.pyc
 *.pyo
