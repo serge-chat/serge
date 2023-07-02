@@ -27,9 +27,8 @@ RUN apt-get update \
 FROM node_base as frontend_builder
 
 WORKDIR /usr/src/app
-ENV NODE_ENV='production'
 COPY ./web/package.json ./web/package-lock.json ./
-RUN npm ci --production
+RUN npm ci
 
 COPY ./web /usr/src/app/web/
 WORKDIR /usr/src/app/web/
