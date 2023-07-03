@@ -23,33 +23,19 @@ RUN apt-get update \
     && echo "dir /data/db/" >> /etc/redis/redis.conf
 
 # ---------------------------------------
-# Build frontend
-FROM node_base as frontend_builder
-
-WORKDIR /usr/src/app
-COPY ./web/package.json ./web/package-lock.json ./
-RUN npm ci
-
-COPY ./web /usr/src/app/web/
-WORKDIR /usr/src/app/web/
-RUN npm run build
-
-# ---------------------------------------
-# Runtime environment
-FROM base as release
+# Dev environment
+FROM base as dev
 
 # Set ENV
-ENV NODE_ENV='production'
 WORKDIR /usr/src/app
+ENV NODE_ENV='development'
 
-# Copy artifacts
-COPY --from=frontend_builder /usr/src/app/web/build /usr/src/app/api/static/
-COPY ./api /usr/src/app/api
-COPY scripts/deploy.sh /usr/src/app/deploy.sh
+# Install node.js and npm packages
+COPY --from=node_base /usr/local /usr/local
+COPY scripts/dev.sh /usr/src/app/dev.sh
+COPY ./web/package.json ./web/package-lock.json ./
 
-# Install api dependencies
-RUN pip install --no-cache-dir ./api \
-    && chmod 755 /usr/src/app/deploy.sh
+RUN npm ci \
+    && chmod 755 /usr/src/app/dev.sh
 
-EXPOSE 8008
-CMD ./deploy.sh
+CMD ./dev.sh
