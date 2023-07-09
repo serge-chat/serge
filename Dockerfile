@@ -11,7 +11,7 @@ WORKDIR /usr/src/app
 
 # Install Redis
 RUN apt-get update \
-    && apt-get install -y curl wget gnupg cmake lsb-release build-essential \
+    && apt-get install -y curl wget gnupg cmake lsb-release build-essential dumb-init \
     && curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg \
     && echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list \
     && apt-get update \
@@ -52,4 +52,5 @@ RUN pip install --no-cache-dir ./api \
     && chmod 755 /usr/src/app/deploy.sh
 
 EXPOSE 8008
-CMD ./deploy.sh
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+CMD ["/bin/bash", "-c", "/usr/src/app/deploy.sh"]
