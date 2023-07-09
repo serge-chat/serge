@@ -22,7 +22,7 @@
     "@typescript-eslint/parser": "^5.61.0",
     "autoprefixer": "^10.4.14",
     "eslint": "^8.44.0",
-    "eslint-plugin-svelte3": "^4.0.0",
+    "eslint-plugin-svelte": "^2.32.2",
     "eslint-plugin-vue": "^9.15.1",
     "postcss": "^8.4.25",
     "svelte": "^4.0.5",

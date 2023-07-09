@@ -11,6 +11,15 @@ module.exports = {
     sourceType: "module",
     ecmaVersion: 2020,
   },
-  extends: ["@feltjs"],
+  overrides: [
+    {
+      files: ["*.svelte"],
+      parser: "svelte-eslint-parser",
+      parserOptions: {
+        parser: "@typescript-eslint/parser",
+      },
+    },
+  ],
+  extends: ["@feltjs", "plugin:svelte/recommended"],
   ignorePatterns: ["*.cjs", "*.config.js"],
 };
