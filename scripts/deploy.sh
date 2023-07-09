@@ -1,18 +1,19 @@
 #!/bin/bash
 
-set -e
+set -x
 
 # Install python bindings
-pip install llama-cpp-python==0.1.66
+pip install llama-cpp-python==0.1.70 || {
+	echo 'Failed to install llama-cpp-python'
+	exit 1
+}
 
 # Start Redis instance
 redis-server /etc/redis/redis.conf &
 
 # Start the API
-cd api && uvicorn src.serge.main:app --host 0.0.0.0 --port 8008 &
-
-# Wait for any process to exit
-wait -n
-
-# Exit with status of process that exited first
-exit $?
+cd /usr/src/app/api || exit 1
+uvicorn src.serge.main:app --host 0.0.0.0 --port 8008 || {
+	echo 'Failed to start main app'
+	exit 1
+}
