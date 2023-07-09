@@ -3,7 +3,7 @@
 set -x
 
 # Install python bindings
-pip install llama-cpp-python==0.1.69 || {
+pip install llama-cpp-python==0.1.70 || {
 	echo 'Failed to install llama-cpp-python'
 	exit 1
 }
