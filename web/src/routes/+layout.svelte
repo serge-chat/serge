@@ -5,7 +5,7 @@
   import { page } from "$app/stores";
   export let data: LayoutData;
 
-  let deleteConfirm = false
+  let deleteConfirm = false;
   $: id = $page.params.id || "";
   async function deleteChat(chatID: string) {
     const response = await fetch("/api/chat/" + chatID, { method: "DELETE" });
