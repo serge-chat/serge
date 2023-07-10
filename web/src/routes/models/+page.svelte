@@ -1,6 +1,5 @@
 <script lang="ts">
   import { invalidate } from "$app/navigation";
-  import { each } from "svelte/internal";
   import type { PageData } from "./$types";
   import RefreshModal from "../../lib/components/models/RefreshModal.svelte";
 
