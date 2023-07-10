@@ -1,3 +1,4 @@
+/** eslint-disable svelte/no-at-html-tags */
 <script lang="ts">
   import type { PageData } from "./$types";
   import { invalidate, goto } from "$app/navigation";
@@ -21,11 +22,11 @@
 
   export let data: PageData;
 
-  $: isLoading = false;
+  const isLoading = false
   $: startDate = new Date(data.chat.created);
   $: history = data.chat.history;
 
-  $: prompt = "";
+  let prompt = ""
 
   async function askQuestion() {
     const data = new URLSearchParams();
@@ -192,6 +193,7 @@
   };
 </script>
 
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
   class="relative mx-auto h-full max-h-screen w-full overflow-hidden"
   on:keydown={handleKeyDown}
@@ -261,6 +263,7 @@
             >
               <!-- {question.data.content} -->
               <div class="w-full overflow-x-auto overflow-y-hidden break-words">
+                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                 {@html renderMarkdown(question.data.content)}
               </div>
             </div>
@@ -297,6 +300,7 @@
               {/if}
               <!-- {question.data.content} -->
               <div class="w-full overflow-x-auto overflow-y-hidden break-words">
+                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                 {@html renderMarkdown(question.data.content)}
               </div>
             </div>
@@ -351,9 +355,7 @@
           height="16"
         >
           <path
-            class={sendBottomHovered
-              ? "fill-primary-content"
-              : "fill-base-content"}
+            class:fill-primary-content={sendBottomHovered} class:fill-base-content={!sendBottomHovered}
             d="M.989 8 .064 2.68a1.342 1.342 0 0 1 1.85-1.462l13.402 5.744a1.13 1.13 0 0 1 0 2.076L1.913 14.782a1.343 1.343 0 0 1-1.85-1.463L.99 8Zm.603-5.288L2.38 7.25h4.87a.75.75 0 0 1 0 1.5H2.38l-.788 4.538L13.929 8Z"
           />
         </svg>
