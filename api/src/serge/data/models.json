@@ -409,47 +409,47 @@
                 ]
             },
             {
-              "name": "Vicuna-v1.3-13B",
-              "repo": "TheBloke/vicuna-13b-v1.3-GGML",
+              "name": "Vicuna-v1.3.0-13B",
+              "repo": "TheBloke/vicuna-13b-v1.3.0-GGML",
               "files": [
                   {
                     "name": "q2_K",
-                    "filename": "vicuna-13b-v1.3.ggmlv3.q2_K.bin",
+                    "filename": "vicuna-13b-v1.3.0.ggmlv3.q2_K.bin",
                     "disk_space": 55100000000.0
                   },
                   {
                     "name": "q3_K_L",
-                    "filename": "vicuna-13b-v1.3.ggmlv3.q3_K_L.bin",
+                    "filename": "vicuna-13b-v1.3.0.ggmlv3.q3_K_L.bin",
                     "disk_space": 69300000000.0
                   },
                   {
                     "name": "q4_1",
-                    "filename": "vicuna-13b-v1.3.ggmlv3.q4_1.bin",
+                    "filename": "vicuna-13b-v1.3.0.ggmlv3.q4_1.bin",
                     "disk_space": 81400000000.0
                   },
                   {
                     "name": "q4_K_M",
-                    "filename": "vicuna-13b-v1.3.ggmlv3.q4_K_M.bin",
+                    "filename": "vicuna-13b-v1.3.0.ggmlv3.q4_K_M.bin",
                     "disk_space": 78700000000.0
                   },
                   {
                     "name": "q5_1",
-                    "filename": "vicuna-13b-v1.3.ggmlv3.q5_1.bin",
+                    "filename": "vicuna-13b-v1.3.0.ggmlv3.q5_1.bin",
                     "disk_space": 97600000000.0
                   },
                   {
                     "name": "q5_K_M",
-                    "filename": "vicuna-13b-v1.3.ggmlv3.q5_K_M.bin",
+                    "filename": "vicuna-13b-v1.3.0.ggmlv3.q5_K_M.bin",
                     "disk_space": 92300000000.0
                   },
                   {
                       "name": "q6_K",
-                      "filename": "vicuna-13b-v1.3.ggmlv3.q6_K.bin",
+                      "filename": "vicuna-13b-v1.3.0.ggmlv3.q6_K.bin",
                       "disk_space": 10700000000.0
                   },
                   {
                       "name": "q8_0",
-                      "filename": "vicuna-13b-v1.3.ggmlv3.q8_0.bin",
+                      "filename": "vicuna-13b-v1.3.0.ggmlv3.q8_0.bin",
                       "disk_space": 13800000000.0
                   }
               ]
