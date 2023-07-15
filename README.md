@@ -57,27 +57,15 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 
 We currently support the following models:
 
-- Airoboros 🎈
-  - Airoboros-7B
-  - Airoboros-13B
-  - Airoboros-30B
-  - Airoboros-65B
 - Alpaca 🦙
   - Alpaca-LoRA-65B
   - GPT4-Alpaca-LoRA-30B
-- BigTrans 🗺
-  - BigTrans-13B
 - Chronos 🌑
   - Chronos-13B
   - Chronos-33B
   - Chronos-Hermes-13B
 - GPT4All 🌍
   - GPT4All-13B
-- Guanaco 🦙
-  - Guanaco-7B
-  - Guanaco-13B
-  - Guanaco-33B
-  - Guanaco-65B
 - Koala 🐨
   - Koala-7B
   - Koala-13B
@@ -86,25 +74,18 @@ We currently support the following models:
   - Llama-Supercot-30B
 - Lazarus 💀
   - Lazarus-30B
-- Minotour 🐃
-  - Minotaur-15B
 - Nous 🧠
   - Nous-Hermes-13B
 - OpenAssistant 🎙️
   - OpenAssistant-30B
-- Robin 🏹
-  - Robin-7B
-  - Robin-13B
-  - Robin-33B
-  - Robin-65B
+- Orca 🐬
+  - Orca-Mini-v2-7B
+  - Orca-Mini-v2-13B
+  - OpenOrca-Preview1-13B
 - Samantha 👩
   - Samantha-7B
   - Samantha-13B
   - Samantha-33B
-- Tulu 🎚
-  - Tulu-7B
-  - Tulu-13B
-  - Tulu-30B
 - Vicuna 🦙
   - Stable-Vicuna-13B
   - Vicuna-CoT-7B
@@ -113,14 +94,11 @@ We currently support the following models:
   - Vicuna-v1.1-13B
   - VicUnlocked-30B
   - VicUnlocked-65B
-  - Vicuna-v1.3-7B
-  - Vicuna-v1.3-13B
 - Wizard 🧙
   - Wizard-Mega-13B
   - Wizard-Vicuna-Uncensored-7B
   - Wizard-Vicuna-Uncensored-13B
   - Wizard-Vicuna-Uncensored-30B
-  - WizardLM-30B
   - WizardLM-Uncensored-7B
   - WizardLM-Uncensored-13B
   - WizardLM-Uncensored-30B
