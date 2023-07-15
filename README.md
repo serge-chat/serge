@@ -96,9 +96,6 @@ We currently support the following models:
   - VicUnlocked-65B
 - Wizard 🧙
   - Wizard-Mega-13B
-  - Wizard-Vicuna-Uncensored-7B
-  - Wizard-Vicuna-Uncensored-13B
-  - Wizard-Vicuna-Uncensored-30B
   - WizardLM-Uncensored-7B
   - WizardLM-Uncensored-13B
   - WizardLM-Uncensored-30B
