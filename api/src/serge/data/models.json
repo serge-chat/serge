@@ -1,48 +1,5 @@
 [
     {
-        "name": "Airoboros",
-        "models": [
-            {
-                "name": "Airoboros-7B",
-                "repo": "TheBloke/airoboros-7b-gpt4-GGML",
-                "files": [
-                    {
-                        "name": "q5_1",
-                        "filename": "airoboros-7b-gpt4.ggmlv3.q5_1.bin",
-                        "disk_space": 5060000000.0
-                    },
-                    {
-                        "name": "q6_K",
-                        "filename": "airoboros-7B.ggmlv3.q6_K.bin",
-                        "disk_space": 5530000000.0
-                    }
-                ]
-            },
-            {
-                "name": "Airoboros-13B",
-                "repo": "TheBloke/airoboros-13b-gpt4-GGML",
-                "files": [
-                    {
-                        "name": "q6_K",
-                        "filename": "airoboros-13b.ggmlv3.q6_K.bin",
-                        "disk_space": 10700000000.0
-                    }
-                ]
-            },
-            {
-                "name": "Airoboros-33B",
-                "repo": "TheBloke/airoboros-33b-gpt4-GGML",
-                "files": [
-                    {
-                        "name": "q6_K",
-                        "filename": "airoboros-33b-gpt4.ggmlv3.q6_K.bin",
-                        "disk_space": 26700000000.0
-                    }
-                ]
-            }
-        ]
-    },
-    {
         "name": "Chronos",
         "models": [
             {
@@ -95,60 +52,6 @@
                       "name": "q8_0",
                       "filename": "chronos-hermes-13b.ggmlv3.q8_0.bin",
                       "disk_space": 13800000000.0
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "name": "Guanaco",
-        "models": [
-            {
-                "name": "Guanaco-7B",
-                "repo": "TheBloke/guanaco-7B-GGML",
-                "files": [
-                    {
-                        "name": "q5_1",
-                        "filename": "guanaco-7B.ggmlv3.q5_1.bin",
-                        "disk_space": 5060000000.0
-                    },
-                    {
-                        "name": "q6_K",
-                        "filename": "guanaco-7B.ggmlv3.q6_K.bin",
-                        "disk_space": 5530000000.0
-                    }
-                ]
-            },
-            {
-                "name": "Guanaco-13B",
-                "repo": "TheBloke/guanaco-13B-GGML",
-                "files": [
-                    {
-                        "name": "q6_K",
-                        "filename": "guanaco-13B.ggmlv3.q6_K.bin",
-                        "disk_space": 10700000000.0
-                    }
-                ]
-            },
-            {
-                "name": "Guanaco-33B",
-                "repo": "TheBloke/guanaco-33B-GGML",
-                "files": [
-                    {
-                        "name": "q6_K",
-                        "filename": "guanaco-33B.ggmlv3.q6_K.bin",
-                        "disk_space": 26700000000.0
-                    }
-                ]
-            },
-            {
-                "name": "Guanaco-65B",
-                "repo": "TheBloke/guanaco-65B-GGML",
-                "files": [
-                    {
-                        "name": "q5_1",
-                        "filename": "guanaco-65B.ggmlv3.q5_1.bin",
-                        "disk_space": 46200000000.0
                     }
                 ]
             }
@@ -223,49 +126,6 @@
                     {
                         "name": "q6_K",
                         "filename": "samantha-33B.ggmlv3.q6_K.bin",
-                        "disk_space": 26700000000.0
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "name": "Tulu",
-        "models": [
-            {
-                "name": "Tulu-7B",
-                "repo": "TheBloke/tulu-7B-GGML",
-                "files": [
-                    {
-                        "name": "q5_1",
-                        "filename": "tulu-7b.ggmlv3.q5_1.bin",
-                        "disk_space": 5060000000.0
-                    },
-                    {
-                        "name": "q6_K",
-                        "filename": "tulu-7b.ggmlv3.q6_K.bin",
-                        "disk_space": 5530000000.0
-                    }
-                ]
-            },
-            {
-                "name": "Tulu-13B",
-                "repo": "TheBloke/tulu-13B-GGML",
-                "files": [
-                    {
-                        "name": "q6_K",
-                        "filename": "tulu-13b.ggmlv3.q6_K.bin",
-                        "disk_space": 10700000000.0
-                    }
-                ]
-            },
-            {
-                "name": "Tulu-30B",
-                "repo": "TheBloke/tulu-30B-GGML",
-                "files": [
-                    {
-                        "name": "q6_K",
-                        "filename": "tulu-30b.ggmlv3.q6_K.bin",
                         "disk_space": 26700000000.0
                     }
                 ]
@@ -361,158 +221,12 @@
                         "disk_space": 58700000000.0
                     }
                 ]
-            },
-            {
-                "name": "Vicuna-v1.3-7B",
-                "repo": "TheBloke/vicuna-7B-v1.3-GGML",
-                "files": [
-                    {
-                      "name": "q2_K",
-                      "filename": "vicuna-7b-v1.3.ggmlv3.q2_K.bin",
-                      "disk_space": 28700000000.0
-                    },
-                    {
-                      "name": "q3_K_L",
-                      "filename": "vicuna-7b-v1.3.ggmlv3.q3_K_L.bin",
-                      "disk_space": 36000000000.0
-                    },
-                    {
-                      "name": "q4_1",
-                      "filename": "vicuna-7b-v1.3.ggmlv3.q4_1.bin",
-                      "disk_space": 42100000000.0
-                    },
-                    {
-                      "name": "q4_K_M",
-                      "filename": "vicuna-7b-v1.3.ggmlv3.q4_K_M.bin",
-                      "disk_space": 40800000000.0
-                    },
-                    {
-                      "name": "q5_1",
-                      "filename": "vicuna-7b-v1.3.ggmlv3.q5_1.bin",
-                      "disk_space": 50600000000.0
-                    },
-                    {
-                      "name": "q5_K_M",
-                      "filename": "vicuna-7b-v1.3.ggmlv3.q5_K_M.bin",
-                      "disk_space": 47800000000.0
-                    },
-                    {
-                        "name": "q6_K",
-                        "filename": "vicuna-7b-v1.3.ggmlv3.q6_K.bin",
-                        "disk_space": 55300000000.0
-                    },
-                    {
-                        "name": "q8_0",
-                        "filename": "vicuna-7b-v1.3.ggmlv3.q8_0.bin",
-                        "disk_space": 71600000000.0
-                    }
-                ]
-            },
-            {
-              "name": "Vicuna-v1.3.0-13B",
-              "repo": "TheBloke/vicuna-13b-v1.3.0-GGML",
-              "files": [
-                  {
-                    "name": "q2_K",
-                    "filename": "vicuna-13b-v1.3.0.ggmlv3.q2_K.bin",
-                    "disk_space": 55100000000.0
-                  },
-                  {
-                    "name": "q3_K_L",
-                    "filename": "vicuna-13b-v1.3.0.ggmlv3.q3_K_L.bin",
-                    "disk_space": 69300000000.0
-                  },
-                  {
-                    "name": "q4_1",
-                    "filename": "vicuna-13b-v1.3.0.ggmlv3.q4_1.bin",
-                    "disk_space": 81400000000.0
-                  },
-                  {
-                    "name": "q4_K_M",
-                    "filename": "vicuna-13b-v1.3.0.ggmlv3.q4_K_M.bin",
-                    "disk_space": 78700000000.0
-                  },
-                  {
-                    "name": "q5_1",
-                    "filename": "vicuna-13b-v1.3.0.ggmlv3.q5_1.bin",
-                    "disk_space": 97600000000.0
-                  },
-                  {
-                    "name": "q5_K_M",
-                    "filename": "vicuna-13b-v1.3.0.ggmlv3.q5_K_M.bin",
-                    "disk_space": 92300000000.0
-                  },
-                  {
-                      "name": "q6_K",
-                      "filename": "vicuna-13b-v1.3.0.ggmlv3.q6_K.bin",
-                      "disk_space": 10700000000.0
-                  },
-                  {
-                      "name": "q8_0",
-                      "filename": "vicuna-13b-v1.3.0.ggmlv3.q8_0.bin",
-                      "disk_space": 13800000000.0
-                  }
-              ]
-            }
-        ]
-    },
-    {
-        "name": "Wizard-Vicuna",
-        "models": [
-            {
-                "name": "Wizard-Vicuna-Uncensored-7B",
-                "repo": "TheBloke/Wizard-Vicuna-7B-Uncensored-GGML",
-                "files": [
-                    {
-                        "name": "q5_1",
-                        "filename": "Wizard-Vicuna-7B-Uncensored.ggmlv3.q5_1.bin",
-                        "disk_space": 5060000000.0
-                    },
-                    {
-                        "name": "q6_K",
-                        "filename": "Wizard-Vicuna-7B-Uncensored.ggmlv3.q6_K.bin",
-                        "disk_space": 5530000000.0
-                    }
-                ]
-            },
-            {
-                "name": "Wizard-Vicuna-Uncensored-13B",
-                "repo": "TheBloke/Wizard-Vicuna-13B-Uncensored-GGML",
-                "files": [
-                    {
-                        "name": "q6_K",
-                        "filename": "Wizard-Vicuna-13B-Uncensored.ggmlv3.q6_K.bin",
-                        "disk_space": 10700000000.0
-                    }
-                ]
-            },
-            {
-                "name": "Wizard-Vicuna-Uncensored-30B",
-                "repo": "TheBloke/Wizard-Vicuna-30B-Uncensored-GGML",
-                "files": [
-                    {
-                        "name": "q6_K",
-                        "filename": "Wizard-Vicuna-30B-Uncensored.ggmlv3.q6_K.bin",
-                        "disk_space": 26700000000.0
-                    }
-                ]
             }
         ]
     },
     {
         "name": "WizardLM",
         "models": [
-            {
-                "name": "WizardLM-30B",
-                "repo": "TheBloke/WizardLM-30B-GGML",
-                "files": [
-                    {
-                        "name": "q6_K",
-                        "filename": "wizardlm-30b.ggmlv3.q6_K.bin",
-                        "disk_space": 26700000000.0
-                    }
-                ]
-            },
             {
                 "name": "WizardLM-Uncensored-7B",
                 "repo": "TheBloke/WizardLM-7B-uncensored-GGML",
@@ -608,183 +322,102 @@
         ]
     },
     {
-        "name": "Robin",
-        "models": [
-          {
-              "name": "Robin-7B",
-              "repo": "TheBloke/robin-7B-v2-GGML",
+      "name": "Orca",
+      "models": [
+              {
+                "name": "Orca-Mini-v2-7B",
+                "repo": "TheBloke/orca_mini_v2_7B-GGML",
+                "files": [
+                    {
+                        "name": "q5_0",
+                        "filename": "orca-mini-v2_7b.ggmlv3.q5_0.bin",
+                        "disk_space": 4630000000.0
+                    },
+                    {
+                        "name": "q5_1",
+                        "filename": "orca-mini-v2_7b.ggmlv3.q5_1.bin",
+                        "disk_space": 5060000000.0
+                    },
+                    {
+                        "name": "q5_K_M",
+                        "filename": "orca-mini-v2_7b.ggmlv3.q5_K_M.bin",
+                        "disk_space": 4780000000.0
+                    },
+                    {
+                        "name": "q6_K",
+                        "filename": "orca-mini-v2_7b.ggmlv3.q6_K.bin",
+                        "disk_space": 5530000000.0
+                    },
+                    {
+                        "name": "q8_0",
+                        "filename": "orca-mini-v2_7b.ggmlv3.q8_0.bin",
+                        "disk_space": 7160000000.0
+                    }
+                ]
+            },
+            {
+              "name": "Orca-Mini-v2-13B",
+              "repo": "TheBloke/orca_mini_v2_13b-GGML",
               "files": [
                   {
-                      "name": "q2_K",
-                      "filename": "robin-7b.ggmlv3.q2_K.bin",
-                      "disk_space": 28700000000.0
-                  },
-                  {
-                      "name": "q3_K_L",
-                      "filename": "robin-7b.ggmlv3.q3_K_L.bin",
-                      "disk_space": 36000000000.0
-                  },
-                  {
-                      "name": "q4_1",
-                      "filename": "robin-7b.ggmlv3.q4_1.bin",
-                      "disk_space": 42100000000.0
-                  },
-                  {
-                      "name": "q4_K_M",
-                      "filename": "robin-7b.ggmlv3.q4_K_M.bin",
-                      "disk_space": 40800000000.0
+                      "name": "q5_0",
+                      "filename": "orca_mini_v2_13b.ggmlv3.q5_0.bin",
+                      "disk_space": 8950000000.0
                   },
                   {
                       "name": "q5_1",
-                      "filename": "robin-7b.ggmlv3.q5_1.bin",
-                      "disk_space": 50600000000.0
+                      "filename": "orca_mini_v2_13b.ggmlv3.q5_1.bin",
+                      "disk_space": 9760000000.0
                   },
                   {
                       "name": "q5_K_M",
-                      "filename": "robin-7b.ggmlv3.q5_K_M.bin",
-                      "disk_space": 47800000000.0
+                      "filename": "orca_mini_v2_13b.ggmlv3.q5_K_M.bin",
+                      "disk_space": 9230000000.0
                   },
                   {
                       "name": "q6_K",
-                      "filename": "robin-7b.ggmlv3.q6_K.bin",
-                      "disk_space": 55300000000.0
+                      "filename": "orca_mini_v2_13b.ggmlv3.q6_K.bin",
+                      "disk_space": 10700000000.0
                   },
                   {
                       "name": "q8_0",
-                      "filename": "robin-7b.ggmlv3.q8_0.bin",
-                      "disk_space": 71600000000.0
+                      "filename": "orca_mini_v2_13b.ggmlv3.q8_0.bin",
+                      "disk_space": 13800000000.0
                   }
               ]
-          },
-          {
-            "name": "Robin-13B",
-            "repo": "TheBloke/robin-13B-v2-GGML",
-            "files": [
-                {
-                    "name": "q2_K",
-                    "filename": "robin-13b.ggmlv3.q2_K.bin",
-                    "disk_space": 55100000000.0
-                },
-                {
-                    "name": "q3_K_L",
-                    "filename": "robin-13b.ggmlv3.q3_K_L.bin",
-                    "disk_space": 69300000000.0
-                },
-                {
-                    "name": "q4_1",
-                    "filename": "robin-13b.ggmlv3.q4_1.bin",
-                    "disk_space": 81400000000.0
-                },
-                {
-                    "name": "q4_K_M",
-                    "filename": "robin-13b.ggmlv3.q4_K_M.bin",
-                    "disk_space": 78700000000.0
-                },
-                {
-                    "name": "q5_1",
-                    "filename": "robin-13b.ggmlv3.q5_1.bin",
-                    "disk_space": 97600000000.0
-                },
-                {
-                    "name": "q5_K_M",
-                    "filename": "robin-13b.ggmlv3.q5_K_M.bin",
-                    "disk_space": 92300000000.0
-                },
-                {
-                    "name": "q6_K",
-                    "filename": "robin-13b.ggmlv3.q6_K.bin",
-                    "disk_space": 10700000000.0
-                },
-                {
-                    "name": "q8_0",
-                    "filename": "robin-13b.ggmlv3.q8_0.bin",
-                    "disk_space": 13800000000.0
-                }
-            ]
-          },
-          {
-            "name": "Robin-33B",
-            "repo": "TheBloke/robin-33B-v2-GGML",
-            "files": [
-                {
-                    "name": "q2_K",
-                    "filename": "robin-33b.ggmlv3.q2_K.bin",
-                    "disk_space": 13700000000.0
-                },
-                {
-                    "name": "q3_K_L",
-                    "filename": "robin-33b.ggmlv3.q3_K_L.bin",
-                    "disk_space": 17300000000.0
-                },
-                {
-                    "name": "q4_1",
-                    "filename": "robin-33b.ggmlv3.q4_1.bin",
-                    "disk_space": 20300000000.0
-                },
-                {
-                    "name": "q4_K_M",
-                    "filename": "robin-33b.ggmlv3.q4_K_M.bin",
-                    "disk_space": 19600000000.0
-                },
-                {
-                    "name": "q5_1",
-                    "filename": "robin-33b.ggmlv3.q5_1.bin",
-                    "disk_space": 24400000000.0
-                },
-                {
-                    "name": "q5_K_M",
-                    "filename": "robin-33b.ggmlv3.q5_K_M.bin",
-                    "disk_space": 23000000000.0
-                },
-                {
-                    "name": "q6_K",
-                    "filename": "robin-33b.ggmlv3.q6_K.bin",
-                    "disk_space": 26700000000.0
-                },
-                {
-                    "name": "q8_0",
-                    "filename": "robin-33b.ggmlv3.q8_0.bin",
-                    "disk_space": 34600000000.0
-                }
-            ]
-          },
-          {
-            "name": "Robin-65B",
-            "repo": "TheBloke/robin-65B-v2-GGML",
-            "files": [
-                {
-                    "name": "q2_K",
-                    "filename": "robin-65b.ggmlv3.q2_K.bin",
-                    "disk_space": 27500000000.0
-                },
-                {
-                    "name": "q3_K_L",
-                    "filename": "robin-65b.ggmlv3.q3_K_L.bin",
-                    "disk_space": 34600000000.0
-                },
-                {
-                    "name": "q4_1",
-                    "filename": "robin-65b.ggmlv3.q4_1.bin",
-                    "disk_space": 40800000000.0
-                },
-                {
-                    "name": "q4_K_M",
-                    "filename": "robin-65b.ggmlv3.q4_K_M.bin",
-                    "disk_space": 39300000000.0
-                },
-                {
-                    "name": "q5_1",
-                    "filename": "robin-65b.ggmlv3.q5_1.bin",
-                    "disk_space": 49000000000.0
-                },
-                {
-                    "name": "q5_K_M",
-                    "filename": "robin-65b.ggmlv3.q5_K_M.bin",
-                    "disk_space": 46200000000.0
-                }
-            ]
-          }
-        ]
+            },
+            {
+                "name": "OpenOrca-Preview1-13B",
+                "repo": "TheBloke/OpenOrca-Preview1-13B-GGML",
+                "files": [
+                    {
+                        "name": "q5_0",
+                        "filename": "openorca-preview1-200k-llama-13b.ggmlv3.q5_0.bin",
+                        "disk_space": 89500000000.0
+                    },
+                    {
+                        "name": "q5_1",
+                        "filename": "openorca-preview1-200k-llama-13b.ggmlv3.q5_1.bin",
+                        "disk_space": 97600000000.0
+                    },
+                    {
+                        "name": "q5_K_M",
+                        "filename": "openorca-preview1-200k-llama-13b.ggmlv3.q5_K_M.bin",
+                        "disk_space": 92300000000.0
+                    },
+                    {
+                        "name": "q6_K",
+                        "filename": "openorca-preview1-200k-llama-13b.ggmlv3.q6_K.bin",
+                        "disk_space": 107000000000.0
+                    },
+                    {
+                        "name": "q8_0",
+                        "filename": "openorca-preview1-200k-llama-13b.ggmlv3.q8_0.bin",
+                        "disk_space": 13800000000.0
+                    }
+                ]
+            }
+      ]
     },
     {
         "name": "misc",
@@ -843,83 +476,6 @@
                         "disk_space": 26700000000.0
                     }
                 ]
-            },
-            {
-              "name": "BigTrans-13B",
-              "repo": "TheBloke/BigTrans-13B-GGML",
-              "files": [
-                  {
-                      "name": "q2_K",
-                      "filename": "bigtrans-13b.ggmlv3.q2_K.bin",
-                      "disk_space": 56400000000.0
-                  },
-                  {
-                      "name": "q3_K_L",
-                      "filename": "bigtrans-13b.ggmlv3.q3_K_L.bin",
-                      "disk_space": 70700000000.0
-                  },
-                  {
-                      "name": "q4_1",
-                      "filename": "bigtrans-13b.ggmlv3.q4_1.bin",
-                      "disk_space": 82800000000.0
-                  },
-                  {
-                      "name": "q4_K_M",
-                      "filename": "bigtrans-13b.ggmlv3.q4_K_M.bin",
-                      "disk_space": 80200000000.0
-                  },
-                  {
-                      "name": "q5_1",
-                      "filename": "bigtrans-13b.ggmlv3.q5_1.bin",
-                      "disk_space": 99300000000.0
-                  },
-                  {
-                      "name": "q5_K_M",
-                      "filename": "bigtrans-13b.ggmlv3.q5_K_M.bin",
-                      "disk_space": 94000000000.0
-                  },
-                  {
-                      "name": "q6_K",
-                      "filename": "bigtrans-13b.ggmlv3.q6_K.bin",
-                      "disk_space": 10900000000.0
-                  },
-                  {
-                      "name": "q8_0",
-                      "filename": "bigtrans-13b.ggmlv3.q8_0.bin",
-                      "disk_space": 14100000000.0
-                  }
-              ]
-            },
-            {
-              "name": "Minotaur-15B",
-              "repo": "TheBloke/minotaur-15B-GGML",
-              "files": [
-                  {
-                      "name": "q4_0",
-                      "filename": "minotaur-15b.ggmlv3.q4_0.bin",
-                      "disk_space": 10700000000.0
-                  },
-                  {
-                      "name": "q4_1",
-                      "filename": "minotaur-15b.ggmlv3.q4_1.bin",
-                      "disk_space": 11900000000.0
-                  },
-                  {
-                      "name": "q5_0",
-                      "filename": "minotaur-15b.ggmlv3.q5_0.bin",
-                      "disk_space": 13100000000.0
-                  },
-                  {
-                      "name": "q5_1",
-                      "filename": "minotaur-15b.ggmlv3.q5_1.bin",
-                      "disk_space": 14300000000.0
-                  },
-                  {
-                      "name": "q8_0",
-                      "filename": "minotaur-15b.ggmlv3.q8_0.bin",
-                      "disk_space": 20100000000.0
-                  }
-              ]
             }
         ]
     }
