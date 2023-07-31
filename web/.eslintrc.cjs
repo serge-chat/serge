@@ -6,7 +6,7 @@ module.exports = {
   parserOptions: {
     parser: "@typescript-eslint/parser",
     tsconfigRootDir: __dirname,
-    project: ["./tsconfig.json"],
+    project: true,
     extraFileExtensions: [".svelte"],
     sourceType: "module",
     ecmaVersion: 2020,
@@ -20,6 +20,16 @@ module.exports = {
       },
     },
   ],
-  extends: ["@feltjs", "plugin:svelte/recommended", "plugin:@typescript-eslint/recommended"],
+  rules: {
+    noDuplicateImports: "off",
+  },
+  plugins: ["@typescript-eslint"],
+  extends: [
+    "@feltjs",
+    "eslint:recommended",
+    "plugin:svelte/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/stylistic",
+  ],
   ignorePatterns: ["*.cjs", "*.config.js"],
 };

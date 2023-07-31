@@ -8,8 +8,8 @@
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "lint": "prettier --plugin-search-dir . --check . && eslint .",
-    "format": "prettier --plugin-search-dir . --write ."
+    "lint": "prettier --check . && eslint .",
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@feltjs/eslint-config": "^0.3.1",
@@ -22,6 +22,7 @@
     "@typescript-eslint/parser": "^6.2.0",
     "autoprefixer": "^10.4.14",
     "eslint": "^8.46.0",
+    "eslint-plugin-import": "^2.28.0",
     "eslint-plugin-svelte": "^2.32.4",
     "eslint-plugin-vue": "^9.16.1",
     "postcss": "^8.4.27",
