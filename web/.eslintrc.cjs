@@ -20,6 +20,6 @@ module.exports = {
       },
     },
   ],
-  extends: ["@feltjs", "plugin:svelte/recommended"],
+  extends: ["@feltjs", "plugin:svelte/recommended", "plugin:@typescript-eslint/recommended"],
   ignorePatterns: ["*.cjs", "*.config.js"],
 };
