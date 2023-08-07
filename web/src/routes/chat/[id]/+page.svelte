@@ -256,7 +256,7 @@
               <div
                 class="mask mask-squircle online flex aspect-square w-[2.6rem] items-center justify-center overflow-hidden bg-gradient-to-b from-primary to-primary-focus"
               >
-                <span class="font-rubik-pixels text-base-300">I</span>
+                <span>I</span>
               </div>
             </div>
             <div
@@ -287,7 +287,7 @@
               <div
                 class="mask mask-squircle online flex aspect-square w-[2.6rem] items-center justify-center overflow-hidden bg-gradient-to-b from-primary to-primary-focus"
               >
-                <span class="font-rubik-pixels text-base-300">AI</span>
+                <span>AI</span>
               </div>
             </div>
             <div
