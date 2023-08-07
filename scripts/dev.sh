@@ -14,8 +14,9 @@ pip install llama-cpp-python==0.1.77 || {
 	exit 1
 }
 
-# Start Redis instance
-redis-server /etc/redis/redis.conf &
+# Start Dragonfly instance
+mkdir -p /data/db
+/usr/local/bin/dragonfly --noversion_check --logtostderr --dbnum 0 --bind localhost --port 6379 --save_schedule "*:*" --dbfilename dragonfly --dir /data/db &
 
 # Start the web server
 cd /usr/src/app/web || exit 1

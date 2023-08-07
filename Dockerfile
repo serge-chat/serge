@@ -1,30 +1,10 @@
 # ---------------------------------------
-# Base image for node
-FROM node:19-bullseye-slim as node_base
-
-# ---------------------------------------
-# Base image for runtime
-FROM python:3.11-slim-bullseye as base
-
-ENV TZ=Etc/UTC
-WORKDIR /usr/src/app
-
-# Install Redis
-RUN apt-get update \
-    && apt-get install -y curl wget gnupg cmake lsb-release build-essential dumb-init \
-    && curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg \
-    && echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list \
-    && apt-get update \
-    && apt-get install -y redis \
-    && apt-get clean \
-    && mkdir -p /etc/redis /var/redis \
-    && pip install --upgrade pip \
-    && echo "appendonly yes" >> /etc/redis/redis.conf \
-    && echo "dir /data/db/" >> /etc/redis/redis.conf
+# Base image for dragonflydb
+FROM ghcr.io/dragonflydb/dragonfly:v1.7.1 as dragonfly
 
 # ---------------------------------------
 # Build frontend
-FROM node_base as frontend_builder
+FROM node:19-bullseye-slim as frontend
 
 WORKDIR /usr/src/app
 COPY ./web/package.json ./web/package-lock.json ./
@@ -36,20 +16,26 @@ RUN npm run build
 
 # ---------------------------------------
 # Runtime environment
-FROM base as release
+FROM python:3.11-slim-bullseye as release
 
 # Set ENV
 ENV NODE_ENV='production'
+ENV TZ=Etc/UTC
 WORKDIR /usr/src/app
 
 # Copy artifacts
-COPY --from=frontend_builder /usr/src/app/web/build /usr/src/app/api/static/
+COPY --from=dragonfly /usr/local/bin/dragonfly /usr/local/bin/dragonfly
+COPY --from=frontend /usr/src/app/web/build /usr/src/app/api/static/
 COPY ./api /usr/src/app/api
 COPY scripts/deploy.sh /usr/src/app/deploy.sh
 
 # Install api dependencies
-RUN pip install --no-cache-dir ./api \
-    && chmod 755 /usr/src/app/deploy.sh
+RUN apt-get update && apt-get install -y cmake build-essential dumb-init \
+    && pip install --upgrade pip \
+    && pip install --no-cache-dir ./api \
+    && apt-get clean \
+    && rm -rf /tmp/* \
+    && chmod 755 /usr/src/app/deploy.sh /usr/local/bin/dragonfly
 
 EXPOSE 8008
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
