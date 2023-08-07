@@ -17,7 +17,7 @@ ENV NODE_ENV='development'
 
 # Install dependencies
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends build-essential dumb-init
+    && apt-get install -y --no-install-recommends libxml2 build-essential dumb-init
 
 # Copy database, source code, and scripts
 COPY --from=dragonfly /usr/local/bin/dragonfly /usr/local/bin/dragonfly
