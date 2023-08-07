@@ -1,5 +1,12 @@
+.DS_Store
 node_modules
 /.svelte-kit
+/build
+/package
+.env
+.env.*
+|!.env.example
 
+pnpm-lock.yml
 package-lock.json
-.prettierrc
+yarn.lock

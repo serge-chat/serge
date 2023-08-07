@@ -37,7 +37,7 @@
     data.append("prompt", prompt);
 
     const eventSource = new EventSource(
-      "/api/chat/" + $page.params.id + "/question?" + data.toString()
+      "/api/chat/" + $page.params.id + "/question?" + data.toString(),
     );
 
     history = [
@@ -93,7 +93,7 @@
         headers: {
           accept: "application/json",
         },
-      }
+      },
     ).then((response) => response.json());
     await invalidate("/api/chat/");
     await goto("/chat/" + newData);
@@ -108,7 +108,7 @@
   async function deletePrompt(chatID: string, idx: number) {
     const response = await fetch(
       `/api/chat/${chatID}/prompt?idx=${idx.toString()}`,
-      { method: "DELETE" }
+      { method: "DELETE" },
     );
 
     if (response.status === 200) {
@@ -128,7 +128,9 @@
         try {
           const code = hljs.highlight(code_string, lang).value;
           return hljs.highlight(code, { language: lang }).value;
-        } catch (__) {}
+        } catch (ex) {
+          /**/
+        }
       }
       return "";
     },
@@ -141,7 +143,7 @@
     index: any,
     options: any,
     env: any,
-    self: any
+    self: any,
   ) => {
     // Increment the codeblock id
     const id = `code-block-${Math.random().toString(36).substring(7)}`;
@@ -154,7 +156,7 @@
       index,
       options,
       env,
-      self
+      self,
     ).replace("<code", `<code id="code-block-${id}"`);
 
     // Get the token and code content
@@ -192,7 +194,6 @@
   };
 </script>
 
-/** eslint-disable svelte/no-at-html-tags */
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
   class="relative mx-auto h-full max-h-screen w-full overflow-hidden"
@@ -255,7 +256,7 @@
               <div
                 class="mask mask-squircle online flex aspect-square w-[2.6rem] items-center justify-center overflow-hidden bg-gradient-to-b from-primary to-primary-focus"
               >
-                <span class="font-rubik-pixels text-base-300">I</span>
+                <span>I</span>
               </div>
             </div>
             <div
@@ -263,7 +264,6 @@
             >
               <!-- {question.data.content} -->
               <div class="w-full overflow-x-auto overflow-y-hidden break-words">
-                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                 {@html renderMarkdown(question.data.content)}
               </div>
             </div>
@@ -287,7 +287,7 @@
               <div
                 class="mask mask-squircle online flex aspect-square w-[2.6rem] items-center justify-center overflow-hidden bg-gradient-to-b from-primary to-primary-focus"
               >
-                <span class="font-rubik-pixels text-base-300">AI</span>
+                <span>AI</span>
               </div>
             </div>
             <div
@@ -300,7 +300,6 @@
               {/if}
               <!-- {question.data.content} -->
               <div class="w-full overflow-x-auto overflow-y-hidden break-words">
-                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                 {@html renderMarkdown(question.data.content)}
               </div>
             </div>

@@ -1,5 +1,3 @@
-@import url("@fontsource/rubik-pixels");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -29,19 +27,27 @@ code {
 
 @keyframes d5 {
   0% {
-    box-shadow: 10px 0 #fff, -10px 0 #fff2;
+    box-shadow:
+      10px 0 #fff,
+      -10px 0 #fff2;
     background: #fff;
   }
   33% {
-    box-shadow: 10px 0 #fff, -10px 0 #fff2;
+    box-shadow:
+      10px 0 #fff,
+      -10px 0 #fff2;
     background: #fff2;
   }
   66% {
-    box-shadow: 10px 0 #fff2, -10px 0 #fff;
+    box-shadow:
+      10px 0 #fff2,
+      -10px 0 #fff;
     background: #fff2;
   }
   100% {
-    box-shadow: 10px 0 #fff2, -10px 0 #fff;
+    box-shadow:
+      10px 0 #fff2,
+      -10px 0 #fff;
     background: #fff;
   }
 }

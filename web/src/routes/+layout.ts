@@ -1,11 +1,11 @@
 import type { LayoutLoad } from "./$types";
 
-type t = {
+interface t {
   id: string;
   created: string;
   model: string;
   subtitle: string;
-};
+}
 
 export const load: LayoutLoad = async ({ fetch }) => {
   const r = await fetch("/api/chat/");
