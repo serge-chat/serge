@@ -46,9 +46,7 @@
 </script>
 
 <div class="flex flex-col items-center justify-center pt-5">
-  <h1 class="pb-2 text-3xl font-bold">
-    Say Hi to <span class="font-rubik-pixels">Serge</span>
-  </h1>
+  <h1 class="pb-2 text-3xl font-bold">Say Hi to Serge</h1>
 </div>
 <h1 class="pb-5 pt-2 text-center text-xl font-light">
   An easy way to chat with Alpaca & other LLaMA based models.

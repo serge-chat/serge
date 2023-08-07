@@ -2,16 +2,16 @@ import type { PageLoad } from "./$types";
 
 type MessageType = "human" | "ai" | "system";
 
-type MessageData = {
+interface MessageData {
   content: string;
-};
+}
 
-type Message = {
+interface Message {
   type: MessageType;
   data: MessageData;
-};
+}
 
-type Params = {
+interface Params {
   model_path: string;
   n_ctx: number;
   n_threads: number;
@@ -21,14 +21,14 @@ type Params = {
   top_p: number;
   repeat_penalty: number;
   top_k: number;
-};
+}
 
-type Response = {
+interface Response {
   id: string;
   created: string;
   params: Params;
   history: Message[];
-};
+}
 
 export const load: PageLoad = async ({ fetch, params }) => {
   const r = await fetch("/api/chat/" + params.id);
