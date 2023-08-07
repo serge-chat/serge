@@ -18,7 +18,7 @@ class ChainRedisHandler(StreamingStdOutCallbackHandler):
         super().__init__()
         self.id = id
         self.client = Redis(host='localhost', port=6379, decode_responses=False)
-        logger.info(f"Connected to Redis? {client.ping()}")
+        logger.info(f"Connected to Redis? {self.client.ping()}")
         logger.info(f"Stream key : {self.stream_key}")
 
     @property
