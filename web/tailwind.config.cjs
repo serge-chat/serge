@@ -1,12 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,js,svelte,ts}"],
+  content: [
+    "./src/**/*.{html,js,svelte,ts}",
+    "./node_modules/daisyui/**/*/.{js,jsx,ts,tsx}",
+  ],
   theme: {
-    extend: {
-      fontFamily: {
-        "rubik-pixels": ["Rubik Pixels", "sans-serif"],
-      },
-    },
+    extend: {},
   },
   plugins: [require("daisyui")],
+  daisyui: {
+    themes: true,
+  },
 };

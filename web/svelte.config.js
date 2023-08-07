@@ -4,7 +4,6 @@ import { vitePreprocess } from "@sveltejs/kit/vite";
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   preprocess: vitePreprocess(),
-
   kit: {
     adapter: adapter({
       fallback: "200.html",
@@ -13,7 +12,6 @@ const config = {
       checkOrigin: false,
     },
   },
-  preprocess: vitePreprocess(),
 };
 
 export default config;

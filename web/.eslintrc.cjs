@@ -1,15 +1,22 @@
-const typescript = require("typescript");
-
 module.exports = {
   root: true,
-  parser: "vue-eslint-parser",
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:svelte/recommended",
+    "plugin:prettier/recommended",
+  ],
+  parser: "@typescript-eslint/parser",
+  plugins: ["@typescript-eslint"],
   parserOptions: {
-    parser: "@typescript-eslint/parser",
-    tsconfigRootDir: __dirname,
-    project: true,
-    extraFileExtensions: [".svelte"],
     sourceType: "module",
     ecmaVersion: 2020,
+    extraFileExtensions: [".svelte"],
+  },
+  env: {
+    browser: true,
+    es2017: true,
+    node: true,
   },
   overrides: [
     {
@@ -21,15 +28,8 @@ module.exports = {
     },
   ],
   rules: {
-    noDuplicateImports: "off",
-  },
-  plugins: ["@typescript-eslint"],
-  extends: [
-    "@feltjs",
-    "eslint:recommended",
-    "plugin:svelte/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/stylistic",
-  ],
-  ignorePatterns: ["*.cjs", "*.config.js"],
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "svelte/no-at-html-tags": "off"
+  }
 };
