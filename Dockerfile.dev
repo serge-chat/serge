@@ -16,8 +16,8 @@ ENV TZ=Etc/UTC
 ENV NODE_ENV='development'
 
 # Install dependencies
-RUN apt-get update && apt-get install -y cmake build-essential dumb-init \
-    && pip install --upgrade pip
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends build-essential dumb-init
 
 # Copy database, source code, and scripts
 COPY --from=dragonfly /usr/local/bin/dragonfly /usr/local/bin/dragonfly

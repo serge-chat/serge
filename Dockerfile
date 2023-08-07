@@ -30,11 +30,10 @@ COPY ./api /usr/src/app/api
 COPY scripts/deploy.sh /usr/src/app/deploy.sh
 
 # Install api dependencies
-RUN apt-get update && apt-get install -y cmake build-essential dumb-init \
-    && pip install --upgrade pip \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends build-essential dumb-init \
     && pip install --no-cache-dir ./api \
-    && apt-get clean \
-    && rm -rf /tmp/* \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* \
     && chmod 755 /usr/src/app/deploy.sh /usr/local/bin/dragonfly
 
 EXPOSE 8008
