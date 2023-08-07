@@ -36,7 +36,8 @@ async def create_new_chat(
     except Exception as exc:
         raise ValueError(f"Model can't be found: {exc}")
 
-    client = Redis()
+    client = Redis(host='localhost', port=6379, decode_responses=False)
+    logger.info(f"Connected to Redis? {client.ping()}")
 
     params = ChatParameters(
         model_path=model,
@@ -69,7 +70,8 @@ async def create_new_chat(
 @chat_router.get("/")
 async def get_all_chats():
     res = []
-    client = Redis()
+    client = Redis(host='localhost', port=6379, decode_responses=False)
+    logger.info(f"Connected to Redis? {client.ping()}")
 
     ids = client.smembers("chats")
 
@@ -98,7 +100,8 @@ async def get_all_chats():
 
 @chat_router.get("/{chat_id}")
 async def get_specific_chat(chat_id: str):
-    client = Redis()
+    client = Redis(host='localhost', port=6379, decode_responses=False)
+    logger.info(f"Connected to Redis? {client.ping()}")
 
     if not client.sismember("chats", chat_id):
         raise ValueError("Chat does not exist")
@@ -115,7 +118,8 @@ async def get_specific_chat(chat_id: str):
 
 @chat_router.get("/{chat_id}/history")
 async def get_chat_history(chat_id: str):
-    client = Redis()
+    client = Redis(host='localhost', port=6379, decode_responses=False)
+    logger.info(f"Connected to Redis? {client.ping()}")
 
     if not client.sismember("chats", chat_id):
         raise ValueError("Chat does not exist")
@@ -126,7 +130,8 @@ async def get_chat_history(chat_id: str):
 
 @chat_router.delete("/{chat_id}/prompt")
 async def delete_prompt(chat_id: str, idx: int):
-    client = Redis()
+    client = Redis(host='localhost', port=6379, decode_responses=False)
+    logger.info(f"Connected to Redis? {client.ping()}")
 
     if not client.sismember("chats", chat_id):
         raise ValueError("Chat does not exist")
@@ -147,7 +152,8 @@ async def delete_prompt(chat_id: str, idx: int):
 
 @chat_router.delete("/{chat_id}")
 async def delete_chat(chat_id: str):
-    client = Redis()
+    client = Redis(host='localhost', port=6379, decode_responses=False)
+    logger.info(f"Connected to Redis? {client.ping()}")
 
     if not client.sismember("chats", chat_id):
         raise ValueError("Chat does not exist")
@@ -162,8 +168,9 @@ async def delete_chat(chat_id: str):
 
 @chat_router.get("/{chat_id}/question")
 def stream_ask_a_question(chat_id: str, prompt: str):
-    logger.debug("Starting redis client")
-    client = Redis()
+    logger.info("Starting redis client")
+    client = Redis(host='localhost', port=6379, decode_responses=False)
+    logger.info(f"Connected to Redis? {client.ping()}")
 
     if not client.sismember("chats", chat_id):
         raise ValueError("Chat does not exist")
@@ -235,7 +242,8 @@ def stream_ask_a_question(chat_id: str, prompt: str):
 
 @chat_router.post("/{chat_id}/question")
 async def ask_a_question(chat_id: str, prompt: str):
-    client = Redis()
+    client = Redis(host='localhost', port=6379, decode_responses=False)
+    logger.info(f"Connected to Redis? {client.ping()}")
 
     if not client.sismember("chats", chat_id):
         raise ValueError("Chat does not exist")
