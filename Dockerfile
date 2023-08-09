@@ -1,6 +1,6 @@
 # ---------------------------------------
 # Base image for dragonflydb
-FROM ghcr.io/dragonflydb/dragonfly:v1.7.1 as dragonfly
+FROM ghcr.io/dragonflydb/dragonfly:v1.8.0 as dragonfly
 
 # ---------------------------------------
 # Build frontend
