@@ -4,7 +4,7 @@ FROM node:19-bullseye-slim as node_base
 
 # ---------------------------------------
 # Base image for dragonflydb
-FROM ghcr.io/dragonflydb/dragonfly:v1.7.1 as dragonfly
+FROM ghcr.io/dragonflydb/dragonfly:v1.8.0 as dragonfly
 
 # ---------------------------------------
 # Dev environment
