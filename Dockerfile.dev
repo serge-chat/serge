@@ -3,40 +3,31 @@
 FROM node:19-bullseye-slim as node_base
 
 # ---------------------------------------
-# Base image for runtime
-FROM python:3.11-slim-bullseye as base
-
-ENV TZ=Etc/UTC
-WORKDIR /usr/src/app
-
-# Install Redis
-RUN apt-get update \
-    && apt-get install -y curl wget gnupg cmake lsb-release build-essential dumb-init \
-    && curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg \
-    && echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list \
-    && apt-get update \
-    && apt-get install -y redis \
-    && apt-get clean \
-    && mkdir -p /etc/redis /var/redis \
-    && pip install --upgrade pip \
-    && echo "appendonly yes" >> /etc/redis/redis.conf \
-    && echo "dir /data/db/" >> /etc/redis/redis.conf
+# Base image for dragonflydb
+FROM ghcr.io/dragonflydb/dragonfly:v1.8.0 as dragonfly
 
 # ---------------------------------------
 # Dev environment
-FROM base as dev
+FROM python:3.11-slim-bullseye as dev
 
 # Set ENV
 WORKDIR /usr/src/app
+ENV TZ=Etc/UTC
 ENV NODE_ENV='development'
 
-# Install node.js and npm packages
+# Install dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends libxml2 build-essential dumb-init
+
+# Copy database, source code, and scripts
+COPY --from=dragonfly /usr/local/bin/dragonfly /usr/local/bin/dragonfly
 COPY --from=node_base /usr/local /usr/local
 COPY scripts/dev.sh /usr/src/app/dev.sh
 COPY ./web/package.json ./web/package-lock.json ./
 
 RUN npm ci \
-    && chmod 755 /usr/src/app/dev.sh
+    && chmod 755 /usr/src/app/dev.sh \
+    && chmod 755 /usr/local/bin/dragonfly
 
 EXPOSE 8008
 EXPOSE 9124
