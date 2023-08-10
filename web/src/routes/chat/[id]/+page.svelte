@@ -86,7 +86,8 @@
       `/api/chat/?model=${data.chat.params.model_path}&temperature=${data.chat.params.temperature}&top_k=${data.chat.params.top_k}` +
         `&top_p=${data.chat.params.top_p}&max_length=${data.chat.params.max_tokens}&context_window=${data.chat.params.n_ctx}` +
         `&repeat_last_n=${data.chat.params.last_n_tokens_size}&repeat_penalty=${data.chat.params.repeat_penalty}` +
-        `&n_threads=${data.chat.params.n_threads}&init_prompt=${data.chat.history[0].data.content}`,
+        `&n_threads=${data.chat.params.n_threads}&init_prompt=${data.chat.history[0].data.content}` +
+        `&gpu_layers=${data.chat.params.n_gpu_layers}&n_gqa=${data.chat.params.n_gqa}`,
 
       {
         method: "POST",

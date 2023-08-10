@@ -26,6 +26,12 @@ class LlamaCpp(LLM):
     n_ctx: int = Field(512, alias="n_ctx")
     """Token context window."""
 
+    n_gpu_layers: int = Field(0, alias="n_gpu_layers")
+    """The number of layers to put on the GPU. The rest will be on the CPU."""
+
+    n_gqa: int | None = 0
+    """Grouped-query attention factor parameter. Set to 8 for LLaMA2"""
+
     n_parts: int = Field(-1, alias="n_parts")
     """Number of parts to split the model into. 
     If -1, the number of parts is automatically determined."""
@@ -118,6 +124,8 @@ class LlamaCpp(LLM):
             "top_k": self.top_k,
             "n_threads": self.n_threads,
             "n_ctx": self.n_ctx,
+            "n_gpu_layers": self.n_gpu_layers,
+            "n_gqa": self.n_gqa if self.n_gqa else None,
             "n_parts": self.n_parts,
             "seed": self.seed,
             "f16_kv": self.f16_kv,
@@ -162,6 +170,8 @@ class LlamaCpp(LLM):
         client = Llama(
             model_path="/usr/src/app/weights/" + self.model_path + ".bin",
             n_ctx=self.n_ctx,
+            n_gpu_layers=self.n_gpu_layers,
+            n_gqa=self.n_gqa if self.n_gqa else None,
             n_parts=self.n_parts,
             seed=self.seed,
             f16_kv=self.f16_kv,
