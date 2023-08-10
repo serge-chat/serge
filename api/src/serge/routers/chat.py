@@ -274,7 +274,7 @@ async def ask_a_question(chat_id: str, prompt: str):
             n_threads=chat.params.n_threads,
             n_gpu_layers=chat.params.n_gpu_layers,
             n_gqa=chat.params.n_gqa if chat.params.n_gqa else None,
-            last_n_tokens_size=chat.params.last_n_tokens_size
+            last_n_tokens_size=chat.params.last_n_tokens_size,
         )
         answer = client(
             prompt,
