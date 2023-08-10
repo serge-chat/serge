@@ -72,6 +72,9 @@ We currently support the following models:
 - Llama 🦙
   - FinLlama-33B
   - Llama-Supercot-30B
+  - Llama v2 7B
+  - Llama v2 13B
+  - Llama v2 70B
 - Lazarus 💀
   - Lazarus-30B
 - Nous 🧠
