@@ -23,7 +23,7 @@ class LlamaCpp(LLM):
     model_path: str
     """The path to the Llama model file."""
 
-    n_ctx: int = Field(512, alias="n_ctx")
+    n_ctx: int = Field(2048, alias="n_ctx")
     """Token context window."""
 
     n_gpu_layers: int = Field(0, alias="n_gpu_layers")

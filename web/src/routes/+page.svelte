@@ -21,7 +21,7 @@
     "Below is an instruction that describes a task. Write a response that appropriately completes the request.";
 
   let n_threads = 4;
-  let context_window = 512;
+  let context_window = 2048;
   let gpu_layers = 0;
 
   async function onCreateChat(event: Event) {

@@ -23,7 +23,7 @@ async def create_new_chat(
     top_k: int = 50,
     top_p: float = 0.95,
     max_length: int = 2048,
-    context_window: int = 512,
+    context_window: int = 2048,
     gpu_layers: Optional[int] = None,
     gqa: int | None = 0,
     repeat_last_n: int = 64,
@@ -274,7 +274,7 @@ async def ask_a_question(chat_id: str, prompt: str):
             n_threads=chat.params.n_threads,
             n_gpu_layers=chat.params.n_gpu_layers,
             n_gqa=chat.params.n_gqa if chat.params.n_gqa else None,
-            last_n_tokens_size=chat.params.last_n_tokens_size,
+            last_n_tokens_size=chat.params.last_n_tokens_size
         )
         answer = client(
             prompt,
