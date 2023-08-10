@@ -25,7 +25,7 @@
     "eslint-plugin-import": "^2.28.0",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-svelte": "^2.32.4",
-    "eslint-plugin-vue": "^9.16.1",
+    "eslint-plugin-vue": "^9.17.0",
     "postcss": "^8.4.27",
     "prettier": "3.0.1",
     "svelte": "^4.1.2",
