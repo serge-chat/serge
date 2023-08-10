@@ -31,7 +31,7 @@ COPY scripts/deploy.sh /usr/src/app/deploy.sh
 
 # Install api dependencies
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends libxml2 build-essential dumb-init \
+    && apt-get install -y --no-install-recommends libxml2 cmake build-essential dumb-init \
     && pip install --no-cache-dir ./api \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* \
     && chmod 755 /usr/src/app/deploy.sh /usr/local/bin/dragonfly

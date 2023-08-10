@@ -1,3 +1,4 @@
+from typing import Optional
 from fastapi import APIRouter
 from langchain.memory import RedisChatMessageHistory
 from langchain.schema import SystemMessage, messages_to_dict, AIMessage, HumanMessage
@@ -21,8 +22,10 @@ async def create_new_chat(
     temperature: float = 0.1,
     top_k: int = 50,
     top_p: float = 0.95,
-    max_length: int = 256,
-    context_window: int = 512,
+    max_length: int = 2048,
+    context_window: int = 2048,
+    gpu_layers: Optional[int] = None,
+    gqa: int | None = 0,
     repeat_last_n: int = 64,
     repeat_penalty: float = 1.3,
     init_prompt: str = "Below is an instruction that describes a task. Write a response that appropriately completes the request.",
@@ -46,6 +49,8 @@ async def create_new_chat(
         top_p=top_p,
         max_tokens=max_length,
         n_ctx=context_window,
+        n_gpu_layers=gpu_layers,
+        n_gqa=gqa if gqa else None,
         last_n_tokens_size=repeat_last_n,
         repeat_penalty=repeat_penalty,
         n_threads=n_threads,
@@ -195,6 +200,8 @@ def stream_ask_a_question(chat_id: str, prompt: str):
         client = Llama(
             model_path="/usr/src/app/weights/" + chat.params.model_path + ".bin",
             n_ctx=len(chat.params.init_prompt) + chat.params.n_ctx,
+            n_gpu_layers=chat.params.n_gpu_layers,
+            n_gqa=chat.params.n_gqa if chat.params.n_gqa else None,
             n_threads=chat.params.n_threads,
             last_n_tokens_size=chat.params.last_n_tokens_size,
         )
@@ -265,6 +272,8 @@ async def ask_a_question(chat_id: str, prompt: str):
             model_path="/usr/src/app/weights/" + chat.params.model_path + ".bin",
             n_ctx=len(chat.params.init_prompt) + chat.params.n_ctx,
             n_threads=chat.params.n_threads,
+            n_gpu_layers=chat.params.n_gpu_layers,
+            n_gqa=chat.params.n_gqa if chat.params.n_gqa else None,
             last_n_tokens_size=chat.params.last_n_tokens_size,
         )
         answer = client(

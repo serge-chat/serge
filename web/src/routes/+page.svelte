@@ -10,9 +10,10 @@
 
   let temp = 0.1;
   let top_k = 50;
+  let gqa = 0;
   let top_p = 0.95;
 
-  let max_length = 256;
+  let max_length = 2048;
   let repeat_last_n = 64;
   let repeat_penalty = 1.3;
 
@@ -20,7 +21,8 @@
     "Below is an instruction that describes a task. Write a response that appropriately completes the request.";
 
   let n_threads = 4;
-  let context_window = 512;
+  let context_window = 2048;
+  let gpu_layers = 0;
 
   async function onCreateChat(event: Event) {
     const form = document.getElementById("form-create-chat") as HTMLFormElement;
@@ -92,7 +94,7 @@
         </div>
         <div
           class="tooltip tooltip-bottom flex flex-col"
-          data-tip="The number of samples to consider for top_k sampling. "
+          data-tip="The number of samples to consider for top_k sampling."
         >
           <label for="top_k" class="label-text pb-1">top_k</label>
           <input
@@ -106,21 +108,21 @@
         </div>
         <div class="col-span-2">
           <label for="max_length" class="label-text"
-            >Maximum generated text length in tokens - [{max_length}]</label
+            >Maximum generated tokens - [{max_length}]</label
           >
           <input
             name="max_length"
             type="range"
             bind:value={max_length}
-            min="16"
-            max="512"
+            min="32"
+            max="32768"
             step="16"
             class="range range-sm mt-auto"
           />
         </div>
         <div
           class="tooltip flex flex-col"
-          data-tip="The cumulative probability of the tokens to keep for nucleus sampling. "
+          data-tip="The cumulative probability of the tokens to keep for nucleus sampling."
         >
           <label for="top_p" class="label-text pb-1">top_p</label>
           <input
@@ -138,7 +140,7 @@
           data-tip="Size of the prompt context. Will determine how far the model will read back. Increases memory consumption."
         >
           <label for="context_window" class="label-text"
-            >Prompt Context Length - [{context_window}]</label
+            >Context Length - [{context_window}]</label
           >
           <input
             name="context_window"
@@ -150,7 +152,38 @@
             class="range range-sm mt-auto"
           />
         </div>
-
+        <div
+          class="tooltip flex flex-col"
+          data-tip="Grouped-query attention factor parameter. Set to 8 for LLaMA2"
+        >
+          <label for="gqa" class="label-text pb-1">gqa</label>
+          <input
+            class="input-bordered input w-full max-w-xs"
+            name="gqa"
+            type="number"
+            bind:value={gqa}
+            min="0"
+            max="8"
+            step="1"
+          />
+        </div>
+        <div
+          class="tooltip col-span-2"
+          data-tip="Number of layers to put on the GPU. The rest will be on the CPU."
+        >
+          <label for="gpu_layers" class="label-text"
+            >GPU Layers - [{gpu_layers}]</label
+          >
+          <input
+            name="gpu_layers"
+            type="range"
+            bind:value={gpu_layers}
+            min="0"
+            max="100"
+            step="1"
+            class="range range-sm mt-auto"
+          />
+        </div>
         <div
           class="tooltip flex flex-col"
           data-tip="Number of tokens to look back on for deciding to apply the repeat penalty."
@@ -168,7 +201,7 @@
           />
         </div>
         <div class="flex flex-col">
-          <label for="model" class="label-text pb-1"> Model choice </label>
+          <label for="model" class="label-text pb-1"> Model choice</label>
           <select name="model" class="select-bordered select w-full max-w-xs">
             {#each modelsLabels as model}
               <option value={model}>{model}</option>
@@ -191,7 +224,7 @@
         </div>
         <div
           class="tooltip flex flex-col"
-          data-tip="The weight of the penalty to avoid repeating the last repeat_last_n tokens. "
+          data-tip="The weight of the penalty to avoid repeating the last repeat_last_n tokens."
         >
           <label for="repeat_penalty" class="label-text pb-1">
             repeat_penalty
