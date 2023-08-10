@@ -20,6 +20,8 @@ model_router = APIRouter(
 WEIGHTS = "/usr/src/app/weights/"
 
 models_file_path = Path(__file__).parent.parent / "data" / "models.json"
+print(models_file_path)
+
 families = Families.parse_file(models_file_path)
 
 models_info = {}
