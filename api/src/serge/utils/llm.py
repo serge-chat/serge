@@ -59,7 +59,7 @@ class LlamaCpp(LLM):
     """Number of tokens to process in parallel.
     Should be a number between 1 and n_ctx."""
 
-    max_tokens: int | None = 256
+    max_tokens: int | None = 2048
     """The maximum number of tokens to generate."""
 
     temperature: float | None = 0.8

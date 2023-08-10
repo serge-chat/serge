@@ -22,7 +22,7 @@ async def create_new_chat(
     temperature: float = 0.1,
     top_k: int = 50,
     top_p: float = 0.95,
-    max_length: int = 256,
+    max_length: int = 2048,
     context_window: int = 512,
     gpu_layers: Optional[int] = None,
     gqa: int | None = 0,

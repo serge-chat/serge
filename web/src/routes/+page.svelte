@@ -114,8 +114,8 @@
             name="max_length"
             type="range"
             bind:value={max_length}
-            min="16"
-            max="2048"
+            min="32"
+            max="32768"
             step="16"
             class="range range-sm mt-auto"
           />
