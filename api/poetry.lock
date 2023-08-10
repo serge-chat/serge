@@ -326,13 +326,13 @@ dev = ["flake8", "hypothesis", "ipython", "mypy (>=0.710)", "portray", "pytest (
 
 [[package]]
 name = "dnspython"
-version = "2.4.1"
+version = "2.4.2"
 description = "DNS toolkit"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "dnspython-2.4.1-py3-none-any.whl", hash = "sha256:5b7488477388b8c0b70a8ce93b227c5603bc7b77f1565afe8e729c36c51447d7"},
-    {file = "dnspython-2.4.1.tar.gz", hash = "sha256:c33971c79af5be968bb897e95c2448e11a645ee84d93b265ce0b7aabe5dfdca8"},
+    {file = "dnspython-2.4.2-py3-none-any.whl", hash = "sha256:57c6fbaaeaaf39c891292012060beb141791735dbb4004798328fc2c467402d8"},
+    {file = "dnspython-2.4.2.tar.gz", hash = "sha256:8dcfae8c7460a2f84b4072e26f1c9f4101ca20c071649cb7c34e8b6a93d58984"},
 ]
 
 [package.extras]
@@ -1825,13 +1825,13 @@ files = [
 
 [[package]]
 name = "tqdm"
-version = "4.65.2"
+version = "4.66.0"
 description = "Fast, Extensible Progress Meter"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "tqdm-4.65.2-py3-none-any.whl", hash = "sha256:6c431f7dee4f57284c8f4bd2eb1d4af00d730d38cc6098bd79880bcbec676276"},
-    {file = "tqdm-4.65.2.tar.gz", hash = "sha256:5f7d8b4ac76016ce9d51a7f0ea30d30984888d97c474fdc4a4148abfb5ee76aa"},
+    {file = "tqdm-4.66.0-py3-none-any.whl", hash = "sha256:39d459c7140b7890174e69d4d68d6291bc774a55b4bc5d93c0b760798ac5a03e"},
+    {file = "tqdm-4.66.0.tar.gz", hash = "sha256:cc6e7e52202d894e66632c5c8a9330bd0e3ff35d2965c93ca832114a3d865362"},
 ]
 
 [package.dependencies]
@@ -2236,4 +2236,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4.0"
-content-hash = "355f412af6bbc964c6b3a04a720d4c9317b92c6c0734eda1111e71a1451df60f"
+content-hash = "482a8cad3e2f8ef63a9531de1cd303d066baaa8317d6d89901ce30f6ae3f0337"
