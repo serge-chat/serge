@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: ghcr.io/serge-chat/serge
-  image: 
+  image:
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -57,7 +57,7 @@ ingress:
             name: serge
             port:
               number: 8008
-            
+
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
