@@ -320,7 +320,7 @@
                 ]
             },
             {
-                "name": "Facebook-Llama-v2-7B",
+                "name": "Facebook-LLaMA2-7B",
                 "repo": "TheBloke/Llama-2-7B-GGML",
                 "files": [
                     {
@@ -331,7 +331,7 @@
                 ]
             },
             {
-                "name": "Facebook-Llama-v2-13B",
+                "name": "Facebook-LLaMA2-13B",
                 "repo": "TheBloke/Llama-2-13B-chat-GGML",
                 "files": [
                     {
@@ -342,7 +342,7 @@
                 ]
             },
             {
-                "name": "Facebook-Llama-v2-70B",
+                "name": "Facebook-LLaMA2-70B",
                 "repo": "TheBloke/Llama-2-70B-Chat-GGML",
                 "files": [
                     {
