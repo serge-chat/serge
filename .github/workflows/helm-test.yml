@@ -1,0 +1,68 @@
+name: Lint and Test Helm Chart
+
+on:
+  push:
+    branches:
+      - "main"
+    paths-ignore:
+      - "**.md"
+      - LICENSE
+      - "docker-compose.yml"
+      - "docker-compose.dev.yml"
+      - ".github/ISSUE_TEMPLATE/*.yml"
+      - ".github/dependabot.yml"
+  pull_request:
+    branches:
+      - "*"
+    paths-ignore:
+      - "**.md"
+      - LICENSE
+      - "docker-compose.yml"
+      - "docker-compose.dev.yml"
+      - ".github/ISSUE_TEMPLATE/*.yml"
+      - ".github/dependabot.yml"
+  workflow_dispatch:
+  release:
+    types: [published, edited]
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v3.12.3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          check-latest: true
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.4.0
+
+      - name: Run chart-testing (list-changed)
+        id: list-changed
+        run: |
+          changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }})
+          if [[ -n "$changed" ]]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run chart-testing (lint)
+        if: steps.list-changed.outputs.changed == 'true'
+        run: ct lint --validate-maintainers=false --target-branch ${{ github.event.repository.default_branch }}
+
+      - name: Create kind cluster
+        if: steps.list-changed.outputs.changed == 'true'
+        uses: helm/kind-action@v1.8.0
+
+      - name: Run chart-testing (install)
+        if: steps.list-changed.outputs.changed == 'true'
+        run: ct install --target-branch ${{ github.event.repository.default_branch }}
