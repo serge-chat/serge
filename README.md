@@ -69,9 +69,12 @@ We currently support the following models:
 - Koala 🐨
   - Koala-7B
   - Koala-13B
-- Llama 🦙
-  - FinLlama-33B
-  - Llama-Supercot-30B
+- LLaMA 🦙
+  - FinLLaMA-33B
+  - LLaMA-Supercot-30B
+  - LLaMA2 7B
+  - LLaMA2 13B
+  - LLaMA2 70B
 - Lazarus 💀
   - Lazarus-30B
 - Nous 🧠

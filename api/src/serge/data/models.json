@@ -318,6 +318,39 @@
                         "disk_space": 26700000000.0
                     }
                 ]
+            },
+            {
+                "name": "Facebook-LLaMA2-7B",
+                "repo": "TheBloke/Llama-2-7B-GGML",
+                "files": [
+                    {
+                        "name": "q4_0",
+                        "filename": "llama-2-7b.ggmlv3.q4_0.bin",
+                        "disk_space": 3790000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Facebook-LLaMA2-13B",
+                "repo": "TheBloke/Llama-2-13B-chat-GGML",
+                "files": [
+                    {
+                        "name": "q4_0",
+                        "filename": "llama-2-13b-chat.ggmlv3.q4_1.bin",
+                        "disk_space": 8140000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Facebook-LLaMA2-70B",
+                "repo": "TheBloke/Llama-2-70B-Chat-GGML",
+                "files": [
+                    {
+                        "name": "q4_0",
+                        "filename": "llama-2-70b-chat.ggmlv3.q4_0.bin",
+                        "disk_space": 38900000000.0
+                    }
+                ]
             }
         ]
     },
