@@ -1,6 +1,5 @@
 # helm-serge
 
-
 ```bash
 helm repo add serge https://serge-chat.github.io/serge
 helm install my-serge serge/serge -n serge --create-namespace
