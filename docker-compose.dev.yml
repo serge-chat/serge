@@ -17,8 +17,3 @@ services:
 volumes:
   datadb:
   weights:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ~/v1/ai-models

@@ -56,7 +56,7 @@
   }
 
   function toggleTheme() {
-    theme = (theme === "light" ? "dark" : "light");
+    theme = theme === "light" ? "dark" : "light";
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("data-theme", theme);
   }
@@ -154,7 +154,8 @@
     <div class="absolute top-[92%] bottom-0 left-0 right-0 m-5">
       <div class="inline-flex justify-center w-full">
         🌞
-        <input on:click={toggleTheme}
+        <input
+          on:click={toggleTheme}
           type="checkbox"
           class="toggle inline-block w-12 mx-1"
           checked
