@@ -59,7 +59,7 @@
     <div class="mx-auto w-fit pt-5 flex flex-col lg:flex-row justify-center ">
       <button
         type="submit"
-        class="btn-primary btn lg:mr-4"
+        class="btn-primary btn mb-2 lg:mr-4 lg:mb-0"
         disabled={!modelAvailable}>Start a new chat</button
       >
       <button
