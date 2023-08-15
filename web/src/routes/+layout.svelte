@@ -154,7 +154,11 @@
     <div class="absolute top-[92%] bottom-0 left-0 right-0 m-5">
       <div class="inline-flex justify-center w-full">
         🌞
-        <input on:click={toggleTheme} type="checkbox" class="toggle inline-block w-12 mx-1" checked />
+        <input on:click={toggleTheme}
+          type="checkbox"
+          class="toggle inline-block w-12 mx-1"
+          checked
+        />
         🌚
       </div>
     </div>
