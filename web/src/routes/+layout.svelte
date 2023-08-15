@@ -2,12 +2,19 @@
   import "../app.css";
   import type { LayoutData } from "./$types";
   import { invalidate, goto } from "$app/navigation";
+  import { onMount } from "svelte";
   import { page } from "$app/stores";
   export let data: LayoutData;
 
   let deleteConfirm = false;
   let theme: string;
-  let bar_visible: boolean = true;
+  let bar_visible: boolean;
+  
+  onMount(() => {
+    bar_visible = window.innerWidth > 768;
+    theme = localStorage.getItem("data-theme") || "light";
+    document.documentElement.setAttribute("data-theme", theme);
+  });
 
   $: id = $page.params.id || "";
   async function deleteChat(chatID: string) {
