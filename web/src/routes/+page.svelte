@@ -56,7 +56,7 @@
 
 <form on:submit|preventDefault={onCreateChat} id="form-create-chat" class="p-5">
   <div class="w-full pb-20">
-    <div class="mx-auto w-fit pt-5 flex flex-col lg:flex-row justify-center ">
+    <div class="mx-auto w-fit pt-5 flex flex-col lg:flex-row justify-center">
       <button
         type="submit"
         class="btn-primary btn mb-2 lg:mr-4 lg:mb-0"
