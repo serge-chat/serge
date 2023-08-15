@@ -56,16 +56,16 @@
 
 <form on:submit|preventDefault={onCreateChat} id="form-create-chat" class="p-5">
   <div class="w-full pb-20">
-    <div class="mx-auto w-fit pt-5">
+    <div class="mx-auto w-fit pt-5 flex flex-col lg:flex-row justify-center">
       <button
         type="submit"
-        class="btn-primary btn mx-5"
+        class="btn-primary btn mb-2 lg:mr-10 lg:mb-0"
         disabled={!modelAvailable}>Start a new chat</button
       >
       <button
         on:click={() => goto("/models")}
         type="button"
-        class="btn-outline btn mx-5">Download Models</button
+        class="btn-outline btn">Download Models</button
       >
     </div>
   </div>
