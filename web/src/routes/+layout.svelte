@@ -211,7 +211,7 @@
           on:click={toggleTheme}
           type="checkbox"
           class="toggle mx-1 inline-block w-12"
-          checked
+          checked={theme == "dark"}
         />
         🌚
       </div>
