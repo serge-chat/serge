@@ -9,7 +9,6 @@
   let deleteConfirm = false;
   let theme: string;
   let bar_visible: boolean;
-  
   onMount(() => {
     bar_visible = window.innerWidth > 768;
     theme = localStorage.getItem("data-theme") || "light";
@@ -77,34 +76,60 @@
 
 <aside
   id="default-sidebar"
-  class={"fixed left-0 top-0 z-40 h-screen w-80 -translate-x-full border-r border-base-content/[.2] transition-transform" + (bar_visible ? " translate-x-0" : "")}
+  class={"border-base-content/[.2] fixed left-0 top-0 z-40 h-screen w-80 -translate-x-full border-r transition-transform" +
+    (bar_visible ? " translate-x-0" : "")}
   aria-label="Sidebar"
 >
-
-  <div class="relative h-full overflow-y-auto bg-base-200 px-3 py-4">
+  <div class="bg-base-200 relative h-full overflow-y-auto px-3 py-4">
     <ul class="space-y-2">
       <li class="pt-4">
-        <div class="flex justify-center items-center">
-        <a href="/" class="btn-outline btn h-6 w-48 font-semibold mr-4"> Home </a>
-        <button class="btn btn-outline h-6 w-16 font-semibold justify-center items-center flex" on:click={toggleBar}>
-          <svg
-            viewBox="0 0 100 73"
-            width="30"
-            height="30"
-            xmlns="http://www.w3.org/2000/svg"
+        <div class="flex items-center justify-center">
+          <a href="/" class="btn-outline btn mr-4 h-6 w-48 font-semibold">
+            Home
+          </a>
+          <button
+            class="btn btn-outline flex h-6 w-16 items-center justify-center font-semibold"
+            on:click={toggleBar}
+          >
+            <svg
+              viewBox="0 0 100 73"
+              width="30"
+              height="30"
+              xmlns="http://www.w3.org/2000/svg"
             >
-            <rect x="10" y="14" width="80" height="3" rx="10" fill= { (theme == "dark")? "white" : "black" }></rect>
-            <rect x="10" y="43" width="80" height="3" rx="10" fill= { (theme == "dark")? "white" : "black" }></rect>
-            <rect x="10" y="72" width="80" height="3" rx="10" fill= { (theme == "dark")? "white" : "black" }></rect>
-          </svg>
-         </button>
+              <rect
+                x="10"
+                y="14"
+                width="80"
+                height="3"
+                rx="10"
+                fill={theme == "dark" ? "white" : "black"}
+              />
+              <rect
+                x="10"
+                y="43"
+                width="80"
+                height="3"
+                rx="10"
+                fill={theme == "dark" ? "white" : "black"}
+              />
+              <rect
+                x="10"
+                y="72"
+                width="80"
+                height="3"
+                rx="10"
+                fill={theme == "dark" ? "white" : "black"}
+              />
+            </svg>
+          </button>
         </div>
       </li>
       {#each data.chats as chat}
         <li>
           <a
             href={"/chat/" + chat.id}
-            class="flex items-center rounded-lg p-2 text-base font-normal hover:bg-gradient-to-r hover:from-base-100 hover:to-transparent hover:text-base-content"
+            class="hover:from-base-100 hover:text-base-content flex items-center rounded-lg p-2 text-base font-normal hover:bg-gradient-to-r hover:to-transparent"
             class:bg-base-300={id === chat.id}
           >
             <div class="flex w-full flex-col">
@@ -179,13 +204,13 @@
         </li>
       {/each}
     </ul>
-    <div class="absolute top-[92%] bottom-0 left-0 right-0 m-5">
-      <div class="inline-flex justify-center w-full">
+    <div class="absolute bottom-0 left-0 right-0 top-[92%] m-5">
+      <div class="inline-flex w-full justify-center">
         🌞
         <input
           on:click={toggleTheme}
           type="checkbox"
-          class="toggle inline-block w-12 mx-1"
+          class="toggle mx-1 inline-block w-12"
           checked
         />
         🌚
@@ -195,20 +220,44 @@
 </aside>
 
 {#if !bar_visible}
-<button class="fixed btn btn-outline h-6 w-16 font-semibold justify-center items-center flex m-2" on:click={toggleBar}>
-  <svg
-  viewBox="0 0 100 73"
-  width="30"
-  height="30"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <rect x="10" y="14" width="80" height="3" rx="10" fill= { (theme == "dark")? "white" : "black" }></rect>
-  <rect x="10" y="43" width="80" height="3" rx="10" fill= { (theme == "dark")? "white" : "black" }></rect>
-  <rect x="10" y="72" width="80" height="3" rx="10" fill= { (theme == "dark")? "white" : "black" }></rect>
-</svg>
- </button>
+  <button
+    class="btn btn-outline fixed m-2 flex h-6 w-16 items-center justify-center font-semibold"
+    on:click={toggleBar}
+  >
+    <svg
+      viewBox="0 0 100 73"
+      width="30"
+      height="30"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        x="10"
+        y="14"
+        width="80"
+        height="3"
+        rx="10"
+        fill={theme == "dark" ? "white" : "black"}
+      />
+      <rect
+        x="10"
+        y="43"
+        width="80"
+        height="3"
+        rx="10"
+        fill={theme == "dark" ? "white" : "black"}
+      />
+      <rect
+        x="10"
+        y="72"
+        width="80"
+        height="3"
+        rx="10"
+        fill={theme == "dark" ? "white" : "black"}
+      />
+    </svg>
+  </button>
 {/if}
 
-<div class={"h-full transition-all" + ((bar_visible) ? " md:ml-80" : "")}>
+<div class={"h-full transition-all" + (bar_visible ? " md:ml-80" : "")}>
   <slot />
 </div>
