@@ -6,6 +6,7 @@
   export let data: LayoutData;
 
   let deleteConfirm = false;
+  let theme: string;
   $: id = $page.params.id || "";
   async function deleteChat(chatID: string) {
     const response = await fetch("/api/chat/" + chatID, { method: "DELETE" });
@@ -53,6 +54,12 @@
   function truncate(str: string, n: number) {
     return str.length > n ? str.slice(0, n - 1) + "..." : str;
   }
+
+  function toggleTheme() {
+    theme = theme === "light" ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("data-theme", theme);
+  }
 </script>
 
 <aside
@@ -60,7 +67,7 @@
   class="fixed left-0 top-0 z-40 h-screen w-80 -translate-x-full border-r border-base-content/[.2] transition-transform sm:translate-x-0"
   aria-label="Sidebar"
 >
-  <div class="h-full overflow-y-auto bg-base-200 px-3 py-4">
+  <div class="relative h-full overflow-y-auto bg-base-200 px-3 py-4">
     <ul class="space-y-2">
       <li class="pt-4">
         <a href="/" class="btn-outline btn h-6 w-full font-semibold"> Home </a>
@@ -144,6 +151,18 @@
         </li>
       {/each}
     </ul>
+    <div class="absolute top-[92%] bottom-0 left-0 right-0 m-5">
+      <div class="inline-flex justify-center w-full">
+        🌞
+        <input
+          on:click={toggleTheme}
+          type="checkbox"
+          class="toggle inline-block w-12 mx-1"
+          checked
+        />
+        🌚
+      </div>
+    </div>
   </div>
 </aside>
 
