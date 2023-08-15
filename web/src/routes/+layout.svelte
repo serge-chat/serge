@@ -7,6 +7,8 @@
 
   let deleteConfirm = false;
   let theme: string;
+  let bar_visible: boolean = true;
+
   $: id = $page.params.id || "";
   async function deleteChat(chatID: string) {
     const response = await fetch("/api/chat/" + chatID, { method: "DELETE" });
@@ -60,17 +62,36 @@
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("data-theme", theme);
   }
+
+  function toggleBar() {
+    bar_visible = !bar_visible;
+  }
 </script>
 
 <aside
   id="default-sidebar"
-  class="fixed left-0 top-0 z-40 h-screen w-80 -translate-x-full border-r border-base-content/[.2] transition-transform sm:translate-x-0"
+  class={"fixed left-0 top-0 z-40 h-screen w-80 -translate-x-full border-r border-base-content/[.2] transition-transform" + (bar_visible ? " translate-x-0" : "")}
   aria-label="Sidebar"
 >
+
   <div class="relative h-full overflow-y-auto bg-base-200 px-3 py-4">
     <ul class="space-y-2">
       <li class="pt-4">
-        <a href="/" class="btn-outline btn h-6 w-full font-semibold"> Home </a>
+        <div class="flex justify-center items-center">
+        <a href="/" class="btn-outline btn h-6 w-48 font-semibold mr-4"> Home </a>
+        <button class="btn btn-outline h-6 w-16 font-semibold justify-center items-center flex" on:click={toggleBar}>
+          <svg
+            viewBox="0 0 100 73"
+            width="30"
+            height="30"
+            xmlns="http://www.w3.org/2000/svg"
+            >
+            <rect x="10" y="14" width="80" height="3" rx="10" fill= { (theme == "dark")? "white" : "black" }></rect>
+            <rect x="10" y="43" width="80" height="3" rx="10" fill= { (theme == "dark")? "white" : "black" }></rect>
+            <rect x="10" y="72" width="80" height="3" rx="10" fill= { (theme == "dark")? "white" : "black" }></rect>
+          </svg>
+         </button>
+        </div>
       </li>
       {#each data.chats as chat}
         <li>
@@ -166,6 +187,21 @@
   </div>
 </aside>
 
-<div class="h-full sm:ml-80">
+{#if !bar_visible}
+<button class="fixed btn btn-outline h-6 w-16 font-semibold justify-center items-center flex m-2" on:click={toggleBar}>
+  <svg
+  viewBox="0 0 100 73"
+  width="30"
+  height="30"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <rect x="10" y="14" width="80" height="3" rx="10" fill= { (theme == "dark")? "white" : "black" }></rect>
+  <rect x="10" y="43" width="80" height="3" rx="10" fill= { (theme == "dark")? "white" : "black" }></rect>
+  <rect x="10" y="72" width="80" height="3" rx="10" fill= { (theme == "dark")? "white" : "black" }></rect>
+</svg>
+ </button>
+{/if}
+
+<div class={"h-full transition-all" + ((bar_visible) ? " md:ml-80" : "")}>
   <slot />
 </div>
