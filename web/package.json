@@ -18,7 +18,7 @@
     "@sveltejs/kit": "^1.22.6",
     "@types/markdown-it": "^13.0.0",
     "@typescript-eslint/eslint-plugin": "^6.4.1",
-    "@typescript-eslint/parser": "^6.4.0",
+    "@typescript-eslint/parser": "^6.4.1",
     "autoprefixer": "^10.4.15",
     "eslint": "^8.47.0",
     "eslint-config-prettier": "^9.0.0",
