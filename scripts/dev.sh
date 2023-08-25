@@ -9,7 +9,7 @@ pip install -e ./api || {
 }
 
 # Install python bindings
-pip install llama-cpp-python==0.1.77 || {
+pip install llama-cpp-python==0.1.78 || {
 	echo 'Failed to install llama-cpp-python'
 	exit 1
 }
