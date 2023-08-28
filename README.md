@@ -102,6 +102,7 @@ We currently support the following models:
   - WizardLM-Uncensored-7B
   - WizardLM-Uncensored-13B
   - WizardLM-Uncensored-30B
+  - WizardCoder-Python-34B-V1.0
 
 Additional weights can be added to the `serge_weights` volume using `docker cp`:
 
