@@ -234,12 +234,12 @@
                   {
                         "name": "q5_K_M",
                         "filename": "wizardcoder-python-34b-v1.0.ggmlv3.Q5_K_M.bin",
-                        "disk_space": 241000000000.0
+                        "disk_space": 24100000000.0
                   },
                   {
                         "name": "q6_K",
                         "filename": "wizardcoder-python-34b-v1.0.ggmlv3.Q6_K.bin",
-                        "disk_space": 279000000000.0
+                        "disk_space": 27900000000.0
                   }
                 ]
             },
