@@ -228,17 +228,17 @@
         "name": "WizardLM",
         "models": [
             {
-                "name": "WizardCoder-Python-34B-V1.0-GGML",
-                "repo": "TheBloke/WizardCoder-Python-34B-V1.0-GGML",
+                "name": "WizardCoder-Python-13B-V1.0-GGML",
+                "repo": "TheBloke/WizardCoder-Python-13B-V1.0-GGML",
                 "files": [
                   {
                         "name": "q5_K_M",
-                        "filename": "wizardcoder-python-34b-v1.0.ggmlv3.Q5_K_M.bin",
+                        "filename": "wizardcoder-python-13b-v1.0.ggmlv3.Q5_K_M.bin",
                         "disk_space": 24100000000.0
                   },
                   {
                         "name": "q6_K",
-                        "filename": "wizardcoder-python-34b-v1.0.ggmlv3.Q6_K.bin",
+                        "filename": "wizardcoder-python-13b-v1.0.ggmlv3.Q6_K.bin",
                         "disk_space": 27900000000.0
                   }
                 ]
