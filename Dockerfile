@@ -4,7 +4,7 @@ FROM ghcr.io/dragonflydb/dragonfly:v1.8.0 as dragonfly
 
 # ---------------------------------------
 # Build frontend
-FROM node:19-bullseye-slim as frontend
+FROM node:20-bullseye-slim as frontend
 
 WORKDIR /usr/src/app
 COPY ./web/package.json ./web/package-lock.json ./
