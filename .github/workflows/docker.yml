@@ -1,4 +1,4 @@
-name: CI/CD Process
+name: CI/CD Docker Build/Publish
 
 on:
   push:
