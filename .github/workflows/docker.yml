@@ -14,15 +14,9 @@ on:
   pull_request:
     branches:
       - "*"
-    paths-ignore:
-      - "**.md"
-      - LICENSE
-      - "docker-compose.yml"
-      - "docker-compose.dev.yml"
-      - ".github/ISSUE_TEMPLATE/*.yml"
-      - ".github/dependabot.yml"
     paths:
       - "Dockerfile"
+      - "Dockerfile.dev"
       - "scripts/deploy.sh"
       - "scripts/dev.sh"
   workflow_dispatch:

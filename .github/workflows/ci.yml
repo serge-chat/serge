@@ -103,4 +103,5 @@ jobs:
         working-directory: ./web
         run: npm run check
       - name: Build Web
+        working-directory: ./web
         run: npm run build
