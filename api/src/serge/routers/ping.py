@@ -6,6 +6,6 @@ ping_router = APIRouter(
 )
 
 
-@app.get("/")
+@ping_router.get("/")
 def pong():
-    return "pong!"
+    return {"message": "pong!"}
