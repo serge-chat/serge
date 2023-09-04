@@ -32,13 +32,15 @@ COPY scripts/deploy.sh /usr/src/app/deploy.sh
 
 # Install api dependencies
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends cmake build-essential dumb-init \
+    && apt-get install -y --no-install-recommends cmake build-essential dumb-init curl \
     && pip install --no-cache-dir ./api \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* \
     && chmod 755 /usr/src/app/deploy.sh \
     && chmod 755 /usr/local/bin/redis-server \
     && chmod 755 /usr/local/bin/redis-cli \
     && mkdir -p /etc/redis \
+    && mkdir -p /data/db \
+    && mkdir -p /usr/src/app/weights \
     && echo "appendonly yes" >> /etc/redis/redis.conf \
     && echo "dir /data/db/" >> /etc/redis/redis.conf
 
