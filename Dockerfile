@@ -1,6 +1,6 @@
 # ---------------------------------------
-# Base image for dragonflydb
-FROM ghcr.io/dragonflydb/dragonfly:v1.8.0 as dragonfly
+# Base image for redis
+FROM redis:7-bullseye as redis
 
 # ---------------------------------------
 # Build frontend
@@ -24,17 +24,23 @@ ENV TZ=Etc/UTC
 WORKDIR /usr/src/app
 
 # Copy artifacts
-COPY --from=dragonfly /usr/local/bin/dragonfly /usr/local/bin/dragonfly
+COPY --from=redis /usr/local/bin/redis-server /usr/local/bin/redis-server
+COPY --from=redis /usr/local/bin/redis-cli /usr/local/bin/redis-cli
 COPY --from=frontend /usr/src/app/web/build /usr/src/app/api/static/
 COPY ./api /usr/src/app/api
 COPY scripts/deploy.sh /usr/src/app/deploy.sh
 
 # Install api dependencies
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends libxml2 cmake build-essential dumb-init \
+    && apt-get install -y --no-install-recommends cmake build-essential dumb-init \
     && pip install --no-cache-dir ./api \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* \
-    && chmod 755 /usr/src/app/deploy.sh /usr/local/bin/dragonfly
+    && chmod 755 /usr/src/app/deploy.sh \
+    && chmod 755 /usr/local/bin/redis-server \
+    && chmod 755 /usr/local/bin/redis-cli \
+    && mkdir -p /etc/redis \
+    && echo "appendonly yes" >> /etc/redis/redis.conf \
+    && echo "dir /data/db/" >> /etc/redis/redis.conf
 
 EXPOSE 8008
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
