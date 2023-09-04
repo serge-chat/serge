@@ -1,3 +1,4 @@
+version: '3'
 services:
   serge:
     image: ghcr.io/serge-chat/serge:latest
