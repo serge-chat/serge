@@ -42,7 +42,7 @@ version-resolver:
 template: |
     $CHANGES
 
-    ## 🐳 Docker Images: 
+    ## 🐳 Docker Images
     - `ghcr.io/serge-chat/serge:latest`
     - `ghcr.io/serge-chat/serge:$RESOLVED_VERSION`
 
