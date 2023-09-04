@@ -1,20 +1,20 @@
 name-template: '$RESOLVED_VERSION'
 tag-template: '$RESOLVED_VERSION'
 categories:
-  - title: '❗ Breaking Changes'
+  - title: '❗ Breaking Changes:'
     labels:
       - '❗ Breaking Change'
-  - title: '🚀 New'
+  - title: '🚀 New:'
     labels:
       - '✏️ Feature'
-  - title: '🧹 Updates'
+  - title: '🧹 Updates:'
     labels:
       - '🧹 Updates'
       - '🤖 Dependencies'
-  - title: '🐛 Fixes'
+  - title: '🐛 Fixes:'
     labels:
       - '☢️ Bug'
-  - title: '📚 Documentation'
+  - title: '📚 Documentation:'
     labels:
       - '📒 Documentation'
 change-template: '- $TITLE (#$NUMBER)'
@@ -43,9 +43,9 @@ template: |
     $CHANGES
 
     ## 🐳 Docker Images
-    - `ghcr.io/serge-chat/serge:latest`
-    - `ghcr.io/serge-chat/serge:$RESOLVED_VERSION`
+    - `ghcr.io/$OWNER/$REPOSITORY:latest`
+    - `ghcr.io/$OWNER/$REPOSITORY:$RESOLVED_VERSION`
 
     **Full Changelog**: https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...$RESOLVED_VERSION
 
-    Thank you $CONTRIBUTORS for making this update possible.
+    Thanks to $CONTRIBUTORS for making this release possible.
