@@ -11,6 +11,7 @@ on:
       - "docker-compose.dev.yml"
       - ".github/ISSUE_TEMPLATE/*.yml"
       - ".github/dependabot.yml"
+      - ".github/release-drafter.yml"
   pull_request:
     branches:
       - "*"
@@ -28,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Docker metadata
         id: meta
         uses: docker/metadata-action@v4

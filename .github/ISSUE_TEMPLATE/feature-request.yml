@@ -1,0 +1,37 @@
+name: "✏️ Feature Request"
+title: "\U0001F680 [Feature]: "
+description: Suggest an idea to improve this project.
+labels: ["✏️ Feature"]
+
+body:
+  - type: markdown
+    id: notice
+    attributes:
+      value: |
+        ### Notice
+        - Don't forget you can ask your questions in our [Discord server](https://discord.gg/62Hc6FEYQH).
+        - If you think this is just a bug, open the issue with the **☢️ Bug Report** template.
+  - type: textarea
+    id: description
+    attributes:
+      label: "Feature Description"
+      description: "A clear and detailed description of the feature you would like to see added."
+      placeholder: "Explain your feature clearly, and in detail."
+    validations:
+      required: true
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: "Additional Context (optional)"
+      description: "If you have something else to describe, write them here."
+      placeholder: "Write here what you can describe differently."
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: "Checklist:"
+      description: "By submitting this issue, you confirm that:"
+      options:
+        - label: "I have checked for existing issues that describe my suggestion prior to opening this one."
+          required: true
+        - label: "I understand that improperly formatted feature requests may be closed without explanation."
+          required: true
