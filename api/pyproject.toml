@@ -64,7 +64,7 @@ lazy-model = "^0.0.5"
 requests = "^2.31.0"
 numpy = "^1.25.2"
 langchain = "^0.0.180"
-loguru = "^0.7.0"
+loguru = "^0.7.1"
 redis = {extras = ["hiredis"], version = "^5.0.0"}
 pytest = "^7.4.1"
 
