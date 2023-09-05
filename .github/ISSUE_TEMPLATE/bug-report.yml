@@ -1,6 +1,8 @@
-name: Bug report
+name: "☢️ Bug Report"
+title: "\U0001F41B [Bug]: "
 description: Create a report to help us improve Serge.
-labels: ["bug"]
+labels: ["☢️ Bug"]
+
 body:
   - type: markdown
     attributes:

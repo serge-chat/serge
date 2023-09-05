@@ -1,0 +1,32 @@
+name: "🤔 Question"
+title: "\U0001F917 [Question]: "
+description: Ask a question so we can help you
+labels: ["🤔 Question"]
+
+body:
+  - type: markdown
+    id: notice
+    attributes:
+      value: |
+        ### Notice
+        - Don't forget you can ask your questions in our [Discord server](https://discord.gg/62Hc6FEYQH).
+        - If you think this is just a bug, open the issue with the **☢️ Bug Report** template.
+        - If you have a suggestion for a Serge feature you would like to see, open the issue with the **✏️ Feature Request** template.
+  - type: textarea
+    id: description
+    attributes:
+      label: "Question Description"
+      description: "A clear and detailed description of the question."
+      placeholder: "Explain your question clearly, and in detail."
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: "Checklist:"
+      description: "By submitting this issue, you confirm that:"
+      options:
+        - label: "I have checked for existing issues that describe my questions prior to opening this one."
+          required: true
+        - label: "I understand that improperly formatted questions may be closed without explanation."
+          required: true

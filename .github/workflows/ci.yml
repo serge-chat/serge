@@ -11,6 +11,7 @@ on:
       - "docker-compose.dev.yml"
       - ".github/ISSUE_TEMPLATE/*.yml"
       - ".github/dependabot.yml"
+      - ".github/release-drafter.yml"
   pull_request:
     branches:
       - "*"
@@ -21,6 +22,7 @@ on:
       - "docker-compose.dev.yml"
       - ".github/ISSUE_TEMPLATE/*.yml"
       - ".github/dependabot.yml"
+      - ".github/release-drafter.yml"
   workflow_dispatch:
   release:
     types: [published, edited]
@@ -29,13 +31,13 @@ jobs:
   check-json-syntax:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Check syntax of models JSON file
         run: cat ./api/src/serge/data/models.json | jq -e .
   validate-models-schema:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Validate models.json against a json schema
         uses: cardinalby/schema-validator-action@v3
         with:
@@ -46,7 +48,7 @@ jobs:
   python-unit-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
           python-version: "3.11"
@@ -62,7 +64,7 @@ jobs:
   check-sh-files:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: luizm/action-sh-checker@v0.7.0
         env:
           SHFMT_OPTS: "-s"
@@ -72,7 +74,7 @@ jobs:
   check-api-code:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
           python-version: "3.11"
@@ -89,7 +91,7 @@ jobs:
   check-web-code:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version: '20'
