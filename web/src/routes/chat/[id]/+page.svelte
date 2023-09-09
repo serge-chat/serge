@@ -93,7 +93,7 @@
   }
 
   async function handleKeyDown(event: KeyboardEvent) {
-    if (event.key === "Enter" && event.ctrlKey) {
+    if (event.key === "Enter" && !event.shiftKey) {
       await askQuestion();
     }
   }

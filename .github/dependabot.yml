@@ -4,15 +4,23 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    labels:
+      - "🤖 Dependencies"
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
       interval: "daily"
+    labels:
+      - "🤖 Dependencies"
   - package-ecosystem: "pip"
     directory: "/api"
     schedule:
       interval: "daily"
+    labels:
+      - "🤖 Dependencies"
   - package-ecosystem: "npm"
     directory: "/web"
     schedule:
       interval: "daily"
+    labels:
+      - "🤖 Dependencies"

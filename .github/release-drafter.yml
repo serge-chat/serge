@@ -1,0 +1,51 @@
+name-template: '$RESOLVED_VERSION'
+tag-template: '$RESOLVED_VERSION'
+categories:
+  - title: '❗ Breaking Changes:'
+    labels:
+      - '❗ Breaking Change'
+  - title: '🚀 New:'
+    labels:
+      - '✏️ Feature'
+  - title: '🧹 Updates:'
+    labels:
+      - '🧹 Updates'
+      - '🤖 Dependencies'
+  - title: '🐛 Fixes:'
+    labels:
+      - '☢️ Bug'
+  - title: '📚 Documentation:'
+    labels:
+      - '📒 Documentation'
+change-template: '- $TITLE (#$NUMBER)'
+change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
+exclude-contributors:
+  - dependabot
+  - dependabot[bot]
+version-resolver:
+  major:
+    labels:
+      - 'major'
+      - '❗ Breaking Change'
+  minor:
+    labels:
+      - 'minor'
+      - '✏️ Feature'
+  patch:
+    labels:
+      - 'patch'
+      - '📒 Documentation'
+      - '☢️ Bug'
+      - '🤖 Dependencies'
+      - '🧹 Updates'
+  default: patch
+template: |
+    $CHANGES
+
+    ## 🐳 Docker Images
+    - `ghcr.io/$OWNER/$REPOSITORY:latest`
+    - `ghcr.io/$OWNER/$REPOSITORY:$RESOLVED_VERSION`
+
+    **Full Changelog**: https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...$RESOLVED_VERSION
+
+    Thanks to $CONTRIBUTORS for making this release possible.

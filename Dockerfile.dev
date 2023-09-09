@@ -1,10 +1,10 @@
 # ---------------------------------------
 # Base image for node
-FROM node:19-bullseye-slim as node_base
+FROM node:20-bullseye-slim as node_base
 
 # ---------------------------------------
-# Base image for dragonflydb
-FROM ghcr.io/dragonflydb/dragonfly:v1.8.0 as dragonfly
+# Base image for redis
+FROM redis:7-bullseye as redis
 
 # ---------------------------------------
 # Dev environment
@@ -17,17 +17,24 @@ ENV NODE_ENV='development'
 
 # Install dependencies
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends libxml2 cmake build-essential dumb-init
+    && apt-get install -y --no-install-recommends cmake build-essential dumb-init curl
 
 # Copy database, source code, and scripts
-COPY --from=dragonfly /usr/local/bin/dragonfly /usr/local/bin/dragonfly
+COPY --from=redis /usr/local/bin/redis-server /usr/local/bin/redis-server
+COPY --from=redis /usr/local/bin/redis-cli /usr/local/bin/redis-cli
 COPY --from=node_base /usr/local /usr/local
 COPY scripts/dev.sh /usr/src/app/dev.sh
 COPY ./web/package.json ./web/package-lock.json ./
 
 RUN npm ci \
     && chmod 755 /usr/src/app/dev.sh \
-    && chmod 755 /usr/local/bin/dragonfly
+    && chmod 755 /usr/local/bin/redis-server \
+    && chmod 755 /usr/local/bin/redis-cli \
+    && mkdir -p /etc/redis \
+    && mkdir -p /data/db \
+    && mkdir -p /usr/src/app/weights \
+    && echo "appendonly yes" >> /etc/redis/redis.conf \
+    && echo "dir /data/db/" >> /etc/redis/redis.conf
 
 EXPOSE 8008
 EXPOSE 9124

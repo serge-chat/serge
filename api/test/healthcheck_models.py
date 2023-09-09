@@ -23,5 +23,4 @@ for family in families:
 def test_model_available(repo, filename):
     url = huggingface_hub.hf_hub_url(repo, filename, repo_type="model", revision="main")
     r = requests.head(url)
-
     assert r.ok, f"Model {repo}/{filename} not available"
