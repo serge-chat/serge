@@ -14,6 +14,9 @@
   import html from "highlight.js/lib/languages/xml";
   import css from "highlight.js/lib/languages/css";
   import cpp from "highlight.js/lib/languages/cpp";
+  import go from "highlight.js/lib/languages/go";
+  import yaml from "highlight.js/lib/languages/yaml";
+  import json from "highlight.js/lib/languages/json";
   import powershell from "highlight.js/lib/languages/powershell";
   import bash from "highlight.js/lib/languages/bash";
   import MarkdownIt from "markdown-it";
@@ -26,6 +29,9 @@
   hljs.registerLanguage("cpp", cpp);
   hljs.registerLanguage("xml", html);
   hljs.registerLanguage("css", css);
+  hljs.registerLanguage("json", json);
+  hljs.registerLanguage("yaml", yaml);
+  hljs.registerLanguage("go", go);
   hljs.registerLanguage("bash", bash);
   hljs.registerLanguage("powershell", powershell);
 
