@@ -171,6 +171,17 @@ async def delete_chat(chat_id: str):
     return True
 
 
+@chat_router.delete("/delete/all")
+async def delete_all_chats():
+    client = Redis(host="localhost", port=6379, decode_responses=False)
+    logger.info(f"Connected to Redis? {client.ping()}")
+
+    client.flushdb()
+    client.flushall()
+
+    return True
+
+
 @chat_router.get("/{chat_id}/question")
 def stream_ask_a_question(chat_id: str, prompt: str):
     logger.info("Starting redis client")
