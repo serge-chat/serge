@@ -294,7 +294,7 @@
             {data.chat.params.model_path}
           </span>
         </div>
-        <div class="pl-4 flex flex-row items-center justify-center">
+        <div class="pl-4 hidden sm:flex flex-row items-center justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 5.31286 16"
@@ -309,7 +309,7 @@
             {data.chat.params.temperature}
           </span>
         </div>
-        <div class="pl-4 flex flex-row items-center justify-center">
+        <div class="pl-4 hidden sm:flex flex-row items-center justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
@@ -325,7 +325,7 @@
           </span>
         </div>
         {#if data.chat.params.n_threads > 0}
-          <div class="pl-4 flex flex-row items-center justify-center">
+          <div class="pl-4 hidden sm:flex flex-row items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -346,7 +346,7 @@
           </div>
         {/if}
         {#if data.chat.params.n_gpu_layers > 0}
-          <div class="pl-4 flex flex-row items-center justify-center">
+          <div class="pl-4 hidden sm:flex flex-row items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
@@ -362,7 +362,7 @@
             </span>
           </div>
         {/if}
-        <div class="pl-4 flex flex-row items-center justify-center">
+        <div class="pl-4 hidden sm:flex flex-row items-center justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
@@ -381,7 +381,7 @@
             {data.chat.params.repeat_penalty}
           </span>
         </div>
-        <div class="pl-4 flex flex-row items-center justify-center">
+        <div class="pl-4 hidden sm:flex flex-row items-center justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
