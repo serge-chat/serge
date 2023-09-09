@@ -2,22 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-pre {
-  width: 100%;
-  max-width: 800px;
-  overflow-x: auto;
-  overflow-wrap: break-word;
+.markdown li, .markdown p {
+  margin-bottom: 0.375rem;
 }
 
-code {
+.markdown code {
   border-radius: 0.25rem;
   background: hsl(var(--b3));
   color: hsl(var(--bc));
   padding: 4px;
+  overflow-x: auto;
   overflow-wrap: break-word;
+  margin: 0.5rem 0;
+  width: auto;
 }
 
-.hljs {
+markdown. .hljs {
   background: hsl(var(--b3)) !important;
 }
 
@@ -50,4 +50,37 @@ code {
       -10px 0 #fff;
     background: #fff;
   }
+}
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeOutDown {
+  animation-name: fadeOutDown;
+}
+
+.animated {
+  animation: fadeOutDown 0.3s ease-out forwards;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  background: transparent;
+}
+
+.firefox-no-scrollbar {
+  scrollbar-width: none;
+}
+
+.ie-edge-no-scrollbar {
+  -ms-overflow-style: none;
 }
