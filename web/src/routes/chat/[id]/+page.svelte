@@ -15,6 +15,7 @@
   import go from "highlight.js/lib/languages/go";
   import javascript from "highlight.js/lib/languages/javascript";
   import json from "highlight.js/lib/languages/json";
+  import ini from "highlight.js/lib/languages/ini";
   import nginx from "highlight.js/lib/languages/nginx";
   import plaintext from "highlight.js/lib/languages/plaintext";
   import powershell from "highlight.js/lib/languages/powershell";
@@ -22,7 +23,6 @@
   import rust from "highlight.js/lib/languages/rust";
   import swift from "highlight.js/lib/languages/swift";
   import sql from "highlight.js/lib/languages/sql";
-  import toml from "highlight.js/lib/languages/toml";
   import typescript from "highlight.js/lib/languages/typescript";
   import html from "highlight.js/lib/languages/xml";
   import yaml from "highlight.js/lib/languages/yaml";
@@ -37,6 +37,7 @@
   hljs.registerLanguage("go", go);
   hljs.registerLanguage("javascript", javascript);
   hljs.registerLanguage("json", json);
+  hljs.registerLanguage("ini", ini);
   hljs.registerLanguage("nginx", nginx);
   hljs.registerLanguage("plaintext", plaintext);
   hljs.registerLanguage("powershell", powershell);
@@ -44,7 +45,6 @@
   hljs.registerLanguage("rust", rust);
   hljs.registerLanguage("sql", sql);
   hljs.registerLanguage("swift", swift);
-  hljs.registerLanguage("toml", toml);
   hljs.registerLanguage("typescript", typescript);
   hljs.registerLanguage("xml", html);
   hljs.registerLanguage("yaml", yaml);
