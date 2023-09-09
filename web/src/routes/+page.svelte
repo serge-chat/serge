@@ -1,12 +1,16 @@
 <script lang="ts">
   import type { PageData } from "./$types";
   import { goto, invalidate } from "$app/navigation";
+  import { barVisible } from "$lib/stores";
+  import { onDestroy } from "svelte";
   export let data: PageData;
 
   const models = data.models.filter((el) => el.available);
 
   const modelAvailable = models.length > 0;
   const modelsLabels = models.map((el) => el.name);
+  let bar_visible: boolean;
+  const unsubscribe = barVisible.subscribe((value) => (bar_visible = value));
 
   let temp = 0.1;
   let top_k = 50;
@@ -45,8 +49,35 @@
       await invalidate("/api/chat/");
     }
   }
+  function toggleBar() {
+    bar_visible = !bar_visible;
+    barVisible.set(bar_visible);
+  }
+  onDestroy(unsubscribe);
 </script>
 
+{#if !bar_visible}
+  <button
+    class="absolute p-0 top-1 left-2 md:left-16 h-10 w-10 min-h-0 btn btn-ghost flex items-center justify-center font-semibold z-40"
+    on:click={toggleBar}
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      class="w-4 h-4"
+    >
+      <path
+        d="M11.28 9.53 8.81 12l2.47 2.47a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215l-3-3a.75.75 0 0 1 0-1.06l3-3a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734Z"
+      >
+      </path>
+      <path
+        d="M3.75 2h16.5c.966 0 1.75.784 1.75 1.75v16.5A1.75 1.75 0 0 1 20.25 22H3.75A1.75 1.75 0 0 1 2 20.25V3.75C2 2.784 2.784 2 3.75 2ZM3.5 3.75v16.5c0 .138.112.25.25.25H15v-17H3.75a.25.25 0 0 0-.25.25Zm13 16.75h3.75a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25H16.5Z"
+      >
+      </path>
+    </svg>
+  </button>
+{/if}
 <div class="flex flex-col items-center justify-center pt-5">
   <h1 class="pb-2 text-3xl font-bold">Say Hi to Serge</h1>
 </div>
@@ -106,7 +137,10 @@
             max="100"
           />
         </div>
-        <div class="col-span-2">
+        <div
+          class="tooltip tooltip-bottom col-span-2"
+          data-tip="Max text generated token"
+        >
           <label for="max_length" class="label-text"
             >Maximum generated tokens - [{max_length}]</label
           >

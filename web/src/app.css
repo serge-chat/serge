@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-.markdown li, .markdown p {
+.markdown li,
+.markdown p {
   margin-bottom: 0.375rem;
 }
 
