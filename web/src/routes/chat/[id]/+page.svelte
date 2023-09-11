@@ -439,6 +439,7 @@
                   <button
                     disabled={isLoading}
                     class="btn-ghost btn-sm btn"
+                    
                     on:click|preventDefault={() => deletePrompt(data.chat.id, i)}
                   >
                     <svg
