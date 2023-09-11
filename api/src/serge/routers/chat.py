@@ -295,6 +295,9 @@ async def ask_a_question(chat_id: str, prompt: str):
             repeat_penalty=chat.params.repeat_penalty,
             max_tokens=chat.params.max_tokens,
         )
+        full_answer = ""
+        if len(answer.get("choices", [])) > 0:
+            full_answer = answer["choices"][0].get("text", "")
     except Exception as e:
         error = e.__str__()
         logger.error(error)
@@ -304,6 +307,6 @@ async def ask_a_question(chat_id: str, prompt: str):
     if not isinstance(answer, str):
         answer = str(answer)
 
-    ai_message = AIMessage(content=answer)
+    ai_message = AIMessage(content=full_answer)
     history.append(message=ai_message)
     return answer
