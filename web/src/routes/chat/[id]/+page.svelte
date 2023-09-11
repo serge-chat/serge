@@ -439,8 +439,8 @@
                   <button
                     disabled={isLoading}
                     class="btn-ghost btn-sm btn"
-                    
-                    on:click|preventDefault={() => deletePrompt(data.chat.id, i)}
+                    on:click|preventDefault={() =>
+                      deletePrompt(data.chat.id, i)}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
