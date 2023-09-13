@@ -3,10 +3,10 @@
 set -x
 
 # Handle termination signals
-_term() { 
-  echo "Received termination signal!" 
-  kill -TERM "$redis_process" 2>/dev/null
-  kill -TERM "$serge_process" 2>/dev/null
+_term() {
+	echo "Received termination signal!"
+	kill -TERM "$redis_process" 2>/dev/null
+	kill -TERM "$serge_process" 2>/dev/null
 }
 
 # Install python bindings
