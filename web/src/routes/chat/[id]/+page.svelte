@@ -102,6 +102,7 @@
     eventSource.addEventListener("close", async () => {
       eventSource.close();
       await invalidate("/api/chat/" + $page.params.id);
+      prompt = "";
     });
 
     eventSource.onerror = async (error) => {
@@ -114,6 +115,7 @@
 
   async function handleKeyDown(event: KeyboardEvent) {
     if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
       await askQuestion();
     }
   }
