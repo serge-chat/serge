@@ -8,7 +8,6 @@ class ChatParameters(BaseModel):
     model_path: str
     n_ctx: int
     n_gpu_layers: int
-    n_gqa: int | None
     # n_parts: int
     # seed: int
     # f16_kv: bool
