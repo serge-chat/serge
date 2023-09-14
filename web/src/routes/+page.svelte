@@ -14,7 +14,6 @@
 
   let temp = 0.1;
   let top_k = 50;
-  let gqa = 0;
   let top_p = 0.95;
 
   let max_length = 2048;
@@ -184,21 +183,6 @@
             max="2048"
             step="16"
             class="range range-sm mt-auto"
-          />
-        </div>
-        <div
-          class="tooltip flex flex-col"
-          data-tip="Grouped-query attention factor parameter. Set to 8 for LLaMA2"
-        >
-          <label for="gqa" class="label-text pb-1">gqa</label>
-          <input
-            class="input-bordered input w-full max-w-xs"
-            name="gqa"
-            type="number"
-            bind:value={gqa}
-            min="0"
-            max="8"
-            step="1"
           />
         </div>
         <div
