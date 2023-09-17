@@ -52,20 +52,17 @@ template: |
 
 autolabeler:
 - label: '📒 Documentation'
-  matcher:
-    title: '\b(docs|doc:|\[doc\]|README|typos|comment|documentation)\b'
+  title:
+    - '\b(docs|doc:|\[doc\]|README|typos|comment|documentation)\b'
 - label: '☢️ Bug'
-  matcher:
-    title: '\b(fix|race|bug|missing|correct)\b'
+  title:
+    - '\b(fix|race|bug|missing|correct)\b'
 - label: '🧹 Updates'
-  matcher:
-    title: '\b(improve|update|update|refactor|deprecated|remove|unused|test)\b'
+  title: 
+    - '\b(improve|update|update|refactor|deprecated|remove|unused|test)\b'
 - label: '🤖 Dependencies'
-  matcher:
-    title: '\b(bumb|bdependencies)\b'
+  title:
+    - '\b(bumb|bdependencies)\b'
 - label: '✏️ Feature'
-  matcher:
-    title: '\b(feature|feat|create|implement|add)\b'
-- label: '🤔 Question'
-  matcher:
-    title: '\b(question|how)\b'
+  title:
+    - '\b(feature|feat|create|implement|add)\b'
