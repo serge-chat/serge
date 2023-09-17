@@ -5,17 +5,15 @@ on:
     branches:
       - main
   pull_request: # Autolabel PR's
-    types: [opened, reopened, synchronize]
+    types: [opened, labeled, unlabeled, synchronize]
   pull_request_target: # Autolabel PR's from forks
-    types: [opened, reopened, synchronize]
+    types: [opened, labeled, unlabeled, synchronize]
 
 jobs:
   update_release_draft:
     permissions:
-      # write permission is required to create a github release
-      contents: write
-      # write permission is required for autolabeler
-      # otherwise, read permission is required at least
+      checks: write
+      contents: read
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
