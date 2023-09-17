@@ -4,10 +4,11 @@ on:
   push:
     branches:
       - main
-  pull_request: # Autolabel PRs
-    types: [opened, reopened, unlabeled, synchronize]
-  pull_request_target: # Autolabel PRs from forks
-    types: [opened, reopened, unlabeled, synchronize]
+  pull_request_target:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: read
 
 jobs:
   update_release_draft:
@@ -17,7 +18,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: release-drafter/release-drafter@v5
-        with:
-          commitish: main # default repo branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
