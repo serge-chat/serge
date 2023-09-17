@@ -16,7 +16,7 @@ Serge is a chat interface crafted with [llama.cpp](https://github.com/ggerganov/
 ## ⚡️ Quick start
 
 🐳 Docker:
-```bash
+```console
 docker run -d \
     --name serge \
     -v weights:/usr/src/app/weights \
