@@ -472,6 +472,17 @@
         "name": "misc",
         "models": [
             {
+                "name": "Marx-3B-V2",
+                "repo": "NikolayKozloff/Marx-3B-V2",
+                "files": [
+                    {
+                        "name": "q4_1",
+                        "filename": "Marx-3B-V2-Q4_1-GGML.bin",
+                        "disk_space": 2140000000.0
+                    }
+                ]
+            },
+            {
                 "name": "Wizard-Mega-13B",
                 "repo": "TheBloke/wizard-mega-13B-GGML",
                 "files": [
