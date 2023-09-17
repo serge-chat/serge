@@ -43,7 +43,7 @@ volumes:
   datadb:
 ```
 
-Then, just visit http://localhost:8008/, You can find the API documentation at http://localhost:8008/api/docs
+Then, just visit http://localhost:8008/, You can find the API Swagger documentation at http://localhost:8008/api/docs
 
 ## 🖥️ Windows Setup
 
