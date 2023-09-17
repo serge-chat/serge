@@ -6,14 +6,12 @@ on:
       - main
   pull_request: # Autolabel PR's
     types: [opened, labeled, unlabeled, synchronize]
-  pull_request_target: # Autolabel PR's from forks
-    types: [opened, labeled, unlabeled, synchronize]
 
 jobs:
   update_release_draft:
     permissions:
       checks: write
-      contents: read
+      contents: write
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
