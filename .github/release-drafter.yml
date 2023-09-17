@@ -59,7 +59,7 @@ autolabeler:
     title: '\b(fix|race|bug|missing|correct)\b'
 - label: '🧹 Updates'
   matcher:
-    title: '\b(improve|update|refactor|deprecated|remove|unused|test)\b'
+    title: '\b(improve|update|Update|refactor|deprecated|remove|unused|test)\b'
 - label: '🤖 Dependencies'
   matcher:
     title: '\b(bumb|bdependencies)\b'
