@@ -104,7 +104,8 @@
         `/api/chat/?model=${dataCht.params.model_path}&temperature=${dataCht.params.temperature}&top_k=${dataCht.params.top_k}` +
           `&top_p=${dataCht.params.top_p}&max_length=${dataCht.params.max_tokens}&context_window=${dataCht.params.n_ctx}` +
           `&repeat_last_n=${dataCht.params.last_n_tokens_size}&repeat_penalty=${dataCht.params.repeat_penalty}` +
-          `&n_threads=${dataCht.params.n_threads}&init_prompt=${dataCht.history[0].data.content}`,
+          `&n_threads=${dataCht.params.n_threads}&init_prompt=${dataCht.history[0].data.content}` +
+          `&gpu_layers=${dataCht.params.n_gpu_layers}`,
 
         {
           method: "POST",
