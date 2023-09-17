@@ -28,7 +28,7 @@ async def create_new_chat(
     repeat_last_n: int = 64,
     repeat_penalty: float = 1.3,
     init_prompt: str = "Below is an instruction that describes a task. Write a response that appropriately completes the request.",
-    n_threads: int = 4,
+    n_threads: int = 1,
 ):
     try:
         client = Llama(

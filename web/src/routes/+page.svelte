@@ -23,7 +23,7 @@
   let init_prompt =
     "Below is an instruction that describes a task. Write a response that appropriately completes the request.";
 
-  let n_threads = 4;
+  let n_threads = 1;
   let context_window = 2048;
   let gpu_layers = 0;
 
