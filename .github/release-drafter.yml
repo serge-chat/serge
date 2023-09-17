@@ -52,6 +52,8 @@ template: |
 
 autolabeler:
 - label: '📒 Documentation'
+  files:
+    - '*.md'
   matcher:
     title: '\b(docs|doc:|\[doc\]|README|typos|comment|documentation)\b'
 - label: '☢️ Bug'
