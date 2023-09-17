@@ -1,6 +1,27 @@
 #!/bin/bash
 
 set -x
+source serge.env
+
+# Function to detect CPU features
+detect_cpu_features() {
+  cpu_info=$(lscpu)
+  if echo "$cpu_info" | grep -q "avx512"; then
+    echo "AVX512"
+  elif echo "$cpu_info" | grep -q "avx2"; then
+    echo "AVX2"
+  elif echo "$cpu_info" | grep -q "avx"; then
+    echo "AVX"
+  else
+    echo "basic"
+  fi
+}
+
+# Detect CPU features and generate install command
+cpu_feature=$(detect_cpu_features)
+pip_command="python -m pip install llama-cpp-python==$LLAMA_PYTHON_VERSION --prefer-binary --extra-index-url=https://jllllll.github.io/llama-cpp-python-cuBLAS-wheels/$cpu_feature/cpu"
+echo "Recommended install command for llama-cpp-python:"
+echo "$pip_command"
 
 # Handle termination signals
 _term() {
@@ -10,7 +31,7 @@ _term() {
 }
 
 # Install python bindings
-UNAME_M=$(dpkg --print-architecture) pip install llama-cpp-python==0.2.19 || {
+eval "$pip_command" || {
 	echo 'Failed to install llama-cpp-python'
 	exit 1
 }
