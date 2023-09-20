@@ -14,7 +14,6 @@ class ChatParameters(BaseModel):
     # logits_all: bool
     # vocab_only: bool
     # use_mlock: bool
-    n_threads: int
     # n_batch: int
     last_n_tokens_size: int
     max_tokens: int
