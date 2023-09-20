@@ -1,10 +1,10 @@
 # ---------------------------------------
 # Base image for redis
-FROM redis:7-bullseye as redis
+FROM redis:7-bookworm as redis
 
 # ---------------------------------------
 # Build frontend
-FROM node:20-bullseye-slim as frontend
+FROM node:20-bookworm-slim as frontend
 
 WORKDIR /usr/src/app
 COPY ./web/package.json ./web/package-lock.json ./
@@ -16,7 +16,7 @@ RUN npm run build
 
 # ---------------------------------------
 # Runtime environment
-FROM python:3.11-slim-bullseye as release
+FROM python:3.11-slim-bookworm as release
 
 # Set ENV
 ENV NODE_ENV='production'

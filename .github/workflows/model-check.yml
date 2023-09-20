@@ -1,4 +1,4 @@
-name: Check that models are available for download
+name: LLM Models Healthcheck
 
 on:
   push:
