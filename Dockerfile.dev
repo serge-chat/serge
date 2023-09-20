@@ -1,14 +1,14 @@
 # ---------------------------------------
 # Base image for node
-FROM node:20-bullseye-slim as node_base
+FROM node:20-bookworm-slim as node_base
 
 # ---------------------------------------
 # Base image for redis
-FROM redis:7-bullseye as redis
+FROM redis:7-bookworm as redis
 
 # ---------------------------------------
 # Dev environment
-FROM python:3.11-slim-bullseye as dev
+FROM python:3.11-slim-bookworm as dev
 
 # Set ENV
 WORKDIR /usr/src/app

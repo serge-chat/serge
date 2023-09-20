@@ -55,54 +55,20 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 
 ## 🧠 Supported Models
 
-We currently support the following models:
-
-- Alpaca 🦙
-  - Alpaca-LoRA-65B
-  - GPT4-Alpaca-LoRA-30B
-- Chronos 🌑
-  - Chronos-13B
-  - Chronos-33B
-  - Chronos-Hermes-13B
-- GPT4All 🌍
-  - GPT4All-13B
-- Koala 🐨
-  - Koala-7B
-  - Koala-13B
-- LLaMA 🦙
-  - FinLLaMA-33B
-  - LLaMA-Supercot-30B
-  - LLaMA2 7B
-  - LLaMA2 13B
-  - LLaMA2 70B
-- Lazarus 💀
-  - Lazarus-30B
-- Nous 🧠
-  - Nous-Hermes-13B
-- OpenAssistant 🎙️
-  - OpenAssistant-30B
-- Orca 🐬
-  - Orca-Mini-v2-7B
-  - Orca-Mini-v2-13B
-  - OpenOrca-Preview1-13B
-- Samantha 👩
-  - Samantha-7B
-  - Samantha-13B
-  - Samantha-33B
-- Vicuna 🦙
-  - Stable-Vicuna-13B
-  - Vicuna-CoT-7B
-  - Vicuna-CoT-13B
-  - Vicuna-v1.1-7B
-  - Vicuna-v1.1-13B
-  - VicUnlocked-30B
-  - VicUnlocked-65B
-- Wizard 🧙
-  - Wizard-Mega-13B
-  - WizardLM-Uncensored-7B
-  - WizardLM-Uncensored-13B
-  - WizardLM-Uncensored-30B
-  - WizardCoder-Python-13B-V1.0
+| Category      | Models |
+|:-------------:|:-------|
+| **Alpaca 🦙** | Alpaca-LoRA-65B, GPT4-Alpaca-LoRA-30B |
+| **Chronos 🌑**| Chronos-13B, Chronos-33B, Chronos-Hermes-13B |
+| **GPT4All 🌍**| GPT4All-13B |
+| **Koala 🐨**  | Koala-7B, Koala-13B |
+| **LLaMA 🦙**  | FinLLaMA-33B, LLaMA-Supercot-30B, LLaMA2 7B, LLaMA2 13B, LLaMA2 70B |
+| **Lazarus 💀**| Lazarus-30B |
+| **Nous 🧠**   | Nous-Hermes-13B |
+| **OpenAssistant 🎙️** | OpenAssistant-30B |
+| **Orca 🐬**   | Orca-Mini-v2-7B, Orca-Mini-v2-13B, OpenOrca-Preview1-13B |
+| **Samantha 👩**| Samantha-7B, Samantha-13B, Samantha-33B |
+| **Vicuna 🦙** | Stable-Vicuna-13B, Vicuna-CoT-7B, Vicuna-CoT-13B, Vicuna-v1.1-7B, Vicuna-v1.1-13B, VicUnlocked-30B, VicUnlocked-65B |
+| **Wizard 🧙** | Wizard-Mega-13B, WizardLM-Uncensored-7B, WizardLM-Uncensored-13B, WizardLM-Uncensored-30B, WizardCoder-Python-13B-V1.0 |
 
 Additional weights can be added to the `serge_weights` volume using `docker cp`:
 
@@ -157,12 +123,19 @@ LLaMA will crash if you don't have enough available memory for the model:
 
 Need help? Join our [Discord](https://discord.gg/62Hc6FEYQH)
 
+## ⭐️ Stargazers
+
+<img src="https://starchart.cc/serge-chat/serge.svg" alt="Stargazers over time" style="max-width: 100%">
+
+## 🧾 License
+
+[Nathan Sarrazin](https://github.com/nsarrazin) and [Contributors](https://github.com/serge-chat/serge/graphs/contributors). `Serge` is free and open-source software licensed under the [MIT License](https://github.com/serge-chat/serge/blob/master/LICENSE).
+
 ## 🤝 Contributing
 
 If you discover a bug or have a feature idea, feel free to open an issue or PR.
 
 To run Serge in development mode:
-
 ```bash
 git clone https://github.com/serge-chat/serge.git
 docker compose -f docker-compose.dev.yml up -d --build
