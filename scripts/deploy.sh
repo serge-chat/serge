@@ -10,6 +10,7 @@ _term() {
 }
 
 # Install python bindings
+export UNAME_M=$(dpkg --print-architecture)
 pip install llama-cpp-python==0.1.78 || {
 	echo 'Failed to install llama-cpp-python'
 	exit 1
