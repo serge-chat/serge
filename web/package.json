@@ -19,7 +19,7 @@
     "@types/markdown-it": "^13.0.1",
     "@typescript-eslint/eslint-plugin": "^6.7.2",
     "@typescript-eslint/parser": "^6.7.2",
-    "autoprefixer": "^10.4.15",
+    "autoprefixer": "^10.4.16",
     "eslint": "^8.49.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.28.1",
