@@ -119,6 +119,7 @@ class LlamaCpp(LLM):
             "stop_sequences": self.stop_sequences,
             "repeat_penalty": self.repeat_penalty,
             "top_k": self.top_k,
+            "n_threads": self.n_threads,
             "n_ctx": self.n_ctx,
             "n_threads": self.n_threads,
             "n_gpu_layers": self.n_gpu_layers,
