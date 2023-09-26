@@ -23,6 +23,7 @@
   let init_prompt =
     "Below is an instruction that describes a task. Write a response that appropriately completes the request.";
 
+  let n_threads = 4;
   let context_window = 2048;
   let gpu_layers = 0;
 
@@ -224,6 +225,20 @@
               <option value={model}>{model}</option>
             {/each}
           </select>
+        </div>
+        <div
+          class="tooltip flex flex-col"
+          data-tip="Number of threads to run LLaMA on."
+        >
+          <label for="n_threads" class="label-text pb-1">n_threads</label>
+          <input
+            class="input-bordered input w-full max-w-xs"
+            name="n_threads"
+            type="number"
+            bind:value={n_threads}
+            min="0"
+            max="64"
+          />
         </div>
         <div
           class="tooltip flex flex-col"

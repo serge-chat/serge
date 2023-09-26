@@ -1,5 +1,3 @@
-import os
-
 from typing import Optional
 from fastapi import APIRouter
 from langchain.memory import RedisChatMessageHistory
@@ -30,6 +28,7 @@ async def create_new_chat(
     repeat_last_n: int = 64,
     repeat_penalty: float = 1.3,
     init_prompt: str = "Below is an instruction that describes a task. Write a response that appropriately completes the request.",
+    n_threads: int = 4,
 ):
     try:
         client = Llama(
@@ -52,7 +51,7 @@ async def create_new_chat(
         n_gpu_layers=gpu_layers,
         last_n_tokens_size=repeat_last_n,
         repeat_penalty=repeat_penalty,
-        n_threads=len(os.sched_getaffinity(0)),
+        n_threads=n_threads,
         init_prompt=init_prompt,
     )
     # create the chat

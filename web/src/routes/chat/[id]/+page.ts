@@ -15,6 +15,7 @@ interface Params {
   model_path: string;
   n_ctx: number;
   n_gpu_layers: number;
+  n_threads: number;
   last_n_tokens_size: number;
   max_tokens: number;
   temperature: number;
