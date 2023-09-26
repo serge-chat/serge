@@ -17,7 +17,7 @@
     "@sveltejs/adapter-static": "^2.0.3",
     "@sveltejs/kit": "^1.25.1",
     "@types/markdown-it": "^13.0.1",
-    "@typescript-eslint/eslint-plugin": "^6.7.2",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
     "@typescript-eslint/parser": "^6.7.2",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.50.0",
