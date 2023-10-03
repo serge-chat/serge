@@ -8,7 +8,7 @@ FROM redis:7-bookworm as redis
 
 # ---------------------------------------
 # Dev environment
-FROM python:3.11-slim-bookworm as dev
+FROM python:3.12-slim-bookworm as dev
 
 # Set ENV
 WORKDIR /usr/src/app

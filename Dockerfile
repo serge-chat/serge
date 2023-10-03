@@ -16,7 +16,7 @@ RUN npm run build
 
 # ---------------------------------------
 # Runtime environment
-FROM python:3.11-slim-bookworm as release
+FROM python:3.12-slim-bookworm as release
 
 # Set ENV
 ENV NODE_ENV='production'
