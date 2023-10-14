@@ -730,24 +730,24 @@ files = [
 
 [[package]]
 name = "httpcore"
-version = "0.18.0"
+version = "1.0.0"
 description = "A minimal low-level HTTP client."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "httpcore-0.18.0-py3-none-any.whl", hash = "sha256:adc5398ee0a476567bf87467063ee63584a8bce86078bf748e48754f60202ced"},
-    {file = "httpcore-0.18.0.tar.gz", hash = "sha256:13b5e5cd1dca1a6636a6aaea212b19f4f85cd88c366a2b82304181b769aab3c9"},
+    {file = "httpcore-1.0.0-py3-none-any.whl", hash = "sha256:cdbe42a0ea87dcaf9b5c751e868aff233799e947aff8b9c9eff8a2c11219ddb7"},
+    {file = "httpcore-1.0.0.tar.gz", hash = "sha256:b8c3a34536aa434297a5e4c8b7057496823cb9a417f7ee859ec0320e60f06337"},
 ]
 
 [package.dependencies]
-anyio = ">=3.0,<5.0"
 certifi = "*"
 h11 = ">=0.13,<0.15"
-sniffio = "==1.*"
 
 [package.extras]
+asyncio = ["anyio (>=4.0,<5.0)"]
 http2 = ["h2 (>=3,<5)"]
 socks = ["socksio (==1.*)"]
+trio = ["trio (>=0.22.0,<0.23.0)"]
 
 [[package]]
 name = "httptools"
@@ -2278,4 +2278,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4.0"
-content-hash = "990a1b06f373741feee735c92cf447bc6a89a81d96133891a2f19b0c275b1d8c"
+content-hash = "4c389fdcf8386fa73d01aead5055187cb36329cb8b7c14c520bd7e1b33865e98"
