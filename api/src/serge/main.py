@@ -11,12 +11,11 @@ from serge.models.settings import Settings
 from serge.routers.chat import chat_router
 from serge.routers.model import model_router
 from serge.routers.ping import ping_router
-from serge.utils.convert import convert_all
 
 # Configure logging settings
 
 # Define a logger for the current mo
-logger.add(sys.stderr, format="{time} {level} {message}", level="DEBUG")
+logger.add(sys.stderr, format="{time} {level} {message}", level="INFO")
 
 settings = Settings()
 
@@ -83,9 +82,6 @@ async def start_database():
 
     for file in files:
         os.remove(WEIGHTS + file)
-
-    logger.info("initializing models")
-    convert_all("/usr/src/app/weights/", "/usr/src/app/weights/tokenizer.model")
 
 
 app.add_middleware(
