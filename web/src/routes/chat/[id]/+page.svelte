@@ -221,10 +221,10 @@
     });
 
     document.addEventListener("keydown", async (event) => {
-    if (event.key === "n" && event.altKey) {
-      await createSameSession();
-    }
-  });
+      if (event.key === "n" && event.altKey) {
+        await createSameSession();
+      }
+    });
   });
 
   function updateThemeStyle(currentTheme: string) {
