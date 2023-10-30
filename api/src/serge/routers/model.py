@@ -7,8 +7,6 @@ from typing import Annotated
 
 from fastapi import APIRouter, HTTPException, Form
 from serge.models.models import Families
-from serge.utils.convert import convert_one_file
-from serge.utils.migrate import migrate
 
 from pathlib import Path
 
@@ -140,10 +138,7 @@ def download_model(model_name: str):
     print(f"Downloading {model_name} model from {repo_id}...")
     url = huggingface_hub.hf_hub_url(repo_id, filename, repo_type="model", revision="main")
     urllib.request.urlretrieve(url, WEIGHTS + f"{model_name}.bin.tmp")
-
     os.rename(WEIGHTS + f"{model_name}.bin.tmp", WEIGHTS + f"{model_name}.bin")
-    convert_one_file(WEIGHTS + f"{model_name}.bin", WEIGHTS + "tokenizer.model")
-    migrate(WEIGHTS + f"{model_name}.bin")
 
     return {"message": f"Model {model_name} downloaded"}
 

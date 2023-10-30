@@ -139,12 +139,6 @@
     await goto("/chat/" + newData);
   }
 
-  document.addEventListener("keydown", async (event) => {
-    if (event.key === "n" && event.altKey) {
-      await createSameSession();
-    }
-  });
-
   async function deletePrompt(chatID: string, idx: number) {
     const response = await fetch(
       `/api/chat/${chatID}/prompt?idx=${idx.toString()}`,
@@ -225,6 +219,12 @@
     themeStore.subscribe((newTheme) => {
       updateThemeStyle(newTheme);
     });
+
+    document.addEventListener("keydown", async (event) => {
+    if (event.key === "n" && event.altKey) {
+      await createSameSession();
+    }
+  });
   });
 
   function updateThemeStyle(currentTheme: string) {
