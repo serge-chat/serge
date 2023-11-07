@@ -730,13 +730,13 @@ files = [
 
 [[package]]
 name = "httpcore"
-version = "1.0.0"
+version = "1.0.1"
 description = "A minimal low-level HTTP client."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "httpcore-1.0.0-py3-none-any.whl", hash = "sha256:cdbe42a0ea87dcaf9b5c751e868aff233799e947aff8b9c9eff8a2c11219ddb7"},
-    {file = "httpcore-1.0.0.tar.gz", hash = "sha256:b8c3a34536aa434297a5e4c8b7057496823cb9a417f7ee859ec0320e60f06337"},
+    {file = "httpcore-1.0.1-py3-none-any.whl", hash = "sha256:c5e97ef177dca2023d0b9aad98e49507ef5423e9f1d94ffe2cfe250aa28e63b0"},
+    {file = "httpcore-1.0.1.tar.gz", hash = "sha256:fce1ddf9b606cfb98132ab58865c3728c52c8e4c3c46e2aabb3674464a186e92"},
 ]
 
 [package.dependencies]
@@ -2335,4 +2335,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4.0"
-content-hash = "5387e0b80b6b4baee2c479f9448d9e7bd5d37cab578e1673f55079ff6dee6e71"
+content-hash = "e25620da69f9c13da98e3d730eaae7029fe623fca13da875a438b37e4e251bb1"
