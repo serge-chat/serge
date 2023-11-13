@@ -134,7 +134,7 @@
         disabled={isLoading || !modelAvailable}
         class="btn btn-ghost flex-grow h-6 font-semibold text-left text-sm capitalize"
         class:loading={isLoading}
-        on:click|preventDefault={() => goto("")}
+        on:click|preventDefault={() => goto("/")}
         style="justify-content: flex-start;"
       >
         <svg
