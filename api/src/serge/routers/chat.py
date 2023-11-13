@@ -136,7 +136,7 @@ async def delete_prompt(chat_id: str, idx: int):
     history = RedisChatMessageHistory(chat_id)
 
     if idx >= len(history.messages):
-        logger.error("Unable to delete message, it may be in progress")
+        logger.error("Unable to delete message, chat in progress")
         return False
 
     messages = history.messages.copy()[:idx]
