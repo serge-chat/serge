@@ -1,539 +1,140 @@
 [
     {
-        "name": "Chronos",
+        "name": "CodeLLaMA",
         "models": [
             {
-                "name": "Chronos-13B",
-                "repo": "TheBloke/chronos-13B-GGML",
+                "name": "CodeLlama-7B",
+                "repo": "TheBloke/CodeLlama-7B-GGUF",
                 "files": [
                     {
-                        "name": "q6_K",
-                        "filename": "chronos-13b.ggmlv3.q6_K.bin",
-                        "disk_space": 10700000000.0
+                        "name": "q4_K_M",
+                        "filename": "codellama-7b.Q4_K_M.gguf",
+                        "disk_space": 4080000000.0
                     }
                 ]
             },
             {
-                "name": "Chronos-33B",
-                "repo": "TheBloke/chronos-33B-GGML",
+                "name": "CodeLlama-7B-Instruct",
+                "repo": "TheBloke/CodeLlama-7B-Instruct-GGUF",
                 "files": [
                     {
-                        "name": "q6_K",
-                        "filename": "chronos-33b.ggmlv3.q6_K.bin",
-                        "disk_space": 26700000000.0
+                        "name": "q4_K_M",
+                        "filename": "codellama-7b-instruct.Q4_K_M.gguf",
+                        "disk_space": 4370000000.0
                     }
                 ]
             },
             {
-                "name": "Chronos-Hermes-13B",
-                "repo": "TheBloke/chronos-hermes-13B-GGML",
+                "name": "CodeLlama-13B-Instruct",
+                "repo": "TheBloke/CodeLlama-13B-Instruct-GGUF",
                 "files": [
                     {
-                        "name": "q4_0",
-                        "filename": "chronos-hermes-13b.ggmlv3.q4_0.bin",
-                        "disk_space": 73200000000.0
-                    },
-                    {
-                        "name": "q4_1",
-                        "filename": "chronos-hermes-13b.ggmlv3.q4_1.bin",
-                        "disk_space": 81400000000.0
-                    },
-                    {
-                        "name": "q5_0",
-                        "filename": "chronos-hermes-13b.ggmlv3.q5_0.bin",
-                        "disk_space": 89500000000.0
-                    },
-                    {
-                        "name": "q5_1",
-                        "filename": "chronos-hermes-13b.ggmlv3.q5_1.bin",
-                        "disk_space": 97600000000.0
-                    },
-                    {
-                      "name": "q8_0",
-                      "filename": "chronos-hermes-13b.ggmlv3.q8_0.bin",
-                      "disk_space": 13800000000.0
+                        "name": "q4_K_M",
+                        "filename": "codellama-13b-instruct.Q4_K_M.gguf",
+                        "disk_space": 7870000000.0
                     }
                 ]
             }
         ]
     },
     {
-        "name": "Koala",
+        "name": "Zephyr",
         "models": [
             {
-                "name": "Koala-7B",
-                "repo": "TheBloke/koala-7B-GGML",
+                "name": "Zephyr-7B-Beta",
+                "repo": "TheBloke/zephyr-7B-alpha-GGUF",
                 "files": [
                     {
-                        "name": "q5_1",
-                        "filename": "koala-7B.ggmlv3.q5_1.bin",
-                        "disk_space": 5060000000.0
-                    },
-                    {
-                        "name": "q6_K",
-                        "filename": "koala-7B.ggmlv3.q6_K.bin",
-                        "disk_space": 5530000000.0
+                        "name": "q4_K_M",
+                        "filename": "zephyr-7b-alpha.Q4_K_M.gguf",
+                        "disk_space": 4370000000.0
                     }
                 ]
             },
             {
-                "name": "Koala-13B",
-                "repo": "TheBloke/koala-13B-GGML",
+                "name": "Zephyr-7B-Beta",
+                "repo": "TheBloke/zephyr-7B-beta-GGUF",
                 "files": [
                     {
-                        "name": "q6_K",
-                        "filename": "koala-13B.ggmlv3.q6_K.bin",
-                        "disk_space": 10700000000.0
+                        "name": "q4_K_M",
+                        "filename": "zephyr-7b-beta.Q4_K_M.gguf",
+                        "disk_space": 4370000000.0
                     }
                 ]
             }
         ]
     },
     {
-        "name": "Samantha",
+        "name": "Mistral",
         "models": [
             {
-                "name": "Samantha-7B",
-                "repo": "TheBloke/samantha-7B-GGML",
+                "name": "Mistral-7B-Instruct",
+                "repo": "TheBloke/Mistral-7B-Instruct-v0.1-GGUF",
                 "files": [
                     {
-                        "name": "q5_1",
-                        "filename": "samantha-7B.ggmlv3.q5_1.bin",
-                        "disk_space": 5060000000.0
-                    },
-                    {
-                        "name": "q6_K",
-                        "filename": "samantha-7B.ggmlv3.q6_K.bin",
-                        "disk_space": 5530000000.0
+                        "name": "q4_K_M",
+                        "filename": "mistral-7b-instruct-v0.1.Q4_K_M.gguf",
+                        "disk_space": 4370000000.0
                     }
                 ]
             },
             {
-                "name": "Samantha-13B",
-                "repo": "TheBloke/samantha-13B-GGML",
+                "name": "Mistral-7B",
+                "repo": "TheBloke/Mistral-7B-v0.1-GGUF",
                 "files": [
                     {
-                        "name": "q6_K",
-                        "filename": "samantha-13B.ggmlv3.q6_K.bin",
-                        "disk_space": 10700000000.0
+                        "name": "q4_K_M",
+                        "filename": "mistral-7b-v0.1.Q4_K_M.gguf",
+                        "disk_space": 4370000000.0
                     }
                 ]
             },
             {
-                "name": "Samantha-33B",
-                "repo": "TheBloke/samantha-33B-GGML",
+                "name": "Mistral-7B-OpenOrca",
+                "repo": "TheBloke/Mistral-7B-OpenOrca-GGUF",
                 "files": [
                     {
-                        "name": "q6_K",
-                        "filename": "samantha-33B.ggmlv3.q6_K.bin",
-                        "disk_space": 26700000000.0
+                        "name": "q4_K_M",
+                        "filename": "mistral-7b-openorca.Q4_K_M.gguf",
+                        "disk_space": 4370000000.0
                     }
                 ]
             }
         ]
     },
     {
-        "name": "Vicuna",
+        "name": "LLaMA",
         "models": [
             {
-                "name": "StableVicuna-13B",
-                "repo": "TheBloke/stable-vicuna-13B-GGML",
+                "name": "LLaMA2-7B-Chat",
+                "repo": "TheBloke/Llama-2-7B-Chat-GGUF",
                 "files": [
                     {
-                        "name": "q6_K",
-                        "filename": "stable-vicuna-13B.ggmlv3.q6_K.bin",
-                        "disk_space": 10700000000.0
+                        "name": "q4_K_M",
+                        "filename": "llama-2-7b-chat.Q4_K_M.gguf",
+                        "disk_space": 4080000000.0
                     }
                 ]
             },
             {
-                "name": "Vicuna-CoT-7B",
-                "repo": "TheBloke/Vicuna-7B-CoT-GGML",
+                "name": "LLaMA2-13B-Chat",
+                "repo": "TheBloke/Llama-2-13B-chat-GGUF",
                 "files": [
                     {
-                        "name": "q5_1",
-                        "filename": "vicuna-7B-cot.ggmlv3.q5_1.bin",
-                        "disk_space": 5060000000.0
-                    },
-                    {
-                        "name": "q6_K",
-                        "filename": "vicuna-7B-cot.ggmlv3.q6_K.bin",
-                        "disk_space": 5530000000.0
+                        "name": "q4_K_M",
+                        "filename": "llama-2-13b-chat.Q4_K_M.gguf",
+                        "disk_space": 7870000000.0
                     }
                 ]
             },
             {
-                "name": "Vicuna-CoT-13B",
-                "repo": "TheBloke/Vicuna-13B-CoT-GGML",
+                "name": "LLaMA2-70B-Chat",
+                "repo": "TheBloke/Llama-2-70B-Chat-GGUF",
                 "files": [
                     {
-                        "name": "q6_K",
-                        "filename": "vicuna-13b-cot.ggmlv3.q6_K.bin",
-                        "disk_space": 10700000000.0
-                    }
-                ]
-            },
-            {
-                "name": "Vicuna-v1.1-7B",
-                "repo": "TheBloke/vicuna-7B-1.1-GGML",
-                "files": [
-                    {
-                        "name": "q5_1",
-                        "filename": "vicuna-7b-1.1.ggmlv3.q5_1.bin",
-                        "disk_space": 5060000000.0
-                    },
-                    {
-                        "name": "q6_K",
-                        "filename": "vicuna-7b-1.1.ggmlv3.q6_K.bin",
-                        "disk_space": 5530000000.0
-                    }
-                ]
-            },
-            {
-                "name": "Vicuna-v1.1-13B",
-                "repo": "TheBloke/vicuna-13b-1.1-GGML",
-                "files": [
-                    {
-                        "name": "q6_K",
-                        "filename": "vicuna-13b-1.1.ggmlv3.q6_K.bin",
-                        "disk_space": 10700000000.0
-                    }
-                ]
-            },
-            {
-                "name": "VicUnlocked-30B",
-                "repo": "TheBloke/VicUnlocked-30B-LoRA-GGML",
-                "files": [
-                    {
-                        "name": "q6_K",
-                        "filename": "VicUnlocked-30B-LoRA.ggmlv3.q6_K.bin",
-                        "disk_space": 26700000000.0
-                    }
-                ]
-            },
-            {
-                "name": "VicUnlocked-65B",
-                "repo": "TheBloke/VicUnlocked-alpaca-65B-QLoRA-GGML",
-                "files": [
-                    {
-                        "name": "q5_K_M",
-                        "filename": "vicunlocked-65b.ggmlv3.q5_K_M.bin",
-                        "disk_space": 58700000000.0
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "name": "WizardLM",
-        "models": [
-            {
-                "name": "WizardCoder-Python-13B-V1.0-GGML",
-                "repo": "TheBloke/WizardCoder-Python-13B-V1.0-GGML",
-                "files": [
-                  {
-                        "name": "q5_K_M",
-                        "filename": "wizardcoder-python-13b-v1.0.ggmlv3.Q5_K_M.bin",
-                        "disk_space": 24100000000.0
-                  },
-                  {
-                        "name": "q6_K",
-                        "filename": "wizardcoder-python-13b-v1.0.ggmlv3.Q6_K.bin",
-                        "disk_space": 27900000000.0
-                  }
-                ]
-            },
-            {
-                "name": "WizardLM-Uncensored-7B",
-                "repo": "TheBloke/WizardLM-7B-uncensored-GGML",
-                "files": [
-                    {
-                        "name": "q5_1",
-                        "filename": "WizardLM-7B-uncensored.ggmlv3.q5_1.bin",
-                        "disk_space": 5060000000.0
-                    },
-                    {
-                        "name": "q6_K",
-                        "filename": "WizardLM-7B-uncensored.ggmlv3.q6_K.bin",
-                        "disk_space": 5530000000.0
-                    }
-                ]
-            },
-            {
-                "name": "WizardLM-Uncensored-13B",
-                "repo": "TheBloke/WizardLM-13B-Uncensored-GGML",
-                "files": [
-                    {
-                        "name": "q6_K",
-                        "filename": "wizardLM-13B-Uncensored.ggmlv3.q6_K.bin",
-                        "disk_space": 10700000000.0
-                    }
-                ]
-            },
-            {
-                "name": "WizardLM-Uncensored-30B",
-                "repo": "TheBloke/WizardLM-30B-Uncensored-GGML",
-                "files": [
-                    {
-                        "name": "q6_K",
-                        "filename": "wizardlm-30b-uncensored.ggmlv3.q6_K.bin",
-                        "disk_space": 26700000000.0
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "name": "Alpaca",
-        "models": [
-            {
-                "name": "GPT4AlpacaLoRA-30B",
-                "repo": "TheBloke/gpt4-alpaca-lora-30B-4bit-GGML",
-                "files": [
-                    {
-                        "name": "q5_1",
-                        "filename": "gpt4-alpaca-lora-30b.ggmlv3.q5_1.bin",
-                        "disk_space": 24400000000.0
-                    }
-                ]
-            },
-            {
-                "name": "AlpacaLoRA-65B",
-                "repo": "TheBloke/alpaca-lora-65B-GGML",
-                "files": [
-                    {
-                        "name": "q5_K_M",
-                        "filename": "alpaca-lora-65B.ggmlv3.q5_K_M.bin",
-                        "disk_space": 46200000000.0
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "name": "Llama",
-        "models": [
-            {
-                "name": "FinLlama-33B",
-                "repo": "TheBloke/fin-llama-33B-GGML",
-                "files": [
-                    {
-                        "name": "q6_K",
-                        "filename": "fin-llama-33b.ggmlv3.q6_K.bin",
-                        "disk_space": 26700000000.0
-                    }
-                ]
-            },
-            {
-                "name": "Llama-Supercot-30B",
-                "repo": "TheBloke/llama-30b-supercot-GGML",
-                "files": [
-                    {
-                        "name": "q6_K",
-                        "filename": "llama-30b-supercot.ggmlv3.q6_K.bin",
-                        "disk_space": 26700000000.0
-                    }
-                ]
-            },
-            {
-                "name": "Facebook-LLaMA2-7B",
-                "repo": "TheBloke/Llama-2-7B-GGML",
-                "files": [
-                    {
-                        "name": "q4_0",
-                        "filename": "llama-2-7b.ggmlv3.q4_0.bin",
-                        "disk_space": 3790000000.0
-                    }
-                ]
-            },
-            {
-                "name": "Facebook-LLaMA2-13B",
-                "repo": "TheBloke/Llama-2-13B-chat-GGML",
-                "files": [
-                    {
-                        "name": "q4_0",
-                        "filename": "llama-2-13b-chat.ggmlv3.q4_1.bin",
-                        "disk_space": 8140000000.0
-                    }
-                ]
-            },
-            {
-                "name": "Facebook-LLaMA2-70B",
-                "repo": "TheBloke/Llama-2-70B-Chat-GGML",
-                "files": [
-                    {
-                        "name": "q4_0",
-                        "filename": "llama-2-70b-chat.ggmlv3.q4_0.bin",
-                        "disk_space": 38900000000.0
-                    }
-                ]
-            }
-        ]
-    },
-    {
-      "name": "Orca",
-      "models": [
-              {
-                "name": "Orca-Mini-v2-7B",
-                "repo": "TheBloke/orca_mini_v2_7B-GGML",
-                "files": [
-                    {
-                        "name": "q5_0",
-                        "filename": "orca-mini-v2_7b.ggmlv3.q5_0.bin",
-                        "disk_space": 4630000000.0
-                    },
-                    {
-                        "name": "q5_1",
-                        "filename": "orca-mini-v2_7b.ggmlv3.q5_1.bin",
-                        "disk_space": 5060000000.0
-                    },
-                    {
-                        "name": "q5_K_M",
-                        "filename": "orca-mini-v2_7b.ggmlv3.q5_K_M.bin",
-                        "disk_space": 4780000000.0
-                    },
-                    {
-                        "name": "q6_K",
-                        "filename": "orca-mini-v2_7b.ggmlv3.q6_K.bin",
-                        "disk_space": 5530000000.0
-                    },
-                    {
-                        "name": "q8_0",
-                        "filename": "orca-mini-v2_7b.ggmlv3.q8_0.bin",
-                        "disk_space": 7160000000.0
-                    }
-                ]
-            },
-            {
-              "name": "Orca-Mini-v2-13B",
-              "repo": "TheBloke/orca_mini_v2_13b-GGML",
-              "files": [
-                  {
-                      "name": "q5_0",
-                      "filename": "orca_mini_v2_13b.ggmlv3.q5_0.bin",
-                      "disk_space": 8950000000.0
-                  },
-                  {
-                      "name": "q5_1",
-                      "filename": "orca_mini_v2_13b.ggmlv3.q5_1.bin",
-                      "disk_space": 9760000000.0
-                  },
-                  {
-                      "name": "q5_K_M",
-                      "filename": "orca_mini_v2_13b.ggmlv3.q5_K_M.bin",
-                      "disk_space": 9230000000.0
-                  },
-                  {
-                      "name": "q6_K",
-                      "filename": "orca_mini_v2_13b.ggmlv3.q6_K.bin",
-                      "disk_space": 10700000000.0
-                  },
-                  {
-                      "name": "q8_0",
-                      "filename": "orca_mini_v2_13b.ggmlv3.q8_0.bin",
-                      "disk_space": 13800000000.0
-                  }
-              ]
-            },
-            {
-                "name": "OpenOrca-Preview1-13B",
-                "repo": "TheBloke/OpenOrca-Preview1-13B-GGML",
-                "files": [
-                    {
-                        "name": "q5_0",
-                        "filename": "openorca-preview1-200k-llama-13b.ggmlv3.q5_0.bin",
-                        "disk_space": 89500000000.0
-                    },
-                    {
-                        "name": "q5_1",
-                        "filename": "openorca-preview1-200k-llama-13b.ggmlv3.q5_1.bin",
-                        "disk_space": 97600000000.0
-                    },
-                    {
-                        "name": "q5_K_M",
-                        "filename": "openorca-preview1-200k-llama-13b.ggmlv3.q5_K_M.bin",
-                        "disk_space": 92300000000.0
-                    },
-                    {
-                        "name": "q6_K",
-                        "filename": "openorca-preview1-200k-llama-13b.ggmlv3.q6_K.bin",
-                        "disk_space": 107000000000.0
-                    },
-                    {
-                        "name": "q8_0",
-                        "filename": "openorca-preview1-200k-llama-13b.ggmlv3.q8_0.bin",
-                        "disk_space": 13800000000.0
-                    }
-                ]
-            }
-      ]
-    },
-    {
-        "name": "misc",
-        "models": [
-            {
-                "name": "Marx-3B-V2",
-                "repo": "NikolayKozloff/Marx-3B-V2",
-                "files": [
-                    {
-                        "name": "q4_1",
-                        "filename": "Marx-3B-V2-Q4_1-GGML.bin",
-                        "disk_space": 2140000000.0
-                    }
-                ]
-            },
-            {
-                "name": "Wizard-Mega-13B",
-                "repo": "TheBloke/wizard-mega-13B-GGML",
-                "files": [
-                    {
-                        "name": "q5_1",
-                        "filename": "wizard-mega-13B.ggmlv3.q5_1.bin",
-                        "disk_space": 9760000000.0
-                    }
-                ]
-            },
-            {
-                "name": "Lazarus-30B",
-                "repo": "TheBloke/30B-Lazarus-GGML",
-                "files": [
-                    {
-                        "name": "q6_K",
-                        "filename": "30b-Lazarus.ggmlv3.q6_K.bin",
-                        "disk_space": 26700000000.0
-                    }
-                ]
-            },
-            {
-                "name": "GPT4All-13B",
-                "repo": "TheBloke/GPT4All-13B-snoozy-GGML",
-                "files": [
-                    {
-                        "name": "q6_K",
-                        "filename": "GPT4All-13B-snoozy.ggmlv3.q6_K.bin",
-                        "disk_space": 10700000000.0
-                    }
-                ]
-            },
-            {
-                "name": "Nous-Hermes-13B",
-                "repo": "TheBloke/Nous-Hermes-13B-GGML",
-                "files": [
-                    {
-                        "name": "q6_K",
-                        "filename": "nous-hermes-13b.ggmlv3.q6_K.bin",
-                        "disk_space": 10700000000.0
-                    }
-                ]
-            },
-            {
-                "name": "OpenAssistant-30B",
-                "repo": "TheBloke/OpenAssistant-SFT-7-Llama-30B-GGML",
-                "files": [
-                    {
-                        "name": "q6_K",
-                        "filename": "OpenAssistant-SFT-7-Llama-30B.ggmlv3.q6_K.bin",
-                        "disk_space": 26700000000.0
+                        "name": "q4_K_M",
+                        "filename": "llama-2-70b-chat.Q4_K_M.gguf",
+                        "disk_space": 41420000000.0
                     }
                 ]
             }

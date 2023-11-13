@@ -85,3 +85,56 @@ markdown. .hljs {
 .ie-edge-no-scrollbar {
   -ms-overflow-style: none;
 }
+
+/* Models Grid Layout */
+.models-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 30px;
+  padding-top: 10px;
+}
+
+/* Model Accordion Styles */
+.model-accordion {
+  border-radius: 8px;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-color: "bg-base-200";
+}
+
+.model-accordion button {
+  width: 100%;
+  padding: 15px;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.model-details {
+  padding: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.model-details p {
+  margin: 10px 0;
+}
+
+.top-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding-top: 10px;
+}
+
+.search-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 2rem;
+}

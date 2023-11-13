@@ -2,7 +2,7 @@
   import type { PageData } from "./$types";
   import { invalidate, goto } from "$app/navigation";
   import { page } from "$app/stores";
-  import { barVisible, newChat, themeStore } from "$lib/stores";
+  import { newChat, themeStore } from "$lib/stores";
   import { onMount, onDestroy } from "svelte";
   import ClipboardJS from "clipboard";
   import hljs from "highlight.js";
@@ -11,7 +11,6 @@
   import css from "highlight.js/lib/languages/css";
   import cpp from "highlight.js/lib/languages/cpp";
   import dockerfile from "highlight.js/lib/languages/dockerfile";
-  import graphql from "highlight.js/lib/languages/graphql";
   import go from "highlight.js/lib/languages/go";
   import javascript from "highlight.js/lib/languages/javascript";
   import json from "highlight.js/lib/languages/json";
@@ -32,7 +31,6 @@
   hljs.registerLanguage("bash", bash);
   hljs.registerLanguage("css", css);
   hljs.registerLanguage("cpp", cpp);
-  hljs.registerLanguage("graphql", graphql);
   hljs.registerLanguage("dockerfile", dockerfile);
   hljs.registerLanguage("go", go);
   hljs.registerLanguage("javascript", javascript);
@@ -61,8 +59,6 @@
     messageContainer.scrollBottom = messageContainer.scrollHeight;
   }
   let prompt = "";
-  let bar_visible: boolean;
-  const unsubscribe = barVisible.subscribe((value) => (bar_visible = value));
 
   async function askQuestion() {
     const data = new URLSearchParams();
@@ -243,10 +239,6 @@
   const onMouseLeave = () => {
     sendBottomHovered = false;
   };
-  const toggleBar = () => {
-    bar_visible = !bar_visible;
-    barVisible.set(bar_visible);
-  };
   const scrollToBottom = (node: Element, history: any[]) => {
     const scroll = () =>
       node.scroll({
@@ -258,7 +250,6 @@
     return { update: scroll };
   };
   onDestroy(() => {
-    unsubscribe;
     styleElement && styleElement.remove();
   });
 </script>
@@ -271,27 +262,6 @@
   <div class="w-full border-b border-base-content/[.2]">
     <div class="h-8 px-2 md:container md:mx-auto md:px-0">
       <div class="w-full h-full relative flex items-center justify-center">
-        {#if !bar_visible}
-          <button
-            class="absolute p-0 top-0 bottom-0 left-0 w-10 h-8 min-h-0 btn btn-ghost flex items-center justify-center font-semibold z-40"
-            on:click={toggleBar}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              class="w-4 h-4 fill-base-content"
-            >
-              <path
-                d="M7.22 14.47 9.69 12 7.22 9.53a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l3 3a.75.75 0 0 1 0 1.06l-3 3a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Z"
-              >
-              </path>
-              <path
-                d="M3.75 2h16.5c.966 0 1.75.784 1.75 1.75v16.5A1.75 1.75 0 0 1 20.25 22H3.75A1.75 1.75 0 0 1 2 20.25V3.75C2 2.784 2.784 2 3.75 2ZM3.5 3.75v16.5c0 .138.112.25.25.25H15v-17H3.75a.25.25 0 0 0-.25.25Zm13 16.75h3.75a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25H16.5Z"
-              >
-              </path>
-            </svg>
-          </button>
-        {/if}
         <div class="flex flex-row items-center justify-center color-base-300">
           <svg
             xmlns="http://www.w3.org/2000/svg"

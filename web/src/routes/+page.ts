@@ -1,6 +1,6 @@
 import type { PageLoad } from "./$types";
 
-interface ModelStatus {
+export interface ModelStatus {
   name: string;
   size: number;
   available: boolean;
@@ -8,8 +8,8 @@ interface ModelStatus {
 }
 
 export const load: PageLoad = async ({ fetch }) => {
-  const r = await fetch("/api/model/all");
-  const models = (await r.json()) as ModelStatus[];
+  const api_model = await fetch("/api/model/all");
+  const models = (await api_model.json()) as ModelStatus[];
   return {
     models,
   };

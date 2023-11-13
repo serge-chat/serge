@@ -4,7 +4,7 @@ interface ModelStatus {
   name: string;
   size: number;
   available: boolean;
-  progress?: number;
+  progress: number;
 }
 
 export const load: PageLoad = async ({ fetch }) => {
