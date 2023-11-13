@@ -105,27 +105,6 @@
     localStorage.setItem("data-theme", $themeStore);
   }
 
-  async function createSameSession() {
-    if (dataCht) {
-      const newData = await fetch(
-        `/api/chat/?model=${dataCht.params.model_path}&temperature=${dataCht.params.temperature}&top_k=${dataCht.params.top_k}` +
-          `&top_p=${dataCht.params.top_p}&max_length=${dataCht.params.max_tokens}&context_window=${dataCht.params.n_ctx}` +
-          `&repeat_last_n=${dataCht.params.last_n_tokens_size}&repeat_penalty=${dataCht.params.repeat_penalty}` +
-          `&n_threads=${dataCht.params.n_threads}&init_prompt=${dataCht.history[0].data.chats.content}` +
-          `&gpu_layers=${dataCht.params.n_gpu_layers}`,
-
-        {
-          method: "POST",
-          headers: {
-            accept: "application/json",
-          },
-        },
-      ).then((response) => response.json());
-      await invalidate("/api/chat/");
-      await goto("/chat/" + newData);
-    }
-  }
-
   onDestroy(() => {
     unsubscribe;
   });
@@ -155,7 +134,7 @@
         disabled={isLoading || !modelAvailable}
         class="btn btn-ghost flex-grow h-6 font-semibold text-left text-sm capitalize"
         class:loading={isLoading}
-        on:click|preventDefault={() => createSameSession()}
+        on:click|preventDefault={() => goto("")}
         style="justify-content: flex-start;"
       >
         <svg
