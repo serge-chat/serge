@@ -9,7 +9,7 @@ pip install -e ./api || {
 }
 
 # Install python bindings
-UNAME_M=$(dpkg --print-architecture) pip install llama-cpp-python==0.2.17 || {
+UNAME_M=$(dpkg --print-architecture) pip install llama-cpp-python==0.2.18 || {
 	echo 'Failed to install llama-cpp-python'
 	exit 1
 }
