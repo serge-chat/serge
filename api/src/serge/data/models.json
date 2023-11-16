@@ -41,7 +41,7 @@
         "name": "Zephyr",
         "models": [
             {
-                "name": "Zephyr-7B-Beta",
+                "name": "Zephyr-7B-Alpha",
                 "repo": "TheBloke/zephyr-7B-alpha-GGUF",
                 "files": [
                     {

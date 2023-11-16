@@ -3,19 +3,67 @@
   import type { ModelStatus } from "../+page";
   import type { PageData } from "./$types";
   import Icon from "@iconify/svelte";
+  import { onMount } from "svelte";
 
-  // The main data object for the page
   export let data: PageData;
-
-  let downloading = false;
   let searchQuery = "";
   let selectedVariant: Record<string, string> = {};
 
-  setInterval(async () => {
-    if (downloading) {
-      await invalidate("/api/model/all");
+  // Add a reactive statement to keep track of downloading models
+  $: downloadingModels = new Set(
+    data.models
+      .filter((model) => model.progress > 0 && model.progress < 100)
+      .map((model) => model.name),
+  );
+
+  function onComponentMount() {
+    const downloadingModelsArray = JSON.parse(
+      localStorage.getItem("downloadingModels") || "[]",
+    );
+    downloadingModelsArray.forEach((model: string) => {
+      downloadingModels.add(model);
+      checkDownloadProgress(model);
+    });
+  }
+
+  onMount(() => {
+    onComponentMount();
+  });
+
+  /**
+   * Handles the fetching the status of an active download
+   * @param modelName - The model name.
+   */
+  async function fetchDownloadProgress(modelName: string) {
+    const response = await fetch(`/api/model/${modelName}/download/status`);
+    if (response.ok) {
+      const progress = await response.text();
+      const progressNumber = parseFloat(progress);
+      const modelIndex = data.models.findIndex((m) => m.name === modelName);
+
+      if (modelIndex !== -1) {
+        data.models[modelIndex].progress = progressNumber;
+        data.models = [...data.models]; // enable reactivity
+      }
+      return progressNumber;
     }
-  }, 1000);
+    return 0;
+  }
+
+  function startDownload(modelName: string) {
+    const currentDownloads = JSON.parse(
+      localStorage.getItem("downloadingModels") || "[]",
+    );
+    if (!currentDownloads.includes(modelName)) {
+      currentDownloads.push(modelName);
+      localStorage.setItem(
+        "downloadingModels",
+        JSON.stringify(currentDownloads),
+      );
+    }
+    downloadingModels.add(modelName);
+    checkDownloadProgress(modelName);
+  }
 
   /**
    * Debounce function to limit how often a function can be called.
@@ -51,7 +99,6 @@
     if (response.ok) {
       await invalidate("/api/model/all");
     }
-    downloading = false;
     return response;
   }
 
@@ -73,14 +120,44 @@
    * @param isAvailable - Boolean indicating if the model is available.
    */
   async function handleModelAction(model: string, isAvailable: boolean) {
-    if (downloading) {
-      return;
-    }
-
-    downloading = true;
     const url = `/api/model/${model}${isAvailable ? "" : "/download"}`;
     const method = isAvailable ? "DELETE" : "POST";
-    await fetchWithInvalidate(url, { method });
+
+    console.log("Before fetch invalidate");
+    fetchWithInvalidate(url, { method }).then((response) => {
+      console.log(`After fetch for ${url}`);
+    });
+
+    if (method === "POST") {
+      // Start tracking download progress for the model
+      console.log(`Calling startDownload() for ${model}`);
+      startDownload(model);
+    }
+  }
+
+  // Function to periodically check download progress for a model
+  async function checkDownloadProgress(modelName: string) {
+    let progress = await fetchDownloadProgress(modelName);
+    console.log(`Download status for ${modelName} ${progress}/100.0%`);
+
+    // Continue checking until progress reaches 100
+    if (progress < 100) {
+      setTimeout(() => checkDownloadProgress(modelName), 1500);
+    } else {
+      // Stop tracking the model once download is complete
+      console.log(`Stopping tracker for ${modelName}`);
+      const currentDownloads = JSON.parse(
+        localStorage.getItem("downloadingModels") || "[]",
+      );
+      const updatedDownloads = currentDownloads.filter(
+        (model: string) => model !== modelName,
+      );
+      localStorage.setItem(
+        "downloadingModels",
+        JSON.stringify(updatedDownloads),
+      );
+      downloadingModels.delete(modelName);
+    }
   }
 
   /**
@@ -163,7 +240,7 @@
       <div class="card-body">
         <h2 class="card-title">{truncateString(model.name, 24)}</h2>
         <div class="model-details">
-          {#if model.progress}
+          {#if model.progress < 100}
             <div class="progress-bar">
               <progress value={model.progress} max="100"></progress> / {model.progress}%
             </div>
@@ -213,30 +290,14 @@
               <h3>{truncateString(model.name, 24)}</h3>
             {/if}
             <p>Size: {model.size / 1e9}GB</p>
-            {#if model.progress}
-              <div class="mx-auto my-5 w-56 justify-center">
-                <p class="w-full text-center font-light">
-                  {model.progress}%
-                </p>
-                <progress
-                  class="progress progress-primary mx-auto h-5 w-56"
-                  value={model.progress}
-                  max="100"
-                />
-              </div>
-            {/if}
             <button
               on:click={() =>
                 model.available
                   ? handleModelAction(model.name, model.available)
                   : handleModelAction(model.name, model.available)}
-              class="btn {model.available ? 'btn-error' : 'btn-primary'} mt-2"
+              class="btn btn-primary mt-2"
             >
-              {#if model.available}
-                <Icon icon="mdi:trash" width="32" height="32" />
-              {:else}
-                <Icon icon="ic:baseline-download" width="32" height="32" />
-              {/if}
+              <Icon icon="ic:baseline-download" width="32" height="32" />
             </button>
           {/if}
         </div>
