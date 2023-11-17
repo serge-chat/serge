@@ -1,166 +1,302 @@
 <script lang="ts">
   import { invalidate } from "$app/navigation";
+  import type { ModelStatus } from "../+page";
   import type { PageData } from "./$types";
-  import RefreshModal from "../../lib/components/models/RefreshModal.svelte";
-  import { barVisible } from "$lib/stores";
-  import { onDestroy } from "svelte";
+  import Icon from "@iconify/svelte";
+  import { onMount } from "svelte";
 
   export let data: PageData;
+  let searchQuery = "";
+  let selectedVariant: Record<string, string> = {};
 
-  let downloading = false;
-  let bar_visible: boolean;
-  const unsubscribe = barVisible.subscribe((value) => (bar_visible = value));
-  console.log(data);
-  setInterval(async () => {
-    if (downloading) {
+  // Add a reactive statement to keep track of downloading models
+  $: downloadingModels = new Set(
+    data.models
+      .filter(
+        (model) =>
+          (model.progress > 0 && model.progress < 100) || !model.available,
+      )
+      .map((model) => model.name),
+  );
+
+  function onComponentMount() {
+    const downloadingModelsArray = JSON.parse(
+      localStorage.getItem("downloadingModels") || "[]",
+    );
+    downloadingModelsArray.forEach((model: string) => {
+      downloadingModels.add(model);
+      checkDownloadProgress(model);
+    });
+  }
+
+  onMount(() => {
+    onComponentMount();
+  });
+
+  /**
+   * Handles the fetching the status of an active download
+   * @param modelName - The model name.
+   */
+  async function fetchDownloadProgress(modelName: string) {
+    const response = await fetch(`/api/model/${modelName}/download/status`);
+    if (response.ok) {
+      const progress = await response.text();
+      const progressNumber = parseFloat(progress);
+      const modelIndex = data.models.findIndex((m) => m.name === modelName);
+
+      if (modelIndex !== -1) {
+        data.models[modelIndex].progress = progressNumber;
+        data.models = [...data.models]; // enable reactivity
+      }
+      return progressNumber;
+    }
+    return 0;
+  }
+
+  function startDownload(modelName: string) {
+    const currentDownloads = JSON.parse(
+      localStorage.getItem("downloadingModels") || "[]",
+    );
+    if (!currentDownloads.includes(modelName)) {
+      currentDownloads.push(modelName);
+      localStorage.setItem(
+        "downloadingModels",
+        JSON.stringify(currentDownloads),
+      );
+    }
+    downloadingModels.add(modelName);
+    checkDownloadProgress(modelName);
+  }
+
+  /**
+   * Debounce function to limit how often a function can be called.
+   * @param func - The function to be debounced.
+   * @param wait - The time to wait in milliseconds.
+   * @returns A debounced version of the given function.
+   */
+  function debounce(func: (...args: any[]) => void, wait: number) {
+    let timeout: ReturnType<typeof setTimeout>;
+    return function (...args: any[]) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  // Update search query with debounce to improve performance
+  const updateSearch = debounce((query: string) => {
+    searchQuery = query;
+  }, 300);
+
+  /**
+   * Wrapper function for fetch to include invalidate call on successful response.
+   * @param url - The URL to fetch.
+   * @param options - Fetch request options.
+   * @returns The fetch response.
+   */
+  async function fetchWithInvalidate(url: string, options: any) {
+    const response = await fetch(url, options);
+    if (response.ok) {
       await invalidate("/api/model/all");
     }
-  }, 2500);
+    return response;
+  }
 
-  async function onClick(model: string) {
-    if (downloading) {
-      return;
-    }
+  /**
+   * Truncates a string to the specified length and appends an ellipsis.
+   * @param str - The string to truncate.
+   * @param maxLength - The maximum length of the truncated string.
+   * @returns The truncated string with an ellipsis if needed.
+   */
+  function truncateString(str: string, maxLength: number): string {
+    return str.length > maxLength
+      ? str.substring(0, maxLength - 1) + "..."
+      : str;
+  }
 
-    downloading = true;
-    const r = await fetch(`/api/model/${model}/download`, {
-      method: "POST",
+  /**
+   * Handles the action (download/delete) on a model.
+   * @param model - The model name.
+   * @param isAvailable - Boolean indicating if the model is available.
+   */
+  async function handleModelAction(model: string, isAvailable: boolean) {
+    const url = `/api/model/${model}${isAvailable ? "" : "/download"}`;
+    const method = isAvailable ? "DELETE" : "POST";
+
+    console.log("Before fetch invalidate");
+    fetchWithInvalidate(url, { method }).then((response) => {
+      console.log(`After fetch for ${url}`);
     });
 
-    if (r.ok) {
-      await invalidate("/api/model/all");
-    }
-    downloading = false;
-  }
-
-  async function deleteModel(model: string) {
-    const r = await fetch(`/api/model/${model}`, {
-      method: "DELETE",
-    });
-
-    if (r.ok) {
-      await invalidate("/api/model/all");
+    if (method === "POST") {
+      // Start tracking download progress for the model
+      console.log(`Calling startDownload() for ${model}`);
+      startDownload(model);
     }
   }
-  function toggleBar() {
-    bar_visible = !bar_visible;
-    barVisible.set(bar_visible);
+
+  // Function to periodically check download progress for a model
+  async function checkDownloadProgress(modelName: string) {
+    let progress = await fetchDownloadProgress(modelName);
+    console.log(`Download status for ${modelName} ${progress}/100.0%`);
+
+    // Continue checking until progress reaches 100
+    if (progress < 100) {
+      setTimeout(() => checkDownloadProgress(modelName), 1500);
+    } else {
+      // Stop tracking the model once download is complete
+      console.log(`Stopping tracker for ${modelName}`);
+      const currentDownloads = JSON.parse(
+        localStorage.getItem("downloadingModels") || "[]",
+      );
+      const updatedDownloads = currentDownloads.filter(
+        (model: string) => model !== modelName,
+      );
+      localStorage.setItem(
+        "downloadingModels",
+        JSON.stringify(updatedDownloads),
+      );
+      downloadingModels.delete(modelName);
+    }
   }
-  onDestroy(unsubscribe);
+
+  /**
+   * Groups models by their prefix.
+   * @param models - Array of ModelStatus objects.
+   * @returns An object grouping models by their prefix.
+   */
+  function groupModelsByPrefix(
+    models: ModelStatus[],
+  ): Record<string, ModelStatus[]> {
+    return models.reduce(
+      (acc, model) => {
+        const prefix = model.name.split("-")[0];
+        acc[prefix] = acc[prefix] || [];
+        acc[prefix].push(model);
+        return acc;
+      },
+      {} as Record<string, ModelStatus[]>,
+    );
+  }
+
+  /**
+   * Handles change in variant selection for a model.
+   * @param modelPrefix - The prefix of the model.
+   * @param event - The change event.
+   */
+  function handleVariantChange(modelPrefix: string, event: Event) {
+    const target = event.target as HTMLSelectElement;
+    selectedVariant[modelPrefix] = target.value;
+  }
+
+  /**
+   * Retrieves model details based on the selected variant or default.
+   * @param models - Array of ModelStatus objects.
+   * @param prefix - The prefix of the model group.
+   * @returns The selected or default ModelStatus object.
+   */
+  function getModelDetails(models: ModelStatus[], prefix: string): ModelStatus {
+    return models.find((m) => m.name === selectedVariant[prefix]) || models[0];
+  }
+
+  // Reactive statements to filter and group models based on search query
+  $: filteredModels = data.models
+    .filter(
+      (model) =>
+        !downloadedOrDownloadingModels.includes(model) &&
+        model.name.toLowerCase().includes(searchQuery.toLowerCase()),
+    )
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  // Reactive statement with models grouped by prefix
+  $: groupedModels = groupModelsByPrefix(filteredModels);
+
+  // Reactive statement to filter models that are downloaded or downloading
+  $: downloadedOrDownloadingModels = data.models
+    .filter((model) => model.progress > 0 || model.available)
+    .sort((a, b) => a.name.localeCompare(b.name));
 </script>
 
-{#if !bar_visible}
-  <button
-    class="absolute p-0 top-1 left-2 md:left-16 h-10 w-10 min-h-0 btn btn-ghost flex items-center justify-center font-semibold z-40"
-    on:click={toggleBar}
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      class="w-4 h-4"
-    >
-      <path
-        d="M11.28 9.53 8.81 12l2.47 2.47a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215l-3-3a.75.75 0 0 1 0-1.06l3-3a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734Z"
-      >
-      </path>
-      <path
-        d="M3.75 2h16.5c.966 0 1.75.784 1.75 1.75v16.5A1.75 1.75 0 0 1 20.25 22H3.75A1.75 1.75 0 0 1 2 20.25V3.75C2 2.784 2.784 2 3.75 2ZM3.5 3.75v16.5c0 .138.112.25.25.25H15v-17H3.75a.25.25 0 0 0-.25.25Zm13 16.75h3.75a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25H16.5Z"
-      >
-      </path>
-    </svg>
-  </button>
-{/if}
-<div class="flex flex-row items-center justify-center pt-5">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 16 16"
-    width="24"
-    height="24"
-  >
-    <path
-      class="fill-warning"
-      d="M9.504.43a1.516 1.516 0 0 1 2.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.249 1.249 0 0 1-.871.354h-.302a1.25 1.25 0 0 1-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429Zm1.047 1.074L3.286 8.571A.25.25 0 0 0 3.462 9H6.75a.75.75 0 0 1 .694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0 0 12.538 7H9.25a.75.75 0 0 1-.683-1.06l2.008-4.418.003-.006a.036.036 0 0 0-.004-.009l-.006-.006-.008-.001c-.003 0-.006.002-.009.004Z"
+<div class="top-section">
+  <div class="search-row">
+    <input
+      type="text"
+      bind:value={searchQuery}
+      class="input input-bordered flex-grow"
+      placeholder="Search models..."
+      on:input={(e) => {
+        const target = e.target;
+        if (target instanceof HTMLInputElement) {
+          updateSearch(target.value);
+        }
+      }}
     />
-  </svg>
-  <h1 class="px-2 text-center text-3xl font-bold">Download a model</h1>
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 16 16"
-    width="24"
-    height="24"
-  >
-    <path
-      class="fill-warning"
-      d="M9.504.43a1.516 1.516 0 0 1 2.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.249 1.249 0 0 1-.871.354h-.302a1.25 1.25 0 0 1-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429Zm1.047 1.074L3.286 8.571A.25.25 0 0 0 3.462 9H6.75a.75.75 0 0 1 .694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0 0 12.538 7H9.25a.75.75 0 0 1-.683-1.06l2.008-4.418.003-.006a.036.036 0 0 0-.004-.009l-.006-.006-.008-.001c-.003 0-.006.002-.009.004Z"
-    />
-  </svg>
+  </div>
 </div>
 
-<h1 class="pb-5 pt-2 text-center text-xl font-light">
-  Make sure you have enough disk space and available RAM to run them.<br />
-  7B requires about 4.5GB of free RAM, 13B requires about 12GB free, 30B requires
-  about 20GB free
-</h1>
-
-<div class="mx-auto w-fit">
-  <RefreshModal />
-</div>
-
-<div class="mt-30 mx-auto flex flex-col">
-  <div class="mx-auto w-full max-w-4xl">
-    <div class="divider" />
-    {#each data.models as model}
-      <div class="my-5 flex flex-col content-around">
-        <div
-          class="mx-auto flex flex-row items-center justify-center text-3xl font-semibold"
-        >
-          <span class="mr-2">{model.name}</span>
-          {#if model.available}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 16 16"
-              width="24"
-              height="24"
+<div class="models-grid grid">
+  {#each downloadedOrDownloadingModels as model}
+    <div class="model card card-bordered">
+      <div class="card-body">
+        <h2 class="card-title">{truncateString(model.name, 24)}</h2>
+        <div class="model-details">
+          {#if model.progress < 100}
+            <div class="progress-bar">
+              <progress value={model.progress} max="100"></progress> / {model.progress}%
+            </div>
+          {/if}
+          {#if model.progress >= 100}
+            <p>Size: {model.size / 1e9}GB</p>
+            <button
+              on:click={() => handleModelAction(model.name, model.available)}
+              class="btn btn-error mt-2"
             >
-              <path
-                class="fill-info"
-                d="m9.585.52.929.68c.153.112.331.186.518.215l1.138.175a2.678 2.678 0 0 1 2.24 2.24l.174 1.139c.029.187.103.365.215.518l.68.928a2.677 2.677 0 0 1 0 3.17l-.68.928a1.174 1.174 0 0 0-.215.518l-.175 1.138a2.678 2.678 0 0 1-2.241 2.241l-1.138.175a1.17 1.17 0 0 0-.518.215l-.928.68a2.677 2.677 0 0 1-3.17 0l-.928-.68a1.174 1.174 0 0 0-.518-.215L3.83 14.41a2.678 2.678 0 0 1-2.24-2.24l-.175-1.138a1.17 1.17 0 0 0-.215-.518l-.68-.928a2.677 2.677 0 0 1 0-3.17l.68-.928c.112-.153.186-.331.215-.518l.175-1.14a2.678 2.678 0 0 1 2.24-2.24l1.139-.175c.187-.029.365-.103.518-.215l.928-.68a2.677 2.677 0 0 1 3.17 0ZM7.303 1.728l-.927.68a2.67 2.67 0 0 1-1.18.489l-1.137.174a1.179 1.179 0 0 0-.987.987l-.174 1.136a2.677 2.677 0 0 1-.489 1.18l-.68.928a1.18 1.18 0 0 0 0 1.394l.68.927c.256.348.424.753.489 1.18l.174 1.137c.078.509.478.909.987.987l1.136.174a2.67 2.67 0 0 1 1.18.489l.928.68c.414.305.979.305 1.394 0l.927-.68a2.67 2.67 0 0 1 1.18-.489l1.137-.174a1.18 1.18 0 0 0 .987-.987l.174-1.136a2.67 2.67 0 0 1 .489-1.18l.68-.928a1.176 1.176 0 0 0 0-1.394l-.68-.927a2.686 2.686 0 0 1-.489-1.18l-.174-1.137a1.179 1.179 0 0 0-.987-.987l-1.136-.174a2.677 2.677 0 0 1-1.18-.489l-.928-.68a1.176 1.176 0 0 0-1.394 0ZM11.28 6.78l-3.75 3.75a.75.75 0 0 1-1.06 0L4.72 8.78a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L7 8.94l3.22-3.22a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042Z"
-              />
-            </svg>
+              <Icon icon="mdi:trash" width="32" height="32" />
+            </button>
           {/if}
         </div>
-        <p class="mx-auto pb-2 text-xl font-light">
-          ({model.size / 1e9}GB)
-        </p>
-        {#if model.progress}
-          <div class="mx-auto my-5 w-56 justify-center">
-            <p class="w-full text-center font-light">{model.progress}%</p>
-            <progress
-              class="progress-primary progress mx-auto h-5 w-56"
-              value={model.progress}
-              max="100"
-            />
-          </div>
-        {/if}
-        {#if model.available}
-          <button
-            on:click={() => deleteModel(model.name)}
-            class="btn-warning btn-outline btn mx-auto">Delete</button
-          >
-        {:else}
-          <button
-            on:click={() => onClick(model.name)}
-            class="btn-primary btn mx-auto"
-            class:model.available={() => "btn-outline"}
-            disabled={model.available ||
-              !!(model.progress && model.progress > 0)}
-          >
-            Download
-          </button>
-        {/if}
       </div>
-      <div class="divider" />
-    {/each}
-  </div>
+    </div>
+  {/each}
+</div>
+
+<div class="models-grid grid">
+  {#each Object.entries(groupedModels) as [prefix, models]}
+    <div class="model-group card card-bordered">
+      <div class="card-body">
+        <h2 class="card-title">{truncateString(prefix, 24)}</h2>
+        <div class="model-details">
+          {#if models.length > 1}
+            <select
+              bind:value={selectedVariant[prefix]}
+              on:change={(event) => handleVariantChange(prefix, event)}
+            >
+              {#each models as model}
+                <option value={model.name}
+                  >{truncateString(model.name, 32)}</option
+                >
+              {/each}
+            </select>
+          {/if}
+
+          {#if models.length === 1 || selectedVariant[prefix]}
+            {@const model = getModelDetails(models, prefix)}
+            {#if models.length === 1}
+              <h3>{truncateString(model.name, 24)}</h3>
+            {/if}
+            <p>Size: {model.size / 1e9}GB</p>
+            <button
+              on:click={() => handleModelAction(model.name, model.available)}
+              class="btn btn-primary mt-2"
+            >
+              <Icon icon="ic:baseline-download" width="32" height="32" />
+            </button>
+          {/if}
+        </div>
+      </div>
+    </div>
+  {/each}
 </div>

@@ -51,7 +51,7 @@ def get_prompt(history: RedisChatMessageHistory, params):
             else:
                 stop = True
         if len(next_prompt) > 0:
-            prompts.append(instruction + next_prompt + "\n")
+            prompts.append(f"{instruction + next_prompt}\n")
         if stop:
             break
 
@@ -60,6 +60,6 @@ def get_prompt(history: RedisChatMessageHistory, params):
     for next_prompt in prompts:
         message_prompt += next_prompt
 
-    final_prompt = params.init_prompt + "\n" + message_prompt[: params.n_ctx]
+    final_prompt = f"{params.init_prompt}\n{message_prompt[:params.n_ctx]}"
     logger.debug(final_prompt)
     return final_prompt

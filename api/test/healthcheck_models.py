@@ -1,26 +1,36 @@
 import json
 from pathlib import Path
-
-import huggingface_hub
-import pytest
 import requests
+from huggingface_hub import hf_hub_url
+import pytest
 
-# this test file specifically doesn't start with test_* so it's not picked up by pytest
+
+def load_model_data(file_path):
+    with open(file_path, "r") as models_file:
+        return json.load(models_file)
+
+
+def flatten_model_data(families):
+    for family in families:
+        for model in family["models"]:
+            for file in model["files"]:
+                yield model["repo"], file["filename"]
+
+
+def check_model_availability(repo, filename):
+    url = hf_hub_url(repo, filename, repo_type="model", revision="main")
+    response = requests.head(url)
+    if response.ok:
+        return True
+    else:
+        return False
+
 
 test_dir = Path(__file__).parent
-with open(test_dir.parent / "src/serge/data/models.json", "r") as models_file:
-    families = json.load(models_file)
-
-# generate list of checks
-checks = []
-for family in families:
-    for model in family["models"]:
-        for file in model["files"]:
-            checks.append((model["repo"], file["filename"]))
+model_data = load_model_data(test_dir.parent / "src/serge/data/models.json")
+checks = list(flatten_model_data(model_data))
 
 
 @pytest.mark.parametrize("repo,filename", checks)
 def test_model_available(repo, filename):
-    url = huggingface_hub.hf_hub_url(repo, filename, repo_type="model", revision="main")
-    r = requests.head(url)
-    assert r.ok, f"Model {repo}/{filename} not available"
+    assert check_model_availability(repo, filename), f"Model {repo}/{filename} not available"
