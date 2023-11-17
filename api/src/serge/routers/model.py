@@ -148,7 +148,7 @@ async def delete_model(model_name: str):
         raise HTTPException(status_code=404, detail="Model not found")
 
     model_repo, _, _ = models_info.get(model_name, (None, None, None))
-    if model_repo is None:
+    if not model_repo:
         raise HTTPException(status_code=404, detail="Model info not found")
 
     # Remove link to model file

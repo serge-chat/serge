@@ -12,7 +12,10 @@
   // Add a reactive statement to keep track of downloading models
   $: downloadingModels = new Set(
     data.models
-      .filter((model) => (model.progress > 0 && model.progress < 100) || !model.available)
+      .filter(
+        (model) =>
+          (model.progress > 0 && model.progress < 100) || !model.available,
+      )
       .map((model) => model.name),
   );
 
@@ -246,7 +249,7 @@
             </div>
           {/if}
           {#if model.progress >= 100}
-              <p>Size: {model.size / 1e9}GB</p>
+            <p>Size: {model.size / 1e9}GB</p>
             <button
               on:click={() => handleModelAction(model.name, model.available)}
               class="btn btn-error mt-2"
