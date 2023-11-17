@@ -12,7 +12,7 @@
   // Add a reactive statement to keep track of downloading models
   $: downloadingModels = new Set(
     data.models
-      .filter((model) => model.progress > 0 && model.progress < 100)
+      .filter((model) => (model.progress > 0 && model.progress < 100) || !model.available)
       .map((model) => model.name),
   );
 
@@ -213,7 +213,7 @@
 
   // Reactive statement to filter models that are downloaded or downloading
   $: downloadedOrDownloadingModels = data.models
-    .filter((model) => model.available || model.progress > 0)
+    .filter((model) => model.progress > 0 || model.available)
     .sort((a, b) => a.name.localeCompare(b.name));
 </script>
 
@@ -245,16 +245,11 @@
               <progress value={model.progress} max="100"></progress> / {model.progress}%
             </div>
           {/if}
-          {#if model.available}
-            {#if model.available}
+          {#if model.progress >= 100}
               <p>Size: {model.size / 1e9}GB</p>
-            {/if}
             <button
-              on:click={() =>
-                model.available
-                  ? handleModelAction(model.name, model.available)
-                  : handleModelAction(model.name, model.available)}
-              class="btn {model.available ? 'btn-error' : 'btn-warning'} mt-2"
+              on:click={() => handleModelAction(model.name, model.available)}
+              class="btn btn-error mt-2"
             >
               <Icon icon="mdi:trash" width="32" height="32" />
             </button>
@@ -291,10 +286,7 @@
             {/if}
             <p>Size: {model.size / 1e9}GB</p>
             <button
-              on:click={() =>
-                model.available
-                  ? handleModelAction(model.name, model.available)
-                  : handleModelAction(model.name, model.available)}
+              on:click={() => handleModelAction(model.name, model.available)}
               class="btn btn-primary mt-2"
             >
               <Icon icon="ic:baseline-download" width="32" height="32" />

@@ -32,7 +32,7 @@ async def create_new_chat(
 ):
     try:
         client = Llama(
-            model_path="/usr/src/app/weights/" + model + ".bin",
+            model_path=f"/usr/src/app/weights/{model}.bin",
         )
         del client
     except Exception as exc:
@@ -196,7 +196,7 @@ def stream_ask_a_question(chat_id: str, prompt: str):
     logger.debug("creating Llama client")
     try:
         client = Llama(
-            model_path="/usr/src/app/weights/" + chat.params.model_path + ".bin",
+            model_path=f"/usr/src/app/weights/{chat.params.model_path}.bin",
             n_ctx=len(chat.params.init_prompt) + chat.params.n_ctx,
             n_gpu_layers=chat.params.n_gpu_layers,
             n_threads=chat.params.n_threads,
@@ -265,7 +265,7 @@ async def ask_a_question(chat_id: str, prompt: str):
 
     try:
         client = Llama(
-            model_path="/usr/src/app/weights/" + chat.params.model_path + ".bin",
+            model_path=f"/usr/src/app/weights/{chat.params.model_path}.bin",
             n_ctx=len(chat.params.init_prompt) + chat.params.n_ctx,
             n_threads=chat.params.n_threads,
             n_gpu_layers=chat.params.n_gpu_layers,

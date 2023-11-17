@@ -67,7 +67,7 @@ async def list_of_all_models():
                 "name": model.replace(".bin", "").lstrip("/"),
                 "size": await get_file_size(WEIGHTS + model),
                 "available": True,
-                "progress": None,
+                "progress": 100.0,
             }
         )
     return resp
@@ -87,7 +87,7 @@ async def list_of_downloadable_models():
 async def list_of_installed_models():
     # after iterating through the WEIGHTS directory, return location and filename
     files = [
-        model_location.replace(WEIGHTS, "") + "/" + bin_file
+        f"{model_location.replace(WEIGHTS, '')}/{bin_file}"
         for model_location, directory, filenames in os.walk(WEIGHTS)
         for bin_file in filenames
         if os.path.splitext(bin_file)[1] == ".bin"
@@ -104,7 +104,7 @@ async def download_model(model_name: str):
     try:
         # Download file, and resume broken downloads
         model_repo, filename, _ = models_info[model_name]
-        model_path = WEIGHTS + f"{model_name}.bin"
+        model_path = f"{WEIGHTS}{model_name}.bin"
         await asyncio.to_thread(
             huggingface_hub.hf_hub_download, repo_id=model_repo, filename=filename, local_dir=WEIGHTS, cache_dir=WEIGHTS, resume_download=True
         )
@@ -144,7 +144,7 @@ async def download_status(model_name: str):
 
 @model_router.delete("/{model_name}")
 async def delete_model(model_name: str):
-    if model_name + ".bin" not in await list_of_installed_models():
+    if f"{model_name}.bin" not in await list_of_installed_models():
         raise HTTPException(status_code=404, detail="Model not found")
 
     model_repo, _, _ = models_info.get(model_name, (None, None, None))
