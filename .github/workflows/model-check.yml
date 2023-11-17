@@ -45,4 +45,4 @@ jobs:
       - name: Run model health check
         working-directory: ./api
         run: |
-          poetry run python -m pytest test/healthcheck_models.py
+          poetry run python -m pytest -v --color=yes test/healthcheck_models.py
