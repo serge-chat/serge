@@ -1801,17 +1801,20 @@ sqlcipher = ["sqlcipher3-binary"]
 
 [[package]]
 name = "sse-starlette"
-version = "1.6.5"
-description = "\"SSE plugin for Starlette\""
+version = "1.8.1"
+description = "SSE plugin for Starlette"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "sse-starlette-1.6.5.tar.gz", hash = "sha256:819f2c421fb37067380fe3dcaba246c476b02651b7bb7601099a378ad802a0ac"},
-    {file = "sse_starlette-1.6.5-py3-none-any.whl", hash = "sha256:68b6b7eb49be0c72a2af80a055994c13afcaa4761b29226beb208f954c25a642"},
+    {file = "sse_starlette-1.8.1-py3-none-any.whl", hash = "sha256:c5ff4e7f0dadd8a221b5739dab0a064679d450386dfd8f7a7934d5494fbac39a"},
+    {file = "sse_starlette-1.8.1.tar.gz", hash = "sha256:b1598e0bfcb1dbb9f7d0b51a88a4c9f0e30f9f90233a8267abbba48ba6fac39c"},
 ]
 
 [package.dependencies]
+anyio = "*"
+fastapi = "*"
 starlette = "*"
+uvicorn = "*"
 
 [[package]]
 name = "starlette"
@@ -2334,4 +2337,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4.0"
-content-hash = "ef8d66857a036848be0704190fbe9daf37f2ce9c0e7beaf81643ca9bfd6a595a"
+content-hash = "96ef0e028aacb99b3238965148852aaf33f44437024e6b71f0249b38b06c8e5c"
