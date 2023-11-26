@@ -17,7 +17,7 @@ ENV NODE_ENV='development'
 
 # Install dependencies
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends dumb-init curl
+    && apt-get install -y --no-install-recommends dumb-init
 
 # Copy database, source code, and scripts
 COPY --from=redis /usr/local/bin/redis-server /usr/local/bin/redis-server
