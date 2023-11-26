@@ -5,16 +5,16 @@ source serge.env
 
 # Function to detect CPU features
 detect_cpu_features() {
-  cpu_info=$(lscpu)
-  if echo "$cpu_info" | grep -q "avx512"; then
-    echo "AVX512"
-  elif echo "$cpu_info" | grep -q "avx2"; then
-    echo "AVX2"
-  elif echo "$cpu_info" | grep -q "avx"; then
-    echo "AVX"
-  else
-    echo "basic"
-  fi
+	cpu_info=$(lscpu)
+	if echo "$cpu_info" | grep -q "avx512"; then
+		echo "AVX512"
+	elif echo "$cpu_info" | grep -q "avx2"; then
+		echo "AVX2"
+	elif echo "$cpu_info" | grep -q "avx"; then
+		echo "AVX"
+	else
+		echo "basic"
+	fi
 }
 
 # Detect CPU features and generate install command
