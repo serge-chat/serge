@@ -60,6 +60,7 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **CodeLLaMA** | 7B, 13B |
 | **LLaMA**  | 7B, 13B, 70B |
 | **Mistral** | 7B-Instruct, 7B-OpenOrca |
+| **Vicuna** | 7B-v1.5, 13B-v1.5 |
 | **Zephyr** | 7B-Alpha, 7B-Beta |
 
 Additional weights can be added to the `serge_weights` volume using `docker cp`:
