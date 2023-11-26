@@ -152,9 +152,15 @@
     const toast = document.createElement("div");
     toast.className = `alert alert-info`;
     toast.textContent = message;
+    const toastContainer = document.getElementById("toast-container");
 
-    // Append the toast to the toast container
-    document.getElementById("toast-container").appendChild(toast);
+    // Append the toast to the toast container if it exists
+    if (toastContainer) {
+      toastContainer.appendChild(toast);
+    } else {
+      console.error("Toast container not found?");
+      return;
+    }
 
     // Automatically remove the toast after a delay
     setTimeout(() => {
