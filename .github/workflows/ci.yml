@@ -1,4 +1,4 @@
-name: CI/CD Process
+name: CI Checks
 
 on:
   push:
@@ -67,7 +67,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: luizm/action-sh-checker@v0.8.0
         env:
-          SHFMT_OPTS: "-s"
+          SHFMT_OPTS: "-s -P scripts/"
         with:
           sh_checker_only_diff: false
           sh_checker_comment: false
