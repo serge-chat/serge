@@ -1,8 +1,6 @@
 #!/bin/bash
 
 set -x
-
-# shellcheck source=serge.env
 source serge.env
 
 # Function to detect CPU features
