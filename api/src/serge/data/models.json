@@ -1,5 +1,32 @@
 [
     {
+        "name": "Vicuna",
+        "models": [
+            {
+                "name": "Vicuna-7B",
+                "repo": "TheBloke/vicuna-7B-v1.5-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "vicuna-7b-v1.5.Q4_K_M.gguf",
+                        "disk_space": 4080000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Vicuna-13B",
+                "repo": "TheBloke/vicuna-13B-v1.5-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "vicuna-13b-v1.5.Q4_K_M.gguf",
+                        "disk_space": 7870000000.0
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "name": "CodeLLaMA",
         "models": [
             {
