@@ -32,7 +32,11 @@ COPY scripts/deploy.sh /usr/src/app/deploy.sh
 COPY scripts/serge.env /usr/src/app/serge.env
 
 # Install api dependencies
-RUN pip install --no-cache-dir ./api dumb-init \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends cmake build-essential dumb-init curl \
+    && pip install --no-cache-dir ./api \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* \
+    && install --no-cache-dir ./api \
     && chmod 755 /usr/src/app/deploy.sh \
     && chmod 755 /usr/local/bin/redis-server \
     && chmod 755 /usr/local/bin/redis-cli \
