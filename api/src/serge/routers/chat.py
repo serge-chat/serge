@@ -1,5 +1,5 @@
 from typing import Optional
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from langchain.memory import RedisChatMessageHistory
 from langchain.schema import SystemMessage, messages_to_dict, AIMessage, HumanMessage
 from llama_cpp import Llama
@@ -137,7 +137,7 @@ async def delete_prompt(chat_id: str, idx: int):
 
     if idx >= len(history.messages):
         logger.error("Unable to delete message, chat in progress")
-        return False
+        raise HTTPException(status_code=202, detail="Unable to delete message, chat in progress")
 
     messages = history.messages.copy()[:idx]
     history.clear()

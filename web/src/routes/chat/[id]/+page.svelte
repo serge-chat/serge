@@ -102,10 +102,7 @@
     });
 
     eventSource.onerror = async (error) => {
-      console.log("error", error);
       eventSource.close();
-      //history[history.length - 1].data.content = "A server error occurred.";
-      //await invalidate("/api/chat/" + $page.params.id);
     };
   }
 
@@ -143,9 +140,26 @@
 
     if (response.status === 200) {
       await invalidate("/api/chat/" + $page.params.id);
+    } else if (response.status === 202) {
+      showToast("Chat in progress!");
     } else {
-      console.error("Error " + response.status + ": " + response.statusText);
+      showToast("An error occurred: " + response.statusText);
     }
+  }
+
+  function showToast(message: string) {
+    // Create the toast element
+    const toast = document.createElement("div");
+    toast.className = `alert alert-info`;
+    toast.textContent = message;
+
+    // Append the toast to the toast container
+    document.getElementById("toast-container").appendChild(toast);
+
+    // Automatically remove the toast after a delay
+    setTimeout(() => {
+      toast.remove();
+    }, 3000);
   }
 
   const md: MarkdownIt = new MarkdownIt({
@@ -526,5 +540,8 @@
         </svg>
       </button>
     </div>
+  </div>
+  <div id="toast-container" class="toast">
+    <!-- Toast notifications will be added here -->
   </div>
 </div>
