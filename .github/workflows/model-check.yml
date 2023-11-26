@@ -1,4 +1,4 @@
-name: LLM Models Healthcheck
+name: LLM Healthcheck
 
 on:
   push:

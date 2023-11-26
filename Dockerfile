@@ -29,6 +29,7 @@ COPY --from=redis /usr/local/bin/redis-cli /usr/local/bin/redis-cli
 COPY --from=frontend /usr/src/app/web/build /usr/src/app/api/static/
 COPY ./api /usr/src/app/api
 COPY scripts/deploy.sh /usr/src/app/deploy.sh
+COPY scripts/serge.env /usr/src/app/serge.env
 
 # Install api dependencies
 RUN apt-get update \
