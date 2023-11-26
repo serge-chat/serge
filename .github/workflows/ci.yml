@@ -67,7 +67,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: luizm/action-sh-checker@v0.8.0
         env:
-          SHFMT_OPTS: "-s -P scripts/"
+          SHFMT_OPTS: "-s"
+          SHELLCHECK_OPTS: "-P scripts/"
         with:
           sh_checker_only_diff: false
           sh_checker_comment: false
