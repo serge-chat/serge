@@ -36,7 +36,6 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends cmake build-essential dumb-init curl \
     && pip install --no-cache-dir ./api \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* \
-    && pip install --no-cache-dir ./api \
     && chmod 755 /usr/src/app/deploy.sh \
     && chmod 755 /usr/local/bin/redis-server \
     && chmod 755 /usr/local/bin/redis-cli \
