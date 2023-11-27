@@ -33,7 +33,7 @@ COPY scripts/serge.env /usr/src/app/serge.env
 
 # Install api dependencies
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends dumb-init \
+    && apt-get install -y --no-install-recommends cmake dumb-init \
     && pip install --no-cache-dir ./api \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* \
     && chmod 755 /usr/src/app/deploy.sh \
