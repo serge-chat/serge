@@ -45,11 +45,11 @@ volumes:
 
 Then, just visit http://localhost:8008/, You can find the API documentation at http://localhost:8008/api/docs
 
-## 🖥️ Windows Setup
+## 🖥️ Windows
 
 Ensure you have Docker Desktop installed, WSL2 configured, and enough free RAM to run models. 
 
-## ☁️ Kubernetes & Docker Compose Setup
+## ☁️ Kubernetes
 
 Instructions for setting up Serge on Kubernetes can be found in the [wiki](https://github.com/serge-chat/serge/wiki/Integrating-Serge-in-your-orchestration#kubernetes-example).
 
@@ -83,7 +83,7 @@ Need help? Join our [Discord](https://discord.gg/62Hc6FEYQH)
 
 ## 🧾 License
 
-[Nathan Sarrazin](https://github.com/nsarrazin) and [Contributors](https://github.com/serge-chat/serge/graphs/contributors). `Serge` is free and open-source software licensed under the [MIT License](https://github.com/serge-chat/serge/blob/master/LICENSE).
+[Nathan Sarrazin](https://github.com/nsarrazin) and [Contributors](https://github.com/serge-chat/serge/graphs/contributors). `Serge` is free and open-source software licensed under the [MIT License](https://github.com/serge-chat/serge/blob/main/LICENSE-MIT) and [Apache-2.0](https://github.com/serge-chat/serge/blob/main/LICENSE-APACHE).
 
 ## 🤝 Contributing
 
