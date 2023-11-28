@@ -32,7 +32,7 @@ _term() {
 # Install python bindings
 eval "$pip_command" || {
 	echo 'Failed to install llama-cpp-python'
- 	python -m pip debug --verbose
+	python -m pip debug --verbose
 	exit 1
 }
 
