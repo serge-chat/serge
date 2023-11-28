@@ -19,7 +19,7 @@ detect_cpu_features() {
 
 # Detect CPU features and generate install command
 cpu_feature=$(detect_cpu_features)
-pip_command="python -m pip install -vv llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://jllllll.github.io/llama-cpp-python-cuBLAS-wheels/$cpu_feature/cpu"
+pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --index-url=https://jllllll.github.io/llama-cpp-python-cuBLAS-wheels/$cpu_feature/cpu"
 echo "Recommended install command for llama-cpp-python: $pip_command"
 
 # Handle termination signals
@@ -32,6 +32,7 @@ _term() {
 # Install python bindings
 eval "$pip_command" || {
 	echo 'Failed to install llama-cpp-python'
+ 	python -m pip debug --verbose
 	exit 1
 }
 
