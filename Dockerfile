@@ -30,11 +30,13 @@ COPY --from=frontend /usr/src/app/web/build /usr/src/app/api/static/
 COPY ./api /usr/src/app/api
 COPY scripts/deploy.sh /usr/src/app/deploy.sh
 COPY scripts/serge.env /usr/src/app/serge.env
+COPY vendor/requirements.txt /usr/src/app/requirements.txt
 
 # Install api dependencies
 RUN apt-get update \
     && apt-get install -y --no-install-recommends dumb-init \
     && pip install --no-cache-dir ./api \
+    && pip install -r /usr/src/app/requirements.txt \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* \
     && chmod 755 /usr/src/app/deploy.sh \
     && chmod 755 /usr/local/bin/redis-server \

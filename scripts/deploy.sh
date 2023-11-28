@@ -19,9 +19,8 @@ detect_cpu_features() {
 
 # Detect CPU features and generate install command
 cpu_feature=$(detect_cpu_features)
-pip_command="UNAME_M=$(dpkg --print-architecture) python -m pip install llama-cpp-python==$LLAMA_PYTHON_VERSION --prefer-binary --extra-index-url=https://jllllll.github.io/llama-cpp-python-cuBLAS-wheels/$cpu_feature/cpu"
-echo "Recommended install command for llama-cpp-python:"
-echo "$pip_command"
+pip_command="UNAME_M=$(dpkg --print-architecture) python -m pip install llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://jllllll.github.io/llama-cpp-python-cuBLAS-wheels/$cpu_feature/cpu"
+echo "Recommended install command for llama-cpp-python: $pip_command"
 
 # Handle termination signals
 _term() {

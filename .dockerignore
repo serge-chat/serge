@@ -12,7 +12,6 @@ CONTRIBUTING.md
 Dockerfile
 docker-compose.yml
 docker-compose.dev.yml
-/vendor
 .vscode/
 
 **/node_modules/
