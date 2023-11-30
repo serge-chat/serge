@@ -1,5 +1,21 @@
 [
     {
+        "name": "Falcon",
+        "models": [
+            {
+                "name": "Falcon-180B",
+                "repo": "TheBloke/Falcon-180B-Chat-GGUFF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "falcon-180b-chat.Q4_K_M.gguf",
+                        "disk_space": 10848000000.0
+                    }
+                ]
+            }            
+        ]
+    },
+    {
         "name": "Vicuna",
         "models": [
             {
