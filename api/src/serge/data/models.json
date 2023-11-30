@@ -3,7 +3,7 @@
         "name": "Falcon",
         "models": [
             {
-                "name": "Falcon 180B",
+                "name": "Falcon-180B",
                 "repo": "TheBloke/Falcon-180B-GGUF",
                 "files": [
                     {
