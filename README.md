@@ -58,6 +58,7 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | Category      | Models |
 |:-------------:|:-------|
 | **CodeLLaMA** | 7B, 13B |
+| **Falcon** | 180B |
 | **LLaMA**  | 7B, 13B, 70B |
 | **Mistral** | 7B-Instruct, 7B-OpenOrca |
 | **Vicuna** | 7B-v1.5, 13B-v1.5 |
