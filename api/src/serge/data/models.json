@@ -3,8 +3,19 @@
         "name": "Falcon",
         "models": [
             {
-                "name": "Falcon-180B",
-                "repo": "TheBloke/Falcon-180B-Chat-GGUFF",
+                "name": "Falcon 180B",
+                "repo": "TheBloke/Falcon-180B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "falcon-180b.Q4_K_M.gguf",
+                        "disk_space": 108480000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Falcon-180B-Chat",
+                "repo": "TheBloke/Falcon-180B-Chat-GGUF",
                 "files": [
                     {
                         "name": "q4_K_M",
@@ -12,7 +23,7 @@
                         "disk_space": 108480000000.0
                     }
                 ]
-            }            
+            }
         ]
     },
     {
