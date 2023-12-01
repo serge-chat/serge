@@ -3,6 +3,17 @@
         "name": "Meditron",
         "models": [
             {
+                "name": "Meditron-7B",
+                "repo": "TheBloke/meditron-7B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "meditron-7b.Q4_K_M.gguf",
+                        "disk_space": 4080000000.0
+                    }
+                ]
+            },            
+            {
                 "name": "Meditron-70B",
                 "repo": "TheBloke/meditron-70B-GGUF",
                 "files": [
