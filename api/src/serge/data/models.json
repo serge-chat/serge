@@ -8,13 +8,29 @@
                 "files": [
                     {
                         "name": "q4_K_M",
-                        "filename": " neural-chat-7b-v3-1.Q4_K_M.gguf",
+                        "filename": "neural-chat-7b-v3-1.Q4_K_M.gguf",
                         "disk_space": 4370000000.0
                     }
                 ]
             }
         ]
-    },    
+    },
+    {   
+        "name": "OpenChat",
+        "models": [
+            {
+                "name": "OpenChat-3_5-7B",
+                "repo": "TheBloke/openchat_3.5-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "openchat_3.5.Q4_K_M.gguf",
+                        "disk_space": 4370000000.0
+                    }
+                ]
+            }
+        ]
+    },        
     {
         "name": "Open_LLaMA",
         "models": [
