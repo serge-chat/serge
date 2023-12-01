@@ -38,6 +38,33 @@
         ]
     },
     {
+        "name": "Orca-2",
+        "models": [
+            {
+                "name": "Orca-2-7B",
+                "repo": "TheBloke/Orca-2-7B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": " orca-2-7b.Q4_K_M.gguf",
+                        "disk_space": 4080000000.0
+                    }
+                ]
+            },            
+            {
+                "name": "Orca-2-13B",
+                "repo": "TheBloke/Orca-2-13B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": " orca-2-13b.Q4_K_M.gguf",
+                        "disk_space": 7870000000.0
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "name": "Meditron",
         "models": [
             {
