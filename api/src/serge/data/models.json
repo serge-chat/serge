@@ -20,7 +20,7 @@
                         "name": "q4_K_M",
                         "filename": "falcon-180b-chat.Q4_K_M.gguf-split-c",
                         "disk_space": 3620000000.0
-                    },                    
+                    }                    
                 ]
             },
             {
@@ -41,7 +41,7 @@
                         "name": "q4_K_M",
                         "filename": "falcon-180b.Q4_K_M.gguf-split-c",
                         "disk_space": 36200000000.0
-                    },
+                    }
                 ]
             },            
             {
