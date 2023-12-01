@@ -1,5 +1,81 @@
 [
     {
+        "name": "Meditron",
+        "models": [
+            {
+                "name": "Meditron-7B",
+                "repo": "TheBloke/meditron-7B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "meditron-7b.Q4_K_M.gguf",
+                        "disk_space": 4080000000.0
+                    }
+                ]
+            },            
+            {
+                "name": "Meditron-70B",
+                "repo": "TheBloke/meditron-70B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "meditron-70b.Q4_K_M.gguf",
+                        "disk_space": 41400000000.0
+                    }
+                ]
+            }
+        ]
+    },    
+    {
+        "name": "Falcon",
+        "models": [   
+            {
+                "name": "Falcon-40b",
+                "repo": "maddes8cht/tiiuae-falcon-40b-gguf",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "tiiuae-falcon-40b-Q4_K_M.gguf",
+                        "disk_space": 25500000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Falcon-40b-instruct",
+                "repo": "maddes8cht/tiiuae-falcon-40b-instruct-gguf",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "tiiuae-falcon-40b-instruct-Q4_K_M.gguf",
+                        "disk_space": 25500000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Falcon-7b",
+                "repo": "maddes8cht/tiiuae-falcon-7b-gguf",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "tiiuae-falcon-7b-Q4_K_M.gguf",
+                        "disk_space": 4980000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Falcon-7b-instruct",
+                "repo": "maddes8cht/tiiuae-falcon-7b-instruct-gguf",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "tiiuae-falcon-7b-instruct-Q4_K_M.gguf",
+                        "disk_space": 4980000000.0
+                    }
+                ]
+            }             
+        ]
+    },
+    {
         "name": "Vicuna",
         "models": [
             {
