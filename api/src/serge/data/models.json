@@ -1,6 +1,6 @@
 [
     {
-        "name": "Vicuna",
+        "name": "Open_LLaMA",
         "models": [
             {
                 "name": "Open_LLaMA-3B-v2",
