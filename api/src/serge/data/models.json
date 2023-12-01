@@ -4,7 +4,7 @@
         "models": [
             {
                 "name": "Neural-Chat-7B-v3-1",
-                "repo": "TheBloke/neural-chat-7B-v3-1-GGUFF",
+                "repo": "TheBloke/neural-chat-7B-v3-1-GGUF",
                 "files": [
                     {
                         "name": "q4_K_M",
