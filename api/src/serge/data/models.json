@@ -1,5 +1,21 @@
 [
     {
+        "name": "Meditron",
+        "models": [
+            {
+                "name": "Meditron-70B",
+                "repo": "TheBloke/meditron-70B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "meditron-70b.Q4_K_M.gguf",
+                        "disk_space": 41400000000.0
+                    }
+                ]
+            }
+        ]
+    },    
+    {
         "name": "Falcon",
         "models": [
             {
