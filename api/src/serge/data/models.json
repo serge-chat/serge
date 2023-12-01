@@ -88,7 +88,7 @@
                 "files": [
                     {
                         "name": "q4_K_M",
-                        "filename": "tiiuae-falcon-40b-Q4_K_M.gguf",
+                        "filename": "tiiuae-falcon-40b-instruct-Q4_K_M.gguf",
                         "disk_space": 25500000000.0
                     }
                 ]
