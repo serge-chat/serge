@@ -1,5 +1,21 @@
 [
     {
+        "name": "Neural-Chat",
+        "models": [
+            {
+                "name": "Neural-Chat-7B-v3-1",
+                "repo": "TheBloke/neural-chat-7B-v3-1-GGUFF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": " neural-chat-7b-v3-1.Q4_K_M.gguf",
+                        "disk_space": 4370000000.0
+                    }
+                ]
+            }
+        ]
+    },    
+    {
         "name": "Open_LLaMA",
         "models": [
             {
