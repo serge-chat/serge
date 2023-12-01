@@ -8,7 +8,7 @@
                 "files": [
                     {
                         "name": "q4_K_M",
-                        "filename": " neural-chat-7b-v3-1.Q4_K_M.gguf",
+                        "filename": "neural-chat-7b-v3-1.Q4_K_M.gguf",
                         "disk_space": 4370000000.0
                     }
                 ]
@@ -24,7 +24,7 @@
                 "files": [
                     {
                         "name": "q4_K_M",
-                        "filename": "openlm-research-open_llama_3b_v2-Q4_K_M.gguff",
+                        "filename": "openlm-research-open_llama_3b_v2-Q4_K_M.gguf",
                         "disk_space": 2580000000.0
                     }
                 ]
@@ -62,7 +62,7 @@
                 "files": [
                     {
                         "name": "q4_K_M",
-                        "filename": " orca-2-7b.Q4_K_M.gguf",
+                        "filename": "orca-2-7b.Q4_K_M.gguf",
                         "disk_space": 4080000000.0
                     }
                 ]
@@ -73,7 +73,7 @@
                 "files": [
                     {
                         "name": "q4_K_M",
-                        "filename": " orca-2-13b.Q4_K_M.gguf",
+                        "filename": "orca-2-13b.Q4_K_M.gguf",
                         "disk_space": 7870000000.0
                     }
                 ]
