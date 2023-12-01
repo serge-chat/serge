@@ -1,5 +1,43 @@
 [
     {
+        "name": "Vicuna",
+        "models": [
+            {
+                "name": "Open_LLaMA-3B-v2",
+                "repo": "maddes8cht/openlm-research-open_llama_3b_v2-gguf",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "openlm-research-open_llama_3b_v2-Q4_K_M.gguff",
+                        "disk_space": 2580000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Open_LLaMA-7B-v2",
+                "repo": "maddes8cht/openlm-research-open_llama_7b_v2-gguf",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "openlm-research-open_llama_7b_v2-Q4_K_M.gguf",
+                        "disk_space": 4080000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Open_LLaMA-13B-V2",
+                "repo": "maddes8cht/openlm-research-open_llama_13b-gguf",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "openlm-research-open_llama_13b-Q4_K_M.gguf",
+                        "disk_space": 7870000000.0
+                    }
+                ]
+            }            
+        ]
+    },
+    {
         "name": "Meditron",
         "models": [
             {
