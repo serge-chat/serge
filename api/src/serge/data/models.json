@@ -8,11 +8,86 @@
                 "files": [
                     {
                         "name": "q4_K_M",
-                        "filename": "falcon-180b-chat.Q4_K_M.gguf",
-                        "disk_space": 108480000000.0
+                        "filename": "falcon-180b-chat.Q4_K_M.gguf-split-a",
+                        "disk_space": 36200000000.0
+                    },
+                    {
+                        "name": "q4_K_M",
+                        "filename": "falcon-180b-chat.Q4_K_M.gguf-split-b",
+                        "disk_space": 36200000000.0
+                    },
+                    {
+                        "name": "q4_K_M",
+                        "filename": "falcon-180b-chat.Q4_K_M.gguf-split-c",
+                        "disk_space": 3620000000.0
+                    },                    
+                ]
+            },
+            {
+                "name": "Falcon-180B",
+                "repo": "TheBloke/Falcon-180B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "falcon-180b.Q4_K_M.gguf-split-a",
+                        "disk_space": 36200000000.0
+                    },
+                    {
+                        "name": "q4_K_M",
+                        "filename": "falcon-180b.Q4_K_M.gguf-split-b",
+                        "disk_space": 36200000000.0
+                    },
+                    {
+                        "name": "q4_K_M",
+                        "filename": "falcon-180b.Q4_K_M.gguf-split-c",
+                        "disk_space": 36200000000.0
+                    },
+                ]
+            },            
+            {
+                "name": "Falcon-40b",
+                "repo": "maddes8cht/tiiuae-falcon-40b-gguf",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "tiiuae-falcon-40b-Q4_K_M.gguf",
+                        "disk_space": 25500000000.0
                     }
                 ]
-            }
+            },
+            {
+                "name": "Falcon-40b-instruct",
+                "repo": "maddes8cht/tiiuae-falcon-40b-instruct-gguf",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "tiiuae-falcon-40b-Q4_K_M.gguf",
+                        "disk_space": 25500000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Falcon-7b",
+                "repo": "maddes8cht/tiiuae-falcon-7b-instruct-gguf",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "tiiuae-falcon-7b-Q4_K_M.gguf",
+                        "disk_space": 4980000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Falcon-7b-instruct",
+                "repo": "²",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "tiiuae-falcon-7b-instruct-Q4_K_M.gguf",
+                        "disk_space": 4980000000.0
+                    }
+                ]
+            },             
         ]
     },
     {
