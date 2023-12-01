@@ -23,17 +23,17 @@
                 "repo": "TheBloke/Falcon-180B-Chat-GGUF",
                 "files": [
                     {
-                        "name": "q4_K_M",
+                        "name": "q4_K_M-split-a",
                         "filename": "falcon-180b-chat.Q4_K_M.gguf-split-a",
                         "disk_space": 36200000000.0
                     },
                     {
-                        "name": "q4_K_M",
+                        "name": "q4_K_M-split-b",
                         "filename": "falcon-180b-chat.Q4_K_M.gguf-split-b",
                         "disk_space": 36200000000.0
                     },
                     {
-                        "name": "q4_K_M",
+                        "name": "q4_K_M-split-c",
                         "filename": "falcon-180b-chat.Q4_K_M.gguf-split-c",
                         "disk_space": 3620000000.0
                     }                    
@@ -44,17 +44,17 @@
                 "repo": "TheBloke/Falcon-180B-GGUF",
                 "files": [
                     {
-                        "name": "q4_K_M",
+                        "name": "q4_K_M-split-a",
                         "filename": "falcon-180b.Q4_K_M.gguf-split-a",
                         "disk_space": 36200000000.0
                     },
                     {
-                        "name": "q4_K_M",
+                        "name": "q4_K_M-split-b",
                         "filename": "falcon-180b.Q4_K_M.gguf-split-b",
                         "disk_space": 36200000000.0
                     },
                     {
-                        "name": "q4_K_M",
+                        "name": "q4_K_M-split-c",
                         "filename": "falcon-180b.Q4_K_M.gguf-split-c",
                         "disk_space": 36200000000.0
                     }
@@ -103,7 +103,7 @@
                         "disk_space": 4980000000.0
                     }
                 ]
-            },             
+            }             
         ]
     },
     {
