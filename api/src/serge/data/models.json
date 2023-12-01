@@ -68,7 +68,7 @@
             },
             {
                 "name": "Falcon-7b",
-                "repo": "maddes8cht/tiiuae-falcon-7b-instruct-gguf",
+                "repo": "maddes8cht/tiiuae-falcon-7b-gguf",
                 "files": [
                     {
                         "name": "q4_K_M",
@@ -79,7 +79,7 @@
             },
             {
                 "name": "Falcon-7b-instruct",
-                "repo": "²",
+                "repo": "maddes8cht/tiiuae-falcon-7b-instruct-gguf",
                 "files": [
                     {
                         "name": "q4_K_M",
