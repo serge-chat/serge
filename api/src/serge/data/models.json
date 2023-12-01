@@ -14,7 +14,23 @@
                 ]
             }
         ]
-    },    
+    },
+    {   
+        "name": "OpenChat",
+        "models": [
+            {
+                "name": "OpenChat-3_5-7B",
+                "repo": "TheBloke/openchat_3.5-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "openchat_3.5.Q4_K_M.gguf",
+                        "disk_space": 4370000000.0
+                    }
+                ]
+            }
+        ]
+    },            
     {
         "name": "Open_LLaMA",
         "models": [
@@ -110,6 +126,28 @@
     {
         "name": "Falcon",
         "models": [   
+            {
+                "name": "Falcon-180B",
+                "repo": "TheBloke/Falcon-180B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "falcon-180b.Q4_K_M.gguf",
+                        "disk_space": 108480000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Falcon-180B-Chat",
+                "repo": "TheBloke/Falcon-180B-Chat-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "falcon-180b-chat.Q4_K_M.gguf",
+                        "disk_space": 108480000000.0
+                    }
+                ]
+            },
             {
                 "name": "Falcon-40b",
                 "repo": "maddes8cht/tiiuae-falcon-40b-gguf",
