@@ -1,5 +1,21 @@
 [
     {   
+        "name": "med42",
+        "models": [
+            {
+                "name": "Med42-70B",
+                "repo": "TheBloke/med42-70B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "med42-70b.Q4_K_M.gguf",
+                        "disk_space": 41400000000.0
+                    }
+                ]
+            }
+        ]
+    },     
+    {   
         "name": "Starling",
         "models": [
             {
@@ -14,7 +30,8 @@
                 ]
             }
         ]
-    },    
+    },  
+    
     {   
         "name": "Neural-Chat",
         "models": [
