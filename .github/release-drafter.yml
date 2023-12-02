@@ -13,6 +13,9 @@ categories:
   - title: '📚 Documentation:'
     labels:
       - '📒 Documentation'
+  - title: '🧠 Models'
+    labels:
+      - '🧠 Models'
   - title: '🧹 Updates:'
     labels:
       - '🧹 Updates'
@@ -38,6 +41,7 @@ version-resolver:
       - '☢️ Bug'
       - '🤖 Dependencies'
       - '🧹 Updates'
+      - '🧠 Models'
   default: patch
 template: |
     $CHANGES
@@ -56,15 +60,18 @@ autolabeler:
     - '*.md'
   title:
     - '/(docs|doc:|\[doc\]|typos|comment|documentation)/i'
+- label: '🧠 Models'
+  files:
+    - 'api/src/serge/data/*.json'
 - label: '☢️ Bug'
   title:
-    - '/(fix|race|bug|missing|correct)/i'
+    - '/(fix|bug|missing|correct)/i'
 - label: '🧹 Updates'
   title: 
-    - '/(improve|update|update|refactor|deprecated|remove|unused|test)/i'
+    - '/(improve|update|refactor|deprecated|remove|unused|test)/i'
 - label: '🤖 Dependencies'
   title:
     - '/(bump|dependencies)/i'
 - label: '✏️ Feature'
   title:
-    - '/(feature|feat|create|implement|add)/i'
+    - '/(feature|feat|create|implement)/i'
