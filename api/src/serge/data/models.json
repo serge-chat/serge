@@ -43,7 +43,7 @@
         ]
     },     
     {   
-        "name": "Starling",
+        "name": "StarlingLM",
         "models": [
             {
                 "name": "Starling-LM-7B-Alpha",
@@ -60,7 +60,7 @@
     },  
     
     {   
-        "name": "Neural-Chat",
+        "name": "NeuralChat",
         "models": [
             {
                 "name": "Neural-Chat-7B-v3-1",
@@ -92,7 +92,7 @@
         ]
     },            
     {
-        "name": "Open_LLaMA",
+        "name": "OpenLLaMA",
         "models": [
             {
                 "name": "Open_LLaMA-3B-v2",
@@ -130,7 +130,7 @@
         ]
     },
     {
-        "name": "Orca-2",
+        "name": "Orca 2",
         "models": [
             {
                 "name": "Orca-2-7B",
