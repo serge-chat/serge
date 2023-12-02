@@ -101,5 +101,6 @@ If you discover a bug or have a feature idea, feel free to open an issue or PR.
 To run Serge in development mode:
 ```bash
 git clone https://github.com/serge-chat/serge.git
-docker compose -f docker-compose.dev.yml up -d --build
+cd
+docker-compose -f docker-compose.dev.yml up -d --build
 ```
