@@ -1,4 +1,117 @@
 [
+    {   
+        "name": "Starling",
+        "models": [
+            {
+                "name": "Starling-LM-7B-Alpha",
+                "repo": "TheBloke/Starling-LM-7B-alpha-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "starling-lm-7b-alpha.Q4_K_M.gguf",
+                        "disk_space": 4370000000.0
+                    }
+                ]
+            }
+        ]
+    },    
+    {   
+        "name": "Neural-Chat",
+        "models": [
+            {
+                "name": "Neural-Chat-7B-v3-1",
+                "repo": "TheBloke/neural-chat-7B-v3-1-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "neural-chat-7b-v3-1.Q4_K_M.gguf",
+                        "disk_space": 4370000000.0
+                    }
+                ]
+            }
+        ]
+    },
+    {   
+        "name": "OpenChat",
+        "models": [
+            {
+                "name": "OpenChat-3_5-7B",
+                "repo": "TheBloke/openchat_3.5-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "openchat_3.5.Q4_K_M.gguf",
+                        "disk_space": 4370000000.0
+                    }
+                ]
+            }
+        ]
+    },            
+    {
+        "name": "Open_LLaMA",
+        "models": [
+            {
+                "name": "Open_LLaMA-3B-v2",
+                "repo": "maddes8cht/openlm-research-open_llama_3b_v2-gguf",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "openlm-research-open_llama_3b_v2-Q4_K_M.gguf",
+                        "disk_space": 2580000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Open_LLaMA-7B-v2",
+                "repo": "maddes8cht/openlm-research-open_llama_7b_v2-gguf",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "openlm-research-open_llama_7b_v2-Q4_K_M.gguf",
+                        "disk_space": 4080000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Open_LLaMA-13B-V2",
+                "repo": "maddes8cht/openlm-research-open_llama_13b-gguf",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "openlm-research-open_llama_13b-Q4_K_M.gguf",
+                        "disk_space": 7870000000.0
+                    }
+                ]
+            }            
+        ]
+    },
+    {
+        "name": "Orca-2",
+        "models": [
+            {
+                "name": "Orca-2-7B",
+                "repo": "TheBloke/Orca-2-7B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "orca-2-7b.Q4_K_M.gguf",
+                        "disk_space": 4080000000.0
+                    }
+                ]
+            },            
+            {
+                "name": "Orca-2-13B",
+                "repo": "TheBloke/Orca-2-13B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "orca-2-13b.Q4_K_M.gguf",
+                        "disk_space": 7870000000.0
+                    }
+                ]
+            }
+        ]
+    },    
     {
         "name": "Meditron",
         "models": [
