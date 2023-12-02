@@ -1,5 +1,21 @@
 [
     {   
+        "name": "Starling",
+        "models": [
+            {
+                "name": "Starling-LM-7B-Alpha",
+                "repo": "TheBloke/Starling-LM-7B-alpha-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": " starling-lm-7b-alpha.Q4_K_M.gguf",
+                        "disk_space": 4370000000.0
+                    }
+                ]
+            }
+        ]
+    },    
+    {   
         "name": "Neural-Chat",
         "models": [
             {
