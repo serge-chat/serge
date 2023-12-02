@@ -8,7 +8,7 @@
                 "files": [
                     {
                         "name": "q4_K_M",
-                        "filename": " starling-lm-7b-alpha.Q4_K_M.gguf",
+                        "filename": "starling-lm-7b-alpha.Q4_K_M.gguf",
                         "disk_space": 4370000000.0
                     }
                 ]
