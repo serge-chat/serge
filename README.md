@@ -60,12 +60,14 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **CodeLLaMA** | 7B, 13B |
 | **Falcon** | 7B, 7B-Instruct, 40B, 40B-Instruct |
 | **LLaMA**  | 7B, 13B, 70B |
+| **med42** | 70B |
 | **Meditron** | 7B, 70B |
 | **Mistral** | 7B, 7B-Instruct, 7B-OpenOrca |
 | **Neural-Chat** | 7B-v3.1 | 
 | **OpenChat** | 7B-v3.5 |
 | **OpenLLaMA** | 3B-v2, 7B-v2, 13B-v2 |
 | **Orca-2** | 7B, 13B |
+| **PsyMedRP** | 13B-v1, 20B-v1 |
 | **Starling-LM** | 7B-Alpha |
 | **Vicuna** | 7B-v1.5, 13B-v1.5 |
 | **Zephyr** | 7B-Alpha, 7B-Beta |
