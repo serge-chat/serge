@@ -438,7 +438,7 @@
         ]
     },
     {
-        "name": "LLaMA",
+        "name": "LLaMA 2",
         "models": [
             {
                 "name": "LLaMA2-7B-Chat",
