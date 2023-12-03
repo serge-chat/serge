@@ -30,7 +30,7 @@
                 "files": [
                     {
                         "name": "q4_K_M",
-                        "filename": " tigerbot-70b-chat-v4.Q4_K_M.gguf",
+                        "filename": "tigerbot-70b-chat-v4.Q4_K_M.gguf",
                         "disk_space": 41800000000.0
                     }
                 ]
@@ -123,7 +123,6 @@
             }
         ]
     },  
-    
     {   
         "name": "NeuralChat",
         "models": [
