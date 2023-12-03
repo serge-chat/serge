@@ -1,5 +1,32 @@
 [
     {   
+        "name": "Deepseek LLM",
+        "models": [
+            {
+                "name": "Deepseek-LLM-7B-Chat",
+                "repo": "TheBloke/deepseek-llm-7B-chat-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "deepseek-llm-7b-chat.Q4_K_M.gguf",
+                        "disk_space": 4220000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Deepseek-LLM-67B-Chat",
+                "repo": "TheBloke/deepseek-llm-67b-chat-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "deepseek-llm-67b-chat.Q4_K_M.gguf",
+                        "disk_space": 40400000000.0
+                    }
+                ]
+            }            
+        ]
+    },     
+    {   
         "name": "PsyMedRP",
         "models": [
             {
