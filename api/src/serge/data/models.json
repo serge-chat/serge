@@ -1,9 +1,69 @@
 [
     {   
+        "name": "Yi",
+        "models": [
+            {
+                "name": "Yi-6B",
+                "repo": "TheBloke/Yi-6B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "yi-6b.Q4_K_M.gguf",
+                        "disk_space": 3670000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Yi-6B-200K",
+                "repo": "TheBloke/Yi-6B-200K-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "yi-6b-200k.Q4_K_M.gguf",
+                        "disk_space": 3670000000.0
+                    }
+                ]
+            },             
+            {
+                "name": "Yi-34B",
+                "repo": "TheBloke/Yi-34B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "yi-34b.Q4_K_M.gguf",
+                        "disk_space": 20700000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Yi-34B-200K",
+                "repo": "TheBloke/Yi-34B-200K-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "yi-34b-200k.Q4_K_M.gguf",
+                        "disk_space": 20700000000.0
+                    }
+                ]
+            }, 
+            {
+                "name": "Yi-34B-Chat",
+                "repo": "TheBloke/Yi-34B-Chat-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "yi-34b-chat.Q4_K_M.gguf",
+                        "disk_space": 20700000000.0
+                    }
+                ]
+            }            
+        ]
+    },         
+    {   
         "name": "Tigerbot",
         "models": [
             {
-                "name": "TigerBot 70B Chat",
+                "name": "TigerBot-70B-Chat",
                 "repo": "TheBloke/TigerBot-70B-Chat-GGUF",
                 "files": [
                     {
@@ -14,7 +74,7 @@
                 ]
             },
             {
-                "name": "Tigerbot 70B Chat v2",
+                "name": "Tigerbot-70B-Chat-v2",
                 "repo": "TheBloke/tigerbot-70B-chat-v2-GGUF",
                 "files": [
                     {
@@ -25,7 +85,7 @@
                 ]
             }, 
             {
-                "name": "Tigerbot 70B Chat v4",
+                "name": "Tigerbot-70B-Chat-v4",
                 "repo": "TheBloke/tigerbot-70B-chat-v4-GGUF",
                 "files": [
                     {
