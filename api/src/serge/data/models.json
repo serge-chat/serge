@@ -1,5 +1,43 @@
 [
     {   
+        "name": "Tigerbot",
+        "models": [
+            {
+                "name": "TigerBot 70B Chat",
+                "repo": "TheBloke/TigerBot-70B-Chat-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "tigerbot-70b-chat.Q4_K_M.gguf",
+                        "disk_space": 41700000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Tigerbot 70B Chat v2",
+                "repo": "TheBloke/tigerbot-70B-chat-v2-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "tigerbot-70b-chat-v2.Q4_K_M.gguf",
+                        "disk_space": 41700000000.0
+                    }
+                ]
+            }, 
+            {
+                "name": "Tigerbot 70B Chat v4",
+                "repo": "TheBloke/tigerbot-70B-chat-v4-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": " tigerbot-70b-chat-v4.Q4_K_M.gguf",
+                        "disk_space": 41800000000.0
+                    }
+                ]
+            }            
+        ]
+    },         
+    {   
         "name": "Deepseek LLM",
         "models": [
             {
