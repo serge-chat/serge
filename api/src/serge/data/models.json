@@ -1,65 +1,5 @@
 [
     {   
-        "name": "Yi",
-        "models": [
-            {
-                "name": "Yi-6B",
-                "repo": "TheBloke/Yi-6B-GGUF",
-                "files": [
-                    {
-                        "name": "q4_K_M",
-                        "filename": "yi-6b.Q4_K_M.gguf",
-                        "disk_space": 3670000000.0
-                    }
-                ]
-            },
-            {
-                "name": "Yi-6B-200K",
-                "repo": "TheBloke/Yi-6B-200K-GGUF",
-                "files": [
-                    {
-                        "name": "q4_K_M",
-                        "filename": "yi-6b-200k.Q4_K_M.gguf",
-                        "disk_space": 3670000000.0
-                    }
-                ]
-            },             
-            {
-                "name": "Yi-34B",
-                "repo": "TheBloke/Yi-34B-GGUF",
-                "files": [
-                    {
-                        "name": "q4_K_M",
-                        "filename": "yi-34b.Q4_K_M.gguf",
-                        "disk_space": 20700000000.0
-                    }
-                ]
-            },
-            {
-                "name": "Yi-34B-200K",
-                "repo": "TheBloke/Yi-34B-200K-GGUF",
-                "files": [
-                    {
-                        "name": "q4_K_M",
-                        "filename": "yi-34b-200k.Q4_K_M.gguf",
-                        "disk_space": 20700000000.0
-                    }
-                ]
-            }, 
-            {
-                "name": "Yi-34B-Chat",
-                "repo": "TheBloke/Yi-34B-Chat-GGUF",
-                "files": [
-                    {
-                        "name": "q4_K_M",
-                        "filename": "yi-34b-chat.Q4_K_M.gguf",
-                        "disk_space": 20700000000.0
-                    }
-                ]
-            }            
-        ]
-    },         
-    {   
         "name": "Tigerbot",
         "models": [
             {
@@ -186,17 +126,6 @@
     {   
         "name": "NeuralChat",
         "models": [
-            {
-                "name": "Neural-Chat-7B-v3-1",
-                "repo": "TheBloke/neural-chat-7B-v3-1-GGUF",
-                "files": [
-                    {
-                        "name": "q4_K_M",
-                        "filename": "neural-chat-7b-v3-1.Q4_K_M.gguf",
-                        "disk_space": 4370000000.0
-                    }
-                ]
-            },
             {
                 "name": "Neural-Chat-7B-v3-2",
                 "repo": "TheBloke/neural-chat-7B-v3-2-GGUF",
