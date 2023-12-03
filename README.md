@@ -64,7 +64,7 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **Med42** | 70B |
 | **Meditron** | 7B, 70B |
 | **Mistral** | 7B, 7B-Instruct, 7B-OpenOrca |
-| **Neural-Chat** | 7B-v3.1, 7B-v3.2 | 
+| **Neural-Chat** | 7B-v3.2 | 
 | **OpenChat** | 7B-v3.5 |
 | **OpenLLaMA** | 3B-v2, 7B-v2, 13B-v2 |
 | **Orca 2** | 7B, 13B |
@@ -72,7 +72,6 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **Starling LM** | 7B-Alpha |
 | **Tigerbot** | 70B-Chat, 70B-Chat-v2, 70B-Chat-v4 |
 | **Vicuna** | 7B-v1.5, 13B-v1.5 |
-| **Yi** | 6B, 6B-200K, 34B, 34B-200K, 34b-Chat |
 | **Zephyr** | 7B-Alpha, 7B-Beta |
 
 Additional weights can be added to the `serge_weights` volume using `docker cp`:
