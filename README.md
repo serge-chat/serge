@@ -72,6 +72,7 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **Starling LM** | 7B-Alpha |
 | **Tigerbot** | 70B-Chat, 70B-Chat-v2, 70B-Chat-v4 |
 | **Vicuna** | 7B-v1.5, 13B-v1.5 |
+| **Yi** | 6B, 6B-200K, 34B, 34B-200K, 34b-Chat |
 | **Zephyr** | 7B-Alpha, 7B-Beta |
 
 Additional weights can be added to the `serge_weights` volume using `docker cp`:
