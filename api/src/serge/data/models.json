@@ -1,5 +1,21 @@
 [
     {   
+        "name": "Alfred",
+        "models": [
+            {
+                "name": "Alfred-40B",
+                "repo": "TheBloke/alfred-40B-1023-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "alfred-40b-1023.Q4_K_M.gguf",
+                        "disk_space": 25500000000.0
+                    }
+                ]
+            }           
+        ]
+    },     
+    {   
         "name": "PsyMedRP",
         "models": [
             {
