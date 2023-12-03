@@ -1,5 +1,21 @@
 [
     {   
+        "name": "Notus",
+        "models": [
+            {
+                "name": "Alfred-40B",
+                "repo": "TheBloke/notus-7B-v1-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "notus-7b-v1.Q4_K_M.gguf",
+                        "disk_space": 4370000000.0
+                    }
+                ]
+            }           
+        ]
+    },       
+    {   
         "name": "Alfred",
         "models": [
             {
