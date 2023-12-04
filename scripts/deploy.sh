@@ -3,6 +3,9 @@
 set -x
 source serge.env
 
+# Get CPU Architecture
+cpu_arch=$(uname -m)
+
 # Function to detect CPU features
 detect_cpu_features() {
 	cpu_info=$(lscpu)
@@ -17,9 +20,15 @@ detect_cpu_features() {
 	fi
 }
 
-# Detect CPU features and generate install command
-cpu_feature=$(detect_cpu_features)
-pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --index-url=https://jllllll.github.io/llama-cpp-python-cuBLAS-wheels/$cpu_feature/cpu"
+# Check if the CPU architecture is aarch64/arm64
+if [ "$cpu_arch" = "aarch64" ]; then
+    pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://gaby.github.io/arm64-wheels/"
+else
+    # Use @jllllll provided wheels
+    cpu_feature=$(detect_cpu_features)
+    pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://jllllll.github.io/llama-cpp-python-cuBLAS-wheels/$cpu_feature/cpu"
+fi
+
 echo "Recommended install command for llama-cpp-python: $pip_command"
 
 # Handle termination signals
@@ -32,7 +41,6 @@ _term() {
 # Install python bindings
 eval "$pip_command" || {
 	echo 'Failed to install llama-cpp-python'
-	python -m pip debug --verbose
 	exit 1
 }
 
