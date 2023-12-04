@@ -35,12 +35,14 @@ jobs:
         with:
           images: |
             ghcr.io/serge-chat/serge
+          flavor: |
+            suffix=-cuda,onlatest=true
           tags: |
-            type=ref,event=branch-cuda
-            type=ref,event=pr-cuda
-            type=semver,pattern={{version}}-cuda
-            type=semver,pattern={{major}}-cuda
-            type=semver,pattern={{major}}.{{minor}}-cuda
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}
+            type=semver,pattern={{major}}.{{minor}}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
