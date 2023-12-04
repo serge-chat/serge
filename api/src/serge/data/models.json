@@ -154,14 +154,14 @@
                     {
                         "name": "q4_K_M",
                         "filename": "openlm-research-open_llama_13b-Q4_K_M.gguf",
-                        "disk_space": 7870000000.0
+                        "disk_space": 7869900000.0
                     }
                 ]
             }            
         ]
     },
     {
-        "name": "Orca 2",
+        "name": "Orca-2",
         "models": [
             {
                 "name": "Orca-2-7B",
@@ -218,28 +218,6 @@
         "name": "Falcon",
         "models": [   
             {
-                "name": "Falcon-40b",
-                "repo": "maddes8cht/tiiuae-falcon-40b-gguf",
-                "files": [
-                    {
-                        "name": "q4_K_M",
-                        "filename": "tiiuae-falcon-40b-Q4_K_M.gguf",
-                        "disk_space": 25500000000.0
-                    }
-                ]
-            },
-            {
-                "name": "Falcon-40b-instruct",
-                "repo": "maddes8cht/tiiuae-falcon-40b-instruct-gguf",
-                "files": [
-                    {
-                        "name": "q4_K_M",
-                        "filename": "tiiuae-falcon-40b-instruct-Q4_K_M.gguf",
-                        "disk_space": 25500000000.0
-                    }
-                ]
-            },
-            {
                 "name": "Falcon-7b",
                 "repo": "maddes8cht/tiiuae-falcon-7b-gguf",
                 "files": [
@@ -260,7 +238,29 @@
                         "disk_space": 4980000000.0
                     }
                 ]
-            }             
+            },                       
+            {                
+                "name": "Falcon-40b",
+                "repo": "maddes8cht/tiiuae-falcon-40b-gguf",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "tiiuae-falcon-40b-Q4_K_M.gguf",
+                        "disk_space": 25500000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Falcon-40b-instruct",
+                "repo": "maddes8cht/tiiuae-falcon-40b-instruct-gguf",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "tiiuae-falcon-40b-instruct-Q4_K_M.gguf",
+                        "disk_space": 25500000000.0
+                    }
+                ]
+            }
         ]
     },
     {
@@ -284,7 +284,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "vicuna-13b-v1.5.Q4_K_M.gguf",
-                        "disk_space": 7870000000.0
+                        "disk_space": 7869900000.0
                     }
                 ]
             }
@@ -311,7 +311,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "codellama-7b-instruct.Q4_K_M.gguf",
-                        "disk_space": 4370000000.0
+                        "disk_space": 4080000000.0
                     }
                 ]
             },
