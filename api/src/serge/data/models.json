@@ -414,7 +414,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "vicuna-13b-v1.5.Q4_K_M.gguf",
-                        "disk_space": 7869900000.0
+                        "disk_space": 7869000000.0
                     }
                 ]
             }
