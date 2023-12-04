@@ -307,6 +307,22 @@
             }            
         ]
     },
+    {   
+        "name": "SlimOrca",
+        "models": [
+            {
+                "name": "SlimOrca-13B",
+                "repo": "TheBloke/SlimOrca-13B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": " slimorca-13b.Q4_K_M.gguf",
+                        "disk_space": 7870000000.0
+                    }
+                ]
+            }           
+        ]
+    },    
     {
         "name": "Orca_2",
         "models": [
