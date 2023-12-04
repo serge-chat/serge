@@ -68,13 +68,13 @@
                 ]
             },
             {
-                "name": "Falcon-7B-instruct",
+                "name": "Falcon-7B-Instruct",
                 "repo": "maddes8cht/tiiuae-falcon-7b-instruct-gguf",
                 "files": [
                     {
                         "name": "q4_K_M",
                         "filename": "tiiuae-falcon-7b-instruct-Q4_K_M.gguf",
-                        "disk_space": 4980000000.0
+                        "disk_space": 4975385792.0
                     }
                 ]
             },                       
@@ -90,7 +90,7 @@
                 ]
             },
             {
-                "name": "Falcon-40B-instruct",
+                "name": "Falcon-40B-Instruct",
                 "repo": "maddes8cht/tiiuae-falcon-40b-instruct-gguf",
                 "files": [
                     {
