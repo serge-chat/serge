@@ -3,7 +3,7 @@
         "name": "Notus",
         "models": [
             {
-                "name": "Alfred-40B",
+                "name": "Notus-40B",
                 "repo": "TheBloke/notus-7B-v1-GGUF",
                 "files": [
                     {
@@ -161,7 +161,7 @@
         ]
     },
     {
-        "name": "Orca-2",
+        "name": "Orca_2",
         "models": [
             {
                 "name": "Orca-2-7B",
