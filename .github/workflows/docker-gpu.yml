@@ -1,4 +1,4 @@
-name: Docker
+name: Docker (CUDA Suport)
 
 on:
   push:
@@ -16,7 +16,7 @@ on:
     branches:
       - "*"
     paths:
-      - "docker/Dockerfile"
+      - "docker/Dockerfile.gpu"
       - "scripts/deploy.sh"
       - "scripts/dev.sh"
   workflow_dispatch:
@@ -36,11 +36,11 @@ jobs:
           images: |
             ghcr.io/serge-chat/serge
           tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}
-            type=semver,pattern={{major}}.{{minor}}
+            type=ref,event=branch-cuda
+            type=ref,event=pr-cuda
+            type=semver,pattern={{version}}-cuda
+            type=semver,pattern={{major}}-cuda
+            type=semver,pattern={{major}}.{{minor}}-cuda
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -60,11 +60,11 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: docker/Dockerfile
+          file: docker/Dockerfile.gpu
           push: ${{ github.event_name != 'pull_request' }}
           target: release
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
