@@ -103,8 +103,19 @@
         ]
     },
     {
-        "name": "LLaMA",
+        "name": "LLaMA_2",
         "models": [
+            {
+                "name": "LLaMA2-7B",
+                "repo": "TheBloke/Llama-2-7B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "llama-2-7b.Q4_K_M.gguf",
+                        "disk_space": 4081004224.0
+                    }
+                ]
+            },            
             {
                 "name": "LLaMA2-7B-Chat",
                 "repo": "TheBloke/Llama-2-7B-Chat-GGUF",
@@ -117,6 +128,17 @@
                 ]
             },
             {
+                "name": "LLaMA2-13B",
+                "repo": "TheBloke/Llama-2-13B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "llama-2-13b.Q4_K_M.gguf",
+                        "disk_space": 7865956224.0
+                    }
+                ]
+            },            
+            {
                 "name": "LLaMA2-13B-Chat",
                 "repo": "TheBloke/Llama-2-13B-chat-GGUF",
                 "files": [
@@ -127,6 +149,17 @@
                     }
                 ]
             },
+            {
+                "name": "LLaMA2-70B",
+                "repo": "TheBloke/Llama-2-70B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "llama-2-70b.Q4_K_M.gguf",
+                        "disk_space": 41422910368.0
+                    }
+                ]
+            },             
             {
                 "name": "LLaMA2-70B-Chat",
                 "repo": "TheBloke/Llama-2-70B-Chat-GGUF",
