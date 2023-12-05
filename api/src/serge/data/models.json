@@ -137,6 +137,17 @@
                         "disk_space": 41422910368.0
                     }
                 ]
+            },            
+            {
+                "name": "Llama2-70B-SFT-OASST",
+                "repo": "TheBloke/Llama-2-70B-OASST-1-200-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "llama-2-70b-oasst-1-200.Q4_K_M.gguf",
+                        "disk_space": 41423092064.0
+                    }
+                ]
             }
         ]
     },    
