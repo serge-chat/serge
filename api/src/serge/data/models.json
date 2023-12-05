@@ -316,7 +316,7 @@
                 "files": [
                     {
                         "name": "q4_K_M",
-                        "filename": " slimorca-13b.Q4_K_M.gguf",
+                        "filename": "slimorca-13b.Q4_K_M.gguf",
                         "disk_space": 7870000000.0
                     }
                 ]
