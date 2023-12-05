@@ -9,7 +9,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "alfred-40b-1023.Q4_K_M.gguf",
-                        "disk_space": 25500000000.0
+                        "disk_space": 25452369600.0
                     }
                 ]
             }           
@@ -25,7 +25,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "codellama-7b.Q4_K_M.gguf",
-                        "disk_space": 4080000000.0
+                        "disk_space": 4081095360.0
                     }
                 ]
             },
@@ -36,7 +36,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "codellama-7b-instruct.Q4_K_M.gguf",
-                        "disk_space": 4080000000.0
+                        "disk_space": 4081095360.0
                     }
                 ]
             },
@@ -47,7 +47,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "codellama-13b-instruct.Q4_K_M.gguf",
-                        "disk_space": 7870000000.0
+                        "disk_space": 7866070016.0
                     }
                 ]
             }
@@ -63,7 +63,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "tiiuae-falcon-7b-Q4_K_M.gguf",
-                        "disk_space": 4975000000.0
+                        "disk_space": 4975385792.0
                     }
                 ]
             },
@@ -74,7 +74,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "tiiuae-falcon-7b-instruct-Q4_K_M.gguf",
-                        "disk_space": 4975000000.0
+                        "disk_space": 4975385792.0
                     }
                 ]
             },                       
@@ -85,7 +85,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "tiiuae-falcon-40b-Q4_K_M.gguf",
-                        "disk_space": 25500000000.0
+                        "disk_space": 25452629728.0
                     }
                 ]
             },
@@ -96,7 +96,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "tiiuae-falcon-40b-instruct-Q4_K_M.gguf",
-                        "disk_space": 25500000000.0
+                        "disk_space": 25452629728.0
                     }
                 ]
             }
@@ -112,7 +112,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "llama-2-7b-chat.Q4_K_M.gguf",
-                        "disk_space": 4080000000.0
+                        "disk_space": 4081004224.0
                     }
                 ]
             },
@@ -123,7 +123,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "llama-2-13b-chat.Q4_K_M.gguf",
-                        "disk_space": 7870000000.0
+                        "disk_space": 7865956224.0
                     }
                 ]
             },
@@ -134,7 +134,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "llama-2-70b-chat.Q4_K_M.gguf",
-                        "disk_space": 41420000000.0
+                        "disk_space": 41422910368.0
                     }
                 ]
             }
@@ -150,7 +150,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "med42-70b.Q4_K_M.gguf",
-                        "disk_space": 41400000000.0
+                        "disk_space": 41422910368.0
                     }
                 ]
             }
@@ -166,7 +166,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "meditron-7b.Q4_K_M.gguf",
-                        "disk_space": 4080000000.0
+                        "disk_space": 4081004352.0
                     }
                 ]
             },            
@@ -177,7 +177,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "meditron-70b.Q4_K_M.gguf",
-                        "disk_space": 41400000000.0
+                        "disk_space": 41422910464.0
                     }
                 ]
             }
@@ -193,7 +193,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "mistral-7b-instruct-v0.1.Q4_K_M.gguf",
-                        "disk_space": 4370000000.0
+                        "disk_space": 4368438944.0
                     }
                 ]
             },
@@ -204,7 +204,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "mistral-7b-v0.1.Q4_K_M.gguf",
-                        "disk_space": 4370000000.0
+                        "disk_space": 4368438912.0
                     }
                 ]
             },
@@ -215,7 +215,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "mistral-7b-openorca.Q4_K_M.gguf",
-                        "disk_space": 4370000000.0
+                        "disk_space": 4368450304.0
                     }
                 ]
             }
@@ -231,7 +231,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "neural-chat-7b-v3-2.Q4_K_M.gguf",
-                        "disk_space": 4370000000.0
+                        "disk_space": 4368438976.0
                     }
                 ]
             }
@@ -247,7 +247,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "notus-7b-v1.Q4_K_M.gguf",
-                        "disk_space": 4370000000.0
+                        "disk_space": 4368439424.0
                     }
                 ]
             }           
@@ -263,7 +263,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "openchat_3.5.Q4_K_M.gguf",
-                        "disk_space": 4370000000.0
+                        "disk_space": 4368450304.0
                     }
                 ]
             }
@@ -279,7 +279,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "openlm-research-open_llama_3b_v2-Q4_K_M.gguf",
-                        "disk_space": 2580000000.0
+                        "disk_space": 2580116096.0
                     }
                 ]
             },
@@ -290,7 +290,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "openlm-research-open_llama_7b_v2-Q4_K_M.gguf",
-                        "disk_space": 4080000000.0
+                        "disk_space": 4081016096.0
                     }
                 ]
             },
@@ -301,7 +301,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "openlm-research-open_llama_13b-Q4_K_M.gguf",
-                        "disk_space": 7869900000.0
+                        "disk_space": 7865990752.0
                     }
                 ]
             }            
@@ -317,7 +317,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "slimorca-13b.Q4_K_M.gguf",
-                        "disk_space": 7870000000.0
+                        "disk_space": 7865956352.0
                     }
                 ]
             }           
@@ -333,7 +333,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "orca-2-7b.Q4_K_M.gguf",
-                        "disk_space": 4080000000.0
+                        "disk_space": 4081021376.0
                     }
                 ]
             },            
@@ -344,7 +344,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "orca-2-13b.Q4_K_M.gguf",
-                        "disk_space": 7870000000.0
+                        "disk_space": 7865977664.0
                     }
                 ]
             }
@@ -360,7 +360,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "psymedrp-v1-13b.Q4_K_M.gguf",
-                        "disk_space": 7870000000.0
+                        "disk_space": 7865956288.0
                     }
                 ]
             },
@@ -371,7 +371,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "psymedrp-v1-20b.Q4_K_M.gguf",
-                        "disk_space": 12000000000.0
+                        "disk_space": 12042208736.0
                     }
                 ]
             }            
@@ -387,7 +387,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "starling-lm-7b-alpha.Q4_K_M.gguf",
-                        "disk_space": 4370000000.0
+                        "disk_space": 4368450368.0
                     }
                 ]
             }
@@ -403,7 +403,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "vicuna-7b-v1.5.Q4_K_M.gguf",
-                        "disk_space": 4080000000.0
+                        "disk_space": 4081004224.0
                     }
                 ]
             },
@@ -414,7 +414,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "vicuna-13b-v1.5.Q4_K_M.gguf",
-                        "disk_space": 7869000000.0
+                        "disk_space": 7865956224.0
                     }
                 ]
             }
@@ -430,7 +430,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "zephyr-7b-alpha.Q4_K_M.gguf",
-                        "disk_space": 4370000000.0
+                        "disk_space": 4368438976.0
                     }
                 ]
             },
@@ -441,7 +441,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "zephyr-7b-beta.Q4_K_M.gguf",
-                        "disk_space": 4370000000.0
+                        "disk_space": 4368438976.0
                     }
                 ]
             }
