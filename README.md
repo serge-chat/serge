@@ -74,11 +74,7 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **Vicuna** | 7B-v1.5, 13B-v1.5 |
 | **Zephyr** | 7B-Alpha, 7B-Beta |
 
-Additional weights can be added to the `serge_weights` volume using `docker cp`:
-
-```bash
-docker cp ./my_weight.bin serge:/usr/src/app/weights/
-```
+Additional models can be requested by opening a GitHub issue.
 
 ## ⚠️ Memory Usage
 
@@ -104,5 +100,5 @@ To run Serge in development mode:
 ```bash
 git clone https://github.com/serge-chat/serge.git
 cd serge/
-docker compose -f docker-compose.dev.yml up -d --build
+docker compose -f docker-compose.dev.yml up --build
 ```
