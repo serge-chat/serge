@@ -468,6 +468,17 @@
         "name": "Zephyr",
         "models": [
             {
+                "name": "Zephyr-3B",
+                "repo": "TheBloke/stablelm-zephyr-3b-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "stablelm-zephyr-3b.Q4_K_M.gguf",
+                        "disk_space": 1708595648.0
+                    }
+                ]
+            },
+            {
                 "name": "Zephyr-7B-Alpha",
                 "repo": "TheBloke/zephyr-7B-alpha-GGUF",
                 "files": [
