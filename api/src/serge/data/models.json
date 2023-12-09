@@ -554,7 +554,18 @@
                         "disk_space": 7865956224.0
                     }
                 ]
-            }
+            },
+            {
+                "name": "Vicuna-33B",
+                "repo": "TheBloke/vicuna-33B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "vicuna-33b.Q4_K_M.gguf",
+                        "disk_space": 19621139872.0
+                    }
+                ]
+            }             
         ]
     },
     {
