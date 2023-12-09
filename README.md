@@ -58,7 +58,7 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | Category      | Models |
 |:-------------:|:-------|
 | **Alfred** | 40B |
-| **CodeLLaMA** | 7B, 13B |
+| **CodeLLaMA** | 7B, 7B-Instruct, 7B-Python, 13B, 13B-Instruct, 13B-Python, 34B, 34B-Instruct, 34B-Python |
 | **Falcon** | 7B, 7B-Instruct, 40B, 40B-Instruct |
 | **LLaMA 2**  | 7B, 7B-Chat, 13B, 13B-Chat, 70B, 70B-Chat, 70B-OASST |
 | **Med42** | 70B |
