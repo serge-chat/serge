@@ -194,6 +194,17 @@
                 ]
             },
             {
+                "name": "LLaMA2-7B-Coder",
+                "repo": "TheBloke/Llama-2-Coder-7B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "llama-2-coder-7b.Q4_K_M.gguf",
+                        "disk_space": 4081004224.0
+                    }
+                ]
+            },            
+            {
                 "name": "LLaMA2-13B",
                 "repo": "TheBloke/Llama-2-13B-GGUF",
                 "files": [
@@ -562,6 +573,17 @@
                     {
                         "name": "q4_K_M",
                         "filename": "vicuna-33b.Q4_K_M.gguf",
+                        "disk_space": 19621139872.0
+                    }
+                ]
+            },
+            {
+                "name": "Vicuna-33B-Coder",
+                "repo": "TheBloke/vicuna-33B-coder-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "vicuna-33b-coder.Q4_K_M.gguf",
                         "disk_space": 19621139872.0
                     }
                 ]
