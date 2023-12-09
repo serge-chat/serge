@@ -72,7 +72,7 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **Python Code** | 13B, 33B |
 | **PsyMedRP** | 13B-v1, 20B-v1 |
 | **Starling LM** | 7B-Alpha |
-| **Vicuna** | 7B-v1.5, 13B-v1.5 |
+| **Vicuna** | 7B-v1.5, 13B-v1.5, 33B-v1.3 |
 | **Zephyr** | 3B, 7B-Alpha, 7B-Beta |
 
 Additional models can be requested by opening a GitHub issue.
