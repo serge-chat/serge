@@ -19,7 +19,7 @@
         "name": "CodeLLaMA",
         "models": [
             {
-                "name": "CodeLlama-7B",
+                "name": "CodeLLaMA-7B",
                 "repo": "TheBloke/CodeLlama-7B-GGUF",
                 "files": [
                     {
@@ -30,7 +30,7 @@
                 ]
             },
             {
-                "name": "CodeLlama-7B-Instruct",
+                "name": "CodeLLaMA-7B-Instruct",
                 "repo": "TheBloke/CodeLlama-7B-Instruct-GGUF",
                 "files": [
                     {
@@ -41,7 +41,7 @@
                 ]
             },
             {
-                "name": "CodeLlama-7B-Python",
+                "name": "CodeLLaMA-7B-Python",
                 "repo": "TheBloke/CodeLlama-7B-Python-GGUF",
                 "files": [
                     {
@@ -52,7 +52,7 @@
                 ]
             },
             {
-                "name": "CodeLlama-13B",
+                "name": "CodeLLaMA-13B",
                 "repo": "TheBloke/CodeLlama-13B-GGUF",
                 "files": [
                     {
@@ -63,7 +63,7 @@
                 ]
             },             
             {
-                "name": "CodeLlama-13B-Instruct",
+                "name": "CodeLLaMA-13B-Instruct",
                 "repo": "TheBloke/CodeLlama-13B-Instruct-GGUF",
                 "files": [
                     {
@@ -74,7 +74,7 @@
                 ]
             },
             {
-                "name": "CodeLlama-13B-Python",
+                "name": "CodeLLaMA-13B-Python",
                 "repo": "TheBloke/CodeLlama-13B-Python-GGUF",
                 "files": [
                     {
@@ -85,7 +85,7 @@
                 ]
             },
             {
-                "name": "CodeLlama-34B",
+                "name": "CodeLLaMA-34B",
                 "repo": "TheBloke/CodeLlama-34B-GGUF",
                 "files": [
                     {
@@ -96,7 +96,7 @@
                 ]
             },
             {
-                "name": "CodeLlama-34B-Instruct",
+                "name": "CodeLLaMA-34B-Instruct",
                 "repo": "TheBloke/CodeLlama-34B-Instruct-GGUF",
                 "files": [
                     {
@@ -107,7 +107,7 @@
                 ]
             },            
             {
-                "name": "CodeLlama-34B-Python",
+                "name": "CodeLLaMA-34B-Python",
                 "repo": "TheBloke/CodeLlama-34B-Python-GGUF",
                 "files": [
                     {
