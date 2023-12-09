@@ -69,16 +69,13 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **OpenChat** | 7B-v3.5 |
 | **OpenLLaMA** | 3B-v2, 7B-v2, 13B-v2 |
 | **Orca 2** | 7B, 13B |
+| **Python Code** | 13B, 33B |
 | **PsyMedRP** | 13B-v1, 20B-v1 |
 | **Starling LM** | 7B-Alpha |
 | **Vicuna** | 7B-v1.5, 13B-v1.5 |
-| **Zephyr** | 7B-Alpha, 7B-Beta |
+| **Zephyr** | 3B, 7B-Alpha, 7B-Beta |
 
-Additional weights can be added to the `serge_weights` volume using `docker cp`:
-
-```bash
-docker cp ./my_weight.bin serge:/usr/src/app/weights/
-```
+Additional models can be requested by opening a GitHub issue.
 
 ## ⚠️ Memory Usage
 
@@ -104,5 +101,5 @@ To run Serge in development mode:
 ```bash
 git clone https://github.com/serge-chat/serge.git
 cd serge/
-docker compose -f docker-compose.dev.yml up -d --build
+docker compose -f docker-compose.dev.yml up --build
 ```

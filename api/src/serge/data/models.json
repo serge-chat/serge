@@ -350,23 +350,7 @@
                 ]
             }            
         ]
-    },
-    {   
-        "name": "SlimOrca",
-        "models": [
-            {
-                "name": "SlimOrca-13B",
-                "repo": "TheBloke/SlimOrca-13B-GGUF",
-                "files": [
-                    {
-                        "name": "q4_K_M",
-                        "filename": "slimorca-13b.Q4_K_M.gguf",
-                        "disk_space": 7865956352.0
-                    }
-                ]
-            }           
-        ]
-    },    
+    },   
     {
         "name": "Orca_2",
         "models": [
@@ -393,7 +377,34 @@
                 ]
             }
         ]
-    },        
+    }, 
+    {   
+        "name": "Python-Code",
+        "models": [
+            {
+                "name": "Python-Code-13B",
+                "repo": "TheBloke/Python-Code-13B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "python-code-13b.Q4_K_M.gguf",
+                        "disk_space": 7865956352.0
+                    }
+                ]
+            },
+            {
+                "name": "Python-Code-33B",
+                "repo": "TheBloke/Python-Code-33B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "python-code-33b.Q4_K_M.gguf",
+                        "disk_space": 19621140000.0
+                    }
+                ]
+            } 
+        ]
+    },     
     {   
         "name": "PsyMedRP",
         "models": [
@@ -421,6 +432,22 @@
             }            
         ]
     },
+    {   
+        "name": "SlimOrca",
+        "models": [
+            {
+                "name": "SlimOrca-13B",
+                "repo": "TheBloke/SlimOrca-13B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "slimorca-13b.Q4_K_M.gguf",
+                        "disk_space": 7865956352.0
+                    }
+                ]
+            }           
+        ]
+    },     
     {   
         "name": "StarlingLM",
         "models": [
@@ -467,6 +494,17 @@
     {
         "name": "Zephyr",
         "models": [
+            {
+                "name": "Zephyr-3B",
+                "repo": "TheBloke/stablelm-zephyr-3b-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "stablelm-zephyr-3b.Q4_K_M.gguf",
+                        "disk_space": 1708595648.0
+                    }
+                ]
+            },
             {
                 "name": "Zephyr-7B-Alpha",
                 "repo": "TheBloke/zephyr-7B-alpha-GGUF",
