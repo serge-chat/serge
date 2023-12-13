@@ -16,6 +16,33 @@
         ]
     },
     {
+        "name": "Code",
+        "models": [
+            {
+                "name": "Code-13B",
+                "repo": "TheBloke/Code-13B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "code-13b.Q4_K_M.gguf",
+                        "disk_space": 7865956352.0
+                    }
+                ]
+            },            
+            {
+                "name": "Code-33B",
+                "repo": "TheBloke/Code-33B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "code-33b.Q4_K_M.gguf",
+                        "disk_space": 19621140000.0
+                    }
+                ]
+            }
+        ]
+    },     
+    {
         "name": "CodeLLaMA",
         "models": [
             {
