@@ -19,7 +19,7 @@
         "name": "CodeLLaMA",
         "models": [
             {
-                "name": "CodeLlama-7B",
+                "name": "CodeLLaMA-7B",
                 "repo": "TheBloke/CodeLlama-7B-GGUF",
                 "files": [
                     {
@@ -30,7 +30,7 @@
                 ]
             },
             {
-                "name": "CodeLlama-7B-Instruct",
+                "name": "CodeLLaMA-7B-Instruct",
                 "repo": "TheBloke/CodeLlama-7B-Instruct-GGUF",
                 "files": [
                     {
@@ -41,7 +41,29 @@
                 ]
             },
             {
-                "name": "CodeLlama-13B-Instruct",
+                "name": "CodeLLaMA-7B-Python",
+                "repo": "TheBloke/CodeLlama-7B-Python-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "codellama-7b-python.Q4_K_M.gguf",
+                        "disk_space": 4081004288.0
+                    }
+                ]
+            },
+            {
+                "name": "CodeLLaMA-13B",
+                "repo": "TheBloke/CodeLlama-13B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "codellama-13b.Q4_K_M.gguf",
+                        "disk_space": 7866070016.0
+                    }
+                ]
+            },             
+            {
+                "name": "CodeLLaMA-13B-Instruct",
                 "repo": "TheBloke/CodeLlama-13B-Instruct-GGUF",
                 "files": [
                     {
@@ -50,7 +72,51 @@
                         "disk_space": 7866070016.0
                     }
                 ]
-            }
+            },
+            {
+                "name": "CodeLLaMA-13B-Python",
+                "repo": "TheBloke/CodeLlama-13B-Python-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "codellama-13b-python.Q4_K_M.gguf",
+                        "disk_space": 7865956288.0
+                    }
+                ]
+            },
+            {
+                "name": "CodeLLaMA-34B",
+                "repo": "TheBloke/CodeLlama-34B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "codellama-34b.Q4_K_M.gguf",
+                        "disk_space": 20219900064.0
+                    }
+                ]
+            },
+            {
+                "name": "CodeLLaMA-34B-Instruct",
+                "repo": "TheBloke/CodeLlama-34B-Instruct-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "codellama-34b-instruct.Q4_K_M.gguf",
+                        "disk_space": 20219900064.0
+                    }
+                ]
+            },            
+            {
+                "name": "CodeLLaMA-34B-Python",
+                "repo": "TheBloke/CodeLlama-34B-Python-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "codellama-34b-python.Q4_K_M.gguf",
+                        "disk_space": 20219900064.0
+                    }
+                ]
+            }             
         ]
     },    
     {
@@ -127,6 +193,17 @@
                     }
                 ]
             },
+            {
+                "name": "LLaMA2-7B-Coder",
+                "repo": "TheBloke/Llama-2-Coder-7B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "llama-2-coder-7b.Q4_K_M.gguf",
+                        "disk_space": 4081004224.0
+                    }
+                ]
+            },            
             {
                 "name": "LLaMA2-13B",
                 "repo": "TheBloke/Llama-2-13B-GGUF",
@@ -488,7 +565,29 @@
                         "disk_space": 7865956224.0
                     }
                 ]
-            }
+            },
+            {
+                "name": "Vicuna-33B",
+                "repo": "TheBloke/vicuna-33B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "vicuna-33b.Q4_K_M.gguf",
+                        "disk_space": 19621139872.0
+                    }
+                ]
+            },
+            {
+                "name": "Vicuna-33B-Coder",
+                "repo": "TheBloke/vicuna-33B-coder-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "vicuna-33b-coder.Q4_K_M.gguf",
+                        "disk_space": 19621139872.0
+                    }
+                ]
+            }             
         ]
     },
     {
