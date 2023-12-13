@@ -346,12 +346,12 @@
         "name": "NeuralChat",
         "models": [
             {
-                "name": "Neural-Chat-7B-v3-2",
-                "repo": "TheBloke/neural-chat-7B-v3-2-GGUF",
+                "name": "Neural-Chat-7B-v3-3",
+                "repo": "TheBloke/neural-chat-7B-v3-3-GGUF",
                 "files": [
                     {
                         "name": "q4_K_M",
-                        "filename": "neural-chat-7b-v3-2.Q4_K_M.gguf",
+                        "filename": "neural-chat-7b-v3-3.Q4_K_M.gguf",
                         "disk_space": 4368438976.0
                     }
                 ]
