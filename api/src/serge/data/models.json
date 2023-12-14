@@ -346,17 +346,6 @@
         "name": "Mistral",
         "models": [
             {
-                "name": "Mistral-7B-Instruct",
-                "repo": "TheBloke/Mistral-7B-Instruct-v0.1-GGUF",
-                "files": [
-                    {
-                        "name": "q4_K_M",
-                        "filename": "mistral-7b-instruct-v0.1.Q4_K_M.gguf",
-                        "disk_space": 4368438944.0
-                    }
-                ]
-            },
-            {
                 "name": "Mistral-7B",
                 "repo": "TheBloke/Mistral-7B-v0.1-GGUF",
                 "files": [
@@ -364,6 +353,17 @@
                         "name": "q4_K_M",
                         "filename": "mistral-7b-v0.1.Q4_K_M.gguf",
                         "disk_space": 4368438912.0
+                    }
+                ]
+            },            
+            {
+                "name": "Mistral-7B-Instruct-v0_2",
+                "repo": "TheBloke/Mistral-7B-Instruct-v0.2-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "mistral-7b-instruct-v0.2.Q4_K_M.gguf",
+                        "disk_space": 4368439584.0
                     }
                 ]
             },
