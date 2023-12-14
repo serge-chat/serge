@@ -379,7 +379,34 @@
                 ]
             }
         ]
-    },       
+    },
+    {   
+        "name": "Mixtral",
+        "models": [
+            {
+                "name": "Mixtral-8X7B-v0_1",
+                "repo": "TheBloke/Mixtral-8x7B-v0.1-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "mixtral-8x7b-v0.1.Q4_K_M.gguf",
+                        "disk_space": 26441532864.0
+                    }
+                ]
+            },
+            {
+                "name": "Mixtral-8X7B-Instruct-v0_1",
+                "repo": "TheBloke/Mixtral-8x7B-Instruct-v0.1-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "mixtral-8x7b-instruct-v0.1.Q4_K_M.gguf",
+                        "disk_space": 26441533376.0
+                    }
+                ]
+            }            
+        ]
+    },    
     {   
         "name": "NeuralChat",
         "models": [
