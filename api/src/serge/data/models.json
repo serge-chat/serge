@@ -16,6 +16,33 @@
         ]
     },
     {
+        "name": "Code",
+        "models": [
+            {
+                "name": "Code-13B",
+                "repo": "TheBloke/Code-13B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "code-13b.Q4_K_M.gguf",
+                        "disk_space": 7865956352.0
+                    }
+                ]
+            },            
+            {
+                "name": "Code-33B",
+                "repo": "TheBloke/Code-33B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "code-33b.Q4_K_M.gguf",
+                        "disk_space": 19621140000.0
+                    }
+                ]
+            }
+        ]
+    },     
+    {
         "name": "CodeLLaMA",
         "models": [
             {
@@ -290,7 +317,18 @@
                         "disk_space": 4081004352.0
                     }
                 ]
-            },            
+            },     
+            {
+                "name": "Meditron-7B-Chat",
+                "repo": "TheBloke/meditron-7B-chat-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "meditron-7b-chat.Q4_K_M.gguf",
+                        "disk_space": 4082074240.0
+                    }
+                ]
+            },              
             {
                 "name": "Meditron-70B",
                 "repo": "TheBloke/meditron-70B-GGUF",
@@ -308,17 +346,6 @@
         "name": "Mistral",
         "models": [
             {
-                "name": "Mistral-7B-Instruct",
-                "repo": "TheBloke/Mistral-7B-Instruct-v0.1-GGUF",
-                "files": [
-                    {
-                        "name": "q4_K_M",
-                        "filename": "mistral-7b-instruct-v0.1.Q4_K_M.gguf",
-                        "disk_space": 4368438944.0
-                    }
-                ]
-            },
-            {
                 "name": "Mistral-7B",
                 "repo": "TheBloke/Mistral-7B-v0.1-GGUF",
                 "files": [
@@ -326,6 +353,17 @@
                         "name": "q4_K_M",
                         "filename": "mistral-7b-v0.1.Q4_K_M.gguf",
                         "disk_space": 4368438912.0
+                    }
+                ]
+            },            
+            {
+                "name": "Mistral-7B-Instruct-v0_2",
+                "repo": "TheBloke/Mistral-7B-Instruct-v0.2-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "mistral-7b-instruct-v0.2.Q4_K_M.gguf",
+                        "disk_space": 4368439584.0
                     }
                 ]
             },
@@ -341,17 +379,44 @@
                 ]
             }
         ]
-    },       
+    },
+    {   
+        "name": "Mixtral",
+        "models": [
+            {
+                "name": "Mixtral-8X7B-v0_1",
+                "repo": "TheBloke/Mixtral-8x7B-v0.1-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "mixtral-8x7b-v0.1.Q4_K_M.gguf",
+                        "disk_space": 26441532864.0
+                    }
+                ]
+            },
+            {
+                "name": "Mixtral-8X7B-Instruct-v0_1",
+                "repo": "TheBloke/Mixtral-8x7B-Instruct-v0.1-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "mixtral-8x7b-instruct-v0.1.Q4_K_M.gguf",
+                        "disk_space": 26441533376.0
+                    }
+                ]
+            }            
+        ]
+    },    
     {   
         "name": "NeuralChat",
         "models": [
             {
-                "name": "Neural-Chat-7B-v3-2",
-                "repo": "TheBloke/neural-chat-7B-v3-2-GGUF",
+                "name": "Neural-Chat-7B-v3-3",
+                "repo": "TheBloke/neural-chat-7B-v3-3-GGUF",
                 "files": [
                     {
                         "name": "q4_K_M",
-                        "filename": "neural-chat-7b-v3-2.Q4_K_M.gguf",
+                        "filename": "neural-chat-7b-v3-3.Q4_K_M.gguf",
                         "disk_space": 4368438976.0
                     }
                 ]
