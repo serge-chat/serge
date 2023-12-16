@@ -521,6 +521,22 @@
         ]
     }, 
     {   
+        "name": "Phi",
+        "models": [
+            {
+                "name": "Phi-2",
+                "repo": "kroonen/phi-2-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "phi-2_Q4_K_M.gguf",
+                        "disk_space": 1789239072.0
+                    }
+                ]
+            }
+        ]
+    },    
+    {   
         "name": "Python-Code",
         "models": [
             {
