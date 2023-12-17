@@ -304,6 +304,22 @@
             }
         ]
     },
+    {   
+        "name": "Medalpaca",
+        "models": [
+            {
+                "name": "MedAlpaca-13B",
+                "repo": "TheBloke/medalpaca-13B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "medalpaca-13b.Q4_K_M.gguf",
+                        "disk_space": 7865963424.0
+                    }
+                ]
+            }           
+        ]
+    },    
     {
         "name": "Meditron",
         "models": [
@@ -443,13 +459,13 @@
         "name": "OpenChat",
         "models": [
             {
-                "name": "OpenChat-3_5-7B",
-                "repo": "TheBloke/openchat_3.5-GGUF",
+                "name": "OpenChat-3_5-1210",
+                "repo": "TheBloke/openchat-3.5-1210-GGUF",
                 "files": [
                     {
                         "name": "q4_K_M",
-                        "filename": "openchat_3.5.Q4_K_M.gguf",
-                        "disk_space": 4368450304.0
+                        "filename": "openchat-3.5-1210.Q4_K_M.gguf",
+                        "disk_space": 4368450656.0
                     }
                 ]
             }
@@ -519,7 +535,7 @@
                 ]
             }
         ]
-    }, 
+    },   
     {   
         "name": "Python-Code",
         "models": [
