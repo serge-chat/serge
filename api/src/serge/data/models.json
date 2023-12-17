@@ -304,6 +304,22 @@
             }
         ]
     },
+    {   
+        "name": "Medalpaca",
+        "models": [
+            {
+                "name": "MedAlpaca-13B",
+                "repo": "TheBloke/medalpaca-13B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "medalpaca-13b.Q4_K_M.gguf",
+                        "disk_space": 7865963424.0
+                    }
+                ]
+            }           
+        ]
+    },    
     {
         "name": "Meditron",
         "models": [
