@@ -122,7 +122,15 @@
    * @param model - The model name.
    * @param isAvailable - Boolean indicating if the model is available.
    */
-  async function handleModelAction(model: string, isAvailable: boolean) {
+  async function handleModelAction(
+    model: string,
+    isAvailable: boolean,
+    isDownloading: boolean = false,
+  ) {
+    if (isDownloading) {
+      await cancelDownload(model);
+      return;
+    }
     const url = `/api/model/${model}${isAvailable ? "" : "/download"}`;
     const method = isAvailable ? "DELETE" : "POST";
 
@@ -218,6 +226,42 @@
   $: downloadedOrDownloadingModels = data.models
     .filter((model) => model.progress > 0 || model.available)
     .sort((a, b) => a.name.localeCompare(b.name));
+
+  async function cancelDownload(modelName: string) {
+    try {
+      const response = await fetch(`/api/model/${modelName}/download/cancel`, {
+        method: "POST",
+      });
+
+      if (response.ok) {
+        console.log(`Download for ${modelName} cancelled successfully.`);
+        // Update UI based on successful cancellation
+        const modelIndex = data.models.findIndex((m) => m.name === modelName);
+        if (modelIndex !== -1) {
+          data.models[modelIndex].progress = 0;
+          data.models[modelIndex].available = false;
+          data.models = [...data.models]; // trigger reactivity
+        }
+
+        // Remove model from tracking and local storage
+        downloadingModels.delete(modelName);
+        const currentDownloads = JSON.parse(
+          localStorage.getItem("downloadingModels") || "[]",
+        );
+        const updatedDownloads = currentDownloads.filter(
+          (model: string) => model !== modelName,
+        );
+        localStorage.setItem(
+          "downloadingModels",
+          JSON.stringify(updatedDownloads),
+        );
+      } else {
+        console.error(`Failed to cancel download for ${modelName}`);
+      }
+    } catch (error) {
+      console.error(`Error cancelling download for ${modelName}:`, error);
+    }
+  }
 </script>
 
 <div class="top-section">
@@ -249,12 +293,24 @@
             </div>
           {/if}
           {#if model.progress >= 100}
-            <p>Size: {model.size / 1e9}GB</p>
+            <p>Size: {(model.size / 1e9).toFixed(2)} GB</p>
             <button
               on:click={() => handleModelAction(model.name, model.available)}
               class="btn btn-error mt-2"
             >
               <Icon icon="mdi:trash" width="32" height="32" />
+            </button>
+          {:else}
+            <button
+              on:click={() =>
+                handleModelAction(
+                  model.name,
+                  model.available,
+                  model.progress > 0 && model.progress < 100,
+                )}
+              class="btn btn-error mt-2"
+            >
+              <Icon icon="mdi:cancel" width="32" height="32" />
             </button>
           {/if}
         </div>
@@ -287,7 +343,7 @@
             {#if models.length === 1}
               <h3>{truncateString(model.name, 24)}</h3>
             {/if}
-            <p>Size: {model.size / 1e9}GB</p>
+            <p>Size: {(model.size / 1e9).toFixed(2)} GB</p>
             <button
               on:click={() => handleModelAction(model.name, model.available)}
               class="btn btn-primary mt-2"
