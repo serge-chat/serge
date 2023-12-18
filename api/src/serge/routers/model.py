@@ -146,7 +146,7 @@ async def download_model(model_name: str):
         model_path = os.path.join(WEIGHTS, f"{model_name}.bin")
 
         # Create an aiohttp session with timeout settings
-        timeout = aiohttp.ClientTimeout(total=300)
+        timeout = aiohttp.ClientTimeout(total=None, connect=300, sock_read=300)
         async with aiohttp.ClientSession(timeout=timeout) as session:
             # Start the download and add to active_downloads
             download_task = asyncio.create_task(download_file(session, model_url, temp_model_path))
