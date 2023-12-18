@@ -535,7 +535,23 @@
                 ]
             }
         ]
-    },   
+    },  
+    {   
+        "name": "Phi",
+        "models": [
+            {
+                "name": "Phi-2",
+                "repo": "TheBloke/phi-2-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "phi-2.Q4_K_M.gguf",
+                        "disk_space": 1789239136.0
+                    }
+                ]
+            }           
+        ]
+    },    
     {   
         "name": "Python-Code",
         "models": [
