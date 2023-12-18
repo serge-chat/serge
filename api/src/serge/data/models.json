@@ -687,6 +687,55 @@
             }             
         ]
     },
+    {   
+        "name": "WizardLM",
+        "models": [
+            {
+                "name": "WizardLM-7B-v1_0",
+                "repo": "TheBloke/wizardLM-7B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "wizardLM-7B.Q4_K_M.gguf",
+                        "disk_space": 4081009920.0
+                    }
+                ]
+            },
+            {
+                "name": "WizardLM-7B-v1_0-Uncensored",
+                "repo": "TheBloke/WizardLM-7B-V1.0-Uncensored-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Wwizardlm-7b-v1.0-uncensored.Q4_K_M.gguf",
+                        "disk_space": 4081004256.0
+                    }
+                ]
+            },             
+            {
+                "name": "WizardLM-13B-v1_2",
+                "repo": "TheBloke/WizardLM-13B-V1.2-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "wizardlm-13b-v1.2.Q4_K_M.gguf",
+                        "disk_space": 7865956224.0
+                    }
+                ]
+            },
+            {
+                "name": "WizardLM-70B-v1_0",
+                "repo": "TheBloke/WizardLM-70B-V1.0-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "wizardlm-70b-v1.0.Q4_K_M.gguf",
+                        "disk_space": 41422921728.0
+                    }
+                ]
+            }            
+        ]
+    },    
     {
         "name": "Zephyr",
         "models": [
