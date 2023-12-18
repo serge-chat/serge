@@ -58,15 +58,18 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | Category      | Models |
 |:-------------:|:-------|
 | **Alfred** | 40B |
+| **Code** | 13B, 33B |
 | **CodeLLaMA** | 7B, 7B-Instruct, 7B-Python, 13B, 13B-Instruct, 13B-Python, 34B, 34B-Instruct, 34B-Python |
 | **Falcon** | 7B, 7B-Instruct, 40B, 40B-Instruct |
 | **LLaMA 2**  | 7B, 7B-Chat, 7B-Coder, 13B, 13B-Chat, 70B, 70B-Chat, 70B-OASST |
 | **Med42** | 70B |
-| **Meditron** | 7B, 70B |
-| **Mistral** | 7B, 7B-Instruct, 7B-OpenOrca |
-| **Neural-Chat** | 7B-v3.2 | 
+| **Medalpaca** | 13B |
+| **Meditron** | 7B, 7B-Chat, 70B |
+| **Mistral** | 7B-V0.1, 7B-Instruct-v0.2, 7B-OpenOrca |
+| **Mixtral** | 8x7B-v0.1, 8x7B-Instruct-v0.1
+| **Neural-Chat** | 7B-v3.3 | 
 | **Notus** | 7B-v1 |
-| **OpenChat** | 7B-v3.5 |
+| **OpenChat** | 7B-v3.5-1012 |
 | **OpenLLaMA** | 3B-v2, 7B-v2, 13B-v2 |
 | **Orca 2** | 7B, 13B |
 | **Python Code** | 13B, 33B |
