@@ -1,3 +1,11 @@
+# Build argumnets
+ARG UBUNTU_VER=22.04
+ARG CUDA_VER=12.2.2
+ARG PYTHON_VER=3.11
+
+# Download the base image
+FROM nvidia/cuda:${CUDA_VER}-cudnn8-runtime-ubuntu${UBUNTU_VER}
+
 # ---------------------------------------
 # Base image for redis
 FROM redis:7-bookworm as redis
@@ -13,10 +21,6 @@ RUN npm ci
 COPY ./web /usr/src/app/web/
 WORKDIR /usr/src/app/web/
 RUN npm run build
-
-# ---------------------------------------
-# Runtime environment
-FROM python:3.11-slim-bookworm as release
 
 # Set ENV
 ENV NODE_ENV='production'
@@ -34,7 +38,7 @@ COPY vendor/requirements.txt /usr/src/app/requirements.txt
 
 # Install api dependencies
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends dumb-init \
+    && apt-get install -y --no-install-recommends dumb-init python${PYTHON_VER} python${PYTHON_VER}-dev python3-pip python-is-python3 \
     && pip install --no-cache-dir ./api \
     && pip install -r /usr/src/app/requirements.txt \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* \
