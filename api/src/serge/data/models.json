@@ -695,18 +695,7 @@
                         "disk_space": 4081009920.0
                     }
                 ]
-            },
-            {
-                "name": "WizardLM-7B-v1_0-Uncensored",
-                "repo": "TheBloke/WizardLM-7B-V1.0-Uncensored-GGUF",
-                "files": [
-                    {
-                        "name": "q4_K_M",
-                        "filename": "Wwizardlm-7b-v1.0-uncensored.Q4_K_M.gguf",
-                        "disk_space": 4081004256.0
-                    }
-                ]
-            },             
+            },          
             {
                 "name": "WizardLM-13B-v1_2",
                 "repo": "TheBloke/WizardLM-13B-V1.2-GGUF",
