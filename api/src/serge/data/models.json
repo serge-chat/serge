@@ -371,6 +371,17 @@
                         "disk_space": 4368438912.0
                     }
                 ]
+            },
+            {
+                "name": "Mixtral-8X7B-Dolphin-2_5",
+                "repo": "TheBloke/dolphin-2.5-mixtral-8x7b-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "dolphin-2.5-mixtral-8x7b.Q4_K_M.gguf",
+                        "disk_space": 26441544544.0
+                    }
+                ]
             },            
             {
                 "name": "Mistral-7B-Instruct-v0_2",
