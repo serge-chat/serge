@@ -66,7 +66,7 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **Medalpaca** | 13B |
 | **Meditron** | 7B, 7B-Chat, 70B |
 | **Mistral** | 7B-V0.1, 7B-Instruct-v0.2, 7B-OpenOrca |
-| **Mixtral** | 8x7B-v0.1, 8x7B-Instruct-v0.1
+| **Mixtral** | 8x7B-v0.1, 8x7B-Dophin-2.5, 8x7B-Instruct-v0.1 |
 | **Neural-Chat** | 7B-v3.3 | 
 | **Notus** | 7B-v1 |
 | **OpenChat** | 7B-v3.5-1012 |
@@ -76,6 +76,7 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **PsyMedRP** | 13B-v1, 20B-v1 |
 | **Starling LM** | 7B-Alpha |
 | **Vicuna** | 7B-v1.5, 13B-v1.5, 33B-v1.3, 33B-Coder |
+| **WizardLM** | 7B-v1.0, 7B-v1.0-Uncensored, 13B-v1.2, 70B-v1.0 |
 | **Zephyr** | 3B, 7B-Alpha, 7B-Beta |
 
 Additional models can be requested by opening a GitHub issue.
