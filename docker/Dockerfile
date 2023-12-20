@@ -34,6 +34,7 @@ COPY vendor/requirements.txt /usr/src/app/requirements.txt
 
 # Install api dependencies
 RUN apt-get update \
+    && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends dumb-init \
     && pip install --no-cache-dir ./api \
     && pip install -r /usr/src/app/requirements.txt \
