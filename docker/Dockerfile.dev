@@ -17,6 +17,7 @@ ENV NODE_ENV='development'
 
 # Install dependencies
 RUN apt-get update \
+    && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends dumb-init
 
 # Copy database, source code, and scripts
