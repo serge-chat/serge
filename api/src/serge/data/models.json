@@ -371,18 +371,7 @@
                         "disk_space": 4368438912.0
                     }
                 ]
-            },
-            {
-                "name": "Mixtral-8X7B-Dolphin-2_5",
-                "repo": "TheBloke/dolphin-2.5-mixtral-8x7b-GGUF",
-                "files": [
-                    {
-                        "name": "q4_K_M",
-                        "filename": "dolphin-2.5-mixtral-8x7b.Q4_K_M.gguf",
-                        "disk_space": 26441544544.0
-                    }
-                ]
-            },            
+            },           
             {
                 "name": "Mistral-7B-Instruct-v0_2",
                 "repo": "TheBloke/Mistral-7B-Instruct-v0.2-GGUF",
@@ -421,6 +410,17 @@
                     }
                 ]
             },
+            {
+                "name": "Mixtral-8X7B-Dolphin-2_5",
+                "repo": "TheBloke/dolphin-2.5-mixtral-8x7b-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "dolphin-2.5-mixtral-8x7b.Q4_K_M.gguf",
+                        "disk_space": 26441544544.0
+                    }
+                ]
+            },             
             {
                 "name": "Mixtral-8X7B-Instruct-v0_1",
                 "repo": "TheBloke/Mixtral-8x7B-Instruct-v0.1-GGUF",
@@ -546,34 +546,7 @@
                 ]
             }
         ]
-    },   
-    {   
-        "name": "Python-Code",
-        "models": [
-            {
-                "name": "Python-Code-13B",
-                "repo": "TheBloke/Python-Code-13B-GGUF",
-                "files": [
-                    {
-                        "name": "q4_K_M",
-                        "filename": "python-code-13b.Q4_K_M.gguf",
-                        "disk_space": 7865956352.0
-                    }
-                ]
-            },
-            {
-                "name": "Python-Code-33B",
-                "repo": "TheBloke/Python-Code-33B-GGUF",
-                "files": [
-                    {
-                        "name": "q4_K_M",
-                        "filename": "python-code-33b.Q4_K_M.gguf",
-                        "disk_space": 19621140000.0
-                    }
-                ]
-            } 
-        ]
-    },     
+    },       
     {   
         "name": "PsyMedRP",
         "models": [
@@ -601,6 +574,33 @@
             }            
         ]
     },
+    {   
+        "name": "Python-Code",
+        "models": [
+            {
+                "name": "Python-Code-13B",
+                "repo": "TheBloke/Python-Code-13B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "python-code-13b.Q4_K_M.gguf",
+                        "disk_space": 7865956352.0
+                    }
+                ]
+            },
+            {
+                "name": "Python-Code-33B",
+                "repo": "TheBloke/Python-Code-33B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "python-code-33b.Q4_K_M.gguf",
+                        "disk_space": 19621140000.0
+                    }
+                ]
+            } 
+        ]
+    },     
     {   
         "name": "SlimOrca",
         "models": [
