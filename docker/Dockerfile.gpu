@@ -54,4 +54,4 @@ RUN apt-get update \
 
 EXPOSE 8008
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-CMD ["/bin/bash", "-c", "/usr/src/app/deploy.sh"
+CMD ["/bin/bash", "-c", "/usr/src/app/deploy.sh"]
