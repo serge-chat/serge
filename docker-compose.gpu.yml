@@ -1,0 +1,15 @@
+services:
+  serge:
+    build: 
+      context: .
+      dockerfile: Dockerfile.gpu
+    restart: unless-stopped
+    ports:
+      - 8008:8008
+    volumes:
+      - weights:/usr/src/app/weights
+      - datadb:/data/db/
+
+volumes:
+  weights:
+  datadb:
