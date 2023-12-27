@@ -1,3 +1,5 @@
+import os
+
 from typing import Optional
 from fastapi import APIRouter, HTTPException
 from langchain.memory import RedisChatMessageHistory
