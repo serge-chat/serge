@@ -38,7 +38,6 @@ COPY vendor/requirements.txt /usr/src/app/requirements.txt
 
 # Install api dependencies
 RUN apt-get update \
-    && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends dumb-init python${PYTHON_VER} python${PYTHON_VER}-dev python3-pip python-is-python3 nvidia-modprobe \
     && pip install --upgrade --no-cache-dir pip setuptools wheel \
     && pip install --no-cache-dir ./api \
