@@ -30,13 +30,8 @@ async def create_new_chat(
     init_prompt: str = "Below is an instruction that describes a task. Write a response that appropriately completes the request.",
     n_threads: int = 4,
 ):
-    try:
-        client = Llama(
-            model_path=f"/usr/src/app/weights/{model}.bin",
-        )
-        del client
-    except Exception as exc:
-        raise ValueError(f"Model can't be found: {exc}")
+    if not os.path.exists(f"/usr/src/app/weights/{model}.bin"):
+        raisd ValueError(f"Model can't be found: /usr/src/app/weights/{model}.bin")
 
     client = Redis(host="localhost", port=6379, decode_responses=False)
 
