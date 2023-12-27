@@ -31,7 +31,7 @@ async def create_new_chat(
     n_threads: int = 4,
 ):
     if not os.path.exists(f"/usr/src/app/weights/{model}.bin"):
-        raisd ValueError(f"Model can't be found: /usr/src/app/weights/{model}.bin")
+        raise ValueError(f"Model can't be found: /usr/src/app/weights/{model}.bin")
 
     client = Redis(host="localhost", port=6379, decode_responses=False)
 
