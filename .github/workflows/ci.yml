@@ -9,7 +9,6 @@ on:
       - LICENSE
       - "docker-compose.yml"
       - "docker-compose.dev.yml"
-      - "docker-compose.gpu.yml"
       - ".github/ISSUE_TEMPLATE/*.yml"
       - ".github/dependabot.yml"
       - ".github/release-drafter.yml"
@@ -21,7 +20,6 @@ on:
       - LICENSE
       - "docker-compose.yml"
       - "docker-compose.dev.yml"
-      - "docker-compose.gpu.yml"
       - ".github/ISSUE_TEMPLATE/*.yml"
       - ".github/dependabot.yml"
       - ".github/release-drafter.yml"
