@@ -22,8 +22,6 @@ COPY ./web /usr/src/app/web/
 WORKDIR /usr/src/app/web/
 RUN npm run build
 
-FROM debian:bookworm
-
 # Set ENV
 ENV NODE_ENV='production'
 ENV TZ=Etc/UTC
@@ -44,7 +42,6 @@ RUN apt-get update \
     && pip install --upgrade --no-cache-dir pip setuptools wheel \
     && pip install --no-cache-dir ./api \
     && pip install -r /usr/src/app/requirements.txt \
-    && pip install --break-system-packages everywhere \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* \
     && chmod 755 /usr/src/app/deploy.sh \
     && chmod 755 /usr/local/bin/redis-server \
