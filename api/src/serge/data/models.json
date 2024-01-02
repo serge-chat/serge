@@ -319,6 +319,22 @@
                 ]
             }           
         ]
+    },
+    {   
+        "name": "medicine-LLM",
+        "models": [
+            {
+                "name": "Medicine LLM 13B",
+                "repo": "TheBloke/medicine-LLM-13B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "medicine-llm-13b.Q4_K_M.gguf",
+                        "disk_space": 7865963456.0
+                    }
+                ]
+            }           
+        ]
     },    
     {
         "name": "Meditron",
