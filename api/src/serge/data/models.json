@@ -416,7 +416,7 @@
         "name": "MistralLite",
         "models": [
             {
-                "name": "MistralLite 7B",
+                "name": "MistralLite-7B",
                 "repo": "TheBloke/MistralLite-7B-GGUF",
                 "files": [
                     {
@@ -497,7 +497,23 @@
                 ]
             }           
         ]
-    },      
+    },   
+    {   
+        "name": "Notux-8X7B",
+        "models": [
+            {
+                "name": "Notux-8X7B-v1",
+                "repo": "TheBloke/notux-8x7b-v1-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "notux-8x7b-v1.Q4_K_S.gguf",
+                        "disk_space": 26442469696.0
+                    }
+                ]
+            }
+        ]
+    },
     {   
         "name": "OpenChat",
         "models": [
