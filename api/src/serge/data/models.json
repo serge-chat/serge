@@ -413,6 +413,22 @@
         ]
     },
     {   
+        "name": "MistralLite",
+        "models": [
+            {
+                "name": "MistralLite 7B",
+                "repo": "TheBloke/MistralLite-7B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "mistrallite.Q4_K_M.gguf",
+                        "disk_space": 4368456032.0
+                    }
+                ]
+            }
+        ]
+    },
+    {   
         "name": "Mixtral",
         "models": [
             {
