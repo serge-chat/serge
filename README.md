@@ -67,9 +67,11 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **Medicine-LLM** | 13B |
 | **Meditron** | 7B, 7B-Chat, 70B |
 | **Mistral** | 7B-V0.1, 7B-Instruct-v0.2, 7B-OpenOrca |
+| **MistralLite** | 7B |
 | **Mixtral** | 8x7B-v0.1, 8x7B-Dophin-2.7, 8x7B-Instruct-v0.1 |
 | **Neural-Chat** | 7B-v3.3 | 
 | **Notus** | 7B-v1 |
+| **Notux** | 8x7b-v1 |
 | **OpenChat** | 7B-v3.5-1012 |
 | **OpenLLaMA** | 3B-v2, 7B-v2, 13B-v2 |
 | **Orca 2** | 7B, 13B |
