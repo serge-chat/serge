@@ -89,10 +89,6 @@ LLaMA will crash if you don't have enough available memory for the model:
 
 Need help? Join our [Discord](https://discord.gg/62Hc6FEYQH)
 
-## ⭐️ Stargazers
-
-<img src="https://starchart.cc/serge-chat/serge.svg" alt="Stargazers over time" style="max-width: 100%">
-
 ## 🧾 License
 
 [Nathan Sarrazin](https://github.com/nsarrazin) and [Contributors](https://github.com/serge-chat/serge/graphs/contributors). `Serge` is free and open-source software licensed under the [MIT License](https://github.com/serge-chat/serge/blob/main/LICENSE-MIT) and [Apache-2.0](https://github.com/serge-chat/serge/blob/main/LICENSE-APACHE).

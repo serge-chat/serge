@@ -17,8 +17,8 @@
     "@sveltejs/adapter-static": "^2.0.3",
     "@sveltejs/kit": "^1.30.0",
     "@types/markdown-it": "^13.0.7",
-    "@typescript-eslint/eslint-plugin": "^6.16.0",
-    "@typescript-eslint/parser": "^6.16.0",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
@@ -45,6 +45,6 @@
     "markdown-it": "^14.0.0",
     "markdown-it-highlightjs": "^4.0.1",
     "prettier-plugin-svelte": "^3.1.2",
-    "prettier-plugin-tailwindcss": "^0.5.9"
+    "prettier-plugin-tailwindcss": "^0.5.10"
   }
 }
