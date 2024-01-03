@@ -731,6 +731,55 @@
         ]
     },
     {   
+        "name": "Vigogne-2",
+        "models": [
+            {
+                "name": "Vigogne-2-7B-Chat",
+                "repo": "TheBloke/Vigogne-2-7B-Chat-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "vigogne-2-7b-chat.Q4_K_M.gguf",
+                        "disk_space": 4081004224.0
+                    }
+                ]
+            },
+            {
+                "name": "Vigogne-2-7B-Instruct",
+                "repo": "TheBloke/Vigogne-2-7B-Instruct-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "vigogne-2-7b-instruct.Q4_K_M.gguf",
+                        "disk_space": 4081004256.0
+                    }
+                ]
+            },
+            {
+                "name": "Vigogne-2-13B-Instruct",
+                "repo": "TheBloke/Vigogne-2-13B-Instruct-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "vigogne-2-13b-instruct.Q4_K_M.gguf",
+                        "disk_space": 7865956224.0
+                    }
+                ]
+            },
+            {
+                "name": "Vigogne-2-70B-Chat",
+                "repo": "TheBloke/vigogne-2-70B-chat-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "vigogne-2-70b-chat.Q4_K_M.gguf",
+                        "disk_space": 41422910400.0
+                    }
+                ]
+            }            
+        ]
+    },      
+    {   
         "name": "WizardLM",
         "models": [
             {
