@@ -75,6 +75,7 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **OpenChat** | 7B-v3.5-1210 |
 | **OpenLLaMA** | 3B-v2, 7B-v2, 13B-v2 |
 | **Orca 2** | 7B, 13B |
+| **Phi 2** | 2.7B |
 | **Python Code** | 13B, 33B |
 | **PsyMedRP** | 13B-v1, 20B-v1 |
 | **Starling LM** | 7B-Alpha |
