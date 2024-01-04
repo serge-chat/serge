@@ -319,6 +319,22 @@
                 ]
             }           
         ]
+    },
+    {   
+        "name": "medicine-LLM",
+        "models": [
+            {
+                "name": "Medicine LLM 13B",
+                "repo": "TheBloke/medicine-LLM-13B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "medicine-llm-13b.Q4_K_M.gguf",
+                        "disk_space": 7865963456.0
+                    }
+                ]
+            }           
+        ]
     },    
     {
         "name": "Meditron",
@@ -371,18 +387,7 @@
                         "disk_space": 4368438912.0
                     }
                 ]
-            },
-            {
-                "name": "Mixtral-8X7B-Dolphin-2_5",
-                "repo": "TheBloke/dolphin-2.5-mixtral-8x7b-GGUF",
-                "files": [
-                    {
-                        "name": "q4_K_M",
-                        "filename": "dolphin-2.5-mixtral-8x7b.Q4_K_M.gguf",
-                        "disk_space": 26441544544.0
-                    }
-                ]
-            },            
+            },           
             {
                 "name": "Mistral-7B-Instruct-v0_2",
                 "repo": "TheBloke/Mistral-7B-Instruct-v0.2-GGUF",
@@ -408,6 +413,22 @@
         ]
     },
     {   
+        "name": "MistralLite",
+        "models": [
+            {
+                "name": "MistralLite-7B",
+                "repo": "TheBloke/MistralLite-7B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "mistrallite.Q4_K_M.gguf",
+                        "disk_space": 4368456032.0
+                    }
+                ]
+            }
+        ]
+    },
+    {   
         "name": "Mixtral",
         "models": [
             {
@@ -421,6 +442,17 @@
                     }
                 ]
             },
+            {
+                "name": "Mixtral-8X7B-Dolphin-2_7",
+                "repo": "TheBloke/dolphin-2.7-mixtral-8x7b-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "dolphin-2.7-mixtral-8x7b.Q4_K_M.gguf",
+                        "disk_space": 26441544512.0
+                    }
+                ]
+            },             
             {
                 "name": "Mixtral-8X7B-Instruct-v0_1",
                 "repo": "TheBloke/Mixtral-8x7B-Instruct-v0.1-GGUF",
@@ -465,7 +497,23 @@
                 ]
             }           
         ]
-    },      
+    },   
+    {   
+        "name": "Notux-8X7B",
+        "models": [
+            {
+                "name": "Notux-8X7B-v1",
+                "repo": "TheBloke/notux-8x7b-v1-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "notux-8x7b-v1.Q4_K_S.gguf",
+                        "disk_space": 26442469696.0
+                    }
+                ]
+            }
+        ]
+    },
     {   
         "name": "OpenChat",
         "models": [
@@ -546,7 +594,23 @@
                 ]
             }
         ]
-    },   
+    },
+    {   
+        "name": "Phi",
+        "models": [
+            {
+                "name": "Phi-2",
+                "repo": "TheBloke/phi-2-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "phi-2.Q4_K_M.gguf",
+                        "disk_space": 1789239136.0
+                    }
+                ]
+            }           
+        ]
+    },    
     {   
         "name": "Python-Code",
         "models": [
