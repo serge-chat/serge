@@ -70,7 +70,7 @@ autolabeler:
     - '/(fix|bug|missing|correct)/i'
 - label: '🧹 Updates'
   title: 
-    - '/(improve|update|refactor|deprecated|remove|unused|test)/i'
+    - '/(improve|update|migrate|refactor|deprecated|remove|unused|test)/i'
 - label: '🤖 Dependencies'
   title:
     - '/(bump|dependencies)/i'
