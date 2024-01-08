@@ -46,6 +46,6 @@
     "markdown-it": "^14.0.0",
     "markdown-it-highlightjs": "^4.0.1",
     "prettier-plugin-svelte": "^3.1.2",
-    "prettier-plugin-tailwindcss": "^0.5.10"
+    "prettier-plugin-tailwindcss": "^0.5.11"
   }
 }
