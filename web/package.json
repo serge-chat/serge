@@ -18,8 +18,8 @@
     "@sveltejs/kit": "^2.0.6",
     "@sveltejs/vite-plugin-svelte": "^3.0.1",
     "@types/markdown-it": "^13.0.7",
-    "@typescript-eslint/eslint-plugin": "^6.17.0",
-    "@typescript-eslint/parser": "^6.17.0",
+    "@typescript-eslint/eslint-plugin": "^6.18.0",
+    "@typescript-eslint/parser": "^6.18.0",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
@@ -27,14 +27,14 @@
     "eslint-plugin-prettier": "^5.1.2",
     "eslint-plugin-svelte": "^2.35.1",
     "eslint-plugin-vue": "^9.19.2",
-    "postcss": "^8.4.32",
+    "postcss": "^8.4.33",
     "prettier": "3.1.1",
     "svelte": "^4.2.8",
     "svelte-check": "^3.6.2",
-    "tailwindcss": "^3.4.0",
+    "tailwindcss": "^3.4.1",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3",
-    "vite": "^5.0.10"
+    "vite": "^5.0.11"
   },
   "type": "module",
   "dependencies": {
@@ -46,6 +46,6 @@
     "markdown-it": "^14.0.0",
     "markdown-it-highlightjs": "^4.0.1",
     "prettier-plugin-svelte": "^3.1.2",
-    "prettier-plugin-tailwindcss": "^0.5.10"
+    "prettier-plugin-tailwindcss": "^0.5.11"
   }
 }
