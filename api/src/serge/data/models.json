@@ -518,18 +518,18 @@
         "name": "OpenChat",
         "models": [
             {
-                "name": "OpenChat-3_5-1210",
-                "repo": "TheBloke/openchat-3.5-1210-GGUF",
+                "name": "OpenChat-3_5-0106",
+                "repo": "TheBloke/openchat-3.5-0106-GGUF",
                 "files": [
                     {
                         "name": "q4_K_M",
-                        "filename": "openchat-3.5-1210.Q4_K_M.gguf",
-                        "disk_space": 4368450656.0
+                        "filename": "openchat-3.5-0106.Q4_K_M.gguf",
+                        "disk_space": 4368450688.0
                     }
                 ]
             }
         ]
-    },            
+    },           
     {
         "name": "OpenLLaMA",
         "models": [
