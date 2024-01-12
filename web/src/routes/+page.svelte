@@ -211,7 +211,7 @@
         </div>
         <div
           class="tooltip flex flex-col"
-          data-tip="defines the penalty assigned to the model when it repeats certain tokens or patterns in the generated text."
+          data-tip="Defines the penalty assigned to the model when it repeats certain tokens or patterns in the generated text."
         >
           <label for="repeat_penalty" class="label-text pb-1">
             repeat_penalty
