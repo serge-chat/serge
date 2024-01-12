@@ -107,3 +107,9 @@ git clone https://github.com/serge-chat/serge.git
 cd serge/
 docker compose -f docker-compose.dev.yml up --build
 ```
+Or, for systems with Podman:
+```bash
+git clone https://github.com/serge-chat/serge.git
+cd serge/
+docker compose -f podman-compose.dev.yml up --build
+```
