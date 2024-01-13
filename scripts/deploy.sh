@@ -50,11 +50,25 @@ redis_process=$!
 
 # Start the API
 cd /usr/src/app/api || exit 1
+
+# Start UVicorn for IPv4
 uvicorn src.serge.main:app --host 0.0.0.0 --port 8008 || {
-	echo 'Failed to start main app'
-	exit 1
+    echo 'Failed to start main app (IPv4)'
+    exit 1
 } &
-serge_process=$!
+
+# Start UVicorn for IPv6
+uvicorn src.serge.main:app --host :: --port 8008 || {
+    echo 'Failed to start main app (IPv6)'
+    exit 1
+} &
+
+# Wait for both processes to finish
+wait
+
+# You can choose to store the process IDs if needed
+serge_process_ipv4=$!
+serge_process_ipv6=$!
 
 # Set up a signal trap and wait for processes to finish
 trap _term TERM
