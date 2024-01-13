@@ -35,8 +35,7 @@ echo "Recommended install command for llama-cpp-python: $pip_command"
 _term() {
 	echo "Received termination signal!"
 	kill -TERM "$redis_process" 2>/dev/null
-	kill -TERM "$serge_process_ipv4" 2>/dev/null
- 	kill -TERM "$serge_process_ipv6" 2>/dev/null
+	kill -TERM "$serge_process" 2>/dev/null
 }
 
 # Install python bindings
