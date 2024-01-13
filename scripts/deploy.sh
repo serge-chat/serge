@@ -51,7 +51,7 @@ redis_process=$!
 # Start the API
 cd /usr/src/app/api || exit 1
 
-# Check if USE_IPV6 is set to "true"
+# Check if SERGE_ENABLE_IPV6 is set to "true"
 if [ "$SERGE_ENABLE_IPV6" == "true" ]; then
     # Start UVicorn for IPv6
     uvicorn src.serge.main:app --host :: --port 8008 || {
