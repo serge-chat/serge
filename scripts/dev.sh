@@ -52,7 +52,7 @@ eval "$pip_command" || {
 # Start Redis instance
 redis-server /etc/redis/redis.conf &
 
-if [ "$USE_IPV6" == "true" ]; then
+if [ "$SERGE_ENABLE_IPV6" == "true" ]; then
     npm run dev -- --host :: --port 8008 || {
         echo 'Failed to start web server for IPv6'
         exit 1
@@ -68,7 +68,7 @@ web_process=$!
 # Start the API
 cd /usr/src/app/api || exit 1
 
-if [ "$USE_IPV6" == "true" ]; then
+if [ "$SERGE_ENABLE_IPV6" == "true" ]; then
     uvicorn src.serge.main:api_app --reload --host :: --port 9124 --root-path /api/ || {
         echo 'Failed to start API for IPv6'
         exit 1
