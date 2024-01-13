@@ -282,7 +282,10 @@
   <div class="w-full border-b border-base-content/[.2]">
     <div class="h-8 px-2 md:container md:mx-auto md:px-0">
       <div class="w-full h-full relative flex items-center justify-center">
-        <div class="flex flex-row items-center justify-center color-base-300" title="Model">
+        <div
+          class="flex flex-row items-center justify-center color-base-300"
+          title="Model"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 11.12744 16"
@@ -297,7 +300,10 @@
             {data.chat.params.model_path}
           </span>
         </div>
-        <div class="pl-4 hidden sm:flex flex-row items-center justify-center" title="Temperature">
+        <div
+          class="pl-4 hidden sm:flex flex-row items-center justify-center"
+          title="Temperature"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 5.31286 16"
@@ -312,7 +318,10 @@
             {data.chat.params.temperature}
           </span>
         </div>
-        <div class="pl-4 hidden sm:flex flex-row items-center justify-center" title="Context Length/Maximum Generated Tokens">
+        <div
+          class="pl-4 hidden sm:flex flex-row items-center justify-center"
+          title="Context Length/Maximum Generated Tokens"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
@@ -328,7 +337,10 @@
           </span>
         </div>
         {#if data.chat.params.n_threads > 0}
-          <div class="pl-4 hidden sm:flex flex-row items-center justify-center" title="Threads">
+          <div
+            class="pl-4 hidden sm:flex flex-row items-center justify-center"
+            title="Threads"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -349,7 +361,10 @@
           </div>
         {/if}
         {#if data.chat.params.n_gpu_layers > 0}
-          <div class="pl-4 hidden sm:flex flex-row items-center justify-center" title="GPU Layers">
+          <div
+            class="pl-4 hidden sm:flex flex-row items-center justify-center"
+            title="GPU Layers"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
@@ -365,7 +380,10 @@
             </span>
           </div>
         {/if}
-        <div class="pl-4 hidden sm:flex flex-row items-center justify-center" title="Repeat Penalty">
+        <div
+          class="pl-4 hidden sm:flex flex-row items-center justify-center"
+          title="Repeat Penalty"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
@@ -384,7 +402,10 @@
             {data.chat.params.repeat_penalty}
           </span>
         </div>
-        <div class="pl-4 hidden sm:flex flex-row items-center justify-center" title="Top_k-Top_p">
+        <div
+          class="pl-4 hidden sm:flex flex-row items-center justify-center"
+          title="Top_k-Top_p"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
