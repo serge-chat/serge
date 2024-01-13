@@ -52,6 +52,8 @@ eval "$pip_command" || {
 # Start Redis instance
 redis-server /etc/redis/redis.conf &
 
+# Start the web server
+cd /usr/src/app/web || exit 1
 if [ "$SERGE_ENABLE_IPV6" == "true" ]; then
     npm run dev -- --host :: --port 8008 || {
         echo 'Failed to start web server for IPv6'
