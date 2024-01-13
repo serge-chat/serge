@@ -69,9 +69,6 @@ fi
 # Store the process ID
 serge_process=$!
 
-# Wait for the process to finish
-wait $serge_process
-
 # Set up a signal trap and wait for processes to finish
 trap _term TERM
 wait $redis_process $serge_process
