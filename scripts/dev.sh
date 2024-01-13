@@ -52,9 +52,21 @@ eval "$pip_command" || {
 # Start Redis instance
 redis-server /etc/redis/redis.conf &
 
-# Start the web server
 cd /usr/src/app/web || exit 1
-npm run dev -- --host 0.0.0.0 --port 8008 &
+
+# Start the web server for IPv4
+npm run dev -- --host 0.0.0.0 --port 8008 || {
+    echo 'Failed to start web server for IPv4'
+    exit 1
+} &
+web_process_ipv4=$!
+
+# Start the web server for IPv6
+npm run dev -- --host :: --port 8008 || {
+    echo 'Failed to start web server for IPv6'
+    exit 1
+} &
+web_process_ipv6=$!
 
 # Start the API
 cd /usr/src/app/api || exit 1
