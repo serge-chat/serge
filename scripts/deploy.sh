@@ -72,4 +72,4 @@ serge_process_ipv6=$!
 
 # Set up a signal trap and wait for processes to finish
 trap _term TERM
-wait $redis_process $serge_process
+wait $redis_process $serge_process_ipv4 $serge_process_ipv6
