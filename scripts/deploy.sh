@@ -52,7 +52,7 @@ redis_process=$!
 cd /usr/src/app/api || exit 1
 
 # Check if USE_IPV6 is set to "true"
-if [ "$USE_IPV6" == "true" ]; then
+if [ "$SERGE_ENABLE_IPV6" == "true" ]; then
     # Start UVicorn for IPv6
     uvicorn src.serge.main:app --host :: --port 8008 || {
         echo 'Failed to start main app (IPv6)'
