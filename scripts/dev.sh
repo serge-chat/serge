@@ -52,32 +52,31 @@ eval "$pip_command" || {
 # Start Redis instance
 redis-server /etc/redis/redis.conf &
 
-# Start the web server for IPv4
-cd /usr/src/app/web || exit 1
-npm run dev -- --host 0.0.0.0 --port 8008 || {
-    echo 'Failed to start web server for IPv4'
-    exit 1
-} &
-web_process_ipv4=$!
+if [ "$USE_IPV6" == "true" ]; then
+    npm run dev -- --host :: --port 8008 || {
+        echo 'Failed to start web server for IPv6'
+        exit 1
+    } &
+else
+    npm run dev -- --host 0.0.0.0 --port 8008 || {
+        echo 'Failed to start web server for IPv4'
+        exit 1
+    } &
+fi
+web_process=$!
 
-# Start the web server for IPv6
-npm run dev -- --host :: --port 8008 || {
-    echo 'Failed to start web server for IPv6'
-    exit 1
-} &
-web_process_ipv6=$!
-
-# Start the API for IPv4
+# Start the API
 cd /usr/src/app/api || exit 1
-uvicorn src.serge.main:api_app --reload --host 0.0.0.0 --port 9124 --root-path /api/ || {
-    echo 'Failed to start API for IPv4'
-    exit 1
-} &
-api_process_ipv4=$!
 
-# Start the API for IPv6
-uvicorn src.serge.main:api_app --reload --host :: --port 9124 --root-path /api/ || {
-    echo 'Failed to start API for IPv6'
-    exit 1
-} &
-api_process_ipv6=$!
+if [ "$USE_IPV6" == "true" ]; then
+    uvicorn src.serge.main:api_app --reload --host :: --port 9124 --root-path /api/ || {
+        echo 'Failed to start API for IPv6'
+        exit 1
+    } &
+else
+    uvicorn src.serge.main:api_app --reload --host 0.0.0.0 --port 9124 --root-path /api/ || {
+        echo 'Failed to start API for IPv4'
+        exit 1
+    } &
+fi
+api_process=$!
