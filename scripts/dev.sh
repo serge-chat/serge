@@ -65,7 +65,6 @@ else
         exit 1
     } &
 fi
-web_process=$!
 
 # Start the API
 cd /usr/src/app/api || exit 1
@@ -81,4 +80,3 @@ else
         exit 1
     } &
 fi
-api_process=$!
