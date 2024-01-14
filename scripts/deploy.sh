@@ -48,25 +48,12 @@ eval "$pip_command" || {
 redis-server /etc/redis/redis.conf &
 redis_process=$!
 
-# Start the API
+# Start the API with both IPv4 and IPv6 support
 cd /usr/src/app/api || exit 1
-
-# Check if SERGE_ENABLE_IPV6 is set to "true"
-if [ "$SERGE_ENABLE_IPV6" == "true" ]; then
-	# Start UVicorn for IPv6
-    	uvicorn src.serge.main:app --host :: --port 8008 || {
-       		echo 'Failed to start main app (IPv6)'
-        	exit 1
-    	} &
-else
-    	# Start UVicorn for IPv4
-    	uvicorn src.serge.main:app --host 0.0.0.0 --port 8008 || {
-        	echo 'Failed to start main app (IPv4)'
-        	exit 1
-    	} &
-fi
-
-# Store the process ID
+hypercorn src.serge.main:app --bind 0.0.0.0:8008 --bind [::]:8008 || {
+    echo 'Failed to start main app'
+    exit 1
+} &
 serge_process=$!
 
 # Set up a signal trap and wait for processes to finish
