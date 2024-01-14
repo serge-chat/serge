@@ -54,28 +54,11 @@ redis-server /etc/redis/redis.conf &
 
 # Start the web server
 cd /usr/src/app/web || exit 1
-if [ "$SERGE_ENABLE_IPV6" == "true" ]; then
-	npm run dev -- --host :: --port 8008 || {
-        	echo 'Failed to start web server for IPv6'
-        	exit 1
-    	} &
-else
-	npm run dev -- --host 0.0.0.0 --port 8008 || {
-        	echo 'Failed to start web server for IPv4'
-        	exit 1
-    	} &
-fi
+npm run dev -- --host 0.0.0.0 --port 8008 &
 
-# Start the API
+# Start the API with both IPv4 and IPv6 support
 cd /usr/src/app/api || exit 1
-if [ "$SERGE_ENABLE_IPV6" == "true" ]; then
-	uvicorn src.serge.main:api_app --reload --host :: --port 9124 --root-path /api/ || {
-        	echo 'Failed to start API for IPv6'
-       		exit 1
-    	} 
-else
-	uvicorn src.serge.main:api_app --reload --host 0.0.0.0 --port 9124 --root-path /api/ || {
-        	echo 'Failed to start API for IPv4'
-        	exit 1
-    	}
-fi
+hypercorn src.serge.main:api_app --reload --bind 0.0.0.0:9124 --bind [::]:9124 --root-path /api/ || {
+    echo 'Failed to start main app'
+    exit 1
+}
