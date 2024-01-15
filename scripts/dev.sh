@@ -25,8 +25,11 @@ if [ "$cpu_arch" = "aarch64" ]; then
 	pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://gaby.github.io/arm64-wheels/"
 else
 	# Use @jllllll provided wheels
-	cpu_feature=$(detect_cpu_features)
-	pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://jllllll.github.io/llama-cpp-python-cuBLAS-wheels/$cpu_feature/cpu"
+	if [ "$SERGE_GPU_SUPPORT" = false ]; then
+		pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://jllllll.github.io/llama-cpp-python-cuBLAS-wheels/$cpu_feature/cpu"
+	else
+		pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://jllllll.github.io/llama-cpp-python-cuBLAS-wheels/$cpu_feature/cu122"
+	fi
 fi
 
 echo "Recommended install command for llama-cpp-python: $pip_command"
@@ -56,9 +59,9 @@ redis-server /etc/redis/redis.conf &
 cd /usr/src/app/web || exit 1
 npm run dev -- --host 0.0.0.0 --port 8008 &
 
-# Start the API with both IPv4 and IPv6 support
+# Start the API
 cd /usr/src/app/api || exit 1
-hypercorn src.serge.main:api_app --reload --bind 0.0.0.0:9124 --bind [::]:9124 --root-path /api/ || {
+uvicorn src.serge.main:api_app --reload --host 0.0.0.0 --port 9124 --root-path /api/ || {
 	echo 'Failed to start main app'
 	exit 1
 }
