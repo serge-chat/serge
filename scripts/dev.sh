@@ -25,6 +25,7 @@ if [ "$cpu_arch" = "aarch64" ]; then
 	pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://gaby.github.io/arm64-wheels/"
 else
 	# Use @jllllll provided wheels
+ 	cpu_feature=$(detect_cpu_features)
 	if [ "$SERGE_GPU_SUPPORT" = false ]; then
 		pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://jllllll.github.io/llama-cpp-python-cuBLAS-wheels/$cpu_feature/cpu"
 	else
