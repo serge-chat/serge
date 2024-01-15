@@ -51,8 +51,8 @@ redis_process=$!
 # Start the API with both IPv4 and IPv6 support
 cd /usr/src/app/api || exit 1
 hypercorn src.serge.main:app --bind 0.0.0.0:8008 --bind [::]:8008 || {
-    echo 'Failed to start main app'
-    exit 1
+	echo 'Failed to start main app'
+	exit 1
 } &
 serge_process=$!
 
