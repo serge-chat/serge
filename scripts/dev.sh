@@ -58,7 +58,7 @@ npm run dev -- --host 0.0.0.0 --port 8008 &
 
 # Start the API
 cd /usr/src/app/api || exit 1
-uvicorn src.serge.main:api_app --reload --host 0.0.0.0 --port 9124 --root-path /api/ || {
+hypercorn src.serge.main:api_app --reload --bind 0.0.0.0:9124 --bind [::]:9124 --root-path /api/ || {
 	echo 'Failed to start main app'
 	exit 1
 }
