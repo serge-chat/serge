@@ -59,6 +59,6 @@ npm run dev -- --host 0.0.0.0 --port 8008 &
 # Start the API with both IPv4 and IPv6 support
 cd /usr/src/app/api || exit 1
 hypercorn src.serge.main:api_app --reload --bind 0.0.0.0:9124 --bind [::]:9124 --root-path /api/ || {
-    echo 'Failed to start main app'
-    exit 1
+	echo 'Failed to start main app'
+	exit 1
 }
