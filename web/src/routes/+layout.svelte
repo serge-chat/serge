@@ -133,7 +133,7 @@
 <aside
   id="default-sidebar"
   class="border-base-content/[.2] fixed left-0 top-0 z-40 h-screen -translate-x-full border-r transition-transform overflow-hidden translate-x-0 aria-label=Sidebar"
-  class:w-64={isSidebarOpen}
+  class:w-75={isSidebarOpen}
   class:w-0={!isSidebarOpen}
 >
   <div
