@@ -58,6 +58,8 @@ $hypercorn_cmd || {
 	exit 1
 } &
 
+serge_process=$!
+
 # Set up a signal trap and wait for processes to finish
 trap _term TERM
 wait $redis_process $serge_process
