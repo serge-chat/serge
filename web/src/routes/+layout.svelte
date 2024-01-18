@@ -7,6 +7,8 @@
   import { newChat, themeStore } from "$lib/stores.js";
   import { fly } from "svelte/transition";
   export let data: PageData;
+ 
+  export let isSidebarOpen: boolean = true;
 
   let models;
   let modelAvailable: boolean;
@@ -17,6 +19,10 @@
   let theme: string;
   let dataCht: Response | any = null;
   const unsubscribe = newChat.subscribe((value) => (dataCht = value));
+
+  function toggleSidebar(): void {
+    isSidebarOpen = !isSidebarOpen;
+  };
 
   onMount(() => {
     theme = localStorage.getItem("data-theme") || "dark";
@@ -110,9 +116,16 @@
   });
 </script>
 
+  <button
+  on:click={toggleSidebar}
+  class="btn btn-square z-10 fixed">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+  </button>
 <aside
   id="default-sidebar"
-  class="border-base-content/[.2] fixed left-0 top-0 z-40 h-screen w-80 -translate-x-full border-r transition-transform overflow-hidden translate-x-0 aria-label=Sidebar"
+  class="border-base-content/[.2] fixed left-0 top-0 z-40 h-screen -translate-x-full border-r transition-transform overflow-hidden translate-x-0 aria-label=Sidebar"
+  class:w-64={isSidebarOpen}
+  class:w-0={!isSidebarOpen}
 >
   <div
     class="bg-base-200 relative h-screen py-1 px-2 overflow-hidden flex flex-col items-center justify-between"
@@ -149,6 +162,19 @@
           </path>
         </svg>
         <span>New Chat</span>
+      </button>
+      <button
+        id="toggle-sidebar-btn"
+        tabindex="0"
+        on:click={toggleSidebar}
+        on:keydown={(event) => {
+          if (event.key === 'Escape') {
+            toggleSidebar();
+          }
+        }}
+        aria-label="Close Sidebar"
+        class="btn btn-ghost flex-shrink-0"
+        >&#10005;
       </button>
     </div>
     <ul
@@ -380,6 +406,7 @@
   </div>
 </aside>
 
-<div class={"relative h-full transition-all md:ml-80"}>
+<div
+class={"h-full" + (isSidebarOpen ? " ml-64 min-w-64" : " min-w-0")}>
   <slot />
 </div>
