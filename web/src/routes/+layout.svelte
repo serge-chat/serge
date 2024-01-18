@@ -7,7 +7,7 @@
   import { newChat, themeStore } from "$lib/stores.js";
   import { fly } from "svelte/transition";
   export let data: PageData;
- 
+
   export let isSidebarOpen: boolean = true;
 
   let models;
@@ -22,7 +22,7 @@
 
   function toggleSidebar(): void {
     isSidebarOpen = !isSidebarOpen;
-  };
+  }
 
   onMount(() => {
     theme = localStorage.getItem("data-theme") || "dark";
@@ -116,11 +116,20 @@
   });
 </script>
 
-  <button
-  on:click={toggleSidebar}
-  class="btn btn-square z-10 fixed">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-  </button>
+<button on:click={toggleSidebar} class="btn btn-square z-10 fixed">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    class="inline-block w-5 h-5 stroke-current"
+    ><path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M4 6h16M4 12h16M4 18h16"
+    ></path></svg
+  >
+</button>
 <aside
   id="default-sidebar"
   class="border-base-content/[.2] fixed left-0 top-0 z-40 h-screen -translate-x-full border-r transition-transform overflow-hidden translate-x-0 aria-label=Sidebar"
@@ -168,7 +177,7 @@
         tabindex="0"
         on:click={toggleSidebar}
         on:keydown={(event) => {
-          if (event.key === 'Escape') {
+          if (event.key === "Escape") {
             toggleSidebar();
           }
         }}
@@ -406,7 +415,6 @@
   </div>
 </aside>
 
-<div
-class={"h-full" + (isSidebarOpen ? " ml-64 min-w-64" : " min-w-0")}>
+<div class={"h-full" + (isSidebarOpen ? " ml-64 min-w-64" : " min-w-0")}>
   <slot />
 </div>
