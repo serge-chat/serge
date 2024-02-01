@@ -24,6 +24,11 @@
     isSidebarOpen = !isSidebarOpen;
   }
 
+  function hideSidebar(): void {
+    isSidebarOpen = false;
+  }
+
+
   onMount(() => {
     theme = localStorage.getItem("data-theme") || "dark";
     document.documentElement.setAttribute("data-theme", theme);
@@ -116,7 +121,7 @@
   });
 </script>
 
-<button on:click={toggleSidebar} class="btn btn-square z-10 fixed">
+<button on:click={toggleSidebar} class="border-base-content/[.2] btn btn-square z-10 my-1 mx-2 fixed border">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -130,27 +135,31 @@
     ></path></svg
   >
 </button>
+
 <aside
-  id="default-sidebar"
-  class="border-base-content/[.2] fixed left-0 top-0 z-40 h-screen -translate-x-full border-r transition-transform overflow-hidden translate-x-0 aria-label=Sidebar"
-  class:w-75={isSidebarOpen}
-  class:w-0={!isSidebarOpen}
+  class="border-base-content/[.2] fixed top-0 z-40 min-h-full border-r transition-all overflow-hidden aria-label=Sidebar"
+  class:left-0={isSidebarOpen}
+  class:-left-80={!isSidebarOpen}
 >
   <div
     class="bg-base-200 relative h-screen py-1 px-2 overflow-hidden flex flex-col items-center justify-between"
   >
     <div
-      class="w-full flex items-center border-b border-base-content/[.2] pb-1"
+      class="w-full flex items-center pb-1"
     >
-      <button class="btn btn-ghost flex-shrink-0" on:click={goToHome}>
+      <button on:click={toggleSidebar} class="border-base-content/[.2] btn btn-square border">
         <svg
           xmlns="http://www.w3.org/2000/svg"
+          fill="none"
           viewBox="0 0 24 24"
-          fill="currentColor"
-          class="w-5 h-5"
+          class="inline-block w-5 h-5 stroke-current"
+          ><path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          ></path></svg
         >
-          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-        </svg>
       </button>
       <button
         disabled={isLoading || !modelAvailable}
@@ -172,22 +181,21 @@
         </svg>
         <span>New Chat</span>
       </button>
-      <button
-        id="toggle-sidebar-btn"
-        tabindex="0"
-        on:click={toggleSidebar}
-        on:keydown={(event) => {
-          if (event.key === "Escape") {
-            toggleSidebar();
-          }
-        }}
-        aria-label="Close Sidebar"
-        class="btn btn-ghost flex-shrink-0"
-        >&#10005;
+      <button class="btn btn-ghost flex-shrink-0" on:click={goToHome}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="w-5 h-5"
+        >
+          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+        </svg>
+        <span class="sr-only">Home</span>
       </button>
+
     </div>
     <ul
-      class="my-1 w-full h-[85%] overflow-y-auto no-scrollbar firefox-no-scrollbar ie-edge-no-scrollbar"
+      class="my-1 w-full flex-grow overflow-y-auto no-scrollbar firefox-no-scrollbar ie-edge-no-scrollbar"
     >
       {#each data.chats as chat (chat.id)}
         <li in:fly={{ x: -100, duration: 900 }}>
@@ -362,7 +370,6 @@
         class="btn btn-ghost w-full flex justify-start items-center p-2.5 text-left text-sm capitalize"
       >
         <label class="swap swap-rotate">
-          <input type="checkbox" />
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
@@ -415,6 +422,7 @@
   </div>
 </aside>
 
-<div class={"h-full" + (isSidebarOpen ? " ml-64 min-w-64" : " min-w-0")}>
-  <slot />
+<div class="h-full w-full"
+   on:click={hideSidebar}>
+    <slot />
 </div>
