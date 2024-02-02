@@ -28,7 +28,6 @@
     isSidebarOpen = false;
   }
 
-
   onMount(() => {
     theme = localStorage.getItem("data-theme") || "dark";
     document.documentElement.setAttribute("data-theme", theme);
@@ -181,6 +180,7 @@
         </svg>
         <span>New Chat</span>
       </button>
+
       <button class="btn btn-ghost flex-shrink-0" on:click={goToHome}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
