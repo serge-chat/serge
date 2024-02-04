@@ -50,10 +50,14 @@ redis_process=$!
 
 # Start the API
 cd /usr/src/app/api || exit 1
-uvicorn src.serge.main:app --host 0.0.0.0 --port 8008 || {
+hypercorn_cmd="hypercorn src.serge.main:app --bind 0.0.0.0:8008"
+[ "$SERGE_ENABLE_IPV6" = true ] && hypercorn_cmd+=" --bind [::]:8008"
+
+$hypercorn_cmd || {
 	echo 'Failed to start main app'
 	exit 1
 } &
+
 serge_process=$!
 
 # Set up a signal trap and wait for processes to finish
