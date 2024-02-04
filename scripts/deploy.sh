@@ -19,14 +19,19 @@ detect_cpu_features() {
 		echo "basic"
 	fi
 }
-
 # Check if the CPU architecture is aarch64/arm64
 if [ "$cpu_arch" = "aarch64" ]; then
 	pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://gaby.github.io/arm64-wheels/"
 else
-	# Use @jllllll provided wheels
+	# Use @smartappli provided wheels
 	cpu_feature=$(detect_cpu_features)
-	pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://jllllll.github.io/llama-cpp-python-cuBLAS-wheels/$cpu_feature/cpu"
+	if [ "$SERGE_GPU_NVIDIA_SUPPORT" = true ]; then
+		pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://smartappli.github.io/llama-cpp-python-cuBLAS-wheels/$cpu_feature/cu122"
+	elif [ "$SERGE_GPU_AMD_SUPPORT" = true ]; then
+		pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://smartappli.github.io/llama-cpp-python-cuBLAS-wheels/$cpu_feature/rocm5.6.1"
+	else
+		pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://smartappli.github.io/llama-cpp-python-cuBLAS-wheels/$cpu_feature/cpu"
+	fi
 fi
 
 echo "Recommended install command for llama-cpp-python: $pip_command"
