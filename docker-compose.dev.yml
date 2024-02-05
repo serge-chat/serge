@@ -3,7 +3,7 @@ services:
     restart: on-failure
     build: 
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: docker/Dockerfile.dev
     volumes:
       - ./web:/usr/src/app/web/:z
       - ./api:/usr/src/app/api/:z
