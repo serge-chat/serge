@@ -76,7 +76,7 @@
       <div class="grid grid-cols-3 gap-4 p-3">
         <div
           class="tooltip tooltip-bottom col-span-2"
-          data-tip="The higher the temperature, the more random the model output."
+          data-tip="Controls how random the generated text is. Higher temperatures lead to more random and creative text, while lower temperatures lead to more predictable and conservative text."
         >
           <label for="temperature" class="label-text"
             >Temperature - [{temp}]</label
@@ -93,7 +93,7 @@
         </div>
         <div
           class="tooltip tooltip-bottom flex flex-col"
-          data-tip="The number of samples to consider for top_k sampling."
+          data-tip="Controls the number of tokens that are considered when generating the next token. Higher values of top_k lead to more predictable text, while lower values of top_k lead to more creative text."
         >
           <label for="top_k" class="label-text pb-1">top_k</label>
           <input
@@ -107,7 +107,7 @@
         </div>
         <div
           class="tooltip tooltip-bottom col-span-2"
-          data-tip="Max text generated token"
+          data-tip="The maximum number of tokens that the model will generate. This parameter can be used to control the length of the generated text."
         >
           <label for="max_length" class="label-text"
             >Maximum generated tokens - [{max_length}]</label
@@ -124,7 +124,7 @@
         </div>
         <div
           class="tooltip flex flex-col"
-          data-tip="The cumulative probability of the tokens to keep for nucleus sampling."
+          data-tip="Controls the diversity of the generated text. Higher values of top_p lead to more diverse text, while lower values of top_p lead to less diverse text."
         >
           <label for="top_p" class="label-text pb-1">top_p</label>
           <input
@@ -139,7 +139,7 @@
         </div>
         <div
           class="tooltip col-span-2"
-          data-tip="Size of the prompt context. Will determine how far the model will read back. Increases memory consumption."
+          data-tip="The number of previous tokens that are considered when generating the next token. A longer context length can help the model to generate more coherent and informative text."
         >
           <label for="context_window" class="label-text"
             >Context Length - [{context_window}]</label
@@ -173,7 +173,7 @@
         </div>
         <div
           class="tooltip flex flex-col"
-          data-tip="Number of tokens to look back on for deciding to apply the repeat penalty."
+          data-tip="Defines the penalty associated with repeating the last 'n' tokens in a generated text sequence."
         >
           <label for="repeat_last_n" class="label-text pb-1"
             >repeat_last_n</label
@@ -211,7 +211,7 @@
         </div>
         <div
           class="tooltip flex flex-col"
-          data-tip="The weight of the penalty to avoid repeating the last repeat_last_n tokens."
+          data-tip="Defines the penalty assigned to the model when it repeats certain tokens or patterns in the generated text."
         >
           <label for="repeat_penalty" class="label-text pb-1">
             repeat_penalty
