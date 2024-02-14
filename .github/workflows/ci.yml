@@ -83,12 +83,12 @@ jobs:
         uses: chartboost/ruff-action@v1
         with:
           src: "./api"
-          args: "--verbose"
-      - name: Run black check
-        uses: psf/black@stable
+          args: "check --verbose"
+      - name: Run ruff format check
+        uses: chartboost/ruff-action@v1
         with:
-          options: "--check --diff --verbose"
           src: "./api"
+          args: "format --check --verbose"
   check-web-code:
     runs-on: ubuntu-latest
     steps:
