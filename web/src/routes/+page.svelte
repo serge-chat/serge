@@ -74,12 +74,7 @@
     </div>
   </div>
   <div class="flex justify-center">
-    <div
-      class="grid grid-cols-3 gap-4 p-3 bg-base-200"
-      id="model_settings"
-      name="model_settings"
-      aria
-    >
+    <div class="grid grid-cols-3 gap-4 p-3 bg-base-200" id="model_settings">
       <div class="col-span-3 text-xl font-medium">Model settings</div>
       <div
         class="tooltip tooltip-bottom col-span-2"
