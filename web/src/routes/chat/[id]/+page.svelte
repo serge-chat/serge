@@ -276,12 +276,12 @@
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
-  class="relative mx-auto h-full max-h-screen w-full overflow-hidden"
+  class="relative h-full max-h-screen overflow-hidden"
   on:keydown={handleKeyDown}
 >
-  <div class="w-full border-b border-base-content/[.2]">
-    <div class="h-8 px-2 md:container md:mx-auto md:px-0">
-      <div class="w-full h-full relative flex items-center justify-center">
+  <div class="mx-20">
+    <div class="h-8 justify-content border-b border-base-content/[.2]">
+      <div class="h-full relative flex items-center justify-center">
         <div
           class="flex flex-row items-center justify-center color-base-300"
           title="Model"
@@ -430,49 +430,46 @@
     <div class="h-max pb-4">
       {#each history as question, i}
         {#if question.type === "human"}
-          <div class="w-full border-y border-base-content/[.2] bg-base-300">
-            <div class="w-11/12 mx-auto sm:w-10/12 chat chat-start py-4">
-              <div class="chat-image self-start pl-1 pt-1">
-                <div
-                  class="mask mask-squircle online flex aspect-square w-8 items-center justify-center overflow-hidden bg-gradient-to-b from-primary to-primary-focus"
-                >
-                  <span class="text-xs text-neutral-content">I</span>
-                </div>
-              </div>
+          <div class="w-10/12 mx-auto sm:w-10/12 chat chat-end py-4">
+            <div class="chat-image self-start pl-1 pt-1">
               <div
-                class="chat-bubble whitespace-normal break-words bg-base-300 text-base font-light text-base-content"
+                class="mask mask-squircle online flex aspect-square w-8 items-center justify-center overflow-hidden bg-gradient-to-b from-primary to-primary-focus"
               >
-                <!-- {question.data.content} -->
-                <div class="w-full overflow-hidden break-words">
-                  {@html renderMarkdown(question.data.content)}
-                </div>
+                <span class="text-xs text-neutral-content">I</span>
               </div>
-              {#if i === history.length - 1 && !isLoading}
-                <div style="width: 100%; text-align: right;">
-                  <button
-                    disabled={isLoading}
-                    class="btn-ghost btn-sm btn"
-                    on:click|preventDefault={() =>
-                      deletePrompt(data.chat.id, i)}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      width="16"
-                      height="16"
-                    >
-                      <path
-                        class="fill-base-content"
-                        d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              {/if}
             </div>
+            <div
+              class="chat-bubble whitespace-normal break-words bg-base-300 text-base font-light text-base-content"
+            >
+              <!-- {question.data.content} -->
+              <div class="w-full overflow-hidden break-words">
+                {@html renderMarkdown(question.data.content)}
+              </div>
+            </div>
+            {#if i === history.length - 1 && !isLoading}
+              <div style="width: 100%; text-align: right;">
+                <button
+                  disabled={isLoading}
+                  class="btn-ghost btn-sm btn"
+                  on:click|preventDefault={() => deletePrompt(data.chat.id, i)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    height="16"
+                  >
+                    <path
+                      class="fill-base-content"
+                      d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            {/if}
           </div>
         {:else if question.type === "ai"}
-          <div class="w-11/12 mx-auto sm:w-10/12 chat chat-start py-4">
+          <div class="w-10/12 mx-auto sm:w-10/12 chat chat-start py-4">
             <div class="chat-image self-start pl-1 pt-1">
               <div
                 class="mask mask-squircle online flex aspect-square w-8 items-center justify-center overflow-hidden bg-gradient-to-b from-primary to-primary-focus"
@@ -513,6 +510,7 @@
                       d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"
                     />
                   </svg>
+                  <span class="sr-only">Delete</span>
                 </button>
               </div>
             {/if}
@@ -552,7 +550,7 @@
         class="btn btn-ghost h-10 w-14 rounded-l-none rounded-r-lg border-0 text-lg"
         class:loading={isLoading}
         on:click|preventDefault={askQuestion}
-      >
+        ><span class="sr-only">Send</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 16 16"

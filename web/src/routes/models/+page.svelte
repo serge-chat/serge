@@ -264,7 +264,7 @@
   }
 </script>
 
-<div class="top-section">
+<div class="ml-12 pt-1">
   <div class="search-row">
     <input
       type="text"
@@ -327,6 +327,7 @@
         <div class="model-details">
           {#if models.length > 1}
             <select
+              class="select-bordered select w-full"
               bind:value={selectedVariant[prefix]}
               on:change={(event) => handleVariantChange(prefix, event)}
             >
