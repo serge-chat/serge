@@ -372,7 +372,7 @@
         on:click={toggleTheme}
         class="btn btn-ghost w-full flex justify-start items-center p-2.5 text-left text-sm capitalize"
       >
-        <label class="swap swap-rotate">
+        <label class="swap swap-rotate" for="theme-toggle">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
@@ -425,6 +425,6 @@
   </div>
 </aside>
 
-<div class="h-full w-full" on:click={hideSidebar}>
+<button class="h-full w-full" on:click={hideSidebar} type="button">
   <slot />
-</div>
+</button>
