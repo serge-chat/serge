@@ -120,7 +120,10 @@
   });
 </script>
 
-<button on:click={toggleSidebar} class="border-base-content/[.2] btn btn-square z-10 my-1 mx-2 fixed border">
+<button
+  on:click={toggleSidebar}
+  class="border-base-content/[.2] btn btn-square z-10 my-1 mx-2 fixed border"
+>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -143,10 +146,11 @@
   <div
     class="bg-base-200 relative h-screen py-1 px-2 overflow-hidden flex flex-col items-center justify-between"
   >
-    <div
-      class="w-full flex items-center pb-1"
-    >
-      <button on:click={toggleSidebar} class="border-base-content/[.2] btn btn-square border">
+    <div class="w-full flex items-center pb-1">
+      <button
+        on:click={toggleSidebar}
+        class="border-base-content/[.2] btn btn-square border"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -192,7 +196,6 @@
         </svg>
         <span class="sr-only">Home</span>
       </button>
-
     </div>
     <ul
       class="my-1 w-full flex-grow overflow-y-auto no-scrollbar firefox-no-scrollbar ie-edge-no-scrollbar"
@@ -422,7 +425,6 @@
   </div>
 </aside>
 
-<div class="h-full w-full"
-   on:click={hideSidebar}>
-    <slot />
+<div class="h-full w-full" on:click={hideSidebar}>
+  <slot />
 </div>

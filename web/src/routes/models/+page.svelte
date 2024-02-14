@@ -326,7 +326,8 @@
         <h2 class="card-title">{truncateString(prefix, 24)}</h2>
         <div class="model-details">
           {#if models.length > 1}
-            <select class="select-bordered select w-full"
+            <select
+              class="select-bordered select w-full"
               bind:value={selectedVariant[prefix]}
               on:change={(event) => handleVariantChange(prefix, event)}
             >
