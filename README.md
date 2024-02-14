@@ -83,7 +83,7 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **WizardLM** | 7B-v1.0, 13B-v1.2, 70B-v1.0 |
 | **Zephyr** | 3B, 7B-Alpha, 7B-Beta |
 
-Additional models can be requested by opening a GitHub issue.
+Additional models can be requested by opening a GitHub issue. Other models are also available at [Serge Models](https://github.com/Smartappli/serge-models).
 
 ## ⚠️ Memory Usage
 
