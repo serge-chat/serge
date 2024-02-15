@@ -32,7 +32,7 @@ urllib3 = "^2.2.0"
 fastapi = "^0.95.1"
 huggingface-hub = "^0.20.3"
 requests = "^2.31.0"
-langchain = "^0.0.180"
+langchain = "^0.0.329"
 loguru = "^0.7.2"
 redis = {extras = ["hiredis"], version = "^5.0.1"}
 pytest = "^8.0.0"
