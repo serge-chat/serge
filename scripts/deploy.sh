@@ -26,11 +26,11 @@ else
 	# Use @smartappli provided wheels
 	cpu_feature=$(detect_cpu_features)
 	if [ "$SERGE_GPU_NVIDIA_SUPPORT" = true ]; then
-		pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://smartappli.github.io/llama-cpp-python-cuBLAS-wheels/$cpu_feature/cu122"
+		pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://smartappli.github.io/serge-wheels/$cpu_feature/cu122"
 	elif [ "$SERGE_GPU_AMD_SUPPORT" = true ]; then
-		pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://smartappli.github.io/llama-cpp-python-cuBLAS-wheels/$cpu_feature/rocm5.6.1"
+		pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://smartappli.github.io/serge-wheels/$cpu_feature/rocm5.6.1"
 	else
-		pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://smartappli.github.io/llama-cpp-python-cuBLAS-wheels/$cpu_feature/cpu"
+		pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://smartappli.github.io/serge-wheels/$cpu_feature/cpu"
 	fi
 fi
 
