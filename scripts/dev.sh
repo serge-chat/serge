@@ -58,7 +58,7 @@ npm run dev -- --host 0.0.0.0 --port 8008 &
 
 # Start the API
 cd /usr/src/app/api || exit 1
-hypercorn_cmd="hypercorn src.serge.main:app --bind 0.0.0.0:8008"
+hypercorn_cmd="hypercorn src.serge.main:app --bind 0.0.0.0:9124"
 if [ "$SERGE_ENABLE_IPV6" = true ] && [ "$SERGE_ENABLE_IPV4" != true ]; then
     	hypercorn_cmd="hypercorn src.serge.main:app --bind [::]:9124"
 elif [ "$SERGE_ENABLE_IPV4" = true ] && [ "$SERGE_ENABLE_IPV6" = true ]; then
