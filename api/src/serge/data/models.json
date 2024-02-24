@@ -195,6 +195,33 @@
             }
         ]
     },
+    {   
+        "name": "Gemma",
+        "models": [
+            {
+                "name": "Gemma-2B",
+                "repo": "MaziyarPanahi/gemma-2b-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "gemma-2b.Q4_K_M.gguf",
+                        "disk_space": 1495245728.0
+                    }
+                ]
+            },            
+            {
+                "name": "Gemma-7B",
+                "repo": "MaziyarPanahi/gemma-7b-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "gemma-7b.Q4_K_M.gguf",
+                        "disk_space": 5127231648.0
+                    }
+                ]
+            }       
+        ]
+    },
     {
         "name": "LLaMA_2",
         "models": [
