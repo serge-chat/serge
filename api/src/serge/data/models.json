@@ -314,6 +314,33 @@
                 ]
             }
         ]
+    },
+    {   
+        "name": "LLaMA-Pro",
+        "models": [
+            {
+                "name": "Llama-Pro-8B",
+                "repo": "TheBloke/LLaMA-Pro-8B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "llama-pro-8b.Q4_K_M.gguf",
+                        "disk_space": 5055758336.0
+                    }
+                ]
+            },            
+            {
+                "name": "Llama-Pro-8B-Instruct",
+                "repo": "TheBloke/LLaMA-Pro-8B-Instruct-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "llama-pro-8b-instruct.Q4_K_M.gguf",
+                        "disk_space": 5055758688.0
+                    }
+                ]
+            }
+        ]
     },    
     {   
         "name": "Med42",
