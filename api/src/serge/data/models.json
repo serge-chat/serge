@@ -195,6 +195,33 @@
             }
         ]
     },
+    {   
+        "name": "Gemma",
+        "models": [
+            {
+                "name": "Gemma-2B",
+                "repo": "MaziyarPanahi/gemma-2b-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "gemma-2b.Q4_K_M.gguf",
+                        "disk_space": 1495245728.0
+                    }
+                ]
+            },            
+            {
+                "name": "Gemma-7B",
+                "repo": "MaziyarPanahi/gemma-7b-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "gemma-7b.Q4_K_M.gguf",
+                        "disk_space": 5127231648.0
+                    }
+                ]
+            }       
+        ]
+    },
     {
         "name": "LLaMA_2",
         "models": [
@@ -287,6 +314,33 @@
                 ]
             }
         ]
+    },
+    {   
+        "name": "LLaMA-Pro",
+        "models": [
+            {
+                "name": "Llama-Pro-8B",
+                "repo": "TheBloke/LLaMA-Pro-8B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "llama-pro-8b.Q4_K_M.gguf",
+                        "disk_space": 5055758336.0
+                    }
+                ]
+            },            
+            {
+                "name": "Llama-Pro-8B-Instruct",
+                "repo": "TheBloke/LLaMA-Pro-8B-Instruct-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "llama-pro-8b-instruct.Q4_K_M.gguf",
+                        "disk_space": 5055758688.0
+                    }
+                ]
+            }
+        ]
     },    
     {   
         "name": "Med42",
@@ -321,10 +375,32 @@
         ]
     },
     {   
-        "name": "medicine-LLM",
+        "name": "Medicine",
         "models": [
             {
-                "name": "Medicine LLM 13B",
+                "name": "Medicine-Chat",
+                "repo": "TheBloke/medicine-chat-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "medicine-chat.Q4_K_M.gguf",
+                        "disk_space": 4081010048.0
+                    }
+                ]
+            },
+            {
+                "name": "Medicine-LLM",
+                "repo": "TheBloke/medicine-LLM-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "medicine-llm.Q4_K_M.gguf",
+                        "disk_space": 4081009920.0
+                    }
+                ]
+            },             
+            {
+                "name": "Medicine-LLM-13B",
                 "repo": "TheBloke/medicine-LLM-13B-GGUF",
                 "files": [
                     {
@@ -335,7 +411,7 @@
                 ]
             }           
         ]
-    },    
+    },   
     {
         "name": "Meditron",
         "models": [
@@ -695,6 +771,22 @@
                     }
                 ]
             }
+        ]
+    },
+    {   
+        "name": "Tinyllama",
+        "models": [
+            {
+                "name": "Tinyllama-1.1B-Chat-v1.0",
+                "repo": "TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf",
+                        "disk_space": 668788096.0
+                    }
+                ]
+            }           
         ]
     },    
     {
