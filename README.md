@@ -61,7 +61,7 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **BioMistral | 7B |
 | **Code** | 13B, 33B |
 | **CodeLLaMA** | 7B, 7B-Instruct, 7B-Python, 13B, 13B-Instruct, 13B-Python, 34B, 34B-Instruct, 34B-Python |
-| **Gemma** | 2B, 7B |
+| **Gemma** | 2B, 2B-Instruct, 7B, 7B-Instruct |
 | **Falcon** | 7B, 7B-Instruct, 40B, 40B-Instruct |
 | **LLaMA 2**  | 7B, 7B-Chat, 7B-Coder, 13B, 13B-Chat, 70B, 70B-Chat, 70B-OASST |
 | **LLaMA Pro** | 8B, 8B-Instruct |
