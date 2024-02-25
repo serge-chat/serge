@@ -15,6 +15,22 @@
             }           
         ]
     },
+    {   
+        "name": "BioMistral",
+        "models": [
+            {
+                "name": "BioMistral-7B",
+                "repo": "BioMistral/BioMistral-7B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "ggml-model-Q4_K_M.gguf",
+                        "disk_space": 4368439424.0
+                    }
+                ]
+            }           
+        ]
+    },    
     {
         "name": "Code",
         "models": [
@@ -200,7 +216,7 @@
         "models": [
             {
                 "name": "Gemma-2B",
-                "repo": "MaziyarPanahi/gemma-2b-GGUF",
+                "repo": "brittlewis12/gemma-2b-GGUF",
                 "files": [
                     {
                         "name": "q4_K_M",
@@ -208,10 +224,21 @@
                         "disk_space": 1495245728.0
                     }
                 ]
-            },            
+            },
+            {
+                "name": "Gemma-2B-Instruct",
+                "repo": "brittlewis12/gemma-2b-it-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "gemma-2b-it.Q4_K_M.gguf",
+                        "disk_space": 1630263008.0
+                    }
+                ]
+            },
             {
                 "name": "Gemma-7B",
-                "repo": "MaziyarPanahi/gemma-7b-GGUF",
+                "repo": "brittlewis12/gemma-7b-GGUF",
                 "files": [
                     {
                         "name": "q4_K_M",
@@ -219,7 +246,18 @@
                         "disk_space": 5127231648.0
                     }
                 ]
-            }       
+            },
+            {
+                "name": "Gemma-7B-Instruct",
+                "repo": "brittlewis12/gemma-7b-it-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "gemma-7b-it.Q4_K_M.gguf",
+                        "disk_space": 5329759200.0
+                    }
+                ]
+            }             
         ]
     },
     {
@@ -590,6 +628,44 @@
             }
         ]
     },
+    {   
+        "name": "Nous-Hermes-2",
+        "models": [
+            {
+                "name": "Nous-Hermes-2-Mistral-7B-DPO",
+                "repo": "NousResearch/Nous-Hermes-2-Mistral-7B-DPO-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Nous-Hermes-2-Mistral-7B-DPO.Q4_K_M.gguf",
+                        "disk_space": 4368450560.0
+                    }
+                ]
+            },
+            {
+                "name": "Nous-Hermes-2-Mistral-7B-DPO",
+                "repo": "TheBloke/Nous-Hermes-2-Mixtral-8x7B-DPO-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "nous-hermes-2-mixtral-8x7b-dpo.Q4_K_M.gguf",
+                        "disk_space": 28446421792.0
+                    }
+                ]
+            },
+            {
+                "name": "Nous-Hermes-2-Mistral-7B-SFT",
+                "repo": "NousResearch/Nous-Hermes-2-Mixtral-8x7B-SFT-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Nous-Hermes-2-Mixtral-8x7B-SFT.Q4_K_M.gguf",
+                        "disk_space": 28446421760.0
+                    }
+                ]
+            }            
+        ]
+    },    
     {   
         "name": "OpenChat",
         "models": [

@@ -58,9 +58,10 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | Category      | Models |
 |:-------------:|:-------|
 | **Alfred** | 40B-1023 |
+| **BioMistral | 7B |
 | **Code** | 13B, 33B |
 | **CodeLLaMA** | 7B, 7B-Instruct, 7B-Python, 13B, 13B-Instruct, 13B-Python, 34B, 34B-Instruct, 34B-Python |
-| **Gemma** | 2B, 7B |
+| **Gemma** | 2B, 2B-Instruct, 7B, 7B-Instruct |
 | **Falcon** | 7B, 7B-Instruct, 40B, 40B-Instruct |
 | **LLaMA 2**  | 7B, 7B-Chat, 7B-Coder, 13B, 13B-Chat, 70B, 70B-Chat, 70B-OASST |
 | **LLaMA Pro** | 8B, 8B-Instruct |
@@ -74,6 +75,7 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **Neural-Chat** | 7B-v3.3 | 
 | **Notus** | 7B-v1 |
 | **Notux** | 8x7b-v1 |
+| **Nous-Hermes 2** | Mistral-7B-DPO, Mixtral-8x7B-DPO, Mistral-8x7B-SFT |
 | **OpenChat** | 7B-v3.5-1210 |
 | **OpenLLaMA** | 3B-v2, 7B-v2, 13B-v2 |
 | **Orca 2** | 7B, 13B |
