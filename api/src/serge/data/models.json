@@ -216,7 +216,7 @@
         "models": [
             {
                 "name": "Gemma-2B",
-                "repo": "MaziyarPanahi/gemma-2b-GGUF",
+                "repo": "brittlewis12/gemma-2b-GGUF",
                 "files": [
                     {
                         "name": "q4_K_M",
@@ -224,10 +224,21 @@
                         "disk_space": 1495245728.0
                     }
                 ]
-            },            
+            },
+            {
+                "name": "Gemma-2B-Instruct",
+                "repo": "brittlewis12/gemma-2b-it-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "gemma-2b-it.Q4_K_M.gguf",
+                        "disk_space": 1630263008.0
+                    }
+                ]
+            },
             {
                 "name": "Gemma-7B",
-                "repo": "MaziyarPanahi/gemma-7b-GGUF",
+                "repo": "brittlewis12/gemma-7b-GGUF",
                 "files": [
                     {
                         "name": "q4_K_M",
@@ -235,7 +246,18 @@
                         "disk_space": 5127231648.0
                     }
                 ]
-            }       
+            },
+            {
+                "name": "Gemma-7B-Instruct",
+                "repo": "brittlewis12/gemma-7b-it-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "gemma-7b-it.Q4_K_M.gguf",
+                        "disk_space": 5329759200.0
+                    }
+                ]
+            }             
         ]
     },
     {
