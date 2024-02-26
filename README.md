@@ -48,7 +48,9 @@ Then, just visit http://localhost:8008, You can find the API documentation at ht
 ## 🖥️ Windows
 
 Ensure you have Docker Desktop installed, WSL2 configured, and enough free RAM to run models. 
+To configure Serge to recognize .gguf model files, modify the `values.yaml` file for Helm deployments or set the appropriate environment variables. For Docker deployments, ensure your `docker run` or `docker-compose.yml` includes volume mappings for directories containing .gguf model files.
 
+```
 ## ☁️ Kubernetes
 
 Instructions for setting up Serge on Kubernetes can be found in the [wiki](https://github.com/serge-chat/serge/wiki/Integrating-Serge-in-your-orchestration#kubernetes-example).
@@ -59,6 +61,10 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 |:-------------:|:-------|
 | **Alfred** | 40B-1023 |
 | **BioMistral | 7B |
+The `model_loader.py` script plays a crucial role in enabling Serge to support multiple model file extensions, including .gguf. It validates and loads model files based on the configured extensions, ensuring compatibility and flexibility in model usage.
+
+```
+| **Kunoichi** | 7B-GGUF |
 | **Code** | 13B, 33B |
 | **CodeLLaMA** | 7B, 7B-Instruct, 7B-Python, 13B, 13B-Instruct, 13B-Python, 34B, 34B-Instruct, 34B-Python |
 | **Gemma** | 2B, 2B-Instruct, 7B, 7B-Instruct |
@@ -93,7 +99,6 @@ Additional models can be requested by opening a GitHub issue. Other models are a
 ## ⚠️ Memory Usage
 
 LLaMA will crash if you don't have enough available memory for the model:
-
 ## 💬 Support
 
 Need help? Join our [Discord](https://discord.gg/62Hc6FEYQH)
