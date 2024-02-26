@@ -12,3 +12,5 @@ services:
 volumes:
   weights:
   datadb:
+# Ensure volume mappings include directories for .gguf model files.
+volumes:
