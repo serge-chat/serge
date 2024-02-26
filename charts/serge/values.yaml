@@ -8,6 +8,8 @@ image:
   repository: ghcr.io/serge-chat/serge
   image:
   pullPolicy: IfNotPresent
+  # Model file extensions to be recognized by the application.
+  modelFileExtensions: ['.bin', '.gguf']
   # Overrides the image tag whose default is the chart appVersion.
   tag: "main"
 
