@@ -681,7 +681,67 @@
                 ]
             }
         ]
-    },           
+    }, 
+    {   
+        "name": "OpenCodeInterpreter",
+        "models": [
+            {
+                "name": "OpenCodeInterpreter-DS-6.7B",
+                "repo": "LoneStriker/OpenCodeInterpreter-DS-6.7B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "OpenCodeInterpreter-DS-6.7B-Q4_K_M.gguf",
+                        "disk_space": 4083016864.0
+                    }
+                ]
+            },
+            {
+                "name": "OpenCodeInterpreter-DS-33B",
+                "repo": "LoneStriker/OpenCodeInterpreter-DS-33B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "OpenCodeInterpreter-DS-33B-Q4_K_M.gguf",
+                        "disk_space": 19940659200.0
+                    }
+                ]
+            },
+            {
+                "name": "OpenCodeInterpreter-CL-7B",
+                "repo": "LoneStriker/OpenCodeInterpreter-CL-7B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "OpenCodeInterpreter-CL-7B-Q4_K_M.gguf",
+                        "disk_space": 4081095360.0
+                    }
+                ]
+            },
+            {
+                "name": "OpenCodeInterpreter-CL-13B",
+                "repo": "LoneStriker/OpenCodeInterpreter-CL-13B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "OpenCodeInterpreter-CL-13B-Q4_K_M.gguf",
+                        "disk_space": 7866070048.0
+                    }
+                ]
+            },
+            {
+                "name": "OpenCodeInterpreter-CL-70B",
+                "repo": "LoneStriker/OpenCodeInterpreter-CL-70B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "OpenCodeInterpreter-CL-70B-Q4_K_M.gguf",
+                        "disk_space": 41423092096.0
+                    }
+                ]
+            }            
+        ]
+    }, 
     {
         "name": "OpenLLaMA",
         "models": [
