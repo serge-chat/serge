@@ -77,6 +77,7 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **Notux** | 8x7b-v1 |
 | **Nous-Hermes 2** | Mistral-7B-DPO, Mixtral-8x7B-DPO, Mistral-8x7B-SFT |
 | **OpenChat** | 7B-v3.5-1210 |
+| **OpenCodeInterpreter** | DS-6.7, DS-33B, CL-7B, CL-13B, CL-70B |
 | **OpenLLaMA** | 3B-v2, 7B-v2, 13B-v2 |
 | **Orca 2** | 7B, 13B |
 | **Phi 2** | 2.7B |
