@@ -9,7 +9,7 @@ tests
 _releaser
 _site
 CONTRIBUTING.md
-Dockerfile
+docker/
 docker-compose.yml
 docker-compose.dev.yml
 .vscode/

@@ -1,4 +1,4 @@
-name: Docker
+name: Docker (CUDA Suport)
 
 on:
   push:
@@ -16,7 +16,7 @@ on:
     branches:
       - "*"
     paths:
-      - "docker/Dockerfile"
+      - "docker/Dockerfile.gpu"
       - "scripts/deploy.sh"
       - "scripts/dev.sh"
   workflow_dispatch:
@@ -35,6 +35,8 @@ jobs:
         with:
           images: |
             ghcr.io/serge-chat/serge
+          flavor: |
+            suffix=-cuda,onlatest=true
           tags: |
             type=ref,event=branch
             type=ref,event=pr
@@ -60,11 +62,11 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: docker/Dockerfile
+          file: docker/Dockerfile.gpu
           push: ${{ github.event_name != 'pull_request' }}
           target: release
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
