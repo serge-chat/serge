@@ -260,6 +260,100 @@
             }             
         ]
     },
+    {   
+        "name": "Gorilla-LLM",
+        "models": [
+            {
+                "name": "Gorilla-7B",
+                "repo": "gorilla-llm/gorilla-falcon-7b-hf-v0-gguf",
+                "files": [
+                    {
+                        "name": "q2_K",
+                        "filename": "gorilla-falcon-7b-hf-v0-q2_K.gguf",
+                        "disk_space": 2530000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Gorilla-7B",
+                "repo": "gorilla-llm/gorilla-falcon-7b-hf-v0-gguf",
+                "files": [
+                    {
+                        "name": "q3_K_L",
+                        "filename": "gorilla-7b-hf-v1-q3_K_L.gguf",
+                        "disk_space": 3600000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Gorilla-7B",
+                "repo": "gorilla-llm/gorilla-falcon-7b-hf-v0-gguf",
+                "files": [
+                    {
+                        "name": "q3_K_S",
+                        "filename": "gorilla-7b-hf-v1-q3_K_S.gguf",
+                        "disk_space": 2950000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Gorilla-7B",
+                "repo": "gorilla-llm/gorilla-falcon-7b-hf-v0-gguf",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "gorilla-7b-hf-v1-q4_K_M.gguf",
+                        "disk_space": 4780000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Gorilla-7B",
+                "repo": "gorilla-llm/gorilla-falcon-7b-hf-v0-gguf",
+                "files": [
+                    {
+                        "name": "q4_K_S",
+                        "filename": "gorilla-7b-hf-v1-q4_K_S.gguf",
+                        "disk_space": 3860000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Gorilla-7B",
+                "repo": "gorilla-llm/gorilla-falcon-7b-hf-v0-gguf",
+                "files": [
+                    {
+                        "name": "q5_K_M",
+                        "filename": "gorilla-7b-hf-v1-q5_K_M.gguf",
+                        "disk_space": 4780000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Gorilla-7B",
+                "repo": "gorilla-llm/gorilla-falcon-7b-hf-v0-gguf",
+                "files": [
+                    {
+                        "name": "q5_K_S",
+                        "filename": "gorilla-7b-hf-v1-q5_K_S.gguf",
+                        "disk_space": 4650000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Gorilla-7B",
+                "repo": "gorilla-llm/gorilla-falcon-7b-hf-v0-gguf",
+                "files": [
+                    {
+                        "name": "q6_K",
+                        "filename": "gorilla-7b-hf-v1-q6_K.gguf",
+                        "disk_space": 5530000000.0
+                    }
+                ]
+            }
+        ]
+    },
+    
     {
         "name": "LLaMA_2",
         "models": [
