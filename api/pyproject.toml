@@ -23,7 +23,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.dependencies]
 python=">=3.10,<4.0"
 asyncio = "^3.4.3"
-packaging = "^23.2"
+packaging = "^24.0"
 pydantic = "^1.10.14"
 sse-starlette = "^1.8.2"
 starlette = "^0.26.1"
