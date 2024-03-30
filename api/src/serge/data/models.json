@@ -260,6 +260,55 @@
             }             
         ]
     },
+    {   
+        "name": "Gorilla",
+        "models": [
+            {
+                "name": "Gorilla-7B Falcon",
+                "repo": "gorilla-llm/gorilla-falcon-7b-hf-v0-gguf",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "gorilla-falcon-7b-hf-v0-q4_K_M.gguf",
+                        "disk_space": 4980000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Gorilla-7B",
+                "repo": "gorilla-llm/gorilla-7b-hf-v1-gguf",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "gorilla-7b-hf-v1-q4_K_M.gguf",
+                        "disk_space": 4080000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Gorilla OpenFunctions V1",
+                "repo": "gorilla-llm/gorilla-openfunctions-v1-gguf",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "gorilla-openfunctions-v1-q4_K_M.gguf",
+                        "disk_space": 4080000000.0
+                    }
+                ]
+            },
+            {
+                "name": "Gorilla OpenFunctions V2",
+                "repo": "gorilla-llm/gorilla-openfunctions-v2-gguf",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "gorilla-openfunctions-v2-q4_K_M.gguf",
+                        "disk_space": 4220000000.0
+                    }
+                ]
+            }
+        ]
+    },
     {
         "name": "LLaMA_2",
         "models": [
@@ -681,7 +730,67 @@
                 ]
             }
         ]
-    },           
+    }, 
+    {   
+        "name": "OpenCodeInterpreter",
+        "models": [
+            {
+                "name": "OpenCodeInterpreter-DS-6.7B",
+                "repo": "LoneStriker/OpenCodeInterpreter-DS-6.7B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "OpenCodeInterpreter-DS-6.7B-Q4_K_M.gguf",
+                        "disk_space": 4083016864.0
+                    }
+                ]
+            },
+            {
+                "name": "OpenCodeInterpreter-DS-33B",
+                "repo": "LoneStriker/OpenCodeInterpreter-DS-33B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "OpenCodeInterpreter-DS-33B-Q4_K_M.gguf",
+                        "disk_space": 19940659200.0
+                    }
+                ]
+            },
+            {
+                "name": "OpenCodeInterpreter-CL-7B",
+                "repo": "LoneStriker/OpenCodeInterpreter-CL-7B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "OpenCodeInterpreter-CL-7B-Q4_K_M.gguf",
+                        "disk_space": 4081095360.0
+                    }
+                ]
+            },
+            {
+                "name": "OpenCodeInterpreter-CL-13B",
+                "repo": "LoneStriker/OpenCodeInterpreter-CL-13B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "OpenCodeInterpreter-CL-13B-Q4_K_M.gguf",
+                        "disk_space": 7866070048.0
+                    }
+                ]
+            },
+            {
+                "name": "OpenCodeInterpreter-CL-70B",
+                "repo": "LoneStriker/OpenCodeInterpreter-CL-70B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "OpenCodeInterpreter-CL-70B-Q4_K_M.gguf",
+                        "disk_space": 41423092096.0
+                    }
+                ]
+            }            
+        ]
+    }, 
     {
         "name": "OpenLLaMA",
         "models": [
