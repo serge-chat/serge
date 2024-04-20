@@ -403,6 +403,44 @@
         ]
     },
     {   
+        "name": "LLaMA_3",
+        "models": [
+            {
+                "name": "Llama-3-11B-Instruct-v0.1",
+                "repo": "MaziyarPanahi/Llama-3-11B-Instruct-v0.1-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Llama-3-11B-Instruct-v0.1.Q4_K_M.gguf",
+                        "disk_space": 5055758688.0
+                    }
+                ]
+            },            
+            {
+                "name": "Llama-3-13B-Instruct-v0.1",
+                "repo": "MaziyarPanahi/Llama-3-13B-Instruct-v0.1-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Llama-3-13B-Instruct-v0.1.Q4_K_M.gguf",
+                        "disk_space": 5055758336.0
+                    }
+                ]
+            },
+            {
+                "name": "Llama-3-16B-Instruct-v0.1",
+                "repo": "MaziyarPanahi/Llama-3-16B-Instruct-v0.1-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Llama-3-16B-Instruct-v0.1.Q4_K_M.gguf",
+                        "disk_space": 5055758336.0
+                    }
+                ]
+            }            
+        ]
+    },      
+    {   
         "name": "LLaMA-Pro",
         "models": [
             {
