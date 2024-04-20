@@ -58,17 +58,20 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | Category      | Models |
 |:-------------:|:-------|
 | **Alfred** | 40B-1023 |
-| **BioMistral | 7B |
+| **BioMistral** | 7B |
 | **Code** | 13B, 33B |
 | **CodeLLaMA** | 7B, 7B-Instruct, 7B-Python, 13B, 13B-Instruct, 13B-Python, 34B, 34B-Instruct, 34B-Python |
 | **Gemma** | 2B, 2B-Instruct, 7B, 7B-Instruct |
+| **Gorilla** | Falcon-7B-HF-v0, 7B-HF-v1, Openfunctions-v1, Openfunctions-v2 |
 | **Falcon** | 7B, 7B-Instruct, 40B, 40B-Instruct |
-| **LLaMA 2**  | 7B, 7B-Chat, 7B-Coder, 13B, 13B-Chat, 70B, 70B-Chat, 70B-OASST |
+| **LLaMA 2** | 7B, 7B-Chat, 7B-Coder, 13B, 13B-Chat, 70B, 70B-Chat, 70B-OASST |
+| **LLaMA 3** | 11B-Instruct, 13B-Instruct, 16B-Instruct |
 | **LLaMA Pro** | 8B, 8B-Instruct |
 | **Med42** | 70B |
 | **Medalpaca** | 13B |
 | **Medicine** | Chat, LLM |
 | **Meditron** | 7B, 7B-Chat, 70B |
+| **Meta-Llama-3** | 8B-Instruct, 70B-Instruct |
 | **Mistral** | 7B-V0.1, 7B-Instruct-v0.2, 7B-OpenOrca |
 | **MistralLite** | 7B |
 | **Mixtral** | 8x7B-v0.1, 8x7B-Dolphin-2.7, 8x7B-Instruct-v0.1 |
