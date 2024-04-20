@@ -71,7 +71,7 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **Medalpaca** | 13B |
 | **Medicine** | Chat, LLM |
 | **Meditron** | 7B, 7B-Chat, 70B |
-| **Meta-Llama-3** | 8B-Instruct, 70B-Instruct |
+| **Meta-LlaMA-3** | 8B-Instruct, 70B-Instruct |
 | **Mistral** | 7B-V0.1, 7B-Instruct-v0.2, 7B-OpenOrca |
 | **MistralLite** | 7B |
 | **Mixtral** | 8x7B-v0.1, 8x7B-Dolphin-2.7, 8x7B-Instruct-v0.1 |
