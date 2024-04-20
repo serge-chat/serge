@@ -599,7 +599,18 @@
                         "disk_space": 4921246944.0
                     }
                 ]
-            },            
+            },
+            {
+                "name": "Meta-Llama-3-70B",
+                "repo": "NousResearch/Meta-Llama-3-70B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Meta-Llama-3-70B-Q4_K_M.gguf",
+                        "disk_space": 42520906176.0
+                    }
+                ]
+            },
             {
                 "name": "Meta-Llama-3-70B-Instruct",
                 "repo": "QuantFactory/Meta-Llama-3-70B-Instruct-GGUF",
