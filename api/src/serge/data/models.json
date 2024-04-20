@@ -270,7 +270,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "gorilla-falcon-7b-hf-v0-q4_K_M.gguf",
-                        "disk_space": 4980000000.0
+                        "disk_space": 4975125696.0
                     }
                 ]
             },
@@ -281,7 +281,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "gorilla-7b-hf-v1-q4_K_M.gguf",
-                        "disk_space": 4080000000.0
+                        "disk_space": 4081004288.0
                     }
                 ]
             },
@@ -292,7 +292,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "gorilla-openfunctions-v1-q4_K_M.gguf",
-                        "disk_space": 4080000000.0
+                        "disk_space": 4081004288.0
                     }
                 ]
             },
@@ -303,7 +303,7 @@
                     {
                         "name": "q4_K_M",
                         "filename": "gorilla-openfunctions-v2-q4_K_M.gguf",
-                        "disk_space": 4220000000.0
+                        "disk_space": 4223770912.0
                     }
                 ]
             }
@@ -402,6 +402,44 @@
             }
         ]
     },
+    {   
+        "name": "LLaMA_3",
+        "models": [
+            {
+                "name": "Llama-3-11B-Instruct-v0.1",
+                "repo": "MaziyarPanahi/Llama-3-11B-Instruct-v0.1-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Llama-3-11B-Instruct-v0.1.Q4_K_M.gguf",
+                        "disk_space": 8200021632.0
+                    }
+                ]
+            },            
+            {
+                "name": "Llama-3-13B-Instruct-v0.1",
+                "repo": "MaziyarPanahi/Llama-3-13B-Instruct-v0.1-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Llama-3-13B-Instruct-v0.1.Q4_K_M.gguf",
+                        "disk_space": 8061089600.0
+                    }
+                ]
+            },
+            {
+                "name": "Llama-3-16B-Instruct-v0.1",
+                "repo": "MaziyarPanahi/Llama-3-16B-Instruct-v0.1-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Llama-3-16B-Instruct-v0.1.Q4_K_M.gguf",
+                        "disk_space": 10154318048.0
+                    }
+                ]
+            }            
+        ]
+    },      
     {   
         "name": "LLaMA-Pro",
         "models": [
@@ -536,7 +574,34 @@
                 ]
             }
         ]
-    }, 
+    },
+    {   
+        "name": "Meta-Llama-3",
+        "models": [
+            {
+                "name": "Meta-Llama-3-8B-Instruct",
+                "repo": "MaziyarPanahi/Meta-Llama-3-8B-Instruct-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Meta-Llama-3-8B-Instruct.Q4_K_M.gguf",
+                        "disk_space": 4921246944.0
+                    }
+                ]
+            },            
+            {
+                "name": "Meta-Llama-3-70B-Instruct",
+                "repo": "MaziyarPanahi/Meta-Llama-3-70B-Instruct-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Meta-Llama-3-70B-Instruct.Q4_K_M.gguf",
+                        "disk_space": 42520906176.0
+                    }
+                ]
+            }
+        ]
+    },     
     {
         "name": "Mistral",
         "models": [
