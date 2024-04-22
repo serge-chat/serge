@@ -42,7 +42,7 @@
     "@iconify/svelte": "^3.1.6",
     "@sveltestack/svelte-query": "^1.6.0",
     "clipboard": "^2.0.11",
-    "daisyui": "^4.10.1",
+    "daisyui": "^4.10.2",
     "highlight.js": "^11.9.0",
     "markdown-it": "^14.1.0",
     "markdown-it-highlightjs": "^4.0.1",
