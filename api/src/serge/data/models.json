@@ -226,13 +226,13 @@
                 ]
             },
             {
-                "name": "Gemma-2B-Instruct",
-                "repo": "brittlewis12/gemma-2b-it-GGUF",
+                "name": "Gemma-1_1-2B-Instruct",
+                "repo": "brittlewis12/gemma-1.1-2b-it-GGUF",
                 "files": [
                     {
                         "name": "q4_K_M",
-                        "filename": "gemma-2b-it.Q4_K_M.gguf",
-                        "disk_space": 1630263008.0
+                        "filename": "gemma-1.1-2b-it.Q4_K_M.gguf",
+                        "disk_space": 1630263200.0
                     }
                 ]
             },
@@ -248,12 +248,12 @@
                 ]
             },
             {
-                "name": "Gemma-7B-Instruct",
-                "repo": "brittlewis12/gemma-7b-it-GGUF",
+                "name": "Gemma-1_1-7B-Instruct",
+                "repo": "brittlewis12/gemma-1.1-7b-it-GGUF",
                 "files": [
                     {
                         "name": "q4_K_M",
-                        "filename": "gemma-7b-it.Q4_K_M.gguf",
+                        "filename": "gemma-1.1-7b-it.Q4_K_M.gguf",
                         "disk_space": 5329759200.0
                     }
                 ]
