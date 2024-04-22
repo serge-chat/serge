@@ -1114,13 +1114,13 @@
         "name": "WizardLM",
         "models": [
             {
-                "name": "WizardLM-7B-v1_0",
-                "repo": "TheBloke/wizardLM-7B-GGUF",
+                "name": "WizardLM-2-7B",
+                "repo": "MaziyarPanahi/WizardLM-2-7B-GGUF",
                 "files": [
                     {
                         "name": "q4_K_M",
-                        "filename": "wizardLM-7B.Q4_K_M.gguf",
-                        "disk_space": 4081009920.0
+                        "filename": "WizardLM-2-7B.Q4_K_M.gguf",
+                        "disk_space": 4368439008.0
                     }
                 ]
             },          
