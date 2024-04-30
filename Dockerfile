@@ -4,7 +4,7 @@ FROM redis:7-bookworm as redis
 
 # ---------------------------------------
 # Build frontend
-FROM node:20-bookworm-slim as frontend
+FROM node:22-bookworm-slim as frontend
 
 WORKDIR /usr/src/app
 COPY ./web/package.json ./web/package-lock.json ./
