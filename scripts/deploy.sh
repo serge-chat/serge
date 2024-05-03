@@ -25,7 +25,7 @@ if [ "$cpu_arch" = "aarch64" ] || [ "$cpu_arch" = "arm64" ]; then
 	pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://abetlen.github.io/llama-cpp-python/whl/cpu/"
 else
 	# Use @smartappli provided wheels
-	cpu_feature=$(detect_cpu_features)
+	export cpu_feature=$(detect_cpu_features)
 	pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://abetlen.github.io/llama-cpp-python/whl/cpu-$cpu_feature/"
 fi
 
