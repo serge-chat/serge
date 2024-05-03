@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -x
-source "$(dirname "$0")/serge.env"
+source $(dirname "$0")/serge.env
 
 # Get CPU Architecture
 cpu_arch=$(uname -m)
