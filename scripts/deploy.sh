@@ -39,10 +39,10 @@ _term() {
 }
 
 # Install python bindings
-eval "$pip_command" || {
-	echo 'Failed to install llama-cpp-python'
-	exit 1
-}
+# eval "$pip_command" || {
+# 	echo 'Failed to install llama-cpp-python'
+# 	exit 1
+# }
 
 # Start Redis instance
 redis-server /etc/redis/redis.conf &
