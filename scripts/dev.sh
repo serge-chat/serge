@@ -21,12 +21,13 @@ detect_cpu_features() {
 }
 
 # Check if the CPU architecture is aarch64/arm64
-if [ "$cpu_arch" = "aarch64" ]; then
-	pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://gaby.github.io/arm64-wheels/"
+if [ "$cpu_arch" = "aarch64" ] || [ "$cpu_arch" = "arm64" ]; then
+	pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://abetlen.github.io/llama-cpp-python/whl/cpu/"
 else
 	# Use @smartappli provided wheels
-	cpu_feature=$(detect_cpu_features)
-	pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://smartappli.github.io/serge-wheels/$cpu_feature/cpu"
+	#cpu_feature=$(detect_cpu_features)
+	#pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://abetlen.github.io/llama-cpp-python/whl/cpu-$cpu_feature/"
+	pip_command="python -m pip install -v llama-cpp-python==$LLAMA_PYTHON_VERSION --only-binary=:all: --extra-index-url=https://abetlen.github.io/llama-cpp-python/whl/cpu/"
 fi
 
 echo "Recommended install command for llama-cpp-python: $pip_command"
