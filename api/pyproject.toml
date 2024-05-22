@@ -31,7 +31,7 @@ typing-extensions = "^4.11.0"
 urllib3 = "^2.2.1"
 fastapi = "^0.95.1"
 huggingface-hub = "^0.22.2"
-requests = "^2.31.0"
+requests = "^2.32.2"
 langchain = "^0.0.180"
 loguru = "^0.7.2"
 redis = {extras = ["hiredis"], version = "^5.0.4"}
