@@ -1,14 +1,10 @@
+version: '3.4'
+
 services:
   serge:
-    image: ghcr.io/serge-chat/serge:latest
-    container_name: serge
-    restart: unless-stopped
+    image: serge
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     ports:
-      - 8008:8008
-    volumes:
-      - weights:/usr/src/app/weights
-      - datadb:/data/db/
-
-volumes:
-  weights:
-  datadb:
+      - 9124:9124

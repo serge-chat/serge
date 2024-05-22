@@ -11,6 +11,8 @@ from serge.models.settings import Settings
 from serge.routers.chat import chat_router
 from serge.routers.model import model_router
 from serge.routers.ping import ping_router
+from serge.routers.auth import auth_router
+from serge.routers.user import user_router
 
 # Configure logging settings
 
@@ -47,6 +49,8 @@ api_app = FastAPI(title="Serge API")
 api_app.include_router(chat_router)
 api_app.include_router(ping_router)
 api_app.include_router(model_router)
+api_app.include_router(auth_router)
+api_app.include_router(user_router)
 app.mount("/api", api_app)
 
 # handle serving the frontend as static files in production

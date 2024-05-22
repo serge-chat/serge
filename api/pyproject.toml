@@ -38,6 +38,12 @@ redis = {extras = ["hiredis"], version = "^5.0.4"}
 pytest = "^8.2.0"
 hypercorn = {extras = ["trio"], version = "^0.16.0"}
 
+pyjwt = "^2.8.0"
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+aiofiles = "^23.2.1"
+python-multipart = "^0.0.9"
+debugpy = "^1.8.1"
 [tool.ruff]
 # Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.
 select = ["E", "F"]
