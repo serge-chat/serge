@@ -4,6 +4,7 @@
   import { page } from "$app/stores";
   import { newChat, themeStore } from "$lib/stores";
   import { onMount, onDestroy } from "svelte";
+  import { apiFetch } from '$lib/api';
   import ClipboardJS from "clipboard";
   import hljs from "highlight.js";
   import "highlight.js/styles/github-dark.css";
@@ -68,6 +69,7 @@
     }
 
     data.append("prompt", prompt);
+    data.append("token", localStorage.getItem('token') ?? "none")
 
     const eventSource = new EventSource(
       "/api/chat/" + $page.params.id + "/question?" + data.toString(),
@@ -114,13 +116,12 @@
   }
 
   async function createSameSession() {
-    const newData = await fetch(
+    const newData = await apiFetch(
       `/api/chat/?model=${data.chat.params.model_path}&temperature=${data.chat.params.temperature}&top_k=${data.chat.params.top_k}` +
         `&top_p=${data.chat.params.top_p}&max_length=${data.chat.params.max_tokens}&context_window=${data.chat.params.n_ctx}` +
         `&repeat_last_n=${data.chat.params.last_n_tokens_size}&repeat_penalty=${data.chat.params.repeat_penalty}` +
         `&n_threads=${data.chat.params.n_threads}&init_prompt=${data.chat.history[0].data.content}` +
         `&gpu_layers=${data.chat.params.n_gpu_layers}`,
-
       {
         method: "POST",
         headers: {
@@ -133,10 +134,10 @@
   }
 
   async function deletePrompt(chatID: string, idx: number) {
-    const response = await fetch(
+    const response = await apiFetch(
       `/api/chat/${chatID}/prompt?idx=${idx.toString()}`,
       { method: "DELETE" },
-    );
+    )
 
     if (response.status === 200) {
       await invalidate("/api/chat/" + $page.params.id);

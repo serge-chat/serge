@@ -1,33 +1,54 @@
 <script context="module" lang="ts">
-  export { load } from './+page';
+  export { load } from "./+page";
 </script>
 
 <script lang="ts">
-  import { apiFetch } from '$lib/api';
-  export let data: { user: { username: string; email: string; full_name: string; pref_theme: 'light' | 'dark'; default_prompt: string } | null };
+  import { apiFetch } from "$lib/api";
+  import { writable } from "svelte/store";
+  import { goto } from "$app/navigation";
+  export let data: {
+    user: {
+      username: string;
+      email: string;
+      full_name: string;
+      pref_theme: "light" | "dark";
+      default_prompt: string;
+    } | null;
+  };
   let user = data.user;
-  let username: string = user?.username ?? '';
-  let email: string = user?.email ?? '';
-  let full_name: string = user?.full_name ?? '';
-  let pref_theme: 'light' | 'dark' = user?.pref_theme ?? 'light';
-  let default_prompt: string = user?.default_prompt ?? '';
+  let username: string = user?.username ?? "";
+  let email: string = user?.email ?? "";
+  let full_name: string = user?.full_name ?? "";
+  let pref_theme: "light" | "dark" = user?.pref_theme ?? "light";
+  let default_prompt: string = user?.default_prompt ?? "";
+  let status = writable<string | null>(null);
 
   async function handleSubmit(event: Event) {
     event.preventDefault();
     // Implement the update logic here, e.g., sending a PUT request to update user preferences
-    const response = await apiFetch('/api/user/', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ username, email, full_name, pref_theme, default_prompt })
-    });
-    if (response.ok) {
-      // Handle successful update
-      console.log('Preferences updated successfully');
-    } else {
-      // Handle error
-      console.error('Failed to update preferences');
+    try {
+      await apiFetch("/api/user/", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          full_name,
+          pref_theme,
+          default_prompt,
+        }),
+      });
+
+      status.set("Preferences updated successfully");
+      goto("/");
+    } catch (error) {
+      if (error instanceof Error) {
+        status.set(error.message);
+      } else {
+        status.set("Failed to update preferences");
+      }
     }
   }
 </script>
@@ -35,43 +56,48 @@
 <main>
   <div class="card-group">
     <div class="card">
-      <div class="card-title p-3 text-3xl justify-center font-bold">User Preferences</div>
+      <div class="card-title p-3 text-3xl justify-center font-bold">
+        User Preferences
+      </div>
       <div class="card-body">
         {#if user}
-        <form on:submit={handleSubmit}>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Username</span>
+          <form on:submit={handleSubmit}>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Username</span>
+              </div>
+              <input type="text" bind:value={username} required />
             </div>
-            <input
-              type="text"
-              bind:value={username}
-              required
-            />
-          </div>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Full Name</span>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Full Name</span>
+              </div>
+              <input id="full_name" type="text" bind:value={full_name} />
             </div>
-            <input id="full_name" type="text"bind:value={full_name} />
-          </div>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Email</span>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Email</span>
+              </div>
+              <input id="email" type="email" bind:value={email} />
             </div>
-            <input id="email" type="email" bind:value={email}/>
-          </div>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Default Prompt</span>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Default Prompt</span>
+              </div>
+              <textarea
+                id="default_prompt"
+                bind:value={default_prompt}
+                style="resize:both; width:100%;"
+              />
             </div>
-            <textarea id="default_prompt" bind:value={default_prompt} style="resize:both; width:100%;"/>
-          </div>
-          <button class="btn" type="submit">Save Preferences</button>
-        </form>
-      {:else}
-        <p>Loading...</p>
-      {/if}
+            {#if $status}
+              <p>{$status}</p>
+            {/if}
+            <button class="btn" type="submit">Save Preferences</button>
+          </form>
+        {:else}
+          <p>Loading...</p>
+        {/if}
       </div>
     </div>
   </div>

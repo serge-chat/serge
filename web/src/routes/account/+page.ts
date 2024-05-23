@@ -13,7 +13,7 @@ export const load: Load<{ user: User | null }> = async () => {
     try {
         const user = await apiFetch('/api/user/', {
             method: 'GET'
-          });
+          }).then((response) => response.json());
         return { user };
     } catch (error) {
         console.error(error);

@@ -11,7 +11,13 @@ user_router = APIRouter(
 )
 
 @user_router.get("/", response_model=User)
-async def read_users_me(u: User = Depends(get_current_active_user)):
+async def get_user(u: User = Depends(get_current_active_user)):
+    if not u:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
     return u
 
 @user_router.post("/create", response_model=User)
@@ -20,6 +26,6 @@ async def create_user_with_pass(u: DBUser):
     return u
 
 @user_router.put("/", response_model=User)
-async def update_user(u: User = Depends(get_current_active_user)):
+async def self_update_user(u: User = Depends(get_current_active_user)):
     update_user(u)
     return u

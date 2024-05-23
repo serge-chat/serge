@@ -1,5 +1,6 @@
-<script>
+<script lang="ts">
   import { onMount } from "svelte";
+  import { goto } from "$app/navigation";
   let username = "";
   let secret = "";
   let full_name = "";
@@ -8,7 +9,7 @@
   let error = "";
   let success = "";
 
-  async function handleSubmit(event) {
+  async function handleSubmit(event: Event) {
     event.preventDefault();
     error = "";
     success = "";
@@ -28,9 +29,38 @@
 
     if (response.ok) {
       success = "User created successfully!";
+      await authAfterCreate(event)
+      goto("/account");
     } else {
       const data = await response.json();
       error = data.detail || "An error occurred";
+    }
+  }
+
+  async function authAfterCreate(event: Event) {
+    event.preventDefault();
+    try {
+      const response = await fetch("/api/auth/token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          "username": username,
+          "password": secret,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("token", data.access_token);
+        goto("/");
+      } else {
+        const errorData = await response.json();
+        error = errorData.detail || "Login failed";
+      }
+    } catch (err) {
+      error = "An error occurred";
     }
   }
 </script>

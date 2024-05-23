@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { PageData } from "./$types";
   import { goto, invalidate } from "$app/navigation";
+  import { apiFetch } from '$lib/api';
   export let data: PageData;
 
   const models = data.models.filter((el) => el.available);
@@ -34,7 +35,7 @@
     ]);
     const searchParams = new URLSearchParams(convertedFormEntries);
 
-    const r = await fetch("/api/chat/?" + searchParams.toString(), {
+    const r = await apiFetch("/api/chat/?" + searchParams.toString(), {
       method: "POST",
     });
 
