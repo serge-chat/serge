@@ -320,7 +320,7 @@
           <span>Login</span>
         </button>
         <button
-          name="login-btn"
+          name="create-btn"
           class="btn btn-ghost w-full flex justify-start items-center p-2.5 text-left text-sm capitalize"
           on:click={() => goto("/signup")}
         >
