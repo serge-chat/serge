@@ -34,20 +34,7 @@ interface Response {
 }
 
 export const load: PageLoad = async ({ fetch, params }) => {
-  let token: string | null = null;
-
-  if (browser) {
-    token = localStorage.getItem('token');
-  }
-
-  const options: RequestInit = {
-    headers: {
-      'Content-Type': 'application/json',
-      ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
-    },
-  };
-
-  const r = await fetch("/api/chat/" + params.id, options);
+  const r = await fetch("/api/chat/" + params.id);
   const data = (await r.json()) as Response;
 
   return {

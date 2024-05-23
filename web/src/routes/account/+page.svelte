@@ -3,7 +3,6 @@
 </script>
 
 <script lang="ts">
-  import { apiFetch } from "$lib/api";
   import { writable } from "svelte/store";
   import { goto } from "$app/navigation";
   export let data: {
@@ -27,7 +26,7 @@
     event.preventDefault();
     // Implement the update logic here, e.g., sending a PUT request to update user preferences
     try {
-      await apiFetch("/api/user/", {
+      await fetch("/api/user/", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -42,7 +41,7 @@
       });
 
       status.set("Preferences updated successfully");
-      goto("/");
+      goto("/", {invalidateAll: true});
     } catch (error) {
       if (error instanceof Error) {
         status.set(error.message);

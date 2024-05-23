@@ -6,7 +6,6 @@
   import { page } from "$app/stores";
   import { newChat, themeStore } from "$lib/stores.js";
   import { fly } from "svelte/transition";
-  import { apiFetch } from '$lib/api';
   export let data: PageData;
 
   export let isSidebarOpen: boolean = true;
@@ -56,7 +55,7 @@
   }
 
   async function deleteChat(chatID: string) {
-    const response = await apiFetch("/api/chat/" + chatID, { method: "DELETE" });
+    const response = await fetch("/api/chat/" + chatID, { method: "DELETE" });
     if (response.status === 200) {
       toggleDeleteConfirm();
       await goto("/");
@@ -67,7 +66,7 @@
   }
 
   async function deleteAllChat() {
-    const response = await apiFetch("/api/chat/delete/all", { method: "DELETE" });
+    const response = await fetch("/api/chat/delete/all", { method: "DELETE" });
     if (response.status === 200) {
       toggleDeleteAllConfirm();
       await goto("/");
@@ -345,8 +344,10 @@
         <button
           name="logout-btn"
           class="btn btn-ghost w-full flex justify-start items-center p-2.5 text-left text-sm capitalize"
-          on:click={() => {
-            localStorage.removeItem('token');
+          on:click={async () => {
+            const response = await fetch('/api/auth/logout', {
+              method: 'POST',
+            });
             userData = null;
             window.location.reload();
           }}

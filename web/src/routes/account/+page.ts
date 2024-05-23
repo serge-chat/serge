@@ -1,5 +1,4 @@
 import type { Load } from '@sveltejs/kit';
-import { apiFetch } from '$lib/api';
 
 interface User {
     username: string;
@@ -11,7 +10,7 @@ interface User {
 
 export const load: Load<{ user: User | null }> = async () => {
     try {
-        const user = await apiFetch('/api/user/', {
+        const user = await fetch('/api/user/', {
             method: 'GET'
           }).then((response) => response.json());
         return { user };

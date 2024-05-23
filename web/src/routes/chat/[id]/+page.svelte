@@ -4,7 +4,6 @@
   import { page } from "$app/stores";
   import { newChat, themeStore } from "$lib/stores";
   import { onMount, onDestroy } from "svelte";
-  import { apiFetch } from '$lib/api';
   import ClipboardJS from "clipboard";
   import hljs from "highlight.js";
   import "highlight.js/styles/github-dark.css";
@@ -116,7 +115,7 @@
   }
 
   async function createSameSession() {
-    const newData = await apiFetch(
+    const newData = await fetch(
       `/api/chat/?model=${data.chat.params.model_path}&temperature=${data.chat.params.temperature}&top_k=${data.chat.params.top_k}` +
         `&top_p=${data.chat.params.top_p}&max_length=${data.chat.params.max_tokens}&context_window=${data.chat.params.n_ctx}` +
         `&repeat_last_n=${data.chat.params.last_n_tokens_size}&repeat_penalty=${data.chat.params.repeat_penalty}` +
@@ -134,7 +133,7 @@
   }
 
   async function deletePrompt(chatID: string, idx: number) {
-    const response = await apiFetch(
+    const response = await fetch(
       `/api/chat/${chatID}/prompt?idx=${idx.toString()}`,
       { method: "DELETE" },
     )

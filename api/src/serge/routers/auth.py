@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Response, Depends, HTTPException, status
+from fastapi import APIRouter, Response, Request, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError
 from datetime import timedelta
@@ -41,6 +41,12 @@ async def login_for_access_token(response: Response, form_data: OAuth2PasswordRe
     response.set_cookie(key="token", value=access_token, httponly=True, secure=True, samesite='strict')
     return {"access_token": access_token, "token_type": "bearer"}
 
+@auth_router.post("/logout")
+async def logout(response: Response):
+    # Clear the token cookie by setting it to expire immediately
+    response.delete_cookie(key="token")
+    return {"message": "Logged out successfully"}
+
 async def get_current_user(token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -59,5 +65,9 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         raise credentials_exception
     return user
 
-async def get_current_active_user(current_user: User = Depends(get_current_user)):
-    return current_user
+async def get_current_active_user(request: Request) -> User:
+    token = request.cookies.get('token')
+    if not token:
+        raise HTTPException(status_code=401, detail="Invalid authentication credentials")
+    
+    return await get_current_user(token)

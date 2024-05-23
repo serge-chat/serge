@@ -186,11 +186,11 @@ async def delete_all_chats():
 
 
 @chat_router.get("/{chat_id}/question")
-async def stream_ask_a_question(chat_id: str, prompt: str, token: str):
+async def stream_ask_a_question(chat_id: str, prompt: str, u: User = Depends(get_current_active_user)):
     logger.info("Starting redis client")
 
     client = Redis(host="localhost", port=6379, decode_responses=False)
-    u = await get_current_user(token)
+
     chat = _try_get_chat(client, chat_id, u)
 
     logger.debug(chat.params)
@@ -256,7 +256,7 @@ async def stream_ask_a_question(chat_id: str, prompt: str, token: str):
 
 
 @chat_router.post("/{chat_id}/question")
-async def ask_a_question(chat_id: str, prompt: str):
+async def ask_a_question(chat_id: str, prompt: str, u: User = Depends(get_current_active_user)):
     client = Redis(host="localhost", port=6379, decode_responses=False)
     chat = _try_get_chat(client, chat_id, u)
     history = RedisChatMessageHistory(chat.id)

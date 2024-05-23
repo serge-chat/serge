@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { PageData } from "./$types";
   import { goto, invalidate } from "$app/navigation";
-  import { apiFetch } from '$lib/api';
   export let data: PageData;
 
   const models = data.models.filter((el) => el.available);
@@ -35,7 +34,7 @@
     ]);
     const searchParams = new URLSearchParams(convertedFormEntries);
 
-    const r = await apiFetch("/api/chat/?" + searchParams.toString(), {
+    const r = await fetch("/api/chat/?" + searchParams.toString(), {
       method: "POST",
     });
 
@@ -62,19 +61,16 @@
 >
   <div class="w-full pb-20">
     <div class="mx-auto w-fit pt-5 flex flex-col lg:flex-row justify-center">
-      {#if data.userData === null}
-      <button
+      <button class:hidden={data.userData !== null}
         on:click={() => goto("/signup")}
         type="button"
         class="btn-primary btn mb-2 lg:mr-10 lg:mb-0">Get Started</button
       >
-      {:else}
-      <button
+      <button class:hidden={data.userData === null}
         type="submit"
         class="btn-primary btn mb-2 lg:mr-10 lg:mb-0"
         disabled={!modelAvailable}>Start a new chat</button
       >
-      {/if}
       <button
         on:click={() => goto("/models")}
         type="button"

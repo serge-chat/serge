@@ -52,9 +52,7 @@
       });
 
       if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem("token", data.access_token);
-        goto("/");
+        goto("/", {invalidateAll: true});
       } else {
         const errorData = await response.json();
         error = errorData.detail || "Login failed";

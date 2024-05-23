@@ -7,7 +7,7 @@ services:
     volumes:
       - ./web:/usr/src/app/web/:z
       - ./api:/usr/src/app/api/:z
-      - datadb2:/data/db
+      - datadb:/data/db
       - weights:/usr/src/app/weights/
       - /etc/localtime:/etc/localtime:ro
     command: ["sh", "-c", "pip install debugpy -t /tmp && /usr/src/app/dev.sh"]
@@ -17,5 +17,5 @@ services:
       - 5678:5678
 
 volumes:
-  datadb2:
+  datadb:
   weights:

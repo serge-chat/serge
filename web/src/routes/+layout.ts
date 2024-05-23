@@ -1,6 +1,4 @@
 import type { LayoutLoad } from "./$types";
-import { apiFetch } from '$lib/api';
-import { browser } from '$app/environment';
 
 interface ChatMetadata {
   id: string;
@@ -28,25 +26,14 @@ export interface User {
 
 export const load: LayoutLoad = async ({ fetch }) => {
   let userData: User | null = null;
-  const options: RequestInit = {}
-  if (browser){
-    const token = localStorage.getItem('token');
-    if (token) {
-      options.headers = {
-        ...options.headers,
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      };
-    }
-  }
   
-  const api_chat = await fetch("/api/chat/", options);
+  const api_chat = await fetch("/api/chat/");
   const chats = (await api_chat.json()) as ChatMetadata[];
 
   const model_api = await fetch("/api/model/all");
   const models = (await model_api.json()) as ModelStatus[];
 
-  const userData_api = await fetch('/api/user/', options)
+  const userData_api = await fetch('/api/user/')
   if (userData_api.ok) {
     userData = (await userData_api.json()) as User;
   }

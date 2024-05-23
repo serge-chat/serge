@@ -1,10 +1,14 @@
-version: '3.4'
-
 services:
   serge:
-    image: serge
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+    image: jonpro03/serge:userspr
+    container_name: serge
+    restart: unless-stopped
     ports:
-      - 9124:9124
+      - 8008:8008
+    volumes:
+      - weights:/usr/src/app/weights
+      - datadb:/data/db/
+
+volumes:
+  weights:
+  datadb:

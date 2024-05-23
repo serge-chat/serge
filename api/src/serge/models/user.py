@@ -13,7 +13,7 @@ class User(BaseModel):
     email: Optional[str] = None
     full_name: Optional[str] = None
     pref_theme: Literal["light", "dark"] = "dark"
-    default_prompt: str = "Below is an instruction that describes a task. Write a response that assists {full_name} appropriately completes the request."
+    default_prompt: str = "Below is an instruction that describes a task. Write a response that appropriately completes the request."
 
 
 class DBUser(User):
