@@ -65,7 +65,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">Username</span>
               </div>
-              <input type="text" bind:value={username} required />
+              <input type="text" bind:value={username} disabled />
             </div>
             <div class="input-group">
               <div class="input-group-prepend">

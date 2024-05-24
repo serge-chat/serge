@@ -26,6 +26,9 @@ async def create_user_with_pass(u: DBUser):
     return u
 
 @user_router.put("/", response_model=User)
-async def self_update_user(u: User = Depends(get_current_active_user)):
-    update_user(u)
-    return u
+async def self_update_user(new_data: User, current: User = Depends(get_current_active_user)):
+    current.email = new_data.email
+    current.full_name = new_data.full_name
+    current.default_prompt = new_data.default_prompt
+    update_user(current)
+    return current
