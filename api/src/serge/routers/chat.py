@@ -4,16 +4,16 @@ from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException
 from langchain.memory import RedisChatMessageHistory
-from langchain.schema import AIMessage, HumanMessage, SystemMessage, messages_to_dict
+from langchain.schema import (AIMessage, HumanMessage, SystemMessage,
+                              messages_to_dict)
 from llama_cpp import Llama
 from loguru import logger
 from redis import Redis
-from sse_starlette.sse import EventSourceResponse
-
 from serge.models.chat import Chat, ChatParameters
 from serge.models.user import User, UserAuth
 from serge.routers.auth import get_current_active_user, get_current_user
 from serge.utils.stream import get_prompt
+from sse_starlette.sse import EventSourceResponse
 
 chat_router = APIRouter(
     prefix="/chat",

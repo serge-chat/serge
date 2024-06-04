@@ -1,10 +1,10 @@
 from typing import List, Optional
 
+from serge.schema import user as user_schema
+from serge.utils.security import get_password_hash
 from sqlalchemy.orm import Session
 
 from serge.models import user as user_model
-from serge.schema import user as user_schema
-from serge.utils.security import get_password_hash
 
 
 def get_user(db: Session, username: str) -> user_model.User:
@@ -29,7 +29,7 @@ def create_user(db: Session, ua: user_schema.UserAuth) -> Optional[user_model.Us
     match ua.auth_type:
         case 0:
             ua.secret = get_password_hash(ua.secret)
-        case _:
+        case _: # Todo: More auth types
             return None
 
     user = user_schema.User(username=ua.username)

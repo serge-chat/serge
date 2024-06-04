@@ -5,16 +5,16 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from loguru import logger
-from starlette.responses import FileResponse
-
 from serge.database import engine
-from serge.models import user as user_models
 from serge.models.settings import Settings
 from serge.routers.auth import auth_router
 from serge.routers.chat import chat_router
 from serge.routers.model import model_router
 from serge.routers.ping import ping_router
 from serge.routers.user import user_router
+from starlette.responses import FileResponse
+
+from serge.models import user as user_models
 
 # Configure logging settings
 

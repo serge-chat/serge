@@ -1,19 +1,17 @@
 from datetime import timedelta
 
-from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
+from fastapi import (APIRouter, Depends, HTTPException, Request, Response,
+                     status)
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError
-from sqlalchemy.orm import Session
-
 from serge.crud import get_user
 from serge.database import SessionLocal
-from serge.models import user as user_schema
 from serge.models.user import Token, User
-from serge.utils.security import (
-    create_access_token,
-    decode_access_token,
-    verify_password,
-)
+from serge.utils.security import (create_access_token, decode_access_token,
+                                  verify_password)
+from sqlalchemy.orm import Session
+
+from serge.models import user as user_schema
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 

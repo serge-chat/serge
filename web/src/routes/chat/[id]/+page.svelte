@@ -68,7 +68,6 @@
     }
 
     data.append("prompt", prompt);
-    data.append("token", localStorage.getItem('token') ?? "none")
 
     const eventSource = new EventSource(
       "/api/chat/" + $page.params.id + "/question?" + data.toString(),
@@ -121,6 +120,7 @@
         `&repeat_last_n=${data.chat.params.last_n_tokens_size}&repeat_penalty=${data.chat.params.repeat_penalty}` +
         `&n_threads=${data.chat.params.n_threads}&init_prompt=${data.chat.history[0].data.content}` +
         `&gpu_layers=${data.chat.params.n_gpu_layers}`,
+
       {
         method: "POST",
         headers: {
@@ -136,7 +136,7 @@
     const response = await fetch(
       `/api/chat/${chatID}/prompt?idx=${idx.toString()}`,
       { method: "DELETE" },
-    )
+    );
 
     if (response.status === 200) {
       await invalidate("/api/chat/" + $page.params.id);

@@ -1,10 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
-
 from serge.crud import create_user, update_user
 from serge.database import SessionLocal
 from serge.routers.auth import get_current_active_user
 from serge.schema import user as user_schema
+from sqlalchemy.orm import Session
 
 user_router = APIRouter(
     prefix="/user",

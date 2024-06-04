@@ -1,5 +1,7 @@
 from os import getenv
+
 from pydantic import BaseSettings
+
 
 class Settings(BaseSettings):
     SQLALCHEMY_DATABASE_URL: str = "sqlite:////data/db/sql_app.db"

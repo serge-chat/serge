@@ -1,7 +1,6 @@
+from serge.models.settings import Settings
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
-from serge.models.settings import Settings
 
 settings = Settings()
 

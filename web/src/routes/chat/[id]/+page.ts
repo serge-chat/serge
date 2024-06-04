@@ -1,5 +1,4 @@
 import type { PageLoad } from "./$types";
-import { browser } from '$app/environment';
 
 type MessageType = "human" | "ai" | "system";
 
