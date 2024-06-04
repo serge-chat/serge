@@ -5,7 +5,7 @@
   let secret = "";
   let full_name = "";
   let email = "";
-  let auth_type = 1;
+  let auth_type = 0;
   let error = "";
   let success = "";
 

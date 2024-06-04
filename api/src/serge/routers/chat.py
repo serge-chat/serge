@@ -1,37 +1,37 @@
-import os
 import json
-
+import os
 from typing import Optional
-from fastapi import APIRouter, HTTPException, Depends
+
+from fastapi import APIRouter, Depends, HTTPException
 from langchain.memory import RedisChatMessageHistory
-from langchain.schema import SystemMessage, messages_to_dict, AIMessage, HumanMessage
+from langchain.schema import AIMessage, HumanMessage, SystemMessage, messages_to_dict
 from llama_cpp import Llama
 from loguru import logger
 from redis import Redis
 from sse_starlette.sse import EventSourceResponse
 
 from serge.models.chat import Chat, ChatParameters
-from serge.utils.stream import get_prompt
-from serge.models.user import User, DBUser
+from serge.models.user import User, UserAuth
 from serge.routers.auth import get_current_active_user, get_current_user
+from serge.utils.stream import get_prompt
 
 chat_router = APIRouter(
     prefix="/chat",
     tags=["chat"],
 )
 
+
 def _try_get_chat(client, chat_id, u):
-    if not isinstance(u, (User, DBUser)):
+    if not isinstance(u, (User, UserAuth)):
         raise ValueError("Call must be authenticated.")
 
     if not client.sismember("chats", chat_id):
         raise ValueError("Chat does not exist")
 
-
     chat_raw = client.get(f"chat:{chat_id}")
     chat = Chat.parse_raw(chat_raw)
 
-    #backwards compat
+    # backwards compat
     if not hasattr(chat, "owner"):
         chat.owner = "system"
 
@@ -99,8 +99,7 @@ async def get_all_chats(u: User = Depends(get_current_active_user)):
         try:
             chats.append(await get_specific_chat(id.decode(), u))
         except:
-            pass # skip access denied
-
+            pass  # skip access denied
 
     chats = sorted(
         chats,
@@ -139,14 +138,16 @@ async def get_specific_chat(chat_id: str, u: User = Depends(get_current_active_u
 @chat_router.get("/{chat_id}/history")
 async def get_chat_history(chat_id: str, u: User = Depends(get_current_active_user)):
     client = Redis(host="localhost", port=6379, decode_responses=False)
-    chat = _try_get_chat(client, chat_id, u)
+    _ = _try_get_chat(client, chat_id, u)
 
     history = RedisChatMessageHistory(chat_id)
     return messages_to_dict(history.messages)
 
 
 @chat_router.delete("/{chat_id}/prompt")
-async def delete_prompt(chat_id: str, idx: int, u: User = Depends(get_current_active_user)):
+async def delete_prompt(
+    chat_id: str, idx: int, u: User = Depends(get_current_active_user)
+):
     client = Redis(host="localhost", port=6379, decode_responses=False)
     _ = _try_get_chat(client, chat_id, u)
 
@@ -154,7 +155,9 @@ async def delete_prompt(chat_id: str, idx: int, u: User = Depends(get_current_ac
 
     if idx >= len(history.messages):
         logger.error("Unable to delete message, chat in progress")
-        raise HTTPException(status_code=202, detail="Unable to delete message, chat in progress")
+        raise HTTPException(
+            status_code=202, detail="Unable to delete message, chat in progress"
+        )
 
     messages = history.messages.copy()[:idx]
     history.clear()
@@ -186,7 +189,9 @@ async def delete_all_chats():
 
 
 @chat_router.get("/{chat_id}/question")
-async def stream_ask_a_question(chat_id: str, prompt: str, u: User = Depends(get_current_active_user)):
+async def stream_ask_a_question(
+    chat_id: str, prompt: str, u: User = Depends(get_current_active_user)
+):
     logger.info("Starting redis client")
 
     client = Redis(host="localhost", port=6379, decode_responses=False)
@@ -256,7 +261,9 @@ async def stream_ask_a_question(chat_id: str, prompt: str, u: User = Depends(get
 
 
 @chat_router.post("/{chat_id}/question")
-async def ask_a_question(chat_id: str, prompt: str, u: User = Depends(get_current_active_user)):
+async def ask_a_question(
+    chat_id: str, prompt: str, u: User = Depends(get_current_active_user)
+):
     client = Redis(host="localhost", port=6379, decode_responses=False)
     chat = _try_get_chat(client, chat_id, u)
     history = RedisChatMessageHistory(chat.id)

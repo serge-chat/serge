@@ -1,52 +1,34 @@
-from enum import Enum
 from pydantic import BaseModel
-from typing import Optional, Literal
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Uuid
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
 
-from redis import Redis
-from serge.utils.security import get_password_hash
-
-class AuthType(Enum):
-    USERNAMEPASS = 1
-
-class User(BaseModel):
-    username: str
-    email: Optional[str] = None
-    full_name: Optional[str] = None
-    pref_theme: Literal["light", "dark"] = "dark"
-    default_prompt: str = "Below is an instruction that describes a task. Write a response that appropriately completes the request."
+Base = declarative_base()
 
 
-class DBUser(User):
-    auth_type: AuthType
-    secret: str
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Uuid, primary_key=True)
+    username = Column(String, unique=True, index=True)
+    email = Column(String)
+    full_name = Column(String)
+    theme_light = Column(Boolean)
+    default_prompt = Column(String)
+    is_active = Column(Boolean, default=True)
+    auth = relationship("UserAuth", back_populates="user")
+
+
+class UserAuth(Base):
+    __tablename__ = "auth"
+
+    id = Column(Integer, primary_key=True)
+    secret = Column(String)
+    auth_type = Column(Integer)
+    user_id = Column(Uuid, ForeignKey("users.id"))
+    user = relationship("User", back_populates="auth")
+
 
 class Token(BaseModel):
     access_token: str
     token_type: str
-
-class TokenData(BaseModel):
-    username: Optional[str] = None
-
-
-def get_user(username: str) -> DBUser | None:
-    client = Redis(host="localhost", port=6379, decode_responses=False)
-    if not client.sismember("users", username):
-        return None
-
-    user_raw = client.get(f"user:{username}")
-    user = DBUser.parse_raw(user_raw)
-    return user
-
-def create_user(userdata: DBUser) -> None:
-    client = Redis(host="localhost", port=6379, decode_responses=False)
-    match userdata.auth_type:
-        case AuthType.USERNAMEPASS:
-            userdata.secret = get_password_hash(userdata.secret)
-        case _:
-            pass
-    client.sadd("users", userdata.username)
-    client.set(f"user:{userdata.username}", userdata.json())
-
-def update_user(userdata: User):
-    client = Redis(host="localhost", port=6379, decode_responses=False)
-    client.set(f"user:{userdata.username}", userdata.json())

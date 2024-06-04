@@ -7,11 +7,13 @@ from fastapi.staticfiles import StaticFiles
 from loguru import logger
 from starlette.responses import FileResponse
 
+from serge.database import engine
+from serge.models import user as user_models
 from serge.models.settings import Settings
+from serge.routers.auth import auth_router
 from serge.routers.chat import chat_router
 from serge.routers.model import model_router
 from serge.routers.ping import ping_router
-from serge.routers.auth import auth_router
 from serge.routers.user import user_router
 
 # Configure logging settings
@@ -43,7 +45,11 @@ origins = [
     "http://localhost:9124",
 ]
 
-app = FastAPI(title="Serge", version="0.0.1", description=description, tags_metadata=tags_metadata)
+user_models.Base.metadata.create_all(bind=engine)
+
+app = FastAPI(
+    title="Serge", version="0.0.1", description=description, tags_metadata=tags_metadata
+)
 
 api_app = FastAPI(title="Serge API")
 api_app.include_router(chat_router)
