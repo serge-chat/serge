@@ -827,30 +827,31 @@ typing = ["types-PyYAML", "types-requests", "types-simplejson", "types-toml", "t
 
 [[package]]
 name = "hypercorn"
-version = "0.16.0"
+version = "0.17.3"
 description = "A ASGI Server based on Hyper libraries and inspired by Gunicorn"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "hypercorn-0.16.0-py3-none-any.whl", hash = "sha256:929e45c4acde3fbf7c58edf55336d30a009d2b4cb1f1eb96e6a515d61b663f58"},
-    {file = "hypercorn-0.16.0.tar.gz", hash = "sha256:3b17d1dcf4992c1f262d9f9dd799c374125d0b9a8e40e1e2d11e2938b0adfe03"},
+    {file = "hypercorn-0.17.3-py3-none-any.whl", hash = "sha256:059215dec34537f9d40a69258d323f56344805efb462959e727152b0aa504547"},
+    {file = "hypercorn-0.17.3.tar.gz", hash = "sha256:1b37802ee3ac52d2d85270700d565787ab16cf19e1462ccfa9f089ca17574165"},
 ]
 
 [package.dependencies]
-exceptiongroup = {version = ">=1.1.0", optional = true, markers = "extra == \"trio\""}
+exceptiongroup = {version = ">=1.1.0", markers = "python_version < \"3.11\""}
 h11 = "*"
 h2 = ">=3.1.0"
 priority = "*"
 taskgroup = {version = "*", markers = "python_version < \"3.11\""}
 tomli = {version = "*", markers = "python_version < \"3.11\""}
 trio = {version = ">=0.22.0", optional = true, markers = "extra == \"trio\""}
+typing_extensions = {version = "*", markers = "python_version < \"3.11\""}
 wsproto = ">=0.14.0"
 
 [package.extras]
 docs = ["pydata_sphinx_theme", "sphinxcontrib_mermaid"]
 h3 = ["aioquic (>=0.9.0,<1.0)"]
-trio = ["exceptiongroup (>=1.1.0)", "trio (>=0.22.0)"]
-uvloop = ["uvloop"]
+trio = ["trio (>=0.22.0)"]
+uvloop = ["uvloop (>=0.18)"]
 
 [[package]]
 name = "hyperframe"
@@ -1821,4 +1822,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<4.0"
-content-hash = "44601da527cab15c7d70621712afe4deb1ebfb18edab39e66060b628be2e9889"
+content-hash = "9a005a5e3897bc47cb3375f94c60f37068c0914f0860d22f43ee6ab8fc74b284"
