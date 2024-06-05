@@ -36,7 +36,7 @@ async def create_user_with_pass(
 ):
     try:
         u = create_user(db, ua)
-    except:
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail="Failed to create. Username exists",
