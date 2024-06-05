@@ -19,21 +19,21 @@ export interface ModelStatus {
 export interface User {
   username: string;
   email: string;
-  pref_theme: 'light' | 'dark';
+  pref_theme: "light" | "dark";
   full_name: string;
   default_prompt: string;
 }
 
 export const load: LayoutLoad = async ({ fetch }) => {
   let userData: User | null = null;
-  
+
   const api_chat = await fetch("/api/chat/");
   const chats = (await api_chat.json()) as ChatMetadata[];
 
   const model_api = await fetch("/api/model/all");
   const models = (await model_api.json()) as ModelStatus[];
 
-  const userData_api = await fetch('/api/user/')
+  const userData_api = await fetch("/api/user/");
   if (userData_api.ok) {
     userData = (await userData_api.json()) as User;
   }

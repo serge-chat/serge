@@ -16,7 +16,8 @@
   let repeat_last_n = 64;
   let repeat_penalty = 1.3;
 
-  let init_prompt = data.userData?.default_prompt ?? 
+  let init_prompt =
+    data.userData?.default_prompt ??
     "Below is an instruction that describes a task. Write a response that appropriately completes the request.";
 
   let n_threads = 4;
@@ -61,12 +62,14 @@
 >
   <div class="w-full pb-20">
     <div class="mx-auto w-fit pt-5 flex flex-col lg:flex-row justify-center">
-      <button class:hidden={data.userData !== null}
+      <button
+        class:hidden={data.userData !== null}
         on:click={() => goto("/signup")}
         type="button"
         class="btn-primary btn mb-2 lg:mr-10 lg:mb-0">Get Started</button
       >
-      <button class:hidden={data.userData === null}
+      <button
+        class:hidden={data.userData === null}
         type="submit"
         class="btn-primary btn mb-2 lg:mr-10 lg:mb-0"
         disabled={!modelAvailable}>Start a new chat</button

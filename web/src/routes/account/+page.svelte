@@ -41,7 +41,7 @@
       });
 
       status.set("Preferences updated successfully");
-      goto("/", {invalidateAll: true});
+      goto("/", { invalidateAll: true });
     } catch (error) {
       if (error instanceof Error) {
         status.set(error.message);

@@ -1,8 +1,8 @@
-import type { PageServerLoad } from './$types';
-import Redis from 'ioredis';
+import type { PageServerLoad } from "./$types";
+import Redis from "ioredis";
 
 const redis = new Redis({
-  host: '127.0.0.1',
+  host: "127.0.0.1",
   port: 6379,
 });
 
@@ -39,18 +39,18 @@ interface Response {
 }
 
 export const load: PageServerLoad = async ({ params }) => {
-  const chatId = params.id; 
+  const chatId = params.id;
 
   // Fetch data from Redis
   let chatData;
   try {
-    chatData = (await redis.get(`chat:${chatId}`) ?? {}) as Response;
+    chatData = ((await redis.get(`chat:${chatId}`)) ?? {}) as Response;
   } catch (error) {
-    console.error('Failed to fetch chat data from Redis:', error);
+    console.error("Failed to fetch chat data from Redis:", error);
     chatData = null;
   }
 
   return {
-    chat: chatData
+    chat: chatData,
   };
 };

@@ -10,7 +10,7 @@ from loguru import logger
 from redis import Redis
 from serge.models.chat import Chat, ChatParameters
 from serge.models.user import User, UserAuth
-from serge.routers.auth import get_current_active_user, get_current_user
+from serge.routers.auth import get_current_active_user
 from serge.utils.stream import get_prompt
 from sse_starlette.sse import EventSourceResponse
 
@@ -97,7 +97,7 @@ async def get_all_chats(u: User = Depends(get_current_active_user)):
     for id in ids:
         try:
             chats.append(await get_specific_chat(id.decode(), u))
-        except:
+        except Exception:
             pass  # skip access denied
 
     chats = sorted(
