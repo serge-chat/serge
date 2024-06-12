@@ -161,7 +161,23 @@
                 ]
             }             
         ]
-    },    
+    },
+        {   
+        "name": "Codesstral",
+        "models": [
+            {
+                "name": "Codestral-22B-v0.1",
+                "repo": "bartowski/Codestral-22B-v0.1-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Codestral-22B-v0.1-Q4_K_M.gguf",
+                        "disk_space": 15722553696.0
+                    }
+                ]
+            }           
+        ]
+    },
     {
         "name": "Falcon",
         "models": [   
