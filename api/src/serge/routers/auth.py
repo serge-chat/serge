@@ -1,4 +1,5 @@
 from datetime import timedelta
+from typing import Optional
 
 from fastapi import (APIRouter, Depends, HTTPException, Request, Response,
                      status)
@@ -6,12 +7,10 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError
 from serge.crud import get_user
 from serge.database import SessionLocal
-from serge.models.user import Token, User
+from serge.schema.user import Token, User
 from serge.utils.security import (create_access_token, decode_access_token,
                                   verify_password)
 from sqlalchemy.orm import Session
-
-from serge.models import user as user_schema
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
@@ -29,10 +28,10 @@ def get_db():
         db.close()
 
 
-def authenticate_user(username: str, password: str, db: Session):
+def authenticate_user(username: str, password: str, db: Session) -> Optional[User]:
     user = get_user(db, username)
     if not user:
-        return False
+        return None
     # Users may have multipe ways to authenticate
     auths = [a.auth_type for a in user.auth]
     if 0 in auths:  # Password auth
@@ -76,7 +75,7 @@ async def logout(response: Response):
 
 async def get_current_user(
     token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)
-):
+) -> User:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -93,12 +92,7 @@ async def get_current_user(
 
     if user is None:
         raise credentials_exception
-    # Map db model onto view model
-    user.auth = []
-    app_user = user_schema.User(
-        **{k: v for k, v in user.__dict__.items() if not k.startswith("_")}
-    )
-    return app_user
+    return user
 
 
 async def get_current_active_user(

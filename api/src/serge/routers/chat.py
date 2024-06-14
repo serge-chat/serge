@@ -1,17 +1,21 @@
 import os
 from typing import Optional
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from langchain.memory import RedisChatMessageHistory
 from langchain.schema import (AIMessage, HumanMessage, SystemMessage,
                               messages_to_dict)
 from llama_cpp import Llama
 from loguru import logger
 from redis import Redis
+from serge.crud import create_chat, update_user
+from serge.database import SessionLocal
 from serge.models.chat import Chat, ChatParameters
-from serge.models.user import User, UserAuth
 from serge.routers.auth import get_current_active_user
+from serge.schema.user import Chat as UserChat
+from serge.schema.user import User, UserAuth
 from serge.utils.stream import get_prompt
+from sqlalchemy.orm import Session
 from sse_starlette.sse import EventSourceResponse
 
 chat_router = APIRouter(
@@ -19,11 +23,22 @@ chat_router = APIRouter(
     tags=["chat"],
 )
 
+unauth_error = HTTPException(
+    status_code=status.HTTP_401_UNAUTHORIZED,
+    detail="Unauthorized",
+    headers={"WWW-Authenticate": "Bearer"},
+)
 
-def _try_get_chat(client, chat_id, u):
-    if not isinstance(u, (User, UserAuth)):
-        raise ValueError("Call must be authenticated.")
 
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+def _try_get_chat(client, chat_id):
     if not client.sismember("chats", chat_id):
         raise ValueError("Chat does not exist")
 
@@ -34,14 +49,13 @@ def _try_get_chat(client, chat_id, u):
     if not hasattr(chat, "owner"):
         chat.owner = "system"
 
-    if chat.owner != u.username:
-        raise ValueError(f"Chat not owned by user: {u.username}")
     return chat
 
 
 @chat_router.post("/")
 async def create_new_chat(
     u: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db),
     model: str = "7B",
     temperature: float = 0.1,
     top_k: int = 50,
@@ -78,6 +92,11 @@ async def create_new_chat(
     # store the parameters
     client.set(f"chat:{chat.id}", chat.json())
 
+    uc = UserChat(chat_id=chat.id, owner=u.username)
+    create_chat(db, uc)
+    u.chats.append(uc)
+    update_user(db, u)
+
     # create the message history
     history = RedisChatMessageHistory(chat.id)
     history.append(SystemMessage(content=init_prompt))
@@ -93,13 +112,8 @@ async def get_all_chats(u: User = Depends(get_current_active_user)):
     res = []
     client = Redis(host="localhost", port=6379, decode_responses=False)
     ids = client.smembers("chats")
-    chats = []
-    for id in ids:
-        try:
-            chats.append(await get_specific_chat(id.decode(), u))
-        except Exception:
-            pass  # skip access denied
 
+    chats = [await get_specific_chat(x.chat_id, u) for x in u.chats]
     chats = sorted(
         chats,
         key=lambda x: x["created"],
@@ -126,7 +140,11 @@ async def get_all_chats(u: User = Depends(get_current_active_user)):
 @chat_router.get("/{chat_id}")
 async def get_specific_chat(chat_id: str, u: User = Depends(get_current_active_user)):
     client = Redis(host="localhost", port=6379, decode_responses=False)
-    chat = _try_get_chat(client, chat_id, u)
+
+    if chat_id not in [x.chat_id for x in u.chats]:
+        raise unauth_error
+
+    chat = _try_get_chat(client, chat_id)
 
     history = RedisChatMessageHistory(chat.id)
     chat_dict = chat.dict()
@@ -136,9 +154,10 @@ async def get_specific_chat(chat_id: str, u: User = Depends(get_current_active_u
 
 @chat_router.get("/{chat_id}/history")
 async def get_chat_history(chat_id: str, u: User = Depends(get_current_active_user)):
-    client = Redis(host="localhost", port=6379, decode_responses=False)
-    _ = _try_get_chat(client, chat_id, u)
+    if chat_id not in [x.chat_id for x in u.chats]:
+        raise unauth_error
 
+    client = Redis(host="localhost", port=6379, decode_responses=False)
     history = RedisChatMessageHistory(chat_id)
     return messages_to_dict(history.messages)
 
@@ -147,9 +166,10 @@ async def get_chat_history(chat_id: str, u: User = Depends(get_current_active_us
 async def delete_prompt(
     chat_id: str, idx: int, u: User = Depends(get_current_active_user)
 ):
-    client = Redis(host="localhost", port=6379, decode_responses=False)
-    _ = _try_get_chat(client, chat_id, u)
+    if chat_id not in [x.chat_id for x in u.chats]:
+        raise unauth_error
 
+    client = Redis(host="localhost", port=6379, decode_responses=False)
     history = RedisChatMessageHistory(chat_id)
 
     if idx >= len(history.messages):
@@ -170,7 +190,8 @@ async def delete_prompt(
 @chat_router.delete("/{chat_id}")
 async def delete_chat(chat_id: str, u: User = Depends(get_current_active_user)):
     client = Redis(host="localhost", port=6379, decode_responses=False)
-    _ = _try_get_chat(client, chat_id, u)
+    if chat_id not in [x.chat_id for x in u.chats]:
+        raise unauth_error
 
     RedisChatMessageHistory(chat_id).clear()
 
@@ -191,11 +212,13 @@ async def delete_all_chats():
 async def stream_ask_a_question(
     chat_id: str, prompt: str, u: User = Depends(get_current_active_user)
 ):
+    if chat_id not in [x.chat_id for x in u.chats]:
+        raise unauth_error
+
     logger.info("Starting redis client")
 
     client = Redis(host="localhost", port=6379, decode_responses=False)
-
-    chat = _try_get_chat(client, chat_id, u)
+    chat = _try_get_chat(client, chat_id)
 
     logger.debug(chat.params)
     logger.debug("creating history")
@@ -263,8 +286,11 @@ async def stream_ask_a_question(
 async def ask_a_question(
     chat_id: str, prompt: str, u: User = Depends(get_current_active_user)
 ):
+    if chat_id not in [x.chat_id for x in u.chats]:
+        raise unauth_error
+
     client = Redis(host="localhost", port=6379, decode_responses=False)
-    chat = _try_get_chat(client, chat_id, u)
+    chat = _try_get_chat(client, chat_id)
     history = RedisChatMessageHistory(chat.id)
 
     if len(prompt) > 0:

@@ -4,9 +4,7 @@ from typing import Optional
 from fastapi import HTTPException, status
 from jose import JWTError, jwt
 from passlib.context import CryptContext
-
 from serge.models.settings import Settings
-
 
 ALGORITHM = "HS256"
 settings = Settings()

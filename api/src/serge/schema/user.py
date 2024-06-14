@@ -12,8 +12,13 @@ class UserAuth(UserBase):
     auth_type: int
 
 
+class Chat(BaseModel):
+    chat_id: str
+    owner: str
+
+
 class User(UserBase):
-    id: uuid.UUID = uuid.uuid4()
+    id: uuid.UUID
     is_active: bool = True
     email: str = ""
     full_name: str = ""
@@ -22,6 +27,12 @@ class User(UserBase):
         "Below is an instruction that describes a task. Write a response that appropriately completes the request."
     )
     auth: list[UserAuth] = []
+    chats: list[Chat] = []
 
     class Config:
         orm_mode = True
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str

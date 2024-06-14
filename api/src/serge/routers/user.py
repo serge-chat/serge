@@ -1,3 +1,5 @@
+import logging
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from serge.crud import create_user, update_user
 from serge.database import SessionLocal
@@ -36,10 +38,11 @@ async def create_user_with_pass(
 ):
     try:
         u = create_user(db, ua)
-    except Exception:
+    except Exception as e:
+        logging.exception(e)
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail="Failed to create. Username exists",
+            detail=f"Failed to create. {e}",
         )
     if not u:
         raise HTTPException(
