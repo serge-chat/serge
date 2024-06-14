@@ -89,6 +89,7 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **Python Code** | 13B, 33B |
 | **PsyMedRP** | 13B-v1, 20B-v1 |
 | **Starling LM** | 7B-Alpha |
+| **SOLAR** | 10.7B-v1.0, 10.7B-instruct-v1.0 |
 | **TinyLlama** | 1.1B |
 | **Vicuna** | 7B-v1.5, 13B-v1.5, 33B-v1.3, 33B-Coder |
 | **WizardLM** | 2-7B, 13B-v1.2, 70B-v1.0 |
