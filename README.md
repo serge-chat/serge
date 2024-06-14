@@ -47,7 +47,7 @@ Then, just visit http://localhost:8008, You can find the API documentation at ht
 
 ## 🖥️ Windows
 
-Ensure you have Docker Desktop installed, WSL2 configured, and enough free RAM to run models. 
+Ensure you have Docker Desktop installed, WSL2 configured, and enough free RAM to run models.
 
 ## ☁️ Kubernetes
 
