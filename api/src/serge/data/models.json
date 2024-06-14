@@ -1095,6 +1095,33 @@
         ]
     },
     {   
+        "name": "SOLAR",
+        "models": [
+            {
+                "name": "SOLAR-10.7B-V1_0",
+                "repo": "TheBloke/SOLAR-10.7B-v1.0-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "solar-10.7b-v1.0.Q4_K_M.gguf",
+                        "disk_space": 6461667488.0
+                    }
+                ]
+            },
+            {
+                "name": "SOLAR-10.7B-instruct-V1_0",
+                "repo": "TheBloke/SOLAR-10.7B-Instruct-v1.0-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "solar-10.7b-instruct-v1.0.Q4_K_M.gguf",
+                        "disk_space": 6461667936.0
+                    }
+                ]
+            }            
+        ]
+    },
+    {   
         "name": "Tinyllama",
         "models": [
             {
