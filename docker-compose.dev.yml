@@ -3,7 +3,7 @@ services:
     image: serge
     build:
       context: .
-      dockerfile: ./Dockerfile.dev
+      dockerfile: Dockerfile.dev
     volumes:
       - ./web:/usr/src/app/web/:z
       - ./api:/usr/src/app/api/:z

@@ -110,12 +110,9 @@ async def create_new_chat(
 @chat_router.get("/")
 async def get_all_chats(u: User = Depends(get_current_active_user)):
     res = []
-    client = Redis(host="localhost", port=6379, decode_responses=False)
-    ids = client.smembers("chats")
 
-    chats = [await get_specific_chat(x.chat_id, u) for x in u.chats]
     chats = sorted(
-        chats,
+        [await get_specific_chat(x.chat_id, u) for x in u.chats],
         key=lambda x: x["created"],
         reverse=True,
     )
@@ -157,7 +154,6 @@ async def get_chat_history(chat_id: str, u: User = Depends(get_current_active_us
     if chat_id not in [x.chat_id for x in u.chats]:
         raise unauth_error
 
-    client = Redis(host="localhost", port=6379, decode_responses=False)
     history = RedisChatMessageHistory(chat_id)
     return messages_to_dict(history.messages)
 
@@ -169,7 +165,6 @@ async def delete_prompt(
     if chat_id not in [x.chat_id for x in u.chats]:
         raise unauth_error
 
-    client = Redis(host="localhost", port=6379, decode_responses=False)
     history = RedisChatMessageHistory(chat_id)
 
     if idx >= len(history.messages):
@@ -192,6 +187,9 @@ async def delete_chat(chat_id: str, u: User = Depends(get_current_active_user)):
     client = Redis(host="localhost", port=6379, decode_responses=False)
     if chat_id not in [x.chat_id for x in u.chats]:
         raise unauth_error
+
+    if not client.sismember("chats", chat_id):
+        raise ValueError("Chat does not exist")
 
     RedisChatMessageHistory(chat_id).clear()
 
@@ -218,6 +216,11 @@ async def stream_ask_a_question(
     logger.info("Starting redis client")
 
     client = Redis(host="localhost", port=6379, decode_responses=False)
+
+    if not client.sismember("chats", chat_id):
+        raise ValueError("Chat does not exist")
+
+    logger.debug("creating chat")
     chat = _try_get_chat(client, chat_id)
 
     logger.debug(chat.params)
@@ -290,6 +293,10 @@ async def ask_a_question(
         raise unauth_error
 
     client = Redis(host="localhost", port=6379, decode_responses=False)
+    
+    if not client.sismember("chats", chat_id):
+        raise ValueError("Chat does not exist")
+
     chat = _try_get_chat(client, chat_id)
     history = RedisChatMessageHistory(chat.id)
 

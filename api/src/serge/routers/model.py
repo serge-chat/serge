@@ -1,13 +1,14 @@
 import asyncio
 import os
 import shutil
-from pathlib import Path
 
 import aiohttp
+
 from fastapi import APIRouter, HTTPException
 from huggingface_hub import hf_hub_url
-
 from serge.models.models import Families
+
+from pathlib import Path
 
 model_router = APIRouter(
     prefix="/model",
@@ -36,10 +37,7 @@ for family in families.__root__:
 # Helper functions
 async def is_model_installed(model_name: str) -> bool:
     installed_models = await list_of_installed_models()
-    return any(
-        file_name == f"{model_name}.bin" and not file_name.startswith(".")
-        for file_name in installed_models
-    )
+    return any(file_name == f"{model_name}.bin" and not file_name.startswith(".") for file_name in installed_models)
 
 
 async def get_file_size(file_path: str) -> int:
@@ -53,9 +51,7 @@ async def cleanup_model_resources(model_name: str):
         return
 
     temp_model_path = os.path.join(WEIGHTS, f".{model_name}.bin")
-    lock_dir = os.path.join(
-        WEIGHTS, ".locks", f"models--{model_repo.replace('/', '--')}"
-    )
+    lock_dir = os.path.join(WEIGHTS, ".locks", f"models--{model_repo.replace('/', '--')}")
     cache_dir = os.path.join(WEIGHTS, f"models--{model_repo.replace('/', '--')}")
 
     # Try to cleanup temporary file if it exists
@@ -153,9 +149,7 @@ async def download_model(model_name: str):
         timeout = aiohttp.ClientTimeout(total=None, connect=300, sock_read=300)
         async with aiohttp.ClientSession(timeout=timeout) as session:
             # Start the download and add to active_downloads
-            download_task = asyncio.create_task(
-                download_file(session, model_url, temp_model_path)
-            )
+            download_task = asyncio.create_task(download_file(session, model_url, temp_model_path))
             active_downloads[model_name] = download_task
             await download_task
 
@@ -179,9 +173,7 @@ async def cancel_download(model_name: str):
     try:
         task = active_downloads.get(model_name)
         if not task:
-            raise HTTPException(
-                status_code=404, detail="No active download for this model"
-            )
+            raise HTTPException(status_code=404, detail="No active download for this model")
 
         # Remove the entry from active downloads after cancellation
         task.cancel()
@@ -204,9 +196,7 @@ async def cancel_download(model_name: str):
         print(f"Download for {model_name} cancelled")
         return {"message": f"Download for {model_name} cancelled"}
     except Exception as e:
-        raise HTTPException(
-            status_code=500, detail=f"Error cancelling model download: {str(e)}"
-        )
+        raise HTTPException(status_code=500, detail=f"Error cancelling model download: {str(e)}")
 
 
 @model_router.get("/{model_name}/download/status")
