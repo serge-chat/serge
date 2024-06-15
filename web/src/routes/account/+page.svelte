@@ -7,6 +7,7 @@
   import { goto } from "$app/navigation";
   export let data: {
     user: {
+      id: string;
       username: string;
       email: string;
       full_name: string;
@@ -15,6 +16,7 @@
     } | null;
   };
   let user = data.user;
+  let id: string = user?.id ?? "";
   let username: string = user?.username ?? "";
   let email: string = user?.email ?? "";
   let full_name: string = user?.full_name ?? "";
@@ -32,6 +34,7 @@
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          id,
           username,
           email,
           full_name,

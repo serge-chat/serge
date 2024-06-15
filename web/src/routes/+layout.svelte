@@ -299,7 +299,7 @@
       {/if}
     </ul>
     <div class="w-full border-t border-base-content/[.2] pt-1">
-      {#if userData === null}
+      {#if userData?.username === "system"}
         <button
           name="login-btn"
           class="btn btn-ghost w-full flex justify-start items-center p-2.5 text-left text-sm capitalize"

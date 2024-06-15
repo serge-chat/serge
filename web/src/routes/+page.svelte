@@ -63,13 +63,6 @@
   <div class="w-full pb-20">
     <div class="mx-auto w-fit pt-5 flex flex-col lg:flex-row justify-center">
       <button
-        class:hidden={data.userData !== null}
-        on:click={() => goto("/signup")}
-        type="button"
-        class="btn-primary btn mb-2 lg:mr-10 lg:mb-0">Get Started</button
-      >
-      <button
-        class:hidden={data.userData === null}
         type="submit"
         class="btn-primary btn mb-2 lg:mr-10 lg:mb-0"
         disabled={!modelAvailable}>Start a new chat</button
@@ -81,7 +74,7 @@
       >
     </div>
   </div>
-  <div class:hidden={data.userData === null} class="flex justify-center">
+  <div class="flex justify-center">
     <div class="grid grid-cols-3 gap-4 p-3 bg-base-200" id="model_settings">
       <div class="col-span-3 text-xl font-medium">Model settings</div>
       <div

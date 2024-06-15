@@ -1,6 +1,7 @@
 import type { Load } from "@sveltejs/kit";
 
 interface User {
+  id: string;
   username: string;
   email: string;
   pref_theme: "light" | "dark";

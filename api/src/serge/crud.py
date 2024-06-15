@@ -36,7 +36,7 @@ def create_user(db: Session, ua: user_schema.UserAuth) -> Optional[user_schema.U
         return None
 
     match ua.auth_type:
-        case 0:
+        case 1:
             ua.secret = get_password_hash(ua.secret)
         case _:  # Todo: More auth types
             return None
@@ -55,15 +55,17 @@ def create_chat(db: Session, chat: user_schema.Chat):
 
 
 def update_user(db: Session, u: user_schema.User) -> Optional[user_schema.User]:
-    user = get_user(db, u.username)
+    user = (
+        db.query(user_model.User).filter(user_model.User.username == u.username).first()
+    )
     if not user:
         return None
-    for k, v in u.__dict__.items():
-        if k.startswith("_") or k == "auth":
+    for k, v in u.dict().items():
+        if k in ["auth", "chats"]:
             continue
         setattr(user, k, v)
     db.commit()
-    return u
+    return user
 
 
 class Mappers:

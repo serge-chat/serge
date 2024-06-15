@@ -34,11 +34,13 @@ def authenticate_user(username: str, password: str, db: Session) -> Optional[Use
         return None
     # Users may have multipe ways to authenticate
     auths = [a.auth_type for a in user.auth]
-    if 0 in auths:  # Password auth
-        secret = [x for x in user.auth if x.auth_type == 0][0].secret
+    if 0 in auths:  # Default user, passwordless
+        return user
+    if 1 in auths:  # Password auth
+        secret = [x for x in user.auth if x.auth_type == 1][0].secret
         if verify_password(password, secret):
             return user
-    if 1 in auths:  # todo future auths
+    if 2 in auths:  # todo future auths
         pass
     return False
 
@@ -94,14 +96,11 @@ async def get_current_user(
         raise credentials_exception
     return user
 
-
 async def get_current_active_user(
     request: Request, db: Session = Depends(get_db)
 ) -> User:
     token = request.cookies.get("token")
     if not token:
-        raise HTTPException(
-            status_code=401, detail="Invalid authentication credentials"
-        )
+        return get_user(db, "system")
 
     return await get_current_user(token, db)

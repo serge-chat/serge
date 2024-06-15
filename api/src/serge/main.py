@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from loguru import logger
-from serge.database import engine
+from serge.database import SessionLocal, engine, seed_db
 from serge.models.settings import Settings
 from serge.routers.auth import auth_router
 from serge.routers.chat import chat_router
@@ -45,6 +45,7 @@ origins = [
     "http://localhost:9124",
 ]
 
+# Seed the database
 user_models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -92,6 +93,9 @@ async def start_database():
 
     for file in files:
         os.remove(WEIGHTS + file)
+
+    db = SessionLocal()
+    seed_db(db)
 
 
 app.add_middleware(
