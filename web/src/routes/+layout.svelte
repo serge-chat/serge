@@ -9,7 +9,6 @@
   export let data: PageData;
 
   export let isSidebarOpen: boolean = true;
-  export let userData;
 
   let models;
   let modelAvailable: boolean;
@@ -40,12 +39,6 @@
   } else {
     models = [];
     modelAvailable = false;
-  }
-
-  $: if (data && data.userData) {
-    userData = data.userData;
-  } else {
-    userData = null;
   }
 
   $: id = $page.params.id || "";
@@ -299,7 +292,7 @@
       {/if}
     </ul>
     <div class="w-full border-t border-base-content/[.2] pt-1">
-      {#if userData?.username === "system"}
+      {#if data.userData?.username === "system"}
         <button
           name="login-btn"
           class="btn btn-ghost w-full flex justify-start items-center p-2.5 text-left text-sm capitalize"
@@ -352,7 +345,7 @@
             const response = await fetch("/api/auth/logout", {
               method: "POST",
             });
-            userData = null;
+            data.userData = null;
             window.location.reload();
           }}
         >

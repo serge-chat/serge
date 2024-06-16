@@ -1,15 +1,13 @@
 from datetime import timedelta
 from typing import Optional
 
-from fastapi import (APIRouter, Depends, HTTPException, Request, Response,
-                     status)
+from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError
 from serge.crud import get_user
 from serge.database import SessionLocal
 from serge.schema.user import Token, User
-from serge.utils.security import (create_access_token, decode_access_token,
-                                  verify_password)
+from serge.utils.security import create_access_token, decode_access_token, verify_password
 from sqlalchemy.orm import Session
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -59,12 +57,8 @@ async def login_for_access_token(
             headers={"WWW-Authenticate": "Bearer"},
         )
     access_token_expires = timedelta(minutes=60)
-    access_token = create_access_token(
-        data={"sub": user.username}, expires_delta=access_token_expires
-    )
-    response.set_cookie(
-        key="token", value=access_token, httponly=True, secure=True, samesite="strict"
-    )
+    access_token = create_access_token(data={"sub": user.username}, expires_delta=access_token_expires)
+    response.set_cookie(key="token", value=access_token, httponly=True, secure=True, samesite="strict")
     return {"access_token": access_token, "token_type": "bearer"}
 
 
@@ -75,9 +69,7 @@ async def logout(response: Response):
     return {"message": "Logged out successfully"}
 
 
-async def get_current_user(
-    token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)
-) -> User:
+async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> User:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -96,9 +88,8 @@ async def get_current_user(
         raise credentials_exception
     return user
 
-async def get_current_active_user(
-    request: Request, db: Session = Depends(get_db)
-) -> User:
+
+async def get_current_active_user(request: Request, db: Session = Depends(get_db)) -> User:
     token = request.cookies.get("token")
     if not token:
         return get_user(db, "system")

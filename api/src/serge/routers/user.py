@@ -33,9 +33,7 @@ async def get_user(u: user_schema.User = Depends(get_current_active_user)):
 
 
 @user_router.post("/create", response_model=user_schema.User)
-async def create_user_with_pass(
-    ua: user_schema.UserAuth, db: Session = Depends(get_db)
-):
+async def create_user_with_pass(ua: user_schema.UserAuth, db: Session = Depends(get_db)):
     try:
         u = create_user(db, ua)
     except Exception as e:

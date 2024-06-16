@@ -23,9 +23,7 @@ class User(UserBase):
     email: str = ""
     full_name: str = ""
     theme_light: bool = False
-    default_prompt: str = (
-        "Below is an instruction that describes a task. Write a response that appropriately completes the request."
-    )
+    default_prompt: str = "Below is an instruction that describes a task. Write a response that appropriately completes the request."
     auth: list[UserAuth] = []
     chats: list[Chat] = []
 

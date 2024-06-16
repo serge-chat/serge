@@ -3,8 +3,7 @@ from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from langchain.memory import RedisChatMessageHistory
-from langchain.schema import (AIMessage, HumanMessage, SystemMessage,
-                              messages_to_dict)
+from langchain.schema import AIMessage, HumanMessage, SystemMessage, messages_to_dict
 from llama_cpp import Llama
 from loguru import logger
 from redis import Redis
@@ -159,9 +158,7 @@ async def get_chat_history(chat_id: str, u: User = Depends(get_current_active_us
 
 
 @chat_router.delete("/{chat_id}/prompt")
-async def delete_prompt(
-    chat_id: str, idx: int, u: User = Depends(get_current_active_user)
-):
+async def delete_prompt(chat_id: str, idx: int, u: User = Depends(get_current_active_user)):
     if chat_id not in [x.chat_id for x in u.chats]:
         raise unauth_error
 
@@ -169,9 +166,7 @@ async def delete_prompt(
 
     if idx >= len(history.messages):
         logger.error("Unable to delete message, chat in progress")
-        raise HTTPException(
-            status_code=202, detail="Unable to delete message, chat in progress"
-        )
+        raise HTTPException(status_code=202, detail="Unable to delete message, chat in progress")
 
     messages = history.messages.copy()[:idx]
     history.clear()
@@ -207,9 +202,7 @@ async def delete_all_chats():
 
 
 @chat_router.get("/{chat_id}/question")
-async def stream_ask_a_question(
-    chat_id: str, prompt: str, u: User = Depends(get_current_active_user)
-):
+async def stream_ask_a_question(chat_id: str, prompt: str, u: User = Depends(get_current_active_user)):
     if chat_id not in [x.chat_id for x in u.chats]:
         raise unauth_error
 
@@ -286,14 +279,12 @@ async def stream_ask_a_question(
 
 
 @chat_router.post("/{chat_id}/question")
-async def ask_a_question(
-    chat_id: str, prompt: str, u: User = Depends(get_current_active_user)
-):
+async def ask_a_question(chat_id: str, prompt: str, u: User = Depends(get_current_active_user)):
     if chat_id not in [x.chat_id for x in u.chats]:
         raise unauth_error
 
     client = Redis(host="localhost", port=6379, decode_responses=False)
-    
+
     if not client.sismember("chats", chat_id):
         raise ValueError("Chat does not exist")
 

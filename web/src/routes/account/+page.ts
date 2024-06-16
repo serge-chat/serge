@@ -9,7 +9,7 @@ interface User {
   default_prompt: string;
 }
 
-export const load: Load<{ user: User | null }> = async () => {
+export const load: Load = async () => {
   try {
     const user = await fetch("/api/user/", {
       method: "GET",

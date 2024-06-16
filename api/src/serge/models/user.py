@@ -1,5 +1,4 @@
-from sqlalchemy import (Boolean, Column, ForeignKey, Integer, String,
-                        Uuid)
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Uuid
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 

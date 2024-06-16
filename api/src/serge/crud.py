@@ -17,16 +17,11 @@ def get_user(db: Session, username: str) -> Optional[user_schema.User]:
 
 
 def get_user_by_email(db: Session, email: str) -> Optional[user_schema.User]:
-    return Mappers.user_db_to_view(
-        db.query(user_model.User).filter(user_model.User.email == email).first()
-    )
+    return Mappers.user_db_to_view(db.query(user_model.User).filter(user_model.User.email == email).first())
 
 
 def get_users(db: Session, skip: int = 0, limit: int = 100) -> List[user_schema.User]:
-    return [
-        Mappers.user_db_to_view(u)
-        for u in db.query(user_model.User).offset(skip).limit(limit).all()
-    ]
+    return [Mappers.user_db_to_view(u) for u in db.query(user_model.User).offset(skip).limit(limit).all()]
 
 
 def create_user(db: Session, ua: user_schema.UserAuth) -> Optional[user_schema.User]:
@@ -55,9 +50,7 @@ def create_chat(db: Session, chat: user_schema.Chat):
 
 
 def update_user(db: Session, u: user_schema.User) -> Optional[user_schema.User]:
-    user = (
-        db.query(user_model.User).filter(user_model.User.username == u.username).first()
-    )
+    user = db.query(user_model.User).filter(user_model.User.username == u.username).first()
     if not user:
         return None
     for k, v in u.dict().items():
@@ -69,7 +62,6 @@ def update_user(db: Session, u: user_schema.User) -> Optional[user_schema.User]:
 
 
 class Mappers:
-
     @staticmethod
     def user_db_to_view(u: user_model.User, include_auth=False) -> user_schema.User:
         if not u:
@@ -80,24 +72,11 @@ class Mappers:
         # u.auth = []
         chats = u.chats
         # u.chats = []
-        app_user = user_schema.User(
-            **{
-                k: v
-                for k, v in u.__dict__.items()
-                if not k.startswith("_") and k not in ["chats", "auth"]
-            }
-        )
+        app_user = user_schema.User(**{k: v for k, v in u.__dict__.items() if not k.startswith("_") and k not in ["chats", "auth"]})
 
-        app_user.auth = [
-            user_schema.UserAuth(
-                username=u.username, secret=x.secret, auth_type=x.auth_type
-            )
-            for x in auths
-        ]
+        app_user.auth = [user_schema.UserAuth(username=u.username, secret=x.secret, auth_type=x.auth_type) for x in auths]
 
-        app_user.chats = [
-            user_schema.Chat(chat_id=x.chat_id, owner=x.owner) for x in chats
-        ]
+        app_user.chats = [user_schema.Chat(chat_id=x.chat_id, owner=x.owner) for x in chats]
 
         return app_user
 
@@ -119,11 +98,7 @@ class Mappers:
         return (user, auth)
 
     @staticmethod
-    def user_auth_view_to_db(
-        ua: user_schema.UserAuth, user_id: uuid.UUID
-    ) -> user_model.UserAuth:
+    def user_auth_view_to_db(ua: user_schema.UserAuth, user_id: uuid.UUID) -> user_model.UserAuth:
         if not ua:
             return None
-        return user_model.UserAuth(
-            secret=ua.secret, auth_type=ua.auth_type, user_id=user_id
-        )
+        return user_model.UserAuth(secret=ua.secret, auth_type=ua.auth_type, user_id=user_id)
