@@ -60,7 +60,7 @@ jobs:
       - name: Run unit tests
         working-directory: ./api
         run: |
-          poetry run python -m pytest
+          poetry run python -m pytest -v --color=yes
   check-sh-files:
     runs-on: ubuntu-latest
     steps:
@@ -88,7 +88,7 @@ jobs:
         uses: chartboost/ruff-action@v1
         with:
           src: "./api"
-          args: "format --check --verbose"
+          args: "format --check --select NPY,PERF,RUF,S,SIM,UP --verbose"
   check-web-code:
     runs-on: ubuntu-latest
     steps:
