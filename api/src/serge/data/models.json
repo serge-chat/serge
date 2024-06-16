@@ -161,7 +161,23 @@
                 ]
             }             
         ]
-    },    
+    },
+    {   
+        "name": "Codesstral",
+        "models": [
+            {
+                "name": "Codestral-22B-v0.1",
+                "repo": "bartowski/Codestral-22B-v0.1-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Codestral-22B-v0.1-Q4_K_M.gguf",
+                        "disk_space": 15722553696.0
+                    }
+                ]
+            }           
+        ]
+    },
     {
         "name": "Falcon",
         "models": [   
@@ -956,6 +972,39 @@
                         "disk_space": 1789239136.0
                     }
                 ]
+            },
+            {
+                "name": "Phi-3-mini-4k-instruct-v0_3",
+                "repo": "bartowski/Phi-3-mini-4k-instruct-v0.3-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Phi-3-mini-4k-instruct-v0.3-Q4_K_M.gguf",
+                        "disk_space": 2393231456.0
+                    }
+                ]
+            },
+            {
+                "name": "Phi-3-medium-4k-instruct",
+                "repo": "bartowski/Phi-3-medium-4k-instruct-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Phi-3-medium-4k-instruct-Q4_K_M.gguf",
+                        "disk_space": 8566820736.0
+                    }
+                ]
+            },
+            {
+                "name": "Phi-3-medium-128k-instruct",
+                "repo": "bartowski/Phi-3-medium-128k-instruct-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Phi-3-medium-128k-instruct-Q4_K_M.gguf",
+                        "disk_space": 8566821408.0
+                    }
+                ]
             }           
         ]
     },    
@@ -1043,6 +1092,33 @@
                     }
                 ]
             }
+        ]
+    },
+    {   
+        "name": "SOLAR",
+        "models": [
+            {
+                "name": "SOLAR-10.7B-V1_0",
+                "repo": "TheBloke/SOLAR-10.7B-v1.0-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "solar-10.7b-v1.0.Q4_K_M.gguf",
+                        "disk_space": 6461667488.0
+                    }
+                ]
+            },
+            {
+                "name": "SOLAR-10.7B-instruct-V1_0",
+                "repo": "TheBloke/SOLAR-10.7B-Instruct-v1.0-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "solar-10.7b-instruct-v1.0.Q4_K_M.gguf",
+                        "disk_space": 6461667936.0
+                    }
+                ]
+            }            
         ]
     },
     {   
