@@ -13,7 +13,7 @@ from serge.database import SessionLocal
 from serge.models.chat import Chat, ChatParameters
 from serge.routers.auth import get_current_active_user
 from serge.schema.user import Chat as UserChat
-from serge.schema.user import User, UserAuth
+from serge.schema.user import User
 from serge.utils.stream import get_prompt
 from sqlalchemy.orm import Session
 from sse_starlette.sse import EventSourceResponse
