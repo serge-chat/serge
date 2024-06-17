@@ -43,12 +43,6 @@ def create_user(db: Session, ua: user_schema.UserAuth) -> Optional[user_schema.U
     return Mappers.user_db_to_view(db_user)
 
 
-def create_chat(db: Session, chat: user_schema.Chat):
-    c = user_model.Chat(owner=chat.owner, chat_id=chat.chat_id)
-    db.add(c)
-    db.commit()
-
-
 def update_user(db: Session, u: user_schema.User) -> Optional[user_schema.User]:
     user = db.query(user_model.User).filter(user_model.User.username == u.username).first()
     if not user:
@@ -59,6 +53,18 @@ def update_user(db: Session, u: user_schema.User) -> Optional[user_schema.User]:
         setattr(user, k, v)
     db.commit()
     return user
+
+
+def create_chat(db: Session, chat: user_schema.Chat):
+    c = user_model.Chat(owner=chat.owner, chat_id=chat.chat_id)
+    db.add(c)
+    db.commit()
+
+
+def remove_chat(db: Session, chat: user_schema.Chat):
+    c = db.query(user_model.Chat).filter(user_model.Chat.chat_id == chat.chat_id).one()
+    db.delete(c)
+    db.commit()
 
 
 class Mappers:

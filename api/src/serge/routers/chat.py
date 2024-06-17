@@ -7,7 +7,7 @@ from langchain.schema import AIMessage, HumanMessage, SystemMessage, messages_to
 from llama_cpp import Llama
 from loguru import logger
 from redis import Redis
-from serge.crud import create_chat, update_user
+from serge.crud import create_chat, remove_chat, update_user
 from serge.database import SessionLocal
 from serge.models.chat import Chat, ChatParameters
 from serge.routers.auth import get_current_active_user
@@ -178,13 +178,16 @@ async def delete_prompt(chat_id: str, idx: int, u: User = Depends(get_current_ac
 
 
 @chat_router.delete("/{chat_id}")
-async def delete_chat(chat_id: str, u: User = Depends(get_current_active_user)):
+async def delete_chat(chat_id: str, u: User = Depends(get_current_active_user), db: Session = Depends(get_db)):
     client = Redis(host="localhost", port=6379, decode_responses=False)
     if chat_id not in [x.chat_id for x in u.chats]:
         raise unauth_error
 
     if not client.sismember("chats", chat_id):
         raise ValueError("Chat does not exist")
+
+    if cid := next((x for x in u.chats if x.chat_id == chat_id), None):
+        remove_chat(db, cid)
 
     RedisChatMessageHistory(chat_id).clear()
 
@@ -195,9 +198,8 @@ async def delete_chat(chat_id: str, u: User = Depends(get_current_active_user)):
 
 
 @chat_router.delete("/delete/all")
-async def delete_all_chats():
-    client = Redis(host="localhost", port=6379, decode_responses=False)
-    client.flushdb()
+async def delete_all_chats(u: User = Depends(get_current_active_user), db: Session = Depends(get_db)):
+    [delete_chat(x.chat_id, u, db) for x in u.chats]
     return True
 
 
