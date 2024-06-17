@@ -52,6 +52,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: 'pip' # caching pip dependencies
       - name: Install dependencies with poetry
         working-directory: ./api
         run: |
@@ -60,7 +61,7 @@ jobs:
       - name: Run unit tests
         working-directory: ./api
         run: |
-          poetry run python -m pytest
+          poetry run python -m pytest -v --color=yes
   check-sh-files:
     runs-on: ubuntu-latest
     steps:
@@ -79,6 +80,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: 'pip' # caching pip dependencies
       - name: Run ruff check
         uses: chartboost/ruff-action@v1
         with:
