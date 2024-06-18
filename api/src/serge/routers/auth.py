@@ -1,3 +1,4 @@
+import logging
 from datetime import timedelta
 from typing import Optional
 
@@ -79,7 +80,8 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
         username = decode_access_token(token)
         if username is None:
             raise credentials_exception
-    except JWTError:
+    except JWTError as e:
+        logging.exception(e)
         raise credentials_exception
 
     user = get_user(db, username)
@@ -89,9 +91,16 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
     return user
 
 
-async def get_current_active_user(request: Request, db: Session = Depends(get_db)) -> User:
+async def get_current_active_user(request: Request, response: Response, db: Session = Depends(get_db)) -> User:
     token = request.cookies.get("token")
+
     if not token:
         return get_user(db, "system")
 
-    return await get_current_user(token, db)
+    u = None
+    try:
+        u = await get_current_user(token, db)
+    except HTTPException:
+        await logout(response)
+        u = get_user(db, "system")
+    return u
