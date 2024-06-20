@@ -427,6 +427,8 @@
   </div>
 </aside>
 
-<button class="h-full w-full" on:click={hideSidebar} type="button">
+<button class="h-full w-full" on:click={hideSidebar} type="button"></button>
+
+<div id="main_content" class="h-full w-full">
   <slot />
-</button>
+</div>
