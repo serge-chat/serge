@@ -12,3 +12,4 @@ api/static/*
 **/node_modules/
 **/dist
 **/.mypy_cache/
+.vscode

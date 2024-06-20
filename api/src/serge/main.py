@@ -5,12 +5,16 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from loguru import logger
-from starlette.responses import FileResponse
-
+from serge.database import SessionLocal, engine, seed_db
 from serge.models.settings import Settings
+from serge.routers.auth import auth_router
 from serge.routers.chat import chat_router
 from serge.routers.model import model_router
 from serge.routers.ping import ping_router
+from serge.routers.user import user_router
+from starlette.responses import FileResponse
+
+from serge.models import user as user_models
 
 # Configure logging settings
 
@@ -41,12 +45,17 @@ origins = [
     "http://localhost:9124",
 ]
 
+# Seed the database
+user_models.Base.metadata.create_all(bind=engine)
+
 app = FastAPI(title="Serge", version="0.0.1", description=description, tags_metadata=tags_metadata)
 
 api_app = FastAPI(title="Serge API")
 api_app.include_router(chat_router)
 api_app.include_router(ping_router)
 api_app.include_router(model_router)
+api_app.include_router(auth_router)
+api_app.include_router(user_router)
 app.mount("/api", api_app)
 
 # handle serving the frontend as static files in production
@@ -82,6 +91,9 @@ async def start_database():
 
     for file in files:
         os.remove(WEIGHTS + file)
+
+    db = SessionLocal()
+    seed_db(db)
 
 
 app.add_middleware(
