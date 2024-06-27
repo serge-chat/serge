@@ -34,7 +34,7 @@ COPY vendor/requirements.txt /usr/src/app/requirements.txt
 
 # Install api dependencies
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends dumb-init \
+    && apt-get install -y --no-install-recommends dumb-init libgomp1 \
     && pip install --no-cache-dir ./api \
     && pip install -r /usr/src/app/requirements.txt \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* \
