@@ -58,7 +58,7 @@
         error = errorData.detail || "Login failed";
       }
     } catch (err) {
-      error = "An error occurred";
+      error = err instanceof Error ? err.message : "An unknown error occurred";
     }
   }
 </script>

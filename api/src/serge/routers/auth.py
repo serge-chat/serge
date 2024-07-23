@@ -8,10 +8,12 @@ from jose import JWTError
 from serge.crud import get_user
 from serge.database import SessionLocal
 from serge.schema.user import Token, User
+from serge.models.settings import Settings
 from serge.utils.security import create_access_token, decode_access_token, verify_password
 from sqlalchemy.orm import Session
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+settings = Settings()
 
 auth_router = APIRouter(
     prefix="/auth",
@@ -57,7 +59,7 @@ async def login_for_access_token(
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    access_token_expires = timedelta(minutes=60)
+    access_token_expires = timedelta(minutes=settings.SESSION_EXPIRY)
     access_token = create_access_token(data={"sub": user.username}, expires_delta=access_token_expires)
     response.set_cookie(key="token", value=access_token, httponly=True, secure=True, samesite="strict")
     return {"access_token": access_token, "token_type": "bearer"}
