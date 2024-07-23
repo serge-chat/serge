@@ -262,7 +262,7 @@ async def stream_ask_a_question(chat_id: str, prompt: str, u: User = Depends(get
                 yield {"event": "message", "data": txt}
 
         except Exception as e:
-            if type(e) == UnicodeDecodeError:
+            if type(e) is UnicodeDecodeError:
                 pass
             else:
                 error = e.__str__()
