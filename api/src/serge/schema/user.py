@@ -32,9 +32,10 @@ class User(UserBase):
 
     def to_public_dict(self):
         user_dict = self.dict()
-        for auth in user_dict['auth']:
-            auth['secret'] = "********"
+        for auth in user_dict["auth"]:
+            auth["secret"] = "********"
         return user_dict
+
 
 class Token(BaseModel):
     access_token: str
