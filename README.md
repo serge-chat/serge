@@ -45,6 +45,17 @@ volumes:
 
 Then, just visit http://localhost:8008, You can find the API documentation at http://localhost:8008/api/docs
 
+### Environment Variables
+
+The following Environment Variables are available:
+
+| Variable Name         | Description                                             | Default Value                        |
+|-----------------------|---------------------------------------------------------|--------------------------------------|
+| `SERGE_DATABASE_URL`  | Database connection string                              | `sqlite:////data/db/sql_app.db`      |
+| `SERGE_SERGE_JWT_SECRET`    | Key for auth token encryption. Use a random string      | `uF7FGN5uzfGdFiPzR`                   |
+| `SERGE_SERGE_SESSION_EXPIRY`| Duration in minutes before a user must reauthenticate   | `60`                                 |
+| `NODE_ENV`            | One of [`development` | `production`]                   | `production`                        |
+
 ## 🖥️ Windows
 
 Ensure you have Docker Desktop installed, WSL2 configured, and enough free RAM to run models.
@@ -100,15 +111,6 @@ Additional models can be requested by opening a GitHub issue. Other models are a
 ## ⚠️ Memory Usage
 
 LLaMA will crash if you don't have enough available memory for the model
-
-## 🖥 Production Deployments
-
-The following Environment Variables are available:
-* SQLALCHEMY_DATABASE_URL: Database connection string
-* NODE_ENV: One of [`development` | `production`]
-* JWT_SECRET: Key for auth token encryption. Use a random string
-* SESSION_EXPIRY: Duration in minutes before a user must reauthenticate
-
 
 ## 💬 Support
 

@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session, sessionmaker
 
 settings = Settings()
 
-engine = create_engine(settings.SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+engine = create_engine(settings.SERGE_DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
@@ -21,7 +21,7 @@ def seed_db(db: Session):
         username="system",
         email="",
         full_name="Default User",
-        theme_light=True,
+        theme_light=False,
         default_prompt="Below is an instruction that describes a task. Write a response that appropriately completes the request.",
         is_active=True,
         auth=[UserAuth(secret="", auth_type=0)],

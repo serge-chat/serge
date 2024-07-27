@@ -59,7 +59,7 @@ async def login_for_access_token(
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    access_token_expires = timedelta(minutes=settings.SESSION_EXPIRY)
+    access_token_expires = timedelta(minutes=settings.SERGE_SESSION_EXPIRY)
     access_token = create_access_token(data={"sub": user.username}, expires_delta=access_token_expires)
     response.set_cookie(key="token", value=access_token, httponly=True, secure=True, samesite="strict")
     return {"access_token": access_token, "token_type": "bearer"}

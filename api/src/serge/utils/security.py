@@ -31,15 +31,15 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
     else:
-        expire = datetime.utcnow() + timedelta(minutes=settings.SESSION_EXPIRY)
+        expire = datetime.utcnow() + timedelta(minutes=settings.SERGE_SESSION_EXPIRY)
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, settings.JWT_SECRET, algorithm=ALGORITHM)
+    encoded_jwt = jwt.encode(to_encode, settings.SERGE_JWT_SECRET, algorithm=ALGORITHM)
     return encoded_jwt
 
 
 def decode_access_token(token: str):
     try:
-        payload = jwt.decode(token, settings.JWT_SECRET, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, settings.SERGE_JWT_SECRET, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
