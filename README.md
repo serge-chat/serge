@@ -45,7 +45,7 @@ volumes:
 
 Then, just visit http://localhost:8008, You can find the API documentation at http://localhost:8008/api/docs
 
-### Environment Variables
+### 🌍 Environment Variables
 
 The following Environment Variables are available:
 
