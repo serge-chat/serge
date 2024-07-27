@@ -650,6 +650,17 @@
                 ]
             },
             {
+                "name": "Meta-Llama-3_1-70B",
+                "repo": "mradermacher/Meta-Llama-3.1-70B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Meta-Llama-3.1-70B.Q4_K_M.gguf",
+                        "disk_space": 42520393600.0
+                    }
+                ]
+            },
+            {
                 "name": "Meta-Llama-3-70B-Instruct",
                 "repo": "QuantFactory/Meta-Llama-3-70B-Instruct-GGUF",
                 "files": [
@@ -657,6 +668,17 @@
                         "name": "q4_K_M",
                         "filename": "Meta-Llama-3-70B-Instruct.Q4_K_M.gguf",
                         "disk_space": 42520906208.0
+                    }
+                ]
+            },
+            {
+                "name": "Meta-Llama-3_1-70B-Instruct",
+                "repo": "mradermacher/Meta-Llama-3.1-70B-Instruct-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Meta-Llama-3.1-70B-Instruct.Q4_K_M.gguf",
+                        "disk_space": 42520394080.0
                     }
                 ]
             }
