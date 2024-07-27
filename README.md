@@ -99,7 +99,16 @@ Additional models can be requested by opening a GitHub issue. Other models are a
 
 ## ⚠️ Memory Usage
 
-LLaMA will crash if you don't have enough available memory for the model:
+LLaMA will crash if you don't have enough available memory for the model
+
+## 🖥 Production Deployments
+
+The following Environment Variables are available:
+* SQLALCHEMY_DATABASE_URL: Database connection string
+* NODE_ENV: One of [`development` | `production`]
+* JWT_SECRET: Key for auth token encryption. Use a random string
+* SESSION_EXPIRY: Duration in minutes before a user must reauthenticate
+
 
 ## 💬 Support
 
@@ -119,3 +128,4 @@ git clone https://github.com/serge-chat/serge.git
 cd serge/
 docker compose -f docker-compose.dev.yml up --build
 ```
+The project will wait for a python debugger session to connect on port 5678. The webui will remain unreponsive until connected.

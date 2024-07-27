@@ -1,4 +1,10 @@
-import type { PageLoad } from "./$types";
+import type { PageServerLoad } from "./$types";
+import Redis from "ioredis";
+
+const redis = new Redis({
+  host: "127.0.0.1",
+  port: 6379,
+});
 
 type MessageType = "human" | "ai" | "system";
 
@@ -32,11 +38,19 @@ interface Response {
   history: Message[];
 }
 
-export const load: PageLoad = async ({ fetch, params }) => {
-  const r = await fetch("/api/chat/" + params.id);
-  const data = (await r.json()) as Response;
+export const load: PageServerLoad = async ({ params }) => {
+  const chatId = params.id;
+
+  // Fetch data from Redis
+  let chatData;
+  try {
+    chatData = ((await redis.get(`chat:${chatId}`)) ?? {}) as Response;
+  } catch (error) {
+    console.error("Failed to fetch chat data from Redis:", error);
+    chatData = null;
+  }
 
   return {
-    chat: data,
+    chat: chatData,
   };
 };

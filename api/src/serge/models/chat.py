@@ -32,5 +32,5 @@ class ChatParameters(BaseModel):
 class Chat(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid4()))
     created: datetime = Field(default_factory=datetime.now)
-
+    owner: str = Field("system")
     params: ChatParameters

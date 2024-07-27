@@ -17,6 +17,7 @@
   let repeat_penalty = 1.3;
 
   let init_prompt =
+    data.userData?.default_prompt ??
     "Below is an instruction that describes a task. Write a response that appropriately completes the request.";
 
   let n_threads = 4;
