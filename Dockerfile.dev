@@ -17,7 +17,7 @@ ENV NODE_ENV='development'
 
 # Install dependencies
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends dumb-init
+    && apt-get install -y --no-install-recommends dumb-init musl-dev
 
 # Copy database, source code, and scripts
 COPY --from=redis /usr/local/bin/redis-server /usr/local/bin/redis-server
@@ -36,7 +36,8 @@ RUN npm ci \
     && mkdir -p /data/db \
     && mkdir -p /usr/src/app/weights \
     && echo "appendonly yes" >> /etc/redis/redis.conf \
-    && echo "dir /data/db/" >> /etc/redis/redis.conf
+    && echo "dir /data/db/" >> /etc/redis/redis.conf \
+    && ln -s /usr/lib/x86_64-linux-musl/libc.so /lib/libc.musl-x86_64.so.1
 
 EXPOSE 8008
 EXPOSE 9124

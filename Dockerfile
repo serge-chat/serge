@@ -34,7 +34,7 @@ COPY vendor/requirements.txt /usr/src/app/requirements.txt
 
 # Install api dependencies
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends dumb-init libgomp1 \
+    && apt-get install -y --no-install-recommends dumb-init libgomp1 musl-dev \
     && pip install --no-cache-dir ./api \
     && pip install -r /usr/src/app/requirements.txt \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* \
@@ -45,7 +45,8 @@ RUN apt-get update \
     && mkdir -p /data/db \
     && mkdir -p /usr/src/app/weights \
     && echo "appendonly yes" >> /etc/redis/redis.conf \
-    && echo "dir /data/db/" >> /etc/redis/redis.conf
+    && echo "dir /data/db/" >> /etc/redis/redis.conf \ 
+    && ln -s /usr/lib/x86_64-linux-musl/libc.so /lib/libc.musl-x86_64.so.1
 
 EXPOSE 8008
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
