@@ -52,8 +52,8 @@ The following Environment Variables are available:
 | Variable Name         | Description                                             | Default Value                        |
 |-----------------------|---------------------------------------------------------|--------------------------------------|
 | `SERGE_DATABASE_URL`  | Database connection string                              | `sqlite:////data/db/sql_app.db`      |
-| `SERGE_SERGE_JWT_SECRET`    | Key for auth token encryption. Use a random string      | `uF7FGN5uzfGdFiPzR`                   |
-| `SERGE_SERGE_SESSION_EXPIRY`| Duration in minutes before a user must reauthenticate   | `60`                                 |
+| `SERGE_JWT_SECRET`    | Key for auth token encryption. Use a random string      | `uF7FGN5uzfGdFiPzR`                   |
+| `SERGE_SESSION_EXPIRY`| Duration in minutes before a user must reauthenticate   | `60`                                 |
 | `NODE_ENV`            | Node.js running environment                   | `production`                        |
 
 ## 🖥️ Windows
