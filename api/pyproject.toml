@@ -35,7 +35,7 @@ requests = "^2.32.3"
 langchain = "^0.0.180"
 loguru = "^0.7.2"
 redis = {extras = ["hiredis"], version = "^5.0.7"}
-pytest = "^8.2.2"
+pytest = "^8.3.2"
 hypercorn = {extras = ["trio"], version = "^0.17.3"}
 
 pyjwt = "^2.8.0"
