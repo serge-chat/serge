@@ -95,8 +95,7 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **OpenCodeInterpreter** | DS-6.7B, DS-33B, CL-7B, CL-13B, CL-70B |
 | **OpenLLaMA** | 3B-v2, 7B-v2, 13B-v2 |
 | **Orca 2** | 7B, 13B |
-| **Phi 2** | 2.7B |
-| **Phi 3** | mini-4k-instruct, medium-4k-instruct, medium-128k-instruct |
+| **Phi** | 2-2.7B, 3-mini-4k-instruct, 3.1-mini-4k-instruct, 3.1-mini-128k-instruct, 3-medium-4k-instruct, 3-medium-128k-instruct |
 | **Python Code** | 13B, 33B |
 | **PsyMedRP** | 13B-v1, 20B-v1 |
 | **Starling LM** | 7B-Alpha |
