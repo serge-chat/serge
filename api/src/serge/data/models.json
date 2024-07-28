@@ -1062,6 +1062,28 @@
                 ]
             },
             {
+                "name": "Phi-3_1-mini-4k-instruct",
+                "repo": "bartowski/Phi-3.1-mini-4k-instruct-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Phi-3.1-mini-4k-instruct-Q4_K_M.gguf",
+                        "disk_space": 2393232096.0
+                    }
+                ]
+            },
+            {
+                "name": "Phi-3_1-mini-128k-instruct",
+                "repo": "bartowski/Phi-3.1-mini-128k-instruct-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Phi-3.1-mini-128k-instruct-Q4_K_M.gguf",
+                        "disk_space": 2393232640.0
+                    }
+                ]
+            },
+            {
                 "name": "Phi-3-medium-4k-instruct",
                 "repo": "bartowski/Phi-3-medium-4k-instruct-GGUF",
                 "files": [
