@@ -73,7 +73,7 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **Code** | 13B, 33B |
 | **CodeLLaMA** | 7B, 7B-Instruct, 7B-Python, 13B, 13B-Instruct, 13B-Python, 34B, 34B-Instruct, 34B-Python |
 | **Codestral** | 22B v0.1 |
-| **Gemma** | 2B, 1.1-2B-Instruct, 7B, 1.1-7B-Instruct |
+| **Gemma** | 2B, 1.1-2B-Instruct, 7B, 1.1-7B-Instruct, 2-9B-Instruct |
 | **Gorilla** | Falcon-7B-HF-v0, 7B-HF-v1, Openfunctions-v1, Openfunctions-v2 |
 | **Falcon** | 7B, 7B-Instruct, 40B, 40B-Instruct |
 | **LLaMA 2** | 7B, 7B-Chat, 7B-Coder, 13B, 13B-Chat, 70B, 70B-Chat, 70B-OASST |
@@ -84,7 +84,7 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **Medicine** | Chat, LLM |
 | **Meditron** | 7B, 7B-Chat, 70B |
 | **Meta-LlaMA-3** | 3-8B, 3.1-8B, 3-8B-Instruct, 3.1-8B-Instruct, 3-70B, 3.1-70B, 3-70B-Instruct, 3.1-70B-Instruct |
-| **Mistral** | 7B-V0.1, 7B-Instruct-v0.2, 7B-OpenOrca |
+| **Mistral** | 7B-V0.1, 7B-Instruct-v0.2, 7B-OpenOrca, Nemo-Instrct |
 | **MistralLite** | 7B |
 | **Mixtral** | 8x7B-v0.1, 8x7B-Dolphin-2.7, 8x7B-Instruct-v0.1 |
 | **Neural-Chat** | 7B-v3.3 | 
