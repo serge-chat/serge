@@ -1,4 +1,4 @@
-[
+q[
     {   
         "name": "Alfred",
         "models": [
@@ -20,7 +20,7 @@
         "models": [
             {
                 "name": "BioMistral-7B",
-                "repo": "BioMistral/BioMistral-7B-GGUF",
+                "repo": "BioMistral/biomistral-7B-GGUF",
                 "files": [
                     {
                         "name": "q4_K_M",
@@ -31,22 +31,6 @@
             }           
         ]
     },
-    {   
-        "name": "Codestral",
-        "models": [
-            {
-                "name": "Codestral-22B",
-                "repo": "bartowski/Codestral-22B-v0.1-GGUF",
-                "files": [
-                    {
-                        "name": "q4_K_M",
-                        "filename": "Codestral-22B-v0.1-Q4_K_M.gguf",
-                        "disk_space": 13341237600.0
-                    }
-                ]
-            }           
-        ]
-    },     
     {
         "name": "Code",
         "models": [
