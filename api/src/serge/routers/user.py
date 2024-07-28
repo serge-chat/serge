@@ -29,7 +29,7 @@ async def get_user(u: user_schema.User = Depends(get_current_active_user)):
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    return u
+    return u.to_public_dict()
 
 
 @user_router.post("/create", response_model=user_schema.User)
@@ -47,7 +47,7 @@ async def create_user_with_pass(ua: user_schema.UserAuth, db: Session = Depends(
             status_code=status.HTTP_405_METHOD_NOT_ALLOWED,
             detail="Could not create user",
         )
-    return u
+    return u.to_public_dict()
 
 
 @user_router.put("/", response_model=user_schema.User)
@@ -60,4 +60,4 @@ async def self_update_user(
     current.full_name = new_data.full_name
     current.default_prompt = new_data.default_prompt
     update_user(db, current)
-    return current
+    return current.to_public_dict()
