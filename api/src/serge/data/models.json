@@ -545,7 +545,18 @@
                         "disk_space": 41422910368.0
                     }
                 ]
-            }
+            },
+            {
+                "name": "Med42-v2-8B",
+                "repo": "mradermacher/Llama3-Med42-8B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Llama3-Med42-8B.Q4_K_M.gguf",
+                        "disk_space": 4920734464.0
+                    }
+                ]
+            }            
         ]
     },
     {   
