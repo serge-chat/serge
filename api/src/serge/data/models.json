@@ -602,12 +602,12 @@
             },             
             {
                 "name": "Medicine-LLM-13B",
-                "repo": "TheBloke/medicine-LLM-13B-GGUF",
+                "repo": "mradermacher/medicine-LLM-13B-GGUF",
                 "files": [
                     {
                         "name": "q4_K_M",
-                        "filename": "medicine-llm-13b.Q4_K_M.gguf",
-                        "disk_space": 7865963456.0
+                        "filename": "medicine-LLM-13B.Q4_K_M.gguf",
+                        "disk_space": 7865963936.0
                     }
                 ]
             }           
