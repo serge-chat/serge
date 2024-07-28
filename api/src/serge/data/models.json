@@ -935,7 +935,18 @@
                         "disk_space": 4368450688.0
                     }
                 ]
-            }
+            },
+            {
+                "name": "OpenChat-3_6-8B-20240522",
+                "repo": "bartowski/openchat-3.6-8b-20240522-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "openchat-3.6-8b-20240522-Q4_K_M.gguf",
+                        "disk_space": 4920734496.0
+                    }
+                ]
+            },           
         ]
     }, 
     {   
