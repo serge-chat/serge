@@ -781,13 +781,13 @@
                 ]
             },           
             {
-                "name": "Mistral-7B-Instruct-v0_2",
-                "repo": "TheBloke/Mistral-7B-Instruct-v0.2-GGUF",
+                "name": "Mistral-7B-Instruct-v0_3",
+                "repo": "rubra-ai/Mistral-7B-Instruct-v0.3-GGUFF",
                 "files": [
                     {
                         "name": "q4_K_M",
-                        "filename": "mistral-7b-instruct-v0.2.Q4_K_M.gguf",
-                        "disk_space": 4368439584.0
+                        "filename": "rubra-mistral-7b-instruct-v0.3.Q4_K_M.gguf",
+                        "disk_space": 4896118816.0
                     }
                 ]
             },
