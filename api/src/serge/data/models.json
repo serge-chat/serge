@@ -504,7 +504,23 @@
                 ]
             }
         ]
-    },    
+    },
+    {   
+        "name": "Alfred",
+        "models": [
+            {
+                "name": "Mathstral-7B",
+                "repo": "MaziyarPanahi/mathstral-7B-v0.1-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "mathstral-7B-v0.1.Q4_K_M.gguf",
+                        "disk_space": 4372811584.0
+                    }
+                ]
+            }           
+        ]
+    },
     {   
         "name": "Med42",
         "models": [
