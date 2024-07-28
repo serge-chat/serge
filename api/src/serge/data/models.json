@@ -273,6 +273,17 @@
                         "disk_space": 5329759200.0
                     }
                 ]
+            },
+            {
+                "name": "Gemma-2-9B-Instruct",
+                "repo": "bartowski/gemma-2-9b-it-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "gemma-2-9b-it-Q4_K_M.gguf",
+                        "disk_space": 5761057728.0
+                    }
+                ]
             }             
         ]
     },
