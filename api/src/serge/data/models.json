@@ -286,6 +286,17 @@
                 ]
             },
             {
+                "name": "Gemma-2-9B",
+                "repo": "mradermacher/gemma-2-9b-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "gemma-2-9b.Q4_K_M.gguf",
+                        "disk_space": 5761058240.0
+                    }
+                ]
+            },
+            {
                 "name": "Gemma-2-9B-Instruct",
                 "repo": "bartowski/gemma-2-9b-it-GGUF",
                 "files": [
@@ -293,6 +304,17 @@
                         "name": "q4_K_M",
                         "filename": "gemma-2-9b-it-Q4_K_M.gguf",
                         "disk_space": 5761057728.0
+                    }
+                ]
+            },
+            {
+                "name": "Gemma-2-27B",
+                "repo": "mradermacher/gemma-2-27b-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "gemma-2-27b.Q4_K_M.gguf",
+                        "disk_space": 16645382176.0
                     }
                 ]
             },
