@@ -79,6 +79,7 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **LLaMA 2** | 7B, 7B-Chat, 7B-Coder, 13B, 13B-Chat, 70B, 70B-Chat, 70B-OASST |
 | **LLaMA 3** | 11B-Instruct, 13B-Instruct, 16B-Instruct |
 | **LLaMA Pro** | 8B, 8B-Instruct |
+| **Mathstral** | 7B |
 | **Med42** | 70B |
 | **Medalpaca** | 13B |
 | **Medicine** | Chat, LLM |
