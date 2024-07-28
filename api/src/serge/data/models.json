@@ -202,7 +202,18 @@
                         "disk_space": 4975385792.0
                     }
                 ]
-            },                       
+            },       
+            {                
+                "name": "Falcon-11B",
+                "repo": "bartowski/falcon-11B-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "falcon-11B-Q4_K_M.gguf",
+                        "disk_space": 6849675168.0
+                    }
+                ]
+            },            
             {                
                 "name": "Falcon-40B",
                 "repo": "maddes8cht/tiiuae-falcon-40b-gguf",
