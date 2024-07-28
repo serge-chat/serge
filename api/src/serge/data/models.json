@@ -719,6 +719,17 @@
                         "disk_space": 4368450304.0
                     }
                 ]
+            },
+            {
+                "name": "Mistral-Nemo-Instruct"
+                "repo": "bartowski/Mistral-Nemo-Instruct-2407-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Mistral-Nemo-Instruct-2407-Q4_K_M.gguf",
+                        "disk_space": 7477204960.0
+                    }
+                ]
             }
         ]
     },
