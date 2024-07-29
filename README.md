@@ -130,4 +130,3 @@ git clone https://github.com/serge-chat/serge.git
 cd serge/
 docker compose -f docker-compose.dev.yml up --build
 ```
-The project will wait for a python debugger session to connect on port 5678. The webui will remain unreponsive until connected.
