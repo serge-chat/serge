@@ -103,7 +103,7 @@ async def create_new_chat(
     # add the key to the set of chats
     client.sadd("chats", chat.id)
 
-    return chat.id
+    return {chat.id}
 
 
 @chat_router.get("/")

@@ -1,9 +1,10 @@
+import bcrypt
+
 from datetime import datetime, timedelta
 from typing import Optional
 
 from fastapi import HTTPException, status
 from jose import JWTError, jwt
-from passlib.context import CryptContext
 from serge.models.settings import Settings
 
 ALGORITHM = "HS256"
@@ -15,15 +16,12 @@ credentials_exception = HTTPException(
     headers={"WWW-Authenticate": "Bearer"},
 )
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-
 def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
+    return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
 
 
 def get_password_hash(password):
-    return pwd_context.hash(password)
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):

@@ -351,7 +351,7 @@
               method: "POST",
             });
             data.userData = null;
-            window.location.reload();
+            window.location.href = "/";
           }}
         >
           <svg

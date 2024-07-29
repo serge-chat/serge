@@ -33,8 +33,17 @@ interface Response {
 }
 
 export const load: PageLoad = async ({ fetch, params }) => {
-  const r = await fetch("/api/chat/" + params.id);
-  const data = (await r.json()) as Response;
+  const data = await fetch("/api/chat/" + params.id)
+    .then((response) => {
+      if (response.status == 401) {
+        window.location.href = "/";
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.log(error);
+      window.location.href = "/";
+    });
 
   return {
     chat: data,
