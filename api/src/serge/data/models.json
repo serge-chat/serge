@@ -803,7 +803,7 @@
                 ]
             },
             {
-                "name": "Mistral-Nemo-Instruct"
+                "name": "Mistral-Nemo-Instruct",
                 "repo": "bartowski/Mistral-Nemo-Instruct-2407-GGUF",
                 "files": [
                     {
