@@ -44,7 +44,6 @@ aiofiles = "^23.2.1"
 python-multipart = "^0.0.9"
 debugpy = "^1.8.1"
 sqlalchemy = "^2.0.30"
-bcrypt = "^4.2.0"
 [tool.ruff]
 # Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.
 select = ["E", "F"]
