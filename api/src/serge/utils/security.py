@@ -18,19 +18,20 @@ credentials_exception = HTTPException(
     headers={"WWW-Authenticate": "Bearer"},
 )
 
+
 def verify_password(plain_password, hashed_password):
-    salt_and_hash = base64.b64decode(hashed_password.encode('utf-8'))
+    salt_and_hash = base64.b64decode(hashed_password.encode("utf-8"))
     salt = salt_and_hash[:16]
     stored_password = salt_and_hash[16:]
-    new_hashed_password = hashlib.scrypt(plain_password.encode('utf-8'), salt=salt, n=8192, r=8, p=1, dklen=64)
+    new_hashed_password = hashlib.scrypt(plain_password.encode("utf-8"), salt=salt, n=8192, r=8, p=1, dklen=64)
     return new_hashed_password == stored_password
 
 
 def get_password_hash(password):
     salt = os.urandom(16)
-    hashed_password = hashlib.scrypt(password.encode('utf-8'), salt=salt, n=8192, r=8, p=1, dklen=64)
+    hashed_password = hashlib.scrypt(password.encode("utf-8"), salt=salt, n=8192, r=8, p=1, dklen=64)
     salt_and_hash = salt + hashed_password
-    return base64.b64encode(salt_and_hash).decode('utf-8')
+    return base64.b64encode(salt_and_hash).decode("utf-8")
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
