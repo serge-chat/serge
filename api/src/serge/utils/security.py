@@ -19,7 +19,7 @@ credentials_exception = HTTPException(
 )
 
 
-def verify_password(plain_password, hashed_password):
+def verify_password(plain_password: str, hashed_password: str) -> bool:
     salt_and_hash = base64.b64decode(hashed_password.encode("utf-8"))
     salt = salt_and_hash[:16]
     stored_password = salt_and_hash[16:]
@@ -27,7 +27,7 @@ def verify_password(plain_password, hashed_password):
     return new_hashed_password == stored_password
 
 
-def get_password_hash(password):
+def get_password_hash(password: str) -> str:
     salt = os.urandom(16)
     hashed_password = hashlib.scrypt(password.encode("utf-8"), salt=salt, n=8192, r=8, p=1, dklen=64)
     salt_and_hash = salt + hashed_password
