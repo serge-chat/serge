@@ -1,9 +1,12 @@
+import base64
+import hashlib
+import os
+
 from datetime import datetime, timedelta
 from typing import Optional
 
 from fastapi import HTTPException, status
 from jose import JWTError, jwt
-from passlib.context import CryptContext
 from serge.models.settings import Settings
 
 ALGORITHM = "HS256"
@@ -15,15 +18,20 @@ credentials_exception = HTTPException(
     headers={"WWW-Authenticate": "Bearer"},
 )
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    salt_and_hash = base64.b64decode(hashed_password.encode("utf-8"))
+    salt = salt_and_hash[:16]
+    stored_password = salt_and_hash[16:]
+    new_hashed_password = hashlib.scrypt(plain_password.encode("utf-8"), salt=salt, n=8192, r=8, p=1, dklen=64)
+    return new_hashed_password == stored_password
 
 
-def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
-
-
-def get_password_hash(password):
-    return pwd_context.hash(password)
+def get_password_hash(password: str) -> str:
+    salt = os.urandom(16)
+    hashed_password = hashlib.scrypt(password.encode("utf-8"), salt=salt, n=8192, r=8, p=1, dklen=64)
+    salt_and_hash = salt + hashed_password
+    return base64.b64encode(salt_and_hash).decode("utf-8")
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):

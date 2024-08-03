@@ -127,7 +127,19 @@
           accept: "application/json",
         },
       },
-    ).then((response) => response.json());
+    )
+      .then((response) => {
+        if (response.status == 401) {
+          console.log("Not authorized");
+          window.location.href = "/";
+        } else {
+          return response.json();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        window.location.href = "/";
+      });
     await invalidate("/api/chat/");
     await goto("/chat/" + newData);
   }
@@ -142,6 +154,8 @@
       await invalidate("/api/chat/" + $page.params.id);
     } else if (response.status === 202) {
       showToast("Chat in progress!");
+    } else if (response.status === 401) {
+      window.location.href = "/";
     } else {
       showToast("An error occurred: " + response.statusText);
     }

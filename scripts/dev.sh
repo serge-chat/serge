@@ -57,13 +57,15 @@ redis-server /etc/redis/redis.conf &
 cd /usr/src/app/web || exit 1
 npm run dev -- --host 0.0.0.0 --port 8008 &
 
+python -m pip install debugpy -t /tmp
+
 # Start the API
 cd /usr/src/app/api || exit 1
-hypercorn_cmd="hypercorn src.serge.main:api_app --reload --bind 0.0.0.0:9124"
+hypercorn_cmd="python /tmp/debugpy --listen 0.0.0.0:5678 -m hypercorn src.serge.main:api_app --reload --bind 0.0.0.0:9124"
 if [ "$SERGE_ENABLE_IPV6" = true ] && [ "$SERGE_ENABLE_IPV4" != true ]; then
-	hypercorn_cmd="hypercorn src.serge.main:api_app --reload --bind [::]:9124"
+	hypercorn_cmd="python /tmp/debugpy --listen 0.0.0.0:5678 -m hypercorn src.serge.main:api_app --reload --bind [::]:9124"
 elif [ "$SERGE_ENABLE_IPV4" = true ] && [ "$SERGE_ENABLE_IPV6" = true ]; then
-	hypercorn_cmd="hypercorn src.serge.main:api_app --reload --bind 0.0.0.0:9124 --bind [::]:9124"
+	hypercorn_cmd="python /tmp/debugpy --listen 0.0.0.0:5678 -m hypercorn src.serge.main:api_app --reload --bind 0.0.0.0:9124 --bind [::]:9124"
 fi
 
 $hypercorn_cmd || {
