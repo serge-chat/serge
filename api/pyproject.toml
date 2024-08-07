@@ -34,7 +34,7 @@ huggingface-hub = "^0.24.5"
 requests = "^2.32.3"
 langchain = "^0.0.180"
 loguru = "^0.7.2"
-redis = {extras = ["hiredis"], version = "^5.0.7"}
+redis = {extras = ["hiredis"], version = "^5.0.8"}
 pytest = "^8.3.2"
 hypercorn = {extras = ["trio"], version = "^0.17.3"}
 
