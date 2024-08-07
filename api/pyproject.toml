@@ -38,7 +38,7 @@ redis = {extras = ["hiredis"], version = "^5.0.7"}
 pytest = "^8.3.2"
 hypercorn = {extras = ["trio"], version = "^0.17.3"}
 
-pyjwt = "^2.8.0"
+pyjwt = "^2.9.0"
 python-jose = {extras = ["cryptography"], version = "^3.3.0"}
 aiofiles = "^23.2.1"
 python-multipart = "^0.0.9"
