@@ -15,7 +15,7 @@
     "@sveltejs/adapter-auto": "^3.2.4",
     "@sveltejs/adapter-node": "^5.2.2",
     "@sveltejs/adapter-static": "^3.0.2",
-    "@sveltejs/kit": "^2.5.24",
+    "@sveltejs/kit": "^2.5.25",
     "@sveltejs/vite-plugin-svelte": "^3.1.1",
     "@types/markdown-it": "^14.1.2",
     "@typescript-eslint/eslint-plugin": "^7.17.0",
