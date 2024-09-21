@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^3.2.4",
-    "@sveltejs/adapter-node": "^5.2.2",
+    "@sveltejs/adapter-node": "^5.2.3",
     "@sveltejs/adapter-static": "^3.0.4",
     "@sveltejs/kit": "^2.5.26",
     "@sveltejs/vite-plugin-svelte": "^3.1.2",
@@ -21,12 +21,12 @@
     "@typescript-eslint/eslint-plugin": "^7.17.0",
     "@typescript-eslint/parser": "^7.18.0",
     "autoprefixer": "^10.4.20",
-    "eslint": "^8.57.0",
+    "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.30.0",
     "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-svelte": "^2.43.0",
-    "eslint-plugin-vue": "^9.27.0",
+    "eslint-plugin-svelte": "^2.44.0",
+    "eslint-plugin-vue": "^9.28.0",
     "postcss": "^8.4.45",
     "prettier": "3.3.3",
     "prettier-plugin-svelte": "^3.2.6",
@@ -46,7 +46,7 @@
     "highlight.js": "^11.10.0",
     "ioredis": "^5.4.1",
     "markdown-it": "^14.1.0",
-    "markdown-it-highlightjs": "^4.1.0",
+    "markdown-it-highlightjs": "^4.2.0",
     "prettier-plugin-tailwindcss": "^0.6.6"
   }
 }
