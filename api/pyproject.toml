@@ -24,27 +24,26 @@ build-backend = "poetry.core.masonry.api"
 python=">=3.10,<4.0"
 asyncio = "^3.4.3"
 packaging = "^24.1"
-pydantic = "^1.10.17"
+pydantic = "^1.10.18"
 sse-starlette = "^1.8.2"
 starlette = "^0.26.1"
 typing-extensions = "^4.12.2"
-urllib3 = "^2.2.2"
+urllib3 = "^2.2.3"
 fastapi = "^0.95.1"
-huggingface-hub = "^0.24.2"
+huggingface-hub = "^0.25.0"
 requests = "^2.32.3"
 langchain = "^0.0.180"
 loguru = "^0.7.2"
-redis = {extras = ["hiredis"], version = "^5.0.7"}
-pytest = "^8.3.2"
+redis = {extras = ["hiredis"], version = "^5.0.8"}
+pytest = "^8.3.3"
 hypercorn = {extras = ["trio"], version = "^0.17.3"}
 
-pyjwt = "^2.8.0"
-passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+pyjwt = "^2.9.0"
 python-jose = {extras = ["cryptography"], version = "^3.3.0"}
-aiofiles = "^23.2.1"
+aiofiles = "^24.1.0"
 python-multipart = "^0.0.9"
-debugpy = "^1.8.1"
-sqlalchemy = "^2.0.30"
+debugpy = "^1.8.5"
+sqlalchemy = "^2.0.35"
 [tool.ruff]
 # Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.
 select = ["E", "F"]

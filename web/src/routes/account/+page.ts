@@ -10,13 +10,18 @@ interface User {
 }
 
 export const load: Load = async () => {
-  try {
-    const user = await fetch("/api/user/", {
-      method: "GET",
-    }).then((response) => response.json());
-    return { user };
-  } catch (error) {
-    console.error(error);
-    return { user: null };
-  }
+  const user = await fetch("/api/user/", {
+    method: "GET",
+  })
+    .then((response) => {
+      if (response.status == 401) {
+        window.location.href = "/";
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.log(error);
+      window.location.href = "/";
+    });
+  return { user };
 };

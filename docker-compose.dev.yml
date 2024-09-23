@@ -13,7 +13,7 @@ services:
     ports:
       - 8008:8008
       - 9124:9124
-
+      - 5678:5678
 volumes:
   datadb:
   weights:

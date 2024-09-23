@@ -19,7 +19,7 @@ RUN npm run build
 FROM python:3.11-slim-bookworm as release
 
 # Set ENV
-ENV NODE_ENV='development'
+ENV NODE_ENV='production'
 ENV TZ=Etc/UTC
 WORKDIR /usr/src/app
 

@@ -130,4 +130,29 @@ git clone https://github.com/serge-chat/serge.git
 cd serge/
 docker compose -f docker-compose.dev.yml up --build
 ```
-The project will wait for a python debugger session to connect on port 5678. The webui will remain unreponsive until connected.
+
+The solution will accept a python debugger session on port 5678. Example launch.json for VSCode:
+
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Remote Debug",
+            "type": "python",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 5678
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/api",
+                    "remoteRoot": "/usr/src/app/api/"
+                }
+            ],
+            "justMyCode": false
+        }
+    ]
+}
+```
