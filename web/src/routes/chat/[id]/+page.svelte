@@ -149,8 +149,14 @@
       `/api/chat/${chatID}/prompt?idx=${idx.toString()}`,
       { method: "DELETE" },
     );
-
     if (response.status === 200) {
+      const responseText = await response.text();
+      console.log("Response text your mom: " + responseText)
+      if (responseText === '"Stopping response generation"') {
+        console.log("Conditional successful")
+        showToast("Stopping response generation");
+        return;
+      }
       await invalidate("/api/chat/" + $page.params.id);
     } else if (response.status === 202) {
       showToast("Chat in progress!");

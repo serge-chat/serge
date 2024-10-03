@@ -16,6 +16,9 @@ from serge.schema.user import User
 from serge.utils.stream import get_prompt
 from sqlalchemy.orm import Session
 from sse_starlette.sse import EventSourceResponse
+import asyncio
+from fastapi import BackgroundTasks
+from threading import Event
 
 chat_router = APIRouter(
     prefix="/chat",
@@ -156,7 +159,7 @@ async def get_chat_history(chat_id: str, u: User = Depends(get_current_active_us
     history = RedisChatMessageHistory(chat_id)
     return messages_to_dict(history.messages)
 
-
+# May want to replace DELETE with POST and rename to delete_or_stop_prompt for clarity
 @chat_router.delete("/{chat_id}/prompt")
 async def delete_prompt(chat_id: str, idx: int, u: User = Depends(get_current_active_user)):
     if chat_id not in [x.chat_id for x in u.chats]:
@@ -164,9 +167,12 @@ async def delete_prompt(chat_id: str, idx: int, u: User = Depends(get_current_ac
 
     history = RedisChatMessageHistory(chat_id)
 
+    client = Redis(host="localhost", port=6379, decode_responses=True)
+
     if idx >= len(history.messages):
-        logger.error("Unable to delete message, chat in progress")
-        raise HTTPException(status_code=202, detail="Unable to delete message, chat in progress")
+        client.set(f"stop_generation:{chat_id}", "1", ex=10)
+        logger.info("Stopping response generation")
+        return "Stopping response generation"
 
     messages = history.messages.copy()[:idx]
     history.clear()
@@ -231,7 +237,7 @@ async def stream_ask_a_question(chat_id: str, prompt: str, u: User = Depends(get
 
     logger.debug("creating Llama client")
     try:
-        client = Llama(
+        llama_client = Llama(
             model_path=f"/usr/src/app/weights/{chat.params.model_path}.bin",
             n_ctx=len(chat.params.init_prompt) + chat.params.n_ctx,
             n_gpu_layers=chat.params.n_gpu_layers,
@@ -248,7 +254,7 @@ async def stream_ask_a_question(chat_id: str, prompt: str, u: User = Depends(get
         full_answer = ""
         error = None
         try:
-            for output in client(
+            for output in llama_client(
                 prompt,
                 stream=True,
                 temperature=chat.params.temperature,
@@ -257,6 +263,10 @@ async def stream_ask_a_question(chat_id: str, prompt: str, u: User = Depends(get
                 repeat_penalty=chat.params.repeat_penalty,
                 max_tokens=chat.params.max_tokens,
             ):
+                if client.get(f"stop_generation:{chat_id}"):
+                    logger.info("Generation stopped by user")
+                    client.delete(f"stop_generation:{chat_id}")
+                    break
                 txt = output["choices"][0]["text"]
                 full_answer += txt
                 yield {"event": "message", "data": txt}
@@ -280,6 +290,7 @@ async def stream_ask_a_question(chat_id: str, prompt: str, u: User = Depends(get
     return EventSourceResponse(event_generator())
 
 
+# This endpoint is unused??
 @chat_router.post("/{chat_id}/question")
 async def ask_a_question(chat_id: str, prompt: str, u: User = Depends(get_current_active_user)):
     if chat_id not in [x.chat_id for x in u.chats]:
