@@ -164,7 +164,7 @@ async def delete_prompt(chat_id: str, idx: int, u: User = Depends(get_current_ac
 
     history = RedisChatMessageHistory(chat_id)
 
-    client = Redis(host="localhost", port=6379, decode_responses=True)
+    client = Redis(host="localhost", port=6379, decode_responses=False)
 
     if idx >= len(history.messages):
         client.set(f"stop_generation:{chat_id}", "1", ex=10)
