@@ -171,9 +171,13 @@ async def delete_prompt(chat_id: str, idx: int, u: User = Depends(get_current_ac
 
     if idx >= len(history.messages):
         client.set(f"stop_generation:{chat_id}", "1", ex=10)
-        logger.info("Stopping response generation")
-        return "Stopping response generation"
-
+        if client.get(f"has_generated:{chat_id}"):
+            client.delete(f"has_generated:{chat_id}")
+            logger.info("Stopping response generation")
+            return "Stopping response generation"
+        else:
+            logger.info("Preventing response generation")
+            return "Preventing response generation"
     messages = history.messages.copy()[:idx]
     history.clear()
 
@@ -250,6 +254,11 @@ async def stream_ask_a_question(chat_id: str, prompt: str, u: User = Depends(get
         history.append(SystemMessage(content=error))
         return {"event": "error"}
 
+    # Following logic triggers if deleting before any tokens are generated
+    if client.get(f"stop_generation:{chat_id}"):
+        client.delete(f"stop_generation:{chat_id}")
+        return ({"event": "close"})
+    
     def event_generator():
         full_answer = ""
         error = None
@@ -267,6 +276,8 @@ async def stream_ask_a_question(chat_id: str, prompt: str, u: User = Depends(get
                     logger.info("Generation stopped by user")
                     client.delete(f"stop_generation:{chat_id}")
                     break
+                elif not client.get(f"has_generated:{chat_id}"):
+                    client.set(f"has_generated:{chat_id}", "1")
                 txt = output["choices"][0]["text"]
                 full_answer += txt
                 yield {"event": "message", "data": txt}
@@ -279,9 +290,10 @@ async def stream_ask_a_question(chat_id: str, prompt: str, u: User = Depends(get
                 logger.error(error)
                 yield ({"event": "error"})
         finally:
+            client.delete(f"has_generated:{chat_id}")
             if error:
                 history.append(SystemMessage(content=error))
-            else:
+            elif full_answer:
                 logger.info(full_answer)
                 ai_message = AIMessage(content=full_answer)
                 history.append(message=ai_message)
@@ -290,7 +302,6 @@ async def stream_ask_a_question(chat_id: str, prompt: str, u: User = Depends(get
     return EventSourceResponse(event_generator())
 
 
-# This endpoint is unused??
 @chat_router.post("/{chat_id}/question")
 async def ask_a_question(chat_id: str, prompt: str, u: User = Depends(get_current_active_user)):
     if chat_id not in [x.chat_id for x in u.chats]:

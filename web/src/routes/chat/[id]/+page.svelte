@@ -151,15 +151,13 @@
     );
     if (response.status === 200) {
       const responseText = await response.text();
-      console.log("Response text your mom: " + responseText)
       if (responseText === '"Stopping response generation"') {
-        console.log("Conditional successful")
         showToast("Stopping response generation");
         return;
+      } else if (responseText === '"Preventing response generation"') {
+        showToast("Preventing response generation");
       }
       await invalidate("/api/chat/" + $page.params.id);
-    } else if (response.status === 202) {
-      showToast("Chat in progress!");
     } else if (response.status === 401) {
       window.location.href = "/";
     } else {
