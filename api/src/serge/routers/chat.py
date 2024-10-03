@@ -16,9 +16,6 @@ from serge.schema.user import User
 from serge.utils.stream import get_prompt
 from sqlalchemy.orm import Session
 from sse_starlette.sse import EventSourceResponse
-import asyncio
-from fastapi import BackgroundTasks
-from threading import Event
 
 chat_router = APIRouter(
     prefix="/chat",
