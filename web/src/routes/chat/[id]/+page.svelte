@@ -144,30 +144,33 @@
     await goto("/chat/" + newData);
   }
 
-const STOPPING_RESPONSE = "Stopping response generation";
-const PREVENTING_RESPONSE = "Preventing response generation";
+  const STOPPING_RESPONSE = "Stopping response generation";
+  const PREVENTING_RESPONSE = "Preventing response generation";
 
-async function deletePrompt(chatID: string, idx: number) {
-  const response = await fetch(`/api/chat/${chatID}/prompt?idx=${idx.toString()}`, { method: "DELETE" });
-  if (response.status === 200) {
-    const responseText = await response.text();
-    switch (responseText) {
-      case `"${STOPPING_RESPONSE}"`:
-        showToast(STOPPING_RESPONSE);
-        return;
-      case `"${PREVENTING_RESPONSE}"`:
-        showToast(PREVENTING_RESPONSE);
-        break;
-      default:
-        showToast("Response deleted successfully");
+  async function deletePrompt(chatID: string, idx: number) {
+    const response = await fetch(
+      `/api/chat/${chatID}/prompt?idx=${idx.toString()}`,
+      { method: "DELETE" },
+    );
+    if (response.status === 200) {
+      const responseText = await response.text();
+      switch (responseText) {
+        case `"${STOPPING_RESPONSE}"`:
+          showToast(STOPPING_RESPONSE);
+          return;
+        case `"${PREVENTING_RESPONSE}"`:
+          showToast(PREVENTING_RESPONSE);
+          break;
+        default:
+          showToast("Response deleted successfully");
+      }
+      await invalidate("/api/chat/" + $page.params.id);
+    } else if (response.status === 401) {
+      window.location.href = "/";
+    } else {
+      showToast("An error occurred: " + response.statusText);
     }
-    await invalidate("/api/chat/" + $page.params.id);
-  } else if (response.status === 401) {
-    window.location.href = "/";
-  } else {
-    showToast("An error occurred: " + response.statusText);
   }
-}
 
   function showToast(message: string) {
     // Create the toast element

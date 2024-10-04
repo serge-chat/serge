@@ -156,6 +156,7 @@ async def get_chat_history(chat_id: str, u: User = Depends(get_current_active_us
     history = RedisChatMessageHistory(chat_id)
     return messages_to_dict(history.messages)
 
+
 # May want to replace DELETE with POST and rename to delete_or_stop_prompt for clarity
 @chat_router.delete("/{chat_id}/prompt")
 async def delete_prompt(chat_id: str, idx: int, u: User = Depends(get_current_active_user)):
@@ -254,8 +255,8 @@ async def stream_ask_a_question(chat_id: str, prompt: str, u: User = Depends(get
     # Following logic triggers if deleting before any tokens are generated
     if client.get(f"stop_generation:{chat_id}"):
         client.delete(f"stop_generation:{chat_id}")
-        return ({"event": "close"})
-    
+        return {"event": "close"}
+
     def event_generator():
         full_answer = ""
         error = None
