@@ -153,12 +153,12 @@
       { method: "POST" },
     );
     if (response.status === 200) {
-      const responseText = await response.text();
-      switch (responseText) {
-        case `"${STOPPING_RESPONSE}"`:
+      const responseData = await response.json();
+      switch (responseData.message) {
+        case STOPPING_RESPONSE:
           showToast(STOPPING_RESPONSE);
           return;
-        case `"${PREVENTING_RESPONSE}"`:
+        case PREVENTING_RESPONSE:
           showToast(PREVENTING_RESPONSE);
           break;
         default:

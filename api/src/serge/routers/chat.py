@@ -171,10 +171,10 @@ async def delete_or_stop_prompt(chat_id: str, idx: int, u: User = Depends(get_cu
         if client.get(f"has_generated:{chat_id}"):
             client.delete(f"has_generated:{chat_id}")
             logger.info("Stopping response generation")
-            return "Stopping response generation"
+            return {"message": "Stopping response generation"}
         else:
             logger.info("Preventing response generation")
-            return "Preventing response generation"
+            return {"message": "Preventing response generation"}
     messages = history.messages.copy()[:idx]
     history.clear()
 
