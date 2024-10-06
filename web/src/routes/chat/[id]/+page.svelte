@@ -150,7 +150,7 @@
   async function deletePrompt(chatID: string, idx: number) {
     const response = await fetch(
       `/api/chat/${chatID}/prompt?idx=${idx.toString()}`,
-      { method: "DELETE" },
+      { method: "POST" },
     );
     if (response.status === 200) {
       const responseText = await response.text();

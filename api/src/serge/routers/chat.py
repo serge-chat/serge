@@ -157,9 +157,8 @@ async def get_chat_history(chat_id: str, u: User = Depends(get_current_active_us
     return messages_to_dict(history.messages)
 
 
-# May want to replace DELETE with POST and rename to delete_or_stop_prompt for clarity
-@chat_router.delete("/{chat_id}/prompt")
-async def delete_prompt(chat_id: str, idx: int, u: User = Depends(get_current_active_user)):
+@chat_router.post("/{chat_id}/prompt")
+async def delete_or_stop_prompt(chat_id: str, idx: int, u: User = Depends(get_current_active_user)):
     if chat_id not in [x.chat_id for x in u.chats]:
         raise unauth_error
 
