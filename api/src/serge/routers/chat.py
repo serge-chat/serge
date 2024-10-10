@@ -159,11 +159,13 @@ async def get_chat_history(chat_id: str, u: User = Depends(get_current_active_us
 
 @chat_router.post("/{chat_id}/prompt")
 async def delete_or_stop_prompt(chat_id: str, idx: int, u: User = Depends(get_current_active_user)):
+    if idx < 0:
+        raise ValueError("Index cannot be negative")
+
     if chat_id not in [x.chat_id for x in u.chats]:
         raise unauth_error
 
     history = RedisChatMessageHistory(chat_id)
-
     client = Redis(host="localhost", port=6379, decode_responses=False)
 
     if idx >= len(history.messages):
@@ -175,6 +177,7 @@ async def delete_or_stop_prompt(chat_id: str, idx: int, u: User = Depends(get_cu
         else:
             logger.info("Preventing response generation")
             return {"message": "Preventing response generation"}
+
     messages = history.messages.copy()[:idx]
     history.clear()
 
