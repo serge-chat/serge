@@ -721,6 +721,17 @@
                 ]
             },
             {
+                "name": "Meta-Llama-3_2-1B-Instruct",
+                "repo": "bartowski/Llama-3.2-1B-Instruct-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Llama-3.2-1B-Instruct-Q4_K_M.gguf",
+                        "disk_space": 807694464.0
+                    }
+                ]
+            },            
+            {
                 "name": "Meta-Llama-3-8B-Instruct",
                 "repo": "QuantFactory/Meta-Llama-3-8B-Instruct-GGUF",
                 "files": [
@@ -742,6 +753,17 @@
                     }
                 ]
             },
+            {
+                "name": "Meta-Llama-3_2-3B-Instruct",
+                "repo": "bartowski/Llama-3.2-3B-Instruct-GGUF",
+                "files": [
+                    {
+                        "name": "q4_K_M",
+                        "filename": "Llama-3.2-3B-Instruct-Q4_K_M.gguf",
+                        "disk_space": 2019377696.0
+                    }
+                ]
+            }, 
             {
                 "name": "Meta-Llama-3-70B",
                 "repo": "NousResearch/Meta-Llama-3-70B-GGUF",
