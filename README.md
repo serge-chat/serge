@@ -52,9 +52,9 @@ The following Environment Variables are available:
 | Variable Name         | Description                                             | Default Value                        |
 |-----------------------|---------------------------------------------------------|--------------------------------------|
 | `SERGE_DATABASE_URL`  | Database connection string                              | `sqlite:////data/db/sql_app.db`      |
-| `SERGE_JWT_SECRET`    | Key for auth token encryption. Use a random string      | `uF7FGN5uzfGdFiPzR`                   |
+| `SERGE_JWT_SECRET`    | Key for auth token encryption. Use a random string      | `uF7FGN5uzfGdFiPzR`                  |
 | `SERGE_SESSION_EXPIRY`| Duration in minutes before a user must reauthenticate   | `60`                                 |
-| `NODE_ENV`            | Node.js running environment                   | `production`                        |
+| `NODE_ENV`            | Node.js running environment                             | `production`                         |
 
 ## 🖥️ Windows
 
@@ -73,30 +73,30 @@ Instructions for setting up Serge on Kubernetes can be found in the [wiki](https
 | **Code** | 13B, 33B |
 | **CodeLLaMA** | 7B, 7B-Instruct, 7B-Python, 13B, 13B-Instruct, 13B-Python, 34B, 34B-Instruct, 34B-Python |
 | **Codestral** | 22B v0.1 |
-| **Gemma** | 2B, 1.1-2B-Instruct, 7B, 1.1-7B-Instruct |
+| **Gemma** | 2B, 1.1-2B-Instruct, 7B, 1.1-7B-Instruct, 2-9B, 2-9B-Instruct, 2-27B, 2-27B-Instruct |
 | **Gorilla** | Falcon-7B-HF-v0, 7B-HF-v1, Openfunctions-v1, Openfunctions-v2 |
-| **Falcon** | 7B, 7B-Instruct, 40B, 40B-Instruct |
+| **Falcon** | 7B, 7B-Instruct, 11B, 40B, 40B-Instruct |
 | **LLaMA 2** | 7B, 7B-Chat, 7B-Coder, 13B, 13B-Chat, 70B, 70B-Chat, 70B-OASST |
 | **LLaMA 3** | 11B-Instruct, 13B-Instruct, 16B-Instruct |
 | **LLaMA Pro** | 8B, 8B-Instruct |
-| **Med42** | 70B |
+| **Mathstral** | 7B |
+| **Med42** | 70B, v2-8B, v2-70B |
 | **Medalpaca** | 13B |
 | **Medicine** | Chat, LLM |
-| **Meditron** | 7B, 7B-Chat, 70B |
-| **Meta-LlaMA-3** | 8B, 8B-Instruct, 70B, 70B-Instruct |
-| **Mistral** | 7B-V0.1, 7B-Instruct-v0.2, 7B-OpenOrca |
+| **Meditron** | 7B, 7B-Chat, 70B, 3-8B |
+| **Meta-LlaMA-3** | 3-8B, 3.1-8B, 3.2-1B-Instruct, 3-8B-Instruct, 3.1-8B-Instruct, 3.2-3B-Instruct, 3-70B, 3.1-70B, 3-70B-Instruct, 3.1-70B-Instruct |
+| **Mistral** | 7B-V0.1, 7B-Instruct-v0.2, 7B-OpenOrca, Nemo-Instruct |
 | **MistralLite** | 7B |
 | **Mixtral** | 8x7B-v0.1, 8x7B-Dolphin-2.7, 8x7B-Instruct-v0.1 |
 | **Neural-Chat** | 7B-v3.3 | 
 | **Notus** | 7B-v1 |
 | **Notux** | 8x7b-v1 |
 | **Nous-Hermes 2** | Mistral-7B-DPO, Mixtral-8x7B-DPO, Mistral-8x7B-SFT |
-| **OpenChat** | 7B-v3.5-1210 |
+| **OpenChat** | 7B-v3.5-1210? 8B-v3.6-20240522 |
 | **OpenCodeInterpreter** | DS-6.7B, DS-33B, CL-7B, CL-13B, CL-70B |
 | **OpenLLaMA** | 3B-v2, 7B-v2, 13B-v2 |
 | **Orca 2** | 7B, 13B |
-| **Phi 2** | 2.7B |
-| **Phi 3** | mini-4k-instruct, medium-4k-instruct, medium-128k-instruct |
+| **Phi** | 2-2.7B, 3-mini-4k-instruct, 3.1-mini-4k-instruct, 3.1-mini-128k-instruct,3.5-mini-instruct, 3-medium-4k-instruct, 3-medium-128k-instruct |
 | **Python Code** | 13B, 33B |
 | **PsyMedRP** | 13B-v1, 20B-v1 |
 | **Starling LM** | 7B-Alpha |
