@@ -41,7 +41,7 @@ hypercorn = {extras = ["trio"], version = "^0.17.3"}
 pyjwt = "^2.9.0"
 python-jose = {extras = ["cryptography"], version = "^3.3.0"}
 aiofiles = "^24.1.0"
-python-multipart = "^0.0.12"
+python-multipart = "^0.0.16"
 debugpy = "^1.8.7"
 sqlalchemy = "^2.0.36"
 [tool.ruff]
