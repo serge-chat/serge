@@ -1473,13 +1473,13 @@ pycryptodome = ["pyasn1", "pycryptodome (>=3.3.1,<4.0.0)"]
 
 [[package]]
 name = "python-multipart"
-version = "0.0.12"
+version = "0.0.18"
 description = "A streaming multipart parser for Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "python_multipart-0.0.12-py3-none-any.whl", hash = "sha256:43dcf96cf65888a9cd3423544dd0d75ac10f7aa0c3c28a175bbcd00c9ce1aebf"},
-    {file = "python_multipart-0.0.12.tar.gz", hash = "sha256:045e1f98d719c1ce085ed7f7e1ef9d8ccc8c02ba02b5566d5f7521410ced58cb"},
+    {file = "python_multipart-0.0.18-py3-none-any.whl", hash = "sha256:efe91480f485f6a361427a541db4796f9e1591afc0fb8e7a4ba06bfbc6708996"},
+    {file = "python_multipart-0.0.18.tar.gz", hash = "sha256:7a68db60c8bfb82e460637fa4750727b45af1d5e2ed215593f917f64694d34fe"},
 ]
 
 [[package]]
@@ -2033,4 +2033,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<4.0"
-content-hash = "bc6a04106c37c9cf628afc0cb8c541c50017cb9979d74c0ae46ee5b2ba7afdcb"
+content-hash = "2ad1b448cfca5d3c3800c2cbbac5d16bf488492c15261b378bc9e0e3bd5c6e38"
