@@ -47,6 +47,6 @@
     "ioredis": "^5.4.1",
     "markdown-it": "^14.1.0",
     "markdown-it-highlightjs": "^4.2.0",
-    "prettier-plugin-tailwindcss": "^0.6.8"
+    "prettier-plugin-tailwindcss": "^0.6.9"
   }
 }
