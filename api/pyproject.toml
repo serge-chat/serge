@@ -24,7 +24,7 @@ build-backend = "poetry.core.masonry.api"
 python=">=3.10,<4.0"
 asyncio = "^3.4.3"
 packaging = "^24.2"
-pydantic = "^1.10.19"
+pydantic = "^1.10.20"
 sse-starlette = "^1.8.2"
 starlette = "^0.26.1"
 typing-extensions = "^4.12.2"
@@ -41,7 +41,7 @@ hypercorn = {extras = ["trio"], version = "^0.17.3"}
 pyjwt = "^2.10.1"
 python-jose = {extras = ["cryptography"], version = "^3.3.0"}
 aiofiles = "^24.1.0"
-python-multipart = "^0.0.12"
+python-multipart = "^0.0.20"
 debugpy = "^1.8.11"
 sqlalchemy = "^2.0.36"
 [tool.ruff]
