@@ -4,7 +4,7 @@ FROM node:20-bookworm-slim as node_base
 
 # ---------------------------------------
 # Base image for redis
-FROM redis:7-bookworm as redis
+FROM redis:8-bookworm as redis
 
 # ---------------------------------------
 # Dev environment

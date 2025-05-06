@@ -1,6 +1,6 @@
 # ---------------------------------------
 # Base image for redis
-FROM redis:7-bookworm as redis
+FROM redis:8-bookworm as redis
 
 # ---------------------------------------
 # Build frontend
